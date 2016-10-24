@@ -1,0 +1,61 @@
+@()(implicit request: Request[_])
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/paye-estimator-fastopt.js")'></script>
+
+<script type="text/javascript">
+    function calculate() {
+        var statePensionAge = document.getElementsByName("StatePensionAge")
+        var selectedPensionAge;
+        for(var i = 0; i < statePensionAge.length; i++) {
+            if(statePensionAge[i].checked == true) {
+                selectedPensionAge = statePensionAge[i].value;
+            }
+        }
+        var taxYear = 2016;
+        var taxCode = document.getElementById("taxCode").value;
+        var grossPayPence = parseInt(document.getElementById("grossPayPence").value,10);
+        var payPeriod = document.getElementById("GrossPayType").value;
+        var hours = parseInt(document.getElementById("hourlyRate").value, 10);
+        var result = services.LiveTaxCalculatorService().calculateTax(
+                selectedPensionAge,
+                taxYear,
+                taxCode,
+                grossPayPence,
+                payPeriod,
+                -1);
+
+        document.querySelector('.results').innerHTML = result;
+    }
+</script>
+
+
+@main_template(title = "Tax Calculator example", bodyClasses = None) {
+    <h1>Example Tax Calculator using scala-js.</h1>
+
+    Your tax code: <input type="text" name="taxCode" value="1100T" id="taxCode"/><br/>
+    <br>
+    Over State Pension Age?:
+    <fieldset class="radiogroup">
+        <input type="radio" name="StatePensionAge" value="true" id="StatePensionAge1">Yes<br>
+        <input type="radio" name="StatePensionAge" value="false" id="StatePensionAge2" checked>No<br>
+    </fieldset>
+    <br/>
+    <div>
+        Gross Pay:  <input type="number" name="GrossPay" id="grossPayPence" value="0"><br>
+        <select id="GrossPayType">
+            <option value="annual">Year</option>
+            <option value="monthly">Month</option>
+            <option value="weekly">Week</option>
+        </select>
+    </div>
+    <div>
+        Hourly rate: <input type="number" name="HourlyRate" id="hourlyRate" value="-1"><br>
+    </div>
+
+    <br>
+    <button type="submit" id="calculate" onclick="calculate()">Submit</button>
+
+    <br>
+    Calculation Object Result:
+    <div class="results"></div>
+}

@@ -1,0 +1,5 @@
+# microservice specific routes
+
+GET        /hello-world             uk.gov.hmrc.yourtaxcalculator.controllers.HelloWorld.helloWorld
+GET        /calculator              uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.calculate()
+GET        /assets/*file            controllers.Assets.at(path="/public", file)

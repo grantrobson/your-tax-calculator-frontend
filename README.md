@@ -4,16 +4,24 @@
 
 Your Tax Calculator front-end.
 
-API
----
+  HMRC Tax Calculator Frontend - calculates income tax, as well as national insurance contributions for Employers and Employees
+  
+  This frontend project demonstrates the implementation of the tax calculator using scalaJS
+    
+* **URL**
 
-This front-end additionally exposes the following service:
-
-| *Task* | *Supported Methods* | *Description* |
-|--------|----|----|
-| ```/your-tax-calculator-frontend/version-check``` | POST | Validates the mobile application version [More...](docs/version-check.md) |
-
-
+  `/your-tax-calculator-frontend/calculator`
+  
+ API
+ ---
+ 
+ The frontend additionally exposes the following service:
+ 
+ | *Task* | *Supported Methods* | *Description* |
+ |--------|----|----|
+ | ```/your-tax-calculator-frontend/version-check``` | POST | Validates the mobile application version [More...](docs/version-check.md) |
+ 
+ 
 ### License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html")

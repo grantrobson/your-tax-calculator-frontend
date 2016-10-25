@@ -30,32 +30,64 @@
 
 
 @main_template(title = "Tax Calculator example", bodyClasses = None) {
-    <h1>Example Tax Calculator using scala-js.</h1>
+    <h1>E.G. Tax Calculator with scalaJS</h1>
 
-    Your tax code: <input type="text" name="taxCode" value="1100T" id="taxCode"/><br/>
-    <br>
-    Over State Pension Age?:
-    <fieldset class="radiogroup">
-        <input type="radio" name="StatePensionAge" value="true" id="StatePensionAge1">Yes<br>
-        <input type="radio" name="StatePensionAge" value="false" id="StatePensionAge2" checked>No<br>
-    </fieldset>
+    <div>
+        <table>
+            <tr>
+                <td style="border: none">
+                    <label for="taxCode">Your Tax Code:</label>
+                </td>
+                <td style="border: none">
+                    <input type="text" name="taxCode" value="1100T" id="taxCode"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: none">
+                    <label for="isPensionAge">Over State Pension Age?:</label>
+                </td>
+                <td style="border: none">
+                    <fieldset class="radiogroup" id="isPensionAge">
+                        <input type="radio" name="StatePensionAge" value="true" id="StatePensionAge1">Yes
+                        <input type="radio" name="StatePensionAge" value="false" id="StatePensionAge2" checked>No
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: none;">
+                    <label for="grossPayPence">Gross Pay:</label>
+                </td>
+                <td style="border: none">
+                    <input type="number" name="GrossPay" id="grossPayPence" value="0"><br>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: none">
+                    <label for="GrossPayType">Payment Period:</label>
+                </td>
+                <td style="border: none">
+                    <select id="GrossPayType">
+                        <option value="annual">Year</option>
+                        <option value="monthly">Month</option>
+                        <option value="weekly">Week</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: none">
+                    <label for="hourlyRate">Hourly Rate:</label>
+                </td>
+                <td style="border: none">
+                    <input type="number" name="HourlyRate" id="hourlyRate" value="-1">
+                </td>
+            </tr>
+        </table>
+    </div>
     <br/>
-    <div>
-        Gross Pay:  <input type="number" name="GrossPay" id="grossPayPence" value="0"><br>
-        <select id="GrossPayType">
-            <option value="annual">Year</option>
-            <option value="monthly">Month</option>
-            <option value="weekly">Week</option>
-        </select>
-    </div>
-    <div>
-        Hourly rate: <input type="number" name="HourlyRate" id="hourlyRate" value="-1"><br>
-    </div>
-
-    <br>
     <button type="submit" id="calculate" onclick="calculate()">Submit</button>
 
-    <br>
+    <br/><br/>
     Calculation Object Result:
+
     <div class="results"></div>
 }

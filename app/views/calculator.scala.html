@@ -1,6 +1,6 @@
 @()(implicit request: Request[_])
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/paye-estimator-fastopt.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/paye-estimator-opt.js")'></script>
 
 <script type="text/javascript">
     function calculate() {
@@ -16,7 +16,7 @@
         var grossPayPence = parseInt(document.getElementById("grossPayPence").value,10);
         var payPeriod = document.getElementById("GrossPayType").value;
         var hours = parseInt(document.getElementById("hourlyRate").value, 10);
-        var result = services.LiveTaxCalculatorService().calculateTax(
+        var result = uk.gov.hmrc.payeestimator.services.LiveTaxCalculatorService().calculateTax(
                 selectedPensionAge,
                 taxYear,
                 taxCode,
@@ -29,8 +29,8 @@
 </script>
 
 
-@main_template(title = "Tax Calculator example", bodyClasses = None) {
-    <h1>E.G. Tax Calculator with scalaJS</h1>
+@main_template(title = "Your Tax Calculator", bodyClasses = None) {
+    <h1>Tax Calculator with scalaJS</h1>
 
     <div>
         <table>

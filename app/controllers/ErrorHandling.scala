@@ -16,17 +16,12 @@
 
 package uk.gov.hmrc.yourtaxcalculator.controllers
 
-import play.api.libs.json.Json
 import play.api.{Logger, mvc}
 import uk.gov.hmrc.play.http.HeaderCarrier
-import uk.gov.hmrc.api.controllers.{ErrorInternalServerError, ErrorResponse}
 import uk.gov.hmrc.play.microservice.controller.BaseController
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-
-case object ErrorBadRequest extends ErrorResponse(400, "BAD_REQUEST" ,"Invalid Request")
-case object ErrorTaxCalculatorConfig extends ErrorResponse(500, "INTERNAL_SERVER_ERROR" ,"Error Tax Calculator Config")
 
 class BadRequestException(message:String) extends uk.gov.hmrc.play.http.HttpException(message, 400)
 class TaxCalculatorConfigException(message: String) extends uk.gov.hmrc.play.http.HttpException(message, 500)
@@ -41,13 +36,13 @@ trait ErrorHandling {
     func.recover {
       case ex:BadRequestException =>
         log("BadRequest!")
-        Status(ErrorBadRequest.httpStatusCode)(Json.toJson(ErrorBadRequest))
+        BadRequest
       case ex: TaxCalculatorConfigException =>
         Logger.error(s"TaxCalculatorConfigException : ${ex.getMessage}", ex)
-        Status(ErrorTaxCalculatorConfig.httpStatusCode)(Json.toJson(ErrorTaxCalculatorConfig))
+        InternalServerError
       case e: Throwable =>
         Logger.error(s"$app Internal server error: ${e.getMessage}", e)
-        Status(ErrorInternalServerError.httpStatusCode)(Json.toJson(ErrorInternalServerError))
+        InternalServerError
     }
   }
 }

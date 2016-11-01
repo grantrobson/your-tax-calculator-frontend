@@ -1,6 +1,5 @@
 # microservice specific routes
 
-GET        /hello-world             uk.gov.hmrc.yourtaxcalculator.controllers.HelloWorld.helloWorld
 GET        /calculator              uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.calculate()
 POST       /version-check           uk.gov.hmrc.yourtaxcalculator.controllers.LiveVersionCheckController.preFlightCheck(journeyId: Option[String])
 GET        /assets/*file            controllers.Assets.at(path="/public", file)

@@ -14,15 +14,15 @@
         var taxYear = 2016;
         var taxCode = document.getElementById("taxCode").value;
         var grossPayPence = parseInt(document.getElementById("grossPayPence").value,10);
-        var payPeriod = document.getElementById("GrossPayType").value;
-        var hours = parseInt(document.getElementById("hourlyRate").value, 10);
+        var grossPayType = document.getElementById("GrossPayType").value;
+        var numberOfHours = parseInt(document.getElementById("hourlyRate").value, 10);
         var result = uk.gov.hmrc.payeestimator.services.LiveTaxCalculatorService().calculateTax(
                 selectedPensionAge,
                 taxYear,
                 taxCode,
                 grossPayPence,
-                payPeriod,
-                -1);
+                grossPayType,
+                numberOfHours);
 
         document.querySelector('.results').innerHTML = result;
     }

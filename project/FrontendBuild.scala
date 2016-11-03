@@ -9,7 +9,7 @@ object FrontendBuild extends Build with MicroService {
 }
 
 private object AppDependencies {
-//  import play.PlayImport._
+  import play.sbt.PlayImport._
   import play.core.PlayVersion
 
   private val microserviceBootstrapVersion = "5.4.0"
@@ -26,7 +26,7 @@ private object AppDependencies {
   private val pegdownVersion = "1.6.0"
 
   val compile = Seq(
-//    ws,
+    ws,
     "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
     "uk.gov.hmrc" %% "frontend-bootstrap" % frontendBootstrapVersion,
     "uk.gov.hmrc" %% "play-partials" % playPartialsVersion,

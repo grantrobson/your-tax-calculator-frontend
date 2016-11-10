@@ -17,17 +17,15 @@
 package uk.gov.hmrc.yourtaxcalculator.controllers
 
 import play.api.{Logger, mvc}
+import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.play.http.HeaderCarrier
-import uk.gov.hmrc.play.microservice.controller.BaseController
-
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class BadRequestException(message:String) extends uk.gov.hmrc.play.http.HttpException(message, 400)
 class TaxCalculatorConfigException(message: String) extends uk.gov.hmrc.play.http.HttpException(message, 500)
 
 trait ErrorHandling {
-  self: BaseController =>
+  self: FrontendController =>
   val app:String
 
   def log(message:String) = Logger.info(s"$app $message")

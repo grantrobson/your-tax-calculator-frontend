@@ -20,7 +20,7 @@ import play.api.Logger
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
-import uk.gov.hmrc.yourtaxcalculator.WSHttp
+import uk.gov.hmrc.yourtaxcalculator.config.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
 

@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.yourtaxcalculator
+package uk.gov.hmrc.yourtaxcalculator.config
+
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc.Request
+import play.api.mvc.{EssentialFilter, Request}
 import play.api.{Application, Configuration, Play}
+import play.filters.csrf.CSRFFilter
 import play.twirl.api.Html
 import uk.gov.hmrc.crypto.ApplicationCrypto
 import uk.gov.hmrc.play.audit.filters.FrontendAuditFilter
 import uk.gov.hmrc.play.config.{AppName, ControllerConfig, RunMode}
 import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
+import uk.gov.hmrc.play.filters.frontend.CSRFExceptionsFilter
 import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.http.logging.filters.FrontendLoggingFilter
 
@@ -36,6 +39,13 @@ object FrontendGlobal
   override val auditConnector = FrontendAuditConnector
   override val loggingFilter = LoggingFilter
   override val frontendAuditFilter = AuditFilter
+
+  // Note: The frontend does not service form data being posted to any controller.
+  override def frontendFilters: Seq[EssentialFilter] = {
+    defaultFrontendFilters.filterNot(
+      filter => filter.isInstanceOf[CSRFFilter] || filter.isInstanceOf[CSRFExceptionsFilter.type]
+    )
+  }
 
   override def onStart(app: Application) {
     super.onStart(app)

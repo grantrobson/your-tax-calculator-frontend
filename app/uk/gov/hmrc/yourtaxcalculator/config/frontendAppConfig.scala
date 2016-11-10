@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.yourtaxcalculator
+package uk.gov.hmrc.yourtaxcalculator.config
 
 import play.api.Play.{configuration, current}
 import uk.gov.hmrc.play.config.ServicesConfig

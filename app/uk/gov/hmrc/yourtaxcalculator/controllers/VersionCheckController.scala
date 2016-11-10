@@ -18,11 +18,10 @@ package uk.gov.hmrc.yourtaxcalculator.controllers
 
 import play.api.libs.json.Json
 import play.api.mvc.{Action, BodyParsers}
-import uk.gov.hmrc.play.microservice.controller.BaseController
+import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.yourtaxcalculator.services.{LiveVersionCheckService, VersionCheckService}
 
-trait VersionCheckController extends BaseController with ErrorHandling {
-  import scala.concurrent.ExecutionContext.Implicits.global
+trait VersionCheckController extends FrontendController with ErrorHandling {
 
   val service: VersionCheckService
 

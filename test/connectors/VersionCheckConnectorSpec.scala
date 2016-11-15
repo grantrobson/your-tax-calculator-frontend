@@ -32,8 +32,9 @@ class VersionCheckConnectorSpec extends UnitSpec with ScalaFutures {
     lazy val request: JsValue = Json.parse("""{"os":"android", "version":"1.0.1"}""")
     lazy val upgradeTrue: JsValue = Json.parse("""{"upgrade":true}""")
 
-    lazy val http500Response = Future.failed(Upstream5xxResponse("Error", 500, 500))
+    lazy val http500Response = Future.failed(new InternalServerException("Kaboom!"))
     lazy val http400Response = Future.failed(new BadRequestException("Bad request"))
+    lazy val http429Response = Future.failed(new HttpException("Too many requests", 429))
     lazy val http200Response = Future.successful(HttpResponse(200, Some(upgradeTrue)))
 
     lazy val response: Future[HttpResponse] = http400Response
@@ -62,20 +63,28 @@ class VersionCheckConnectorSpec extends UnitSpec with ScalaFutures {
       requiresUpgrade shouldBe true
     }
 
-    "return false given a 400 response from the customer profile service" in new Setup {
+    "throw a Upstream4xxResponse given a 400 response from the customer profile service" in new Setup {
       override lazy val response = http400Response
 
-      val requiresUpgrade = connector.requiresUpgrade(request, hc).futureValue
-
-      requiresUpgrade shouldBe false
+      whenReady(connector.requiresUpgrade(request, hc).failed) {
+        case e: Upstream4xxResponse  => e.message shouldBe "Bad request"
+      }
     }
 
-    "return false given a 500 response from the customer profile service" in new Setup {
+    "throw a Upstream5xxResponse given a 500 response from the customer profile service" in new Setup {
       override lazy val response = http500Response
 
-      val requiresUpgrade = connector.requiresUpgrade(request, hc).futureValue
+      whenReady(connector.requiresUpgrade(request, hc).failed) {
+        case e: Upstream5xxResponse  => e.message shouldBe "Kaboom!"
+      }
+    }
 
-      requiresUpgrade shouldBe false
+    "throw an InternalServerError given a failure from the customer profile service" in new Setup {
+      override lazy val response = http429Response
+
+      whenReady(connector.requiresUpgrade(request, hc).failed) {
+        case e: InternalServerException => e.message shouldBe "Too many requests"
+      }
     }
   }
 }

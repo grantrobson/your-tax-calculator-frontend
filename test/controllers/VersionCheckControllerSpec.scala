@@ -46,7 +46,13 @@ class VersionCheckControllerSpec extends UnitSpec with WithFakeApplication with 
       contentAsJson(result) shouldBe Json.parse("""{"upgradeRequired":true}""")
     }
 
-    "return an error given problem processing the request" in new VersionCheckControllerProblem {
+    "return a BadRequest given problem processing a bad request" in new VersionCheckBadRequest {
+      val result = await(controller.preFlightCheck(None)(deviceRequest))
+
+      status(result) shouldBe 400
+    }
+
+    "return an InternalServerError given problem processing the request" in new VersionCheckControllerProblem {
       val result = await(controller.preFlightCheck(None)(deviceRequest))
 
       status(result) shouldBe 500

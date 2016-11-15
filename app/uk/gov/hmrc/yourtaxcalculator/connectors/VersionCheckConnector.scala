@@ -19,7 +19,7 @@ package uk.gov.hmrc.yourtaxcalculator.connectors
 import play.api.Logger
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
+import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.yourtaxcalculator.config.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -36,9 +36,15 @@ trait VersionCheckConnector {
     http.POST[JsValue, JsValue](s"$customerProfileConnectorUrl/profile/native-app/version-check", inputRequest)
       .map(r => (r \ "upgrade").as[Boolean])
       .recover {
+        case e:BadRequestException =>
+          Logger.error(s"BadRequestException processing /profile/native-app/version-check: ${e.getMessage}", e)
+          throw Upstream4xxResponse(e.message, e.responseCode, e.responseCode)
+        case e:InternalServerException =>
+          Logger.error(s"InternalServerException processing /profile/native-app/version-check: ${e.getMessage}", e)
+          throw Upstream5xxResponse(e.message, e.responseCode, e.responseCode)
         case e:Exception =>
-          Logger.error(s"Failure processing /profile/native-app/version-check. Exception is $e")
-          false
+          Logger.error(s"Exception processing /profile/native-app/version-check: ${e.getMessage}", e)
+          throw new InternalServerException(e.getMessage)
       }
   }
 }

@@ -58,4 +58,28 @@ class VersionCheckControllerSpec extends UnitSpec with WithFakeApplication with 
       status(result) shouldBe 500
     }
   }
+
+
+}
+
+class ConfigCheckSpec extends UnitSpec {
+
+  "Verify configuration loader for max-age caching" should {
+    "throw an exception if the configuration cannot be loaded" in {
+      val config = new ConfigLoad {
+        override def getConfigForVersionCheckMaxAge: Option[Long] = None
+      }
+
+      intercept[Exception] {
+        config.maxAgeForVersionCheck
+      }
+    }
+
+    "Return the configuration when defined" in {
+      val config = new ConfigLoad {
+        override def getConfigForVersionCheckMaxAge: Option[Long] = Some(123456789)
+      }
+      config.maxAgeForVersionCheck shouldBe 123456789
+    }
+  }
 }

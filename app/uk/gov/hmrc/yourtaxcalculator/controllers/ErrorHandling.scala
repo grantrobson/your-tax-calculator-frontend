@@ -18,10 +18,10 @@ package uk.gov.hmrc.yourtaxcalculator.controllers
 
 import play.api.{Logger, mvc}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.http.{BadRequestException, HeaderCarrier, Upstream4xxResponse}
+
 import scala.concurrent.Future
 
-class BadRequestException(message:String) extends uk.gov.hmrc.play.http.HttpException(message, 400)
 class TaxCalculatorConfigException(message: String) extends uk.gov.hmrc.play.http.HttpException(message, 500)
 
 trait ErrorHandling {
@@ -32,8 +32,11 @@ trait ErrorHandling {
 
   def errorWrapper(func: => Future[mvc.Result])(implicit hc: HeaderCarrier) = {
     func.recover {
-      case ex:BadRequestException =>
-        log("BadRequest!")
+      case e:BadRequestException =>
+        log("BadRequest")
+        BadRequest
+      case e:Upstream4xxResponse =>
+        log("UpstreamBadRequest")
         BadRequest
       case ex: TaxCalculatorConfigException =>
         Logger.error(s"TaxCalculatorConfigException : ${ex.getMessage}", ex)

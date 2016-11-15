@@ -20,7 +20,7 @@ import java.util.UUID
 
 import play.api.libs.json.{JsValue, Json}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.play.http.{BadRequestException, HeaderCarrier}
 import uk.gov.hmrc.yourtaxcalculator.connectors.VersionCheckConnector
 import uk.gov.hmrc.yourtaxcalculator.domain.PreFlightCheckResponse
 import uk.gov.hmrc.yourtaxcalculator.services.VersionCheckService
@@ -32,7 +32,7 @@ trait Setup {
   val journeyId = UUID.randomUUID
   val expectedJourneyId = journeyId.toString
   val emptyRequest = FakeRequest()
-  val deviceRequest = FakeRequest().withBody(Json.parse("""{"os":"chimera", "version":"3.2.1"}"""))
+  val deviceRequest = FakeRequest().withBody(Json.parse("""{"os":"android", "version":"7.8.9"}"""))
     .withHeaders("Content-Type" -> "application/json", "Accept" -> "application/vnd.hmrc.1.0+json")
 }
 
@@ -44,10 +44,10 @@ class TestVersionCheckService(updateRequired: Boolean, testJourneyId: Option[Str
   }
 }
 
-class ThrowingVersionCheckService() extends VersionCheckService {
+class ThrowingVersionCheckService(exception: Exception) extends VersionCheckService {
   override val connector = VersionCheckConnector
   override def preFlightCheck(inputRequest:JsValue, journeyId:Option[String])(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[PreFlightCheckResponse] = {
-    Future{ throw new Throwable("something bad has happened...") }
+    Future{ throw exception }
   }
 }
 
@@ -67,7 +67,14 @@ trait VersionCheckControllerUpgradeRequired extends Setup {
 
 trait VersionCheckControllerProblem extends Setup {
   val controller = new VersionCheckController {
-    override val service: VersionCheckService = new ThrowingVersionCheckService
+    override val service: VersionCheckService = new ThrowingVersionCheckService(new Exception("something bad has happened..."))
+    override val app: String = "TestVersionCheckController"
+  }
+}
+
+trait VersionCheckBadRequest extends Setup {
+  val controller = new VersionCheckController {
+    override val service: VersionCheckService = new ThrowingVersionCheckService(new BadRequestException("a really bad request"))
     override val app: String = "TestVersionCheckController"
   }
 }

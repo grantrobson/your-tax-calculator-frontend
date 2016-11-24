@@ -34,6 +34,7 @@ trait Setup {
   val emptyRequest = FakeRequest()
   val deviceRequest = FakeRequest().withBody(Json.parse("""{"os":"android", "version":"7.8.9"}"""))
     .withHeaders("Content-Type" -> "application/json", "Accept" -> "application/vnd.hmrc.1.0+json")
+  val maxAgeVersionCheckConfig:Long = 900
 }
 
 class TestVersionCheckService(updateRequired: Boolean, testJourneyId: Option[String]) extends VersionCheckService {
@@ -55,6 +56,7 @@ trait VersionCheckControllerNoUpgradeRequired extends Setup {
   val controller = new VersionCheckController {
     override val service: VersionCheckService = new TestVersionCheckService(false, Option(expectedJourneyId))
     override val app: String = "TestVersionCheckController"
+    override val maxAgeForVersionCheck = maxAgeVersionCheckConfig
   }
 }
 
@@ -62,6 +64,7 @@ trait VersionCheckControllerUpgradeRequired extends Setup {
   val controller = new VersionCheckController {
     override val service: VersionCheckService = new TestVersionCheckService(true, None)
     override val app: String = "TestVersionCheckController"
+    override val maxAgeForVersionCheck = maxAgeVersionCheckConfig
   }
 }
 
@@ -69,6 +72,7 @@ trait VersionCheckControllerProblem extends Setup {
   val controller = new VersionCheckController {
     override val service: VersionCheckService = new ThrowingVersionCheckService(new Exception("something bad has happened..."))
     override val app: String = "TestVersionCheckController"
+    override val maxAgeForVersionCheck = maxAgeVersionCheckConfig
   }
 }
 
@@ -76,5 +80,6 @@ trait VersionCheckBadRequest extends Setup {
   val controller = new VersionCheckController {
     override val service: VersionCheckService = new ThrowingVersionCheckService(new BadRequestException("a really bad request"))
     override val app: String = "TestVersionCheckController"
+    override val maxAgeForVersionCheck = maxAgeVersionCheckConfig
   }
 }

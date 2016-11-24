@@ -16,27 +16,44 @@
 
 package uk.gov.hmrc.yourtaxcalculator.controllers
 
+import play.api.Play
+import play.api.http.HeaderNames
 import play.api.libs.json.Json
-import play.api.mvc.{Action, BodyParsers}
+import play.api.mvc.{Action, BodyParsers, Result}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import uk.gov.hmrc.yourtaxcalculator.services.{LiveVersionCheckService, VersionCheckService}
 
 trait VersionCheckController extends FrontendController with ErrorHandling {
 
   val service: VersionCheckService
+  val maxAgeForVersionCheck: Long
 
   def preFlightCheck(journeyId: Option[String] = None) = Action.async(BodyParsers.parse.json) {
     implicit request => {
       errorWrapper {
         service.preFlightCheck(request.body, journeyId).map {
-          response => Ok(Json.toJson(response))
+          response => addCacheHeader(maxAgeForVersionCheck, Ok(Json.toJson(response)))
         }
       }
     }
   }
+
+  def addCacheHeader(maxAge:Long, result:Result):Result = {
+    result.withHeaders(HeaderNames.CACHE_CONTROL -> s"max-age=$maxAge")
+  }
 }
 
-object LiveVersionCheckController extends VersionCheckController {
+trait ConfigLoad {
+  val versionCheckMaxAge = "version.check.maxAge"
+  def getConfigForVersionCheckMaxAge:Option[Long]
+
+  lazy val maxAgeForVersionCheck: Long = getConfigForVersionCheckMaxAge
+    .getOrElse(throw new Exception(s"Failed to resolve config key $versionCheckMaxAge"))
+}
+
+object LiveVersionCheckController extends VersionCheckController with ConfigLoad {
   override val service: VersionCheckService = LiveVersionCheckService
   override val app: String = "LiveVersionCheckController"
+
+  override def getConfigForVersionCheckMaxAge: Option[Long] = Play.current.configuration.getLong(versionCheckMaxAge)
 }

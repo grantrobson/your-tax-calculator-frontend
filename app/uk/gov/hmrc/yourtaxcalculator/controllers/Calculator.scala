@@ -30,4 +30,13 @@ trait Calculator extends FrontendController {
   def calculate() = Action.async { implicit request =>
     Future.successful(Ok(views.html.calculator()))
   }
+
+  def spending() = Action.async { implicit request =>
+    Future.successful(Ok(views.html.spending()))
+
+  }
+
+  def receipting() = Action.async { implicit request =>
+    Future.successful(Ok(views.html.receipting()))
+  }
 }

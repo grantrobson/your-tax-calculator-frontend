@@ -1,0 +1,23 @@
+@()(implicit request: Request[_], messages: Messages)
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/paye-estimator-opt.js")'></script>
+
+<script type="text/javascript">
+    function receipting() {
+        var result = uk.gov.hmrc.payeestimator.services.LiveGovernmentSpendingReceiptingService().getGovernmentReceiptingData();
+        document.querySelector('.results').innerHTML = result;
+    }
+</script>
+
+
+@main_template(title = "Government Receipting Data", bodyClasses = None) {
+    <h1>Government Receipting with scalaJS</h1>
+
+    <br/>
+    <button type="submit" id="receipting" onclick="receipting()">Receipting</button>
+
+    <br/><br/>
+    Receipting Object Result:
+
+    <div class="results"></div>
+}

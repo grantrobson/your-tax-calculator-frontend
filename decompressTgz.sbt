@@ -21,8 +21,7 @@ decompressTgz := {
   if(java.nio.file.Files.notExists(extractedPath)) {
     log.debug(s"Tar '$tgzFile' will be extracted")
 
-    val artefactStream = new GZIPInputStream(new FileInputStream(tgzFile))
-    java.nio.file.Files.copy(artefactStream, extractedPath)
+    java.nio.file.Files.copy(new GZIPInputStream(new FileInputStream(tgzFile)), extractedPath)
   } else {
     log.debug(s"Tar '$tgzFile' exists, no need to download.")
   }
@@ -30,4 +29,4 @@ decompressTgz := {
 }
 
 
-test in Test <<= (test in Test).dependsOn(decompressTgz)
+compile in Compile <<= (compile in Compile).dependsOn(decompressTgz)

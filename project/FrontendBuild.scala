@@ -32,7 +32,9 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion,
     "uk.gov.hmrc" %% "govuk-template" % govukTemplateVersion,
     "uk.gov.hmrc" %% "play-health" % playHealthVersion,
-    "uk.gov.hmrc" %% "play-ui" % playUiVersion
+    "uk.gov.hmrc" %% "play-ui" % playUiVersion,
+    "com.github.pathikrit" %% "better-files" % "2.16.0",
+    "org.apache.commons" % "commons-compress" % "1.13"
   )
 
   trait TestDependencies {

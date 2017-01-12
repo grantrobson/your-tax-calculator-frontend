@@ -1,7 +1,7 @@
 /*
  * Copyright 2017 HM Revenue & Customs
  *
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -16,8 +16,15 @@
 
 package services
 
+import java.io.{BufferedInputStream, InputStream}
+
+import org.apache.commons.compress.archivers.{ArchiveEntry, ArchiveInputStream, ArchiveStreamFactory}
+import org.apache.commons.compress.archivers.tar.{TarArchiveEntry, TarArchiveInputStream}
+import org.apache.commons.compress.compressors.CompressorStreamFactory
 import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.play.test.UnitSpec
+
+import scala.util.{Failure, Success, Try}
 
 class GZipSpec  extends UnitSpec with ScalaFutures {
 
@@ -44,12 +51,17 @@ class GZipSpec  extends UnitSpec with ScalaFutures {
 
 //    File(tgzFile.toPath).newInputStream.gzipped.buffered.lines.take(10)
 
-    val file1 : File = s"$baseDir/lib_managed/tgzs/uk.gov.hmrc/$artefactName/test.tgz".toFile
+    val tar : File = s"$baseDir/lib_managed/tgzs/uk.gov.hmrc/$artefactName/test.tgz".toFile
     val file2 : File = s"$baseDir/public/testBF.js".toFile
     for {
-      in <- file1.newInputStream.gzipped.buffered.autoClosed
+      in <- tar.newInputStream.gzipped.buffered.autoClosed
       out <- file2.newOutputStream.autoClosed
     } in.pipeTo(out)
 
+
+    Tar.untar(new JFile(s"$baseDir/lib_managed/tgzs/uk.gov.hmrc/$artefactName/test.tgz"), new JFile(s"$baseDir/public/new"))
+
   }
+
+
 }

@@ -1,3 +1,5 @@
+import org.apache.commons.io.FileUtils
+
 /*
  * Copyright 2017 HM Revenue & Customs
  *
@@ -72,4 +74,73 @@ object Tar {
     }
   }
 
+}
+
+trait TarArtefact {
+  import java.io.File
+  import java.net.{HttpURLConnection, URL, URLConnection}
+  import java.io.{FileOutputStream, InputStream, OutputStream}
+
+
+  val artefactName : String
+  val artefactVersion : String
+
+  val artefactRepositoryOrgRootUrl : String = "https://dl.bintray.com/hmrc/releases/uk/gov/hmrc"
+
+  def artefactRepositoryName : String
+  lazy val tgz = s"$artefactRepositoryName.tgz"
+  def tgzUrl : String
+  val extractedTo : File
+
+  lazy val tgzFile : File = FileUtils.copyURLToFile(tgzUrl, extractedTo)
+
+//
+//  def downloadFile(url : URL, file : File) : Unit = {
+//    val conn = url.openConnection
+//    try {
+//      downloadFile(conn, file)
+//    } finally conn match {
+//      // http://dumps.wikimedia.org/ seems to kick us out if we don't disconnect.
+//      case conn: HttpURLConnection => conn.disconnect
+//      // But only disconnect if it's a http connection. Can't do this with file:// URLs.
+//      case _ =>
+//    }
+//  }
+//
+//  protected def downloadFile(conn: URLConnection, file : File): Unit = {
+//    val in = inputStream(conn)
+//    try
+//    {
+//      val out = outputStream(file)
+//      try
+//      {
+//        copy(in, out)
+//      }
+//      finally out.close
+//    }
+//    finally in.close
+//  }
+//
+//  protected def inputStream(conn: URLConnection) : InputStream = conn.getInputStream
+//
+//  protected def outputStream(file: File) : OutputStream = new FileOutputStream(file)
+//
+//  def copy(in: InputStream, out: OutputStream) : Unit = {
+//    val buf = new Array[Byte](1 << 20) // 1 MB
+//    while (true)
+//    {
+//      val read = in.read(buf)
+//      if (read == -1)
+//      {
+//        out.flush
+//        return
+//      }
+//      out.write(buf, 0, read)
+//    }
+//  }
+}
+
+trait SJSTarArtefact extends TarArtefact {
+  lazy val artefactRepositoryName = s"${artefactName}_sjs0.6_2.11-$artefactVersion"
+  lazy val tgzUrl = s"$artefactRepositoryOrgRootUrl/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz"
 }

@@ -2,14 +2,39 @@ import java.nio.file.{Files, StandardCopyOption}
 
 val artefactName = "paye-estimator"
 val artefactVersion = "1.3.0"
+//
+//val artefactRepositoryName = s"${artefactName}_sjs0.6_2.11-$artefactVersion"
+//val tgz = s"$artefactRepositoryName.tgz"
+//val tgzUrl = s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz"
 
 
-val artefactRepositoryName = s"${artefactName}_sjs0.6_2.11-$artefactVersion"
-val tgz = s"$artefactRepositoryName.tgz"
-val tgzUrl = s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz"
+val v1_2_0 = new SJSTarArtefact {
+  override val artefactName: String = "paye-estimator"
+  override val artefactVersion: String = "1.2.0"
 
-libraryDependencies ++= Seq("uk.gov.hmrc" % artefactName % artefactVersion from tgzUrl,
-  "org.apache.commons" % "commons-compress" % "1.13" % "provided")
+  override val extractedTo = Keys.target.value / "extracted" / artefactVersion
+}
+
+val v1_3_0 = new SJSTarArtefact {
+  override val artefactName: String = "paye-estimator"
+  override val artefactVersion: String = "1.3.0"
+
+  override val extractedTo = Keys.target.value / "extracted" / artefactVersion
+}
+
+//val version1_2 = TarArtefact(artefactName,
+//  "1.3.0",
+//  s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz")
+//
+//val version1_3 = TarArtefact(artefactName,
+//  "1.3.0",
+//  s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz")
+
+libraryDependencies ++= Seq(
+//  "uk.gov.hmrc" % artefactName % v1_2_0.artefactVersion from v1_2_0.tgzUrl,
+  "uk.gov.hmrc" % artefactName % v1_3_0.artefactVersion from v1_3_0.tgzUrl,
+  "org.apache.commons" % "commons-compress" % "1.13" % "provided",
+  "commons-io" % "commons-io" % "2.5" % "provided")
 
 lazy val decompressTgz = taskKey[Unit]("Decompress TGZ artefact and write output to configured dir")
 

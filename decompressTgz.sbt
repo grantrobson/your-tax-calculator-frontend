@@ -1,66 +1,24 @@
-import java.nio.file.{Files, StandardCopyOption}
-
-val artefactName = "paye-estimator"
-val artefactVersion = "1.3.0"
-//
-//val artefactRepositoryName = s"${artefactName}_sjs0.6_2.11-$artefactVersion"
-//val tgz = s"$artefactRepositoryName.tgz"
-//val tgzUrl = s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz"
-
-
-val v1_2_0 = new SJSTarArtefact {
-  override val artefactName: String = "paye-estimator"
-  override val artefactVersion: String = "1.2.0"
-
-  override val extractedTo = Keys.target.value / "extracted" / artefactVersion
-}
-
-val v1_3_0 = new SJSTarArtefact {
-  override val artefactName: String = "paye-estimator"
-  override val artefactVersion: String = "1.3.0"
-
-  override val extractedTo = Keys.target.value / "extracted" / artefactVersion
-}
-
-//val version1_2 = TarArtefact(artefactName,
-//  "1.3.0",
-//  s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz")
-//
-//val version1_3 = TarArtefact(artefactName,
-//  "1.3.0",
-//  s"https://dl.bintray.com/hmrc/releases/uk/gov/hmrc/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz")
-
 libraryDependencies ++= Seq(
-//  "uk.gov.hmrc" % artefactName % v1_2_0.artefactVersion from v1_2_0.tgzUrl,
-  "uk.gov.hmrc" % artefactName % v1_3_0.artefactVersion from v1_3_0.tgzUrl,
   "org.apache.commons" % "commons-compress" % "1.13" % "provided",
   "commons-io" % "commons-io" % "2.5" % "provided")
 
 lazy val decompressTgz = taskKey[Unit]("Decompress TGZ artefact and write output to configured dir")
 
 decompressTgz := {
+
   implicit val log = streams.value.log
 
-  lazy val root = Keys.baseDirectory.value
-
-  def finalDestinationDirectory(childDir: Option[String] = None, destRoot : File = root / "public" / "javascripts") = childDir match {
-    case Some(dir) =>  destRoot / dir
-    case _ => destRoot
+  class PayeEstimator(override val artefactVersion: String) extends SJSTarArtefact{
+      override val artefactName: String = "paye-estimator"
+      override val origin = Keys.target.value / "extracted" / artefactVersion / tgz
+      override val destinationDir: File = Keys.baseDirectory.value / "public" / "javascripts" / artefactVersion
   }
 
-  val versionedArtefactName = s"$artefactName-$artefactVersion"
-  val tgzFile = root / "lib_managed" / "tgzs" / "uk.gov.hmrc" / s"$artefactName" / s"$versionedArtefactName.tgz"
-  val extractedTo = Keys.target.value / "extracted" / artefactVersion
+  val v1_2_0 = new PayeEstimator("1.2.0")
+  val v1_3_0 = new PayeEstimator("1.3.0")
 
-  val destination = finalDestinationDirectory(Some(artefactVersion))
-  if (java.nio.file.Files.notExists(destination.toPath)) {
-    log.debug(s"Tar '$tgzFile' will be extracted to ${extractedTo.toPath}")
-
-    Tar.untar(tgzFile, extractedTo)
-    Files.move(extractedTo.toPath, destination.toPath, StandardCopyOption.ATOMIC_MOVE)
-  } else {
-    log.debug(s"Tar '$tgzFile' exists, no need to download.")
-  }
+  v1_2_0.downloadExtractAndMove()
+  v1_3_0.downloadExtractAndMove()
 
 }
 

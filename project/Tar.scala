@@ -1,5 +1,3 @@
-import org.apache.commons.io.FileUtils
-
 /*
  * Copyright 2017 HM Revenue & Customs
  *
@@ -16,11 +14,13 @@ import org.apache.commons.io.FileUtils
  * limitations under the License.
  */
 
-object Tar {
+trait Tar {
 
   import java.io.{File, FileInputStream, FileOutputStream, OutputStream}
   import java.util.zip.GZIPInputStream
+
   import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+
   import scala.annotation.tailrec
 
   private val BufferSize = 2048
@@ -31,7 +31,7 @@ object Tar {
   }
 
   @tailrec
-  def extract(tarInputStream: TarArchiveInputStream, destinationDirectory: File)(implicit log : sbt.Logger): Unit = {
+  private def extract(tarInputStream: TarArchiveInputStream, destinationDirectory: File)(implicit log : sbt.Logger): Unit = {
     Option(tarInputStream.getNextTarEntry) match {
 
       case Some(entry) if entry.isDirectory =>
@@ -64,7 +64,7 @@ object Tar {
   }
 
   @tailrec
-  def pipe(buffer: Array[Byte], tarInputStream: TarArchiveInputStream, entryOutputStream: OutputStream, length: Int = 0)(implicit log : sbt.Logger): Unit = {
+  private def pipe(buffer: Array[Byte], tarInputStream: TarArchiveInputStream, entryOutputStream: OutputStream, length: Int = 0)(implicit log : sbt.Logger): Unit = {
     tarInputStream.read(buffer, 0, BufferSize) match {
       case len if len != -1 =>
         entryOutputStream.write(buffer, 0, len)
@@ -76,11 +76,11 @@ object Tar {
 
 }
 
-trait TarArtefact {
+trait TarArtefact extends Tar {
   import java.io.File
-  import java.net.{HttpURLConnection, URL, URLConnection}
-  import java.io.{FileOutputStream, InputStream, OutputStream}
+  import java.net.URL
 
+  import org.apache.commons.io.FileUtils
 
   val artefactName : String
   val artefactVersion : String
@@ -90,54 +90,19 @@ trait TarArtefact {
   def artefactRepositoryName : String
   lazy val tgz = s"$artefactRepositoryName.tgz"
   def tgzUrl : String
-  val extractedTo : File
+  def origin : File
+  def destinationDir : File
 
-  lazy val tgzFile : File = FileUtils.copyURLToFile(tgzUrl, extractedTo)
+  def download() = FileUtils.copyURLToFile(new URL(tgzUrl), origin)
 
-//
-//  def downloadFile(url : URL, file : File) : Unit = {
-//    val conn = url.openConnection
-//    try {
-//      downloadFile(conn, file)
-//    } finally conn match {
-//      // http://dumps.wikimedia.org/ seems to kick us out if we don't disconnect.
-//      case conn: HttpURLConnection => conn.disconnect
-//      // But only disconnect if it's a http connection. Can't do this with file:// URLs.
-//      case _ =>
-//    }
-//  }
-//
-//  protected def downloadFile(conn: URLConnection, file : File): Unit = {
-//    val in = inputStream(conn)
-//    try
-//    {
-//      val out = outputStream(file)
-//      try
-//      {
-//        copy(in, out)
-//      }
-//      finally out.close
-//    }
-//    finally in.close
-//  }
-//
-//  protected def inputStream(conn: URLConnection) : InputStream = conn.getInputStream
-//
-//  protected def outputStream(file: File) : OutputStream = new FileOutputStream(file)
-//
-//  def copy(in: InputStream, out: OutputStream) : Unit = {
-//    val buf = new Array[Byte](1 << 20) // 1 MB
-//    while (true)
-//    {
-//      val read = in.read(buf)
-//      if (read == -1)
-//      {
-//        out.flush
-//        return
-//      }
-//      out.write(buf, 0, read)
-//    }
-//  }
+  def downloadExtractAndMove()(implicit log : sbt.Logger) = {
+    download()
+    untar(origin, origin.getParentFile)
+    FileUtils.deleteQuietly(origin)
+    FileUtils.deleteQuietly(destinationDir)
+    FileUtils.moveDirectory(origin.getParentFile, destinationDir)
+  }
+
 }
 
 trait SJSTarArtefact extends TarArtefact {

@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-object Tar {
+trait Tar {
 
   import java.io.{File, FileInputStream, FileOutputStream, OutputStream}
   import java.util.zip.GZIPInputStream
+
   import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+
   import scala.annotation.tailrec
 
   private val BufferSize = 2048
@@ -29,7 +31,7 @@ object Tar {
   }
 
   @tailrec
-  def extract(tarInputStream: TarArchiveInputStream, destinationDirectory: File)(implicit log : sbt.Logger): Unit = {
+  private def extract(tarInputStream: TarArchiveInputStream, destinationDirectory: File)(implicit log : sbt.Logger): Unit = {
     Option(tarInputStream.getNextTarEntry) match {
 
       case Some(entry) if entry.isDirectory =>
@@ -62,7 +64,7 @@ object Tar {
   }
 
   @tailrec
-  def pipe(buffer: Array[Byte], tarInputStream: TarArchiveInputStream, entryOutputStream: OutputStream, length: Int = 0)(implicit log : sbt.Logger): Unit = {
+  private def pipe(buffer: Array[Byte], tarInputStream: TarArchiveInputStream, entryOutputStream: OutputStream, length: Int = 0)(implicit log : sbt.Logger): Unit = {
     tarInputStream.read(buffer, 0, BufferSize) match {
       case len if len != -1 =>
         entryOutputStream.write(buffer, 0, len)
@@ -72,4 +74,38 @@ object Tar {
     }
   }
 
+}
+
+trait TarArtefact extends Tar {
+  import java.io.File
+  import java.net.URL
+
+  import org.apache.commons.io.FileUtils
+
+  val artefactName : String
+  val artefactVersion : String
+
+  val artefactRepositoryOrgRootUrl : String = "https://dl.bintray.com/hmrc/releases/uk/gov/hmrc"
+
+  def artefactRepositoryName : String
+  lazy val tgz = s"$artefactRepositoryName.tgz"
+  def tgzUrl : String
+  def origin : File
+  def destinationDir : File
+
+  def download() = FileUtils.copyURLToFile(new URL(tgzUrl), origin)
+
+  def downloadExtractAndMove()(implicit log : sbt.Logger) = {
+    download()
+    untar(origin, origin.getParentFile)
+    FileUtils.deleteQuietly(origin)
+    FileUtils.deleteQuietly(destinationDir)
+    FileUtils.moveDirectory(origin.getParentFile, destinationDir)
+  }
+
+}
+
+trait SJSTarArtefact extends TarArtefact {
+  lazy val artefactRepositoryName = s"${artefactName}_sjs0.6_2.11-$artefactVersion"
+  lazy val tgzUrl = s"$artefactRepositoryOrgRootUrl/${artefactName}_sjs0.6_2.11/$artefactVersion/$tgz"
 }

@@ -22,5 +22,4 @@ decompressTgz := {
 
 }
 
-// removing this binding until we resolve the backwards compatibility issues
-//compile in Compile <<= (compile in Compile).dependsOn(decompressTgz)
+compile in Compile <<= (compile in Compile).dependsOn(decompressTgz)

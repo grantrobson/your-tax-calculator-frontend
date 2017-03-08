@@ -1,6 +1,6 @@
 @(version: String)(implicit request: Request[_], messages: Messages)
 
-<script type="text/javascript" src='@routes.Assets.at(s"javascripts/$version"+"paye-estimator-opt.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at(s"javascripts/$version"+"paye-estimator.js")'></script>
 
 <script type="text/javascript">
     function calculate() {
@@ -12,17 +12,32 @@
             }
         }
         var taxYear = 2016;
+        debugger;
+        var calculationDate = document.getElementById("calculationDate").value;
+        alert("Calculation Date: " + calculationDate);
         var taxCode = document.getElementById("taxCode").value;
         var grossPayPence = parseInt(document.getElementById("grossPayPence").value,10);
         var grossPayType = document.getElementById("GrossPayType").value;
         var numberOfHours = parseInt(document.getElementById("hourlyRate").value, 10);
-        var result = uk.gov.hmrc.payeestimator.services.LiveTaxCalculatorService().calculateTax(
-                selectedPensionAge,
-                taxYear,
-                taxCode,
-                grossPayPence,
-                grossPayType,
-                numberOfHours);
+        var result;
+        if (@version.equals("1.2.0") || @version.equals("1.3.0") || @version.equals("1.5.0") || @version.equals("1083")) {
+             result = uk.gov.hmrc.payeestimator.services.LiveTaxCalculatorService().calculateTax(
+                    selectedPensionAge,
+                    taxYear,
+                    taxCode,
+                    grossPayPence,
+                    grossPayType,
+                    numberOfHours);
+        }
+        else {
+           result = uk.gov.hmrc.payeestimator.services.LiveTaxCalculatorService().calculateTax(
+                    selectedPensionAge,
+                    calculationDate,
+                    taxCode,
+                    grossPayPence,
+                    grossPayType,
+                    numberOfHours);
+        }
 
         document.querySelector('.results').innerHTML = result;
     }
@@ -40,6 +55,14 @@
                 </td>
                 <td style="border: none">
                     <input type="text" name="taxCode" value="1100T" id="taxCode"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: none">
+                    <label for="calculationDate">Tax Calc Date:</label>
+                </td>
+                <td style="border: none">
+                    <input type="date" name="calculationDate" id="calculationDate" />
                 </td>
             </tr>
             <tr>

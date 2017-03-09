@@ -43,8 +43,8 @@ trait Calculator extends FrontendController {
   private def buildVersionString(version: Option[String]): String = {
     val jsversion = version.getOrElse("")
     jsversion.equals("") match  {
-      case true => jsversion
-      case false => s"$jsversion/"
+      case true => s"$jsversion/paye-estimator-default"
+      case false => s"$jsversion/paye-estimator"
     }
   }
 }

@@ -1,6 +1,6 @@
 @(version: String)(implicit request: Request[_], messages: Messages)
 
-<script type="text/javascript" src='@routes.Assets.at(s"javascripts/$version"+"paye-estimator.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at(s"javascripts/$version"+".js")'></script>
 
 <script type="text/javascript">
     function calculate() {
@@ -12,9 +12,7 @@
             }
         }
         var taxYear = 2016;
-        debugger;
         var calculationDate = document.getElementById("calculationDate").value;
-        alert("Calculation Date: " + calculationDate);
         var taxCode = document.getElementById("taxCode").value;
         var grossPayPence = parseInt(document.getElementById("grossPayPence").value,10);
         var grossPayType = document.getElementById("GrossPayType").value;

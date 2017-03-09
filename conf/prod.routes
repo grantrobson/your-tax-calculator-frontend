@@ -1,5 +1,6 @@
 # Add all the application routes to the app.routes file
 ->         /tax-estimator                   app.Routes
+->         /tax-credit-renewal              renewal.Routes
 ->         /                                health.Routes
 ->     	   /template                        template.Routes
 

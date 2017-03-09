@@ -1,0 +1,4 @@
+# microservice specific routes
+
+GET        /renewal         uk.gov.hmrc.yourtaxcalculator.controllers.TaxCreditRenewals.renewal(applicantType: Option[String])
+GET        /assets/*file    controllers.Assets.at(path="/public", file)

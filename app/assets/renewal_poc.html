@@ -3,22 +3,19 @@
 <head>
     <title>JavaScript TCR POC</title>
 
-    <style>
-        p.one {
-        border-style: solid;
-        border-width: 5px;
-        }
+<style>
+    p.one {
+    border-style: solid;
+    border-width: 5px;
+    }
 
-        h1.hidden {
-        visibility: hidden;
-        }
-    </style>
+    h1.hidden {
+    visibility: hidden;
+    }
+</style>
 
 
-    <script type="text/javascript">
-
-// NOTE: The below JavaScript is a POC and is not production ready code.
-
+<script type="text/javascript">
     var map = new Map();
 
     function removeChildren() {
@@ -88,8 +85,7 @@
             if (selectionType == 'radio') {
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
                 radioButton.setAttribute("onClick", "toggleRadioButton(\""+questionData.questionType.multipleChoiceOptions[i].modelId+"\")");
-            }
-            else if (selectionType == "checkbox") {
+            } else if (selectionType == "checkbox") {
 
                 // Set the id of the number input field.
                 var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
@@ -103,7 +99,7 @@
             }
         }
 
-        // Set the next onClick function.
+        // Set the next onClick function based on the type of control.
         if (selectionType == "checkbox") {
           document.getElementById("MultipleChoiceNEXT").onclick = function() {
                     MultipleChoiceNEXT();
@@ -116,8 +112,10 @@
     }
 </script>
 
-    <script language=javascript type="text/javascript">
-    var START_QUESTION = "1"
+<script language=javascript type="text/javascript">
+    var START_QUESTION = "1";
+    var   AUTO_RENEWAL = "R";
+
     var questionPos = START_QUESTION;
     var stack = [];
     var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal"];
@@ -126,11 +124,6 @@
         dynamicControls.forEach((item) => {
             if (toggle == "show") show(item); else hide(item);
         });
-    }
-
-    function loadSelections(id) {
-        toggleControls("hide");
-        return;
     }
 
     function BACK() {
@@ -144,7 +137,9 @@
     }
 
     // TODO...EXTEND ERROR HANDLING.
-    function initialiseModel(model) {
+    function resume(model) {
+        hide("demo");
+        map = new Map();
         questionPos = START_QUESTION;
         var tokens = model.split(",");
         tokens.forEach(token => {
@@ -155,7 +150,8 @@
         displayQuestion();
     }
 
-    function extractModelData() {
+    function getModelData() {
+        // TODO...Return JSON response  + include stack.
         var dumpData = "";
         var first = 1;
         var append = "";
@@ -170,9 +166,18 @@
             dumpData = dumpData + append + key+":"+value;
         });
 
-        // TODO...DEBUG ONLY
+        // TODO...create debug function
         var span = document.getElementById("dumpText"),
         text = document.createTextNode(dumpData);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+    }
+
+    // TODO: Move to debug script
+    function extractAPI() {
+        var apiJson = JSON.stringify(buildSubmissionPostRequest());
+        var span = document.getElementById("dumpText"),
+        text = document.createTextNode(apiJson);
         span.innerHTML = ''; // clear existing
         span.appendChild(text);
     }
@@ -207,7 +212,7 @@
         }
     }
 
-    // TODO..VALIDATION AND ERROR HANDLING!
+    // TODO..validation and error handling!
     function MultipleChoiceNEXT() {
 
         var questionData = getFromId(questionPos);
@@ -236,7 +241,7 @@
         displayQuestion();
     }
 
-    // TODO...ADD VALIDATION!!!
+    // TODO...Add validation.
     function NEXT_DECIMAL() {
         stack.push(questionPos);
         var question = getFromId(questionPos);
@@ -281,7 +286,9 @@
     function startDemo() {
         toggleControls();
         hide("demo");
-        displayQuestion();
+
+        // Invoke the startup function and supply dummy data.
+        startup("R", false, "CS700100A", "1/1/2017", "2/2/2017");
     }
 
     function initQuestion(question, control, header) {
@@ -293,14 +300,24 @@
     function displayQuestion() {
         var question = getFromId(questionPos);
 
-        // DEBUG TRACE...TODO...
+        // TODO: Move to debug function
         var trace = "Question:"+questionPos+"-"+question.questionType.type
         var span = document.getElementById("QuestionId");
         var text = document.createTextNode(trace);
         span.innerHTML = ''; // clear existing
         span.appendChild(text);
 
-        if (question.questionType.type == "Boolean") {
+        if (question.questionType.type == "JourneyCompleteAutoRenewal") {
+            // This indicates end of journey for auto renewals!
+            toggleControls("hide");
+            hook("JourneyCompleteAutoRenewal");
+            return;
+        } else if (question.questionType.type == "JourneyComplete") {
+            // This indicates end of journey for all complete renewal journeys where the  renewal is not auto!
+            toggleControls("hide");
+            hook("JourneyComplete");
+            return;
+        } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
         } else if (question.questionType.type == "MultipleChoice") {
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
@@ -327,11 +344,21 @@
     }
 
     // TODO: Currently hardwired.
-    function submissionAPI() {
+    function buildSubmissionPostRequest() {
+
+        // TODO...TEMP PLUMBING CODE. Drive the JSON result based on supplied NINO.
+        var taxableBenefits = 0;
+        var nino = map.get("nino");
+        if (nino == "CS700100A") {
+            taxableBenefits = 999;
+        } else {
+            taxableBenefits = 333;
+        }
+
         var submission = {
           "renewalData": {
             "incomeDetails": {
-              "taxableBenefits": 10,
+              "taxableBenefits": taxableBenefits,
               "earnings": 20,
               "companyBenefits": 30,
               "seProfits": 40,
@@ -365,11 +392,108 @@
         return(submission);
     }
 
+    function startup(renewalType, hasPartner, nino, endDate, startDate) {
+        // Initialise globals.
+        questionPos = START_QUESTION;
+        stack = [];
 
+        // Add all parameters to map.
+        map.set("renewalType", renewalType);
+        map.set("hasPartner", hasPartner);
+        map.set("nino", nino);
+        map.set("endDate", endDate);
+        map.set("startDate", startDate);
 
-    // TODO: Align with BA document. Below is an example for demo the framework.
+        displayQuestion();
+    }
+
+    // Resolve associated questions for renewal flow.
     function data() {
-        var myObj = {
+
+        // TODO:
+
+
+        var nino = map.get("nino");
+        var renewalType = map.get("renewalType");
+
+        // Auto renewal question.
+        if (renewalType == AUTO_RENEWAL) {
+
+            var autoRenewalJourney = {
+                "formType":"AutoRenewal",
+
+                "CreationData":"12/12/2017:10:13",
+
+                "questions": [
+                        {
+                            "id": "1",
+                            "question": "Auto renewal...question data to complete",
+                            "questionType": {
+                              "type": "Boolean",
+                              "yesNextQuestionId": "2",
+                              "noNextQuestionId": "2",
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "question": "Renewal complete",
+                            "questionType": {
+                              "type": "JourneyCompleteAutoRenewal"
+                            }
+                        }
+                    ]
+                };
+
+            return(autoRenewalJourney);
+
+        } else if (nino == "CS700100A") {
+
+            var journey1 = {
+                "formType":"JointApplicant",
+
+                "CreationData":"12/12/2017:10:13",
+
+                "questions": [
+                      {
+                        "id": "1",
+                        "question": "Did you get any of these benefits at the time between 6 April 2014 to 5 April 2015 ? \n\r - Income Support \n\r - Income - based Jobseeker's Allowance",
+                        "questionType": {
+                          "type": "Boolean",
+                          "yesNextQuestionId": "2",
+                          "noNextQuestionId": "3a",
+                          "modelId": "renewalData.certainBenefits.receivedBenefits"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                        "questionType": {
+                          "type": "MultipleChoice",
+                          "multipleChoiceOptions": [
+                            {
+                              "option": "Income Support",
+                              "modelId": "renewalData.certainBenefits.incomeSupport"
+                            },
+                            {
+                              "option": "Income-based Jobseeker's Allowance",
+                              "modelId": "renewalData.certainBenefits.jsa"
+                            }
+                          ],
+                          "nextQuestionId": "3a"
+                        }
+                      },
+                      {
+                        "id": "3a",
+                        "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                        "questionType": {
+                          "type": "JourneyComplete"
+                        }
+                      }
+                    ]
+                };
+            return(journey1);
+        } else {
+            var myObj = {
             "formType":"JointApplicant",
 
             "CreationData":"12/12/2017:10:13",
@@ -464,7 +588,6 @@
                     "id": "6",
                     "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
                     "questionType": {
-                //      "type": "MultipleChoiceWithNumber",  TODO...DEFINE THE INPUT TYPE!
                       "type": "MultipleChoice",
                       "multipleChoiceOptions": [
                         {
@@ -486,7 +609,6 @@
                       "type": "Boolean",
                       "yesNextQuestionId": "8",
                       "noNextQuestionId": "10"
-                      // TODO...NO MODELID!!! IF THIS IS UNDEFINED?
                     }
                   },
                   {
@@ -751,8 +873,10 @@
 
                 ]
             }
+            }
 
         return(myObj);
+
     }
 </script>
 
@@ -770,13 +894,43 @@
 
 </script>
 
+<script>
+
+    function hook(journeyOutcomeStatus) {
+        // TODO...Hardwired OS functions.
+        alert(' Callback function invoked - value : ' + journeyOutcomeStatus);
+
+        var nino = map.get("nino");
+        var isEstimatedIncome = false;
+        if (nino == "CS700100A") {
+            isEstimatedIncome = true;
+        }
+
+        // TODO...extend to supply a JSON object and not individual params.
+        // IOS callback.
+        try {
+            window.webkit.messageHandlers.iosmessagehandler.postMessage(journeyOutcomeStatus, isEstimatedIncome);
+        } catch(err) {}
+
+        // Windows callback.
+        try {
+            window.external.notify(journeyOutcomeStatus, isEstimatedIncome);
+        } catch(err) {}
+
+        // Android callback.
+        try {
+            Android.hook(journeyOutcomeStatus, isEstimatedIncome);
+        } catch(err) {}
+    }
+
+</script>
 
 
 </head>
 
 <body>
 
-<h1>Tax-Credit-Renewal POC JavaScript Application</h1>
+<h1>Tax-Credit-Renewal JavaScript Application</h1>
 
 
 <!-- MultipleChoice -->
@@ -828,14 +982,14 @@
 
 
 <div id="demo">
-    <input type="button" value="Start Demo" onClick="javascript:startDemo()">
+    <input type="button" value="Enter app" onClick="javascript:startDemo()">
 </div>
 
 <br>
 <br>
 
 
-<p class="one">Tools - Please note below section is only for demo purposes.</p>
+<p class="one">Tools - Please note below section is for debug support.</p>
 <br>
 <div id="Question Debug Trace">
     <b><span>Question Details</span></b>
@@ -845,15 +999,15 @@
 <br>
 
 
-<input type="button" value="Initialise model" onClick="javascript:initialiseModel('renewalData.certainBenefits.incomeSupport:true,otherIncome.otherHouseholdIncome:1234.54')">
-<input type="button" value="Extract Model" onClick="javascript:extractModelData()">
+<input type="button" value="Initialise model" onClick="javascript:resume('nino:CS123456B,renewalData.certainBenefits.incomeSupport:true,otherIncome.otherHouseholdIncome:1234.54')">
+<input type="button" value="Extract Model" onClick="javascript:getModelData()">
+<input type="button" value="API" onClick="javascript:extractAPI()">
+
 <div id="dumpDiv">
-    <b><span>Model Dump</span></b>
+    <b><span>Debug</span></b>
     <br><br>
     <span id="dumpText"></span>
 </div>
-
-<SCRIPT language=JavaScript type="">loadSelections(document.forms[0]);</SCRIPT>
 
 </body>
 </html>

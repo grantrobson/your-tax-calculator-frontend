@@ -898,7 +898,6 @@
 
     function hook(journeyOutcomeStatus) {
         // TODO...Hardwired OS functions.
-        alert(' Callback function invoked - value : ' + journeyOutcomeStatus);
 
         var nino = map.get("nino");
         var isEstimatedIncome = false;
@@ -906,20 +905,28 @@
             isEstimatedIncome = true;
         }
 
+        var payload = {
+            "journeyOutcomeStatus":journeyOutcomeStatus,
+            "isEstimatedIncome":isEstimatedIncome
+        };
+
+        var response = JSON.stringify(payload);
+        alert(' Callback function invoked - value : ' + journeyOutcomeStatus + ' JSON response is ' + response);
+
         // TODO...extend to supply a JSON object and not individual params.
         // IOS callback.
         try {
-            window.webkit.messageHandlers.iosmessagehandler.postMessage(journeyOutcomeStatus, isEstimatedIncome);
+            window.webkit.messageHandlers.iosmessagehandler.postMessage(response);
         } catch(err) {}
 
         // Windows callback.
         try {
-            window.external.notify(journeyOutcomeStatus, isEstimatedIncome);
+            window.external.notify(response);
         } catch(err) {}
 
         // Android callback.
         try {
-            Android.hook(journeyOutcomeStatus, isEstimatedIncome);
+            Android.hook(response);
         } catch(err) {}
     }
 

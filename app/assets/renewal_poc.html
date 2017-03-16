@@ -18,8 +18,8 @@
 <script type="text/javascript">
     var map = new Map();
 
-    function removeChildren() {
-        var node = document.getElementById("containerDiv")
+    function removeChildren(div) {
+        var node = document.getElementById(div)
         while (node.hasChildNodes()) {
             node.removeChild(node.lastChild);
         }
@@ -58,7 +58,7 @@
         var arrayLength = questionData.questionType.multipleChoiceOptions.length;
 
         // Remove all child nodes.
-        removeChildren();
+        removeChildren("containerDiv");
 
         // Create child nodes based on current question type.
         for (var i = 0; i < arrayLength; i++) {
@@ -109,6 +109,17 @@
                     NEXT();
                 };
         }
+
+        // TODO...this can be turned into a generic function for all question types!
+        // Check if dynamic header should be added to question.
+        if (questionData.questionType.headerDiv !== undefined) {
+            removeChildren("dynamicHeaderMultipleChoice");
+            var itm = document.getElementById(questionData.questionType.headerDiv);
+            var cln = itm.cloneNode(true);
+            var insertPoint = document.getElementById("dynamicHeaderMultipleChoice");
+            insertPoint.appendChild(cln);
+        }
+
     }
 </script>
 
@@ -306,7 +317,7 @@
         hide("demo");
 
         // Invoke the startup function and supply dummy data. This test data will run through complex set of questions.
-        startup("D1", false, "CS700100AD", "1/1/2017", "2/2/2017");
+        startup("R", false, "CS700100AD", "1/1/2017", "2/2/2017");
     }
 
     function initQuestion(question, control, header) {
@@ -442,9 +453,10 @@
                 "questions": [
                         {
                             "id": "1",
-                            "question": "AUTO RENEWAL QUESTION - Content to be extended",
+                            "question": "Do you need to report any changes to the details shown?",
                             "questionType": {
                               "type": "MultipleChoice",
+                              "headerDiv": "auto-renewal-header",
                               "multipleChoiceOptions": [
                                 {
                                   "option": "Yes",
@@ -897,7 +909,7 @@
 
                 ]
             }
-            }
+        }
 
         return(myObj);
 
@@ -935,7 +947,12 @@
         };
 
         var response = JSON.stringify(payload);
-//        alert(' Callback function invoked - value : ' + journeyOutcomeStatus + ' JSON response is ' + response);
+        // TODO...debug function. Output the callback response in order for ticket to be tested by QA.
+        var span = document.getElementById("dumpText"),
+        text = document.createTextNode(response);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+
 
         // TODO...extend to supply a JSON object and not individual params.
         // IOS callback.
@@ -966,7 +983,8 @@
 
 <!-- MultipleChoice -->
 <div id="MultipleChoice" style="display: none;">
-    <p id="headerMultipleChoice"></p>
+    <div id="dynamicHeaderMultipleChoice"></div>
+    <b><p id="headerMultipleChoice"></p></b>
     <div>
         <div id="containerDiv"></div>
     </div>
@@ -1009,6 +1027,21 @@
     <br>
     <input type="button" value="BACK" onClick="javascript:BACK()">
     <input type="button" value="NEXT" onClick="javascript:NEXT_DECIMAL()">
+</div>
+
+<!-- Dynamic header DIV's -->
+<div style="display: none;">
+
+    <div id="auto-renewal-header">
+
+        <!-- CSS DEV: Please see example layout https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/auto-joint/do_you_want_to_renew_now -->
+        <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
+        <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
+        <br>
+        <span>Your renewal pack should arrive by 30 June 2016. </span>
+        <br>
+        <br>
+    </div>
 </div>
 
 

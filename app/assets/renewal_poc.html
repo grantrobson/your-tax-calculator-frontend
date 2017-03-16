@@ -317,7 +317,7 @@
         hide("demo");
 
         // Invoke the startup function and supply dummy data. This test data will run through complex set of questions.
-        startup("R", false, "CS700100AD", "1/1/2017", "2/2/2017");
+        startup("R3", false, "CS700100AD", "1/1/2017", "2/2/2017");
     }
 
     function initQuestion(question, control, header) {
@@ -443,7 +443,7 @@
         var renewalType = map.get("renewalType");
 
         // Auto renewal question.
-        if (renewalType.toUpperCase() == AUTO_RENEWAL) {
+        if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
 
             var autoRenewalJourney = {
                 "formType":"AutoRenewal",
@@ -482,7 +482,7 @@
 
             return(autoRenewalJourney);
 
-        } else if (nino == "CS700100A") {
+        } else if (nino !== undefined && nino == "CS700100A") {
 
             var journey1 = {
                 "formType":"JointApplicant",

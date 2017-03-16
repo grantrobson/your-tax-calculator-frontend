@@ -253,10 +253,28 @@
     }
 
     function NEXT(nextId) {
-        stack.push(questionPos);
         var question = getFromId(questionPos);
-        questionPos = question.questionType.nextQuestionId;
-        displayQuestion();
+        var arrayLength = question.questionType.multipleChoiceOptions.length;
+
+        // TODO: This is temp code to handle Next button. Do not route to Next if no options selected.
+        var enableNext=false;
+        // Cycle around associated checkbox input fields and check if ticked.
+        for (var i = 0; i < arrayLength; i++) {
+            // Obtain handle to checkbox.
+            var inputField = document.getElementById(question.questionType.multipleChoiceOptions[i].modelId).checked;
+            // Check if the control is checked.
+            if (inputField == true) {
+                enableNext = true;
+            }
+        }
+
+        if (enableNext == false) {
+            alert(' Please select one of the options to continue.');
+        } else {
+            stack.push(questionPos);
+            questionPos = question.questionType.nextQuestionId;
+            displayQuestion();
+        }
     }
 
     function YES() {
@@ -287,8 +305,8 @@
         toggleControls();
         hide("demo");
 
-        // Invoke the startup function and supply dummy data.
-        startup("R", false, "CS700100A", "1/1/2017", "2/2/2017");
+        // Invoke the startup function and supply dummy data. This test data will run through complex set of questions.
+        startup("D1", false, "CS700100AD", "1/1/2017", "2/2/2017");
     }
 
     function initQuestion(question, control, header) {
@@ -410,14 +428,11 @@
     // Resolve associated questions for renewal flow.
     function data() {
 
-        // TODO:
-
-
         var nino = map.get("nino");
         var renewalType = map.get("renewalType");
 
         // Auto renewal question.
-        if (renewalType == AUTO_RENEWAL) {
+        if (renewalType.toUpperCase() == AUTO_RENEWAL) {
 
             var autoRenewalJourney = {
                 "formType":"AutoRenewal",
@@ -427,11 +442,20 @@
                 "questions": [
                         {
                             "id": "1",
-                            "question": "Auto renewal...question data to complete",
+                            "question": "AUTO RENEWAL QUESTION - Content to be extended",
                             "questionType": {
-                              "type": "Boolean",
-                              "yesNextQuestionId": "2",
-                              "noNextQuestionId": "2",
+                              "type": "MultipleChoice",
+                              "multipleChoiceOptions": [
+                                {
+                                  "option": "Yes",
+                                  "modelId": "auto-renewal-yes"
+                                },
+                                {
+                                  "option": "No",
+                                  "modelId": "auto-renewal-no"
+                                }
+                              ],
+                              "nextQuestionId": "2"
                             }
                         },
                         {

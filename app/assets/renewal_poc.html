@@ -137,8 +137,8 @@
         });
     }
 
-    function goBack() {
-        return(stack.length == 0);
+    function canGoBack() {
+        return(stack.length == 0 ? "true" : "false");
     }
 
     function BACK() {

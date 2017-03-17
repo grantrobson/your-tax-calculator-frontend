@@ -191,7 +191,7 @@
 
     // TODO: Move to debug script
     function extractAPI() {
-        var apiJson = JSON.stringify(buildSubmissionPostRequest());
+        var apiJson = buildSubmissionPostRequest();
         var span = document.getElementById("dumpText"),
         text = document.createTextNode(apiJson);
         span.innerHTML = ''; // clear existing
@@ -436,7 +436,7 @@
           },
           "hasChangeOfCircs": false
         }
-        return(submission);
+        return(JSON.stringify(submission));
     }
 
     function startup(renewalType, hasPartner, nino, endDate, startDate) {

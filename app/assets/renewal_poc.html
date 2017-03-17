@@ -182,6 +182,7 @@
         text = document.createTextNode(dumpData);
         span.innerHTML = ''; // clear existing
         span.appendChild(text);
+        return(dumpData);
     }
 
     // TODO: Move to debug script
@@ -938,14 +939,11 @@
                   },
                     {
                     "id": "31",
-                    "question": "The end of the demo screens - Pressing Next will route round to Question 1",
+                    "question": "The end of the demo screens",
                     "questionType": {
-                      "type": "Decimal",
-                      "nextQuestionId": "1",
-                      "modelId": "TODO.QUESTION.31"
+                      "type": "JourneyComplete"
                     }
                   }
-
                 ]
             }
         }

@@ -137,6 +137,10 @@
         });
     }
 
+    function goBack() {
+        return(stack.length == 0);
+    }
+
     function BACK() {
         if (stack.length == 0) {
             questionPos = START_QUESTION;

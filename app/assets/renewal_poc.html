@@ -252,7 +252,7 @@
         displayQuestion();
     }
 
-    // TODO...Add validation.
+    // TODO...Add validation. Define in future ticket.
     function NEXT_DECIMAL() {
         stack.push(questionPos);
         var question = getFromId(questionPos);
@@ -276,6 +276,7 @@
             // Check if the control is checked.
             if (inputField == true) {
                 enableNext = true;
+                break;
             }
         }
 
@@ -317,7 +318,7 @@
         hide("demo");
 
         // Invoke the startup function and supply dummy data. This test data will run through complex set of questions.
-        startup("R3", false, "CS700100AD", "1/1/2017", "2/2/2017");
+        startup("D", false, "CS700100AD", "1/1/2017", "2/2/2017");
     }
 
     function initQuestion(question, control, header) {
@@ -367,6 +368,18 @@
                 document.getElementById('DecimalInput').value = decimalStore;
             }
 
+            // Toggle estimated-income checkbox if modelIdEstimatedIncome element defined in model.
+            hide('estimatedIncomeDiv');
+            if (question.questionType.modelIdEstimatedIncome !== undefined) {
+                var estimatedIncome = map.get(question.questionType.modelIdEstimatedIncome);
+                show('estimatedIncomeDiv');
+                // Set the checked state based on model value.
+                if (estimatedIncome == 'true') {
+                    document.getElementById('estimatedIncomeValue').checked = true;
+                } else {
+                 document.getElementById('estimatedIncomeValue').checked = false;
+                }
+            }
         } else {
             alert('Failed to resolve the question type ' + question.questionType.type);
         }
@@ -434,6 +447,18 @@
         map.set("startDate", startDate);
 
         displayQuestion();
+    }
+
+    // Toggle estimatedIncome model value.
+    function setEstimatedIncomeValue() {
+        var questionData = getFromId(questionPos);
+        var radio = document.getElementById('estimatedIncomeValue');
+
+        if (radio.checked == true) {
+            map.set(questionData.questionType.modelIdEstimatedIncome, "true");
+        } else {
+            map.set(questionData.questionType.modelIdEstimatedIncome, "false");
+        }
     }
 
     // Resolve associated questions for renewal flow.
@@ -520,7 +545,7 @@
                       },
                       {
                         "id": "3a",
-                        "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                        "question": "Journey Complete",
                         "questionType": {
                           "type": "JourneyComplete"
                         }
@@ -529,6 +554,8 @@
                 };
             return(journey1);
         } else {
+            // Test questions for CSS developer to run through all question types.
+
             var myObj = {
             "formType":"JointApplicant",
 
@@ -540,9 +567,20 @@
                     "question": "Did you get any of these benefits at the time between 6 April 2014 to 5 April 2015 ? \n\r - Income Support \n\r - Income - based Jobseeker's Allowance",
                     "questionType": {
                       "type": "Boolean",
-                      "yesNextQuestionId": "2",
+                      "yesNextQuestionId": "11a",
                       "noNextQuestionId": "3a",
                       "modelId": "renewalData.certainBenefits.receivedBenefits"
+                    }
+                  },
+                  {
+                    "id": "11a",
+                    "question": "How much did you receive in company benefits between 6 April 2014 to 5 April 2015?",
+                    "additionalInformation": "Some more info on what this question is",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "2",
+                      "modelId": "some-income-value",
+                      "modelIdEstimatedIncome": "estimated-income"
                     }
                   },
                   {
@@ -653,7 +691,8 @@
                     "questionType": {
                       "type": "Decimal",
                       "nextQuestionId": "9",
-                      "modelId": "otherIncome.otherHouseholdIncome"
+                      "modelId": "otherIncome.otherHouseholdIncome",
+                      "modelIdEstimatedIncome" : "otherIncome.otherHouseholdIncome.estimatedIncome"
                     }
                   },
                   {
@@ -1025,8 +1064,16 @@
     <p id="headerDecimal"></p>
     <input type="number" id="DecimalInput">
     <br>
+
+    <!-- Only displayed if model defines modelIdEstimatedIncome attribute. -->
+    <div id="estimatedIncomeDiv" style="display: none;">
+        <label>Estimated Income</label>
+        <input type="checkbox" id="estimatedIncomeValue" onClick="javascript:setEstimatedIncomeValue()">
+    </div>
+
     <input type="button" value="BACK" onClick="javascript:BACK()">
     <input type="button" value="NEXT" onClick="javascript:NEXT_DECIMAL()">
+
 </div>
 
 <!-- Dynamic header DIV's -->

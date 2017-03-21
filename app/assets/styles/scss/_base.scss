@@ -1,0 +1,79 @@
+/*
+* @Author: Mark Ford
+* @Date:   2017-03-21 10:07:51
+* @Last Modified by:   Mark Ford
+* @Last Modified time: 2017-03-21 16:40:08
+*/
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@mixin button($background, $text){
+	display: block;
+	background-color: $background;
+	color: $text;
+	@include font-size(1.6);
+	border: 0;
+	padding: 16px 13px;
+	text-align: center;
+	width:100%;
+}
+
+@import 'reset';
+
+body {
+  background: $bg-body;
+  }
+
+  header{
+  	background: $bg-header;
+  	color: $text-color-header;
+  	padding: 10px 20px;
+  	margin-bottom:10px;
+
+  	h1{
+  		font-family: $font-heading;
+  		@include font-size(1.4);
+  		font-weight: bold;
+  		text-align: center;
+  	}
+  }
+
+  main{
+  	background: $bg-main;
+  	font-family: $font-copy;
+  	font-weight: normal;
+  	@include font-size(1.6);
+  	padding: 16px 20px;
+  	h2{
+  		font-family: $font-heading;
+  		@include font-size(2.0);
+  		font-weight: bold;
+  		margin-bottom: 8px;
+  	}
+  	h3{
+  		font-family: $font-heading;
+  		@include font-size(1.6);
+  		font-weight: bold;
+  		margin-bottom: 8px;
+  	}
+  	p, span, label{
+  		@include font-size(1.6);
+  		font-family: $font-copy;
+  		font-weight: normal;
+  	}
+  	input[type="button"].primary{
+  		@include button($button-bg-primary, $button-text-primary)
+  		margin-top:8px;
+  	}
+  	input[type="button"].secondary{
+  		@include button($button-bg-secondary, $button-text-secondary)
+  	}
+
+  	#containerDiv{
+  		h3.question{
+  			//font-weight: bold
+  		}
+  	}
+  }

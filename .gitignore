@@ -33,5 +33,6 @@ test-result
 tmp
 .idea_modules
 bin
+app/assets/config.codekit3
 
 **/javascripts/**/paye-estimator.js

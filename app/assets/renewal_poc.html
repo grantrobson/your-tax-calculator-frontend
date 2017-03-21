@@ -110,26 +110,31 @@
                 };
         }
 
-        // TODO...this can be turned into a generic function for all question types!
+        insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice");
+    }
+
+    function insertDynamicHeader(questionData, dynamicHeaderDiv) {
         // Check if dynamic header should be added to question.
         if (questionData.questionType.headerDiv !== undefined) {
-            removeChildren("dynamicHeaderMultipleChoice");
+            removeChildren(dynamicHeaderDiv);
             var itm = document.getElementById(questionData.questionType.headerDiv);
             var cln = itm.cloneNode(true);
-            var insertPoint = document.getElementById("dynamicHeaderMultipleChoice");
+            var insertPoint = document.getElementById(dynamicHeaderDiv);
             insertPoint.appendChild(cln);
         }
 
     }
+
 </script>
 
 <script language=javascript type="text/javascript">
-    var START_QUESTION = "1";
-    var   AUTO_RENEWAL = "R";
+    var START_QUESTION     = "1";
+    var   AUTO_RENEWAL     = "R";
+    var   SINGLE_APPLICANT = "D";
 
     var questionPos = START_QUESTION;
     var stack = [];
-    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal"];
+    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue"];
 
     function toggleControls(toggle) {
         dynamicControls.forEach((item) => {
@@ -205,7 +210,7 @@
                 return data().questions[i];
             }
         }
-        alert("FAILED TO FIND!!!");
+        alert("FAILED TO FIND ID ["+id+"]!!!");
     }
 
     function toggleRadioButton(id) {
@@ -294,6 +299,13 @@
         }
     }
 
+    function NEXT_CONTINUE() {
+        var question = getFromId(questionPos);
+        stack.push(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+        displayQuestion();
+    }
+
     function YES() {
         stack.push(questionPos);
         var question = getFromId(questionPos);
@@ -327,7 +339,29 @@
     }
 
     function initQuestion(question, control, header) {
-        document.getElementById(header).innerHTML = question.question;
+        var questionOutput = question.question
+
+        // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
+        if (question.previousQuestionOption) {
+            var linkQuestion = getFromId(question.previousQuestionOption);
+            var arrayLength = linkQuestion.questionType.multipleChoiceOptions.length;
+            // Obtain the option name of the selected value!
+
+            var optionValue="";
+            // Cycle around associated checkbox input fields and check if ticked.
+            for (var i = 0; i < arrayLength; i++) {
+                var mapEntry = map.get(linkQuestion.questionType.multipleChoiceOptions[i].modelId);
+                // Check if the control was checked.
+                if (mapEntry !== undefined && mapEntry == "true") {
+                    optionValue = linkQuestion.questionType.multipleChoiceOptions[i].option;
+                    break;
+                }
+            }
+            // Append the output question with the name of the previous selected radio button.
+            questionOutput = questionOutput + optionValue + "?";
+        }
+
+        document.getElementById(header).innerHTML = questionOutput;
         toggleControls("hide");
         show(control);
     }
@@ -342,6 +376,7 @@
         span.innerHTML = ''; // clear existing
         span.appendChild(text);
 
+
         if (question.questionType.type == "JourneyCompleteAutoRenewal") {
             // This indicates end of journey for auto renewals!
             toggleControls("hide");
@@ -352,6 +387,9 @@
             toggleControls("hide");
             hook("JourneyComplete");
             return;
+        } else if (question.questionType.type == "Continue") {
+            initQuestion(question, 'Continue', 'headerContinue');
+            insertDynamicHeader(question, "dynamicHeader-Continue");
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
         } else if (question.questionType.type == "MultipleChoice") {
@@ -390,6 +428,20 @@
         }
     }
 
+    function getMapBooleanValue(modelId) {
+        var mapValue = map.get(modelId);
+        var found = false;
+
+        if (mapValue !== undefined) {
+            if (mapValue == 'true') {
+                found = true;
+            } else {
+                found = false;
+            }
+        }
+        return(found);
+    }
+
     // TODO: Currently hardwired.
     function buildSubmissionPostRequest() {
 
@@ -402,7 +454,10 @@
             taxableBenefits = 333;
         }
 
+
+
         var submission = {
+
           "renewalData": {
             "incomeDetails": {
               "taxableBenefits": taxableBenefits,
@@ -411,30 +466,20 @@
               "seProfits": 40,
               "seProfitsEstimated": true
             },
-            "incomeDetailsPY1": {
-              "taxableBenefits": 10,
-              "earnings": 20,
-              "companyBenefits": 30,
-              "seProfits": 40,
-              "seProfitsEstimated": true
-            },
+
             "certainBenefits": {
-              "receivedBenefits": false,
-              "incomeSupport": false,
-              "jsa": false,
-              "esa": false,
-              "pensionCredit": false
+              "receivedBenefits": getMapBooleanValue("certainBenefits.receivedBenefits"),
+              "incomeSupport": getMapBooleanValue("certainBenefits.incomeSupport"),
+              "jsa": getMapBooleanValue("certainBenefits.jsa"),
+              "esa": getMapBooleanValue("certainBenefits.esa"),
+              "pensionCredit": getMapBooleanValue("certainBenefits.pensionCredit")
             }
           },
           "otherIncome": {
             "otherHouseholdIncome": 100,
             "isOtherHouseholdIncomeEst": false
           },
-          "otherIncomePY1": {
-            "otherHouseholdIncome": 100,
-            "isOtherHouseholdIncomeEst": false
-          },
-          "hasChangeOfCircs": false
+          "hasChangeOfCircs": false     // TODO: HARDWIRED TO FALSE
         }
         return(JSON.stringify(submission));
     }
@@ -475,6 +520,11 @@
         // Auto renewal question.
         if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
 
+////////////////////////////////////////////////////////////////////////////////
+// AUTO RENEWAL
+////////////////////////////////////////////////////////////////////////////////
+
+
             var autoRenewalJourney = {
                 "formType":"AutoRenewal",
 
@@ -511,6 +561,356 @@
                 };
 
             return(autoRenewalJourney);
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_APPLICANT) {
+
+////////////////////////////////////////////////////////////////////////////////
+// SINGLE APPLICANT!!!
+////////////////////////////////////////////////////////////////////////////////
+
+        var singleApplicantJourney = {
+            "formType":"SingleApplicant",
+
+            "CreationData":"12/12/2017:10:13",
+
+            "questions": [
+                    {
+                        "id": "1",
+                        "question": "",
+                        "questionType": {
+                          "type": "Continue",
+                          "headerDiv": "benefits-and-income-intro",
+                          "nextQuestionId": "2"
+                        }
+                    },
+                    {
+                        "id": "2",
+                        "question": "",
+                        "questionType": {
+                          "type": "Continue",
+                          "headerDiv": "part-1-your-benefits-and-income",
+                          "nextQuestionId": "3"
+                        }
+                    },
+
+// TODO... API PART 1.
+
+                    {
+                        "id": "3",
+                        "question": "Did you get any of these benefits for the whole time between 11 January 2017 and 5 April 2017?",
+                        "questionType": {
+                          "type": "Boolean",
+                          "yesNextQuestionId": "4",
+                          "noNextQuestionId": "114",
+                          "modelId": "renewalData.certainBenefits.benefits"  // certainBenefits.receivedBenefits
+                        }
+                    },
+
+                    {
+                        "id": "4",
+                        "question": "Which of these benefits did you get at the time between 6 April 2016 to 5 April 2017?",
+                        "questionType": {
+                        "type": "MultipleChoice",
+                        "multipleChoiceOptions": [
+                            {
+                            "option": "Income-based Jobseeker’s Allowance",
+                            "modelId": "renewalData.certainBenefits.jobseeker"                  // certainBenefits.jsa
+                            },
+                            {
+                            "option": "Income-related Employment and Support Allowance",
+                            "modelId": "renewalData.certainBenefits.support_allowance"          // certainBenefits.esa
+                            },
+                            {
+                            "option": "Income Support",
+                            "modelId": "renewalData.certainBenefits.incomeSupport"              // certainBenefits.incomeSupport
+                            },
+                            {
+                            "option": "Pension Credit",
+                            "modelId": "renewalData.certainBenefits.pension_credit"             // certainBenefits.pensionCredit
+                            }
+                        ],
+                        "nextQuestionId": "5"
+                        }
+                    },
+
+                  {
+                    "id": "5",
+                    "question": "Do you still get ",
+                    "previousQuestionOption" : "4",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "6",
+                      "noNextQuestionId": "114",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "6",
+                    "question": "Part 2: Other household income - Did you get any of these sources of income between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "7",
+                      "noNextQuestionId": "9",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+
+
+                  {
+                    "id": "7",
+                    "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                    "questionType": {
+                      "type": "MultipleChoiceWithNumber",
+                      "multipleChoiceOptions": [
+                        {
+                          "option": "Savings, investments and dividends",
+                          "modelId": "renewalData.HouseHoldIncome.saving_investment_dividend"
+                        },
+                        {
+                          "option": "Pensions",
+                          "modelId": "renewalData.HouseHoldIncome.pensions"
+                        },
+                        {
+                          "option": "Trusts, settlements or estates",
+                          "modelId": "renewalData.HouseHoldIncome.trusts_settlements_or_estates"
+                        },
+                        {
+                          "option": "Foreign income",
+                          "modelId": "renewalData.HouseHoldIncome.foreign_income"
+                        },
+                        {
+                          "option": "Notional income",
+                          "modelId": "renewalData.HouseHoldIncome.notional_income"
+                        }
+
+                      ],
+                      "nextQuestionId": "8"
+                    }
+                  },
+
+
+                  {
+                    "id": "8",
+                    "question": "Are any of your sources of income amounts estimated?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "9",
+                      "noNextQuestionId": "9",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "9",
+                    "question": "Did you get any income between 6 April 2016 and 5 April 2017 from renting out property?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "10",
+                      "noNextQuestionId": "13",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+
+                  {
+                    "id": "10",
+                    "question": "Did you make a profit from renting out property between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "11",
+                      "noNextQuestionId": "12",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+
+                  {
+                    "id": "11",
+                    "question": "How much profit did you make from renting out property between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "12",
+                      "modelId": "otherBenefits.HouseHoldIncome.profit_from_property"
+                    }
+                  },
+
+                  {
+                    "id": "12",
+                    "question": "Is the profit from renting out property an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "13",
+                      "noNextQuestionId": "4",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+
+
+                  {
+                    "id": "13",
+                    "question": "Report any changes - Check the details in your renewal paper pack for your single claim between 6 April 2016 and 5 April 2017.",
+                    "questionType": {
+                      "type": "MultipleChoice",
+                      "multipleChoiceOptions": [
+                        {
+                          "option": "I have changes to report",
+                          "modelId": "coc.1"
+                        },
+                        {
+                          "option": "There are no changes",
+                          "modelId": "coc.2"
+                        }
+                      ],
+                      "nextQuestionId": "14"
+                    }
+
+                },
+                {
+                    "id": "14",
+                    "question": "Renewal complete",
+                    "questionType": {
+                      "type": "JourneyCompleteAutoRenewal"
+                    }
+                },
+                  {
+                    "id": "114",
+                    "question": "Were you employed as an employee at any time between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "115",
+                      "noNextQuestionId": "118",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "115",
+                    "question": "How much did you earn from all of your jobs as an employee between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "116",
+                      "modelId": "otherBenefits.employee.earn"
+                    }
+                  },
+                  {
+                    "id": "116",
+                    "question": "Did you receive company benefits between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "117",
+                      "noNextQuestionId": "118",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "117",
+                    "question": "How much did you receive in company benefits between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "118",
+                      "modelId": "otherBenefits.employee.company-benefits"
+                    }
+                  },
+                  {
+                    "id": "118",
+                    "question": "Were you self-employed at any time between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "119",
+                      "noNextQuestionId": "118a",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "118a",
+                    "question": "Is your self-employed loss an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "122",
+                      "noNextQuestionId": "122",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+
+                  {
+                    "id": "119",
+                    "question": "Did you make a profit from your self-employment between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "120",
+                      "noNextQuestionId": "118a",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "120",
+                    "question": "How much self-employed profit did you make between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "121",
+                      "modelId": "otherBenefits.employee.self-employment-profit"
+                    }
+                  },
+
+                  {
+                    "id": "121",
+                    "question": "Is your self-employed profit amount an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "122",
+                      "noNextQuestionId": "122",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "122",
+                    "question": "Did you get any of these benefits between 6 April 2016 and 5 April 2017? Bereavement Allowance...add div section",
+
+// TODO...ADD DIV!!!
+
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "123",
+                      "noNextQuestionId": "6",
+//                      "modelId": "otherBenefits.OtherIncome"
+                    }
+                  },
+                  {
+                    "id": "123",
+                    "question": "What benefits did you get between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "MultipleChoiceWithNumber",
+                      "multipleChoiceOptions": [
+                        {
+                          "option": "Bereavement Allowance",
+                          "modelId": "otherBenefits.TODO.Bereavement-Allowance"
+                        },
+                        {
+                          "option": "Carer’s Allowance",
+                          "modelId": "otherBenefits.TODO.Carer’s Allowance"
+                        },
+                        {
+                          "option": "Contribution-based Jobseeker’s Allowance",
+                          "modelId": "otherBenefits.TODO.Contribution-based Jobseeker’s Allowance"
+                        },
+                        {
+                          "option": "Contribution-based Employment and Support Allowance",
+                          "modelId": "otherBenefits.TODO.Contribution-based Employment and Support Allowance"
+                        },
+                        {
+                          "option": "Incapacity Benefit",
+                          "modelId": "otherBenefits.TODO.Incapacity-Benefit"
+                        }
+
+                      ],
+                      "nextQuestionId": "6"
+                    }
+                  }
+                ]
+            };
+
+            return(singleApplicantJourney);
+
+
+///////////////////////////////////////////////////////
+//SINGLE APPLICANT END!
+///////////////////////////////////////////////////////
 
         } else if (nino !== undefined && nino == "CS700100A") {
 
@@ -728,7 +1128,7 @@
                     "questionType": {
                       "type": "Decimal",
                       "nextQuestionId": "12",
-                      // TODO...SORT THIS OUT!!!
+                      // TODO...SORT THIS OUT!!! WHAT IS THIS?
                       "allowEstimate": true,
                       "modelId": "otherIncome.selfEmployedProfit",
                       "estimateModelId": "otherIncome.isSelfEmployedProfitEst"
@@ -988,7 +1388,8 @@
         };
 
         var response = JSON.stringify(payload);
-        // TODO...debug function. Output the callback response in order for ticket to be tested by QA.
+
+        // TODO...debug function.
         var span = document.getElementById("dumpText"),
         text = document.createTextNode(response);
         span.innerHTML = ''; // clear existing
@@ -1021,10 +1422,9 @@
 
 <h1>Tax-Credit-Renewal JavaScript Application</h1>
 
-
 <!-- MultipleChoice -->
 <div id="MultipleChoice" style="display: none;">
-    <div id="dynamicHeaderMultipleChoice"></div>
+    <div id="dynamicHeader-MultipleChoice"></div>
     <b><p id="headerMultipleChoice"></p></b>
     <div>
         <div id="containerDiv"></div>
@@ -1033,7 +1433,7 @@
     <input type="button" value="NEXT" id="MultipleChoiceNEXT" onClick="javascript:NEXT()">
 </div>
 
-
+<!-- Associated set of input types for containerDiv. -->
 <div style="display: none;">
     <div id="row_ID_checkbox">
         <label id="row_label_checkbox_ID"></label>
@@ -1055,11 +1455,22 @@
 
 <!-- Boolean -->
 <div id="Boolean" style="display: none;">
-    <p id="headerBoolean"></p>
+    <div id="headerBoolean"></div>
     <input type="button" value="BACK" onClick="javascript:BACK()">
     <input type="button" value="YES" onClick="javascript:YES()">
     <input type="button" value="NO" onClick="javascript:NO()">
 </div>
+
+
+<!-- Continue -->
+<div id="Continue" style="display: none;">
+    <div id="dynamicHeader-Continue"></div>
+
+    <b><p id="headerContinue"></p></b>
+    <input type="button" value="COME BACK LATER" onClick="javascript:BACK()">
+    <input type="button" value="YES" onClick="javascript:NEXT_CONTINUE()">
+</div>
+
 
 <!-- Decimal Input -->
 <div id="Decimal" style="display: none;">
@@ -1081,6 +1492,7 @@
 <!-- Dynamic header DIV's -->
 <div style="display: none;">
 
+
     <div id="auto-renewal-header">
 
         <!-- CSS DEV: Please see example layout https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/auto-joint/do_you_want_to_renew_now -->
@@ -1091,6 +1503,54 @@
         <br>
         <br>
     </div>
+
+    <div id="benefits-and-income-intro">
+        <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+        <h2>Completing your review</h2>
+        <h3>Your information will be saved as you progress.
+            If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.</h3>
+        <br>
+        <span>This review is divided into 3 parts.</span>
+        <br>
+        <b><span>Part 1</span></b>
+        <span>Your benefits and income</span>
+        <b><span>Part 2</span></b>
+        <span>Other household income, such as income from property</span>
+        <b><span>Part 3</span></b>
+        <span>Report any changes to circumstances</span>
+        <br>
+    </div>
+
+
+    <div id="part-1-your-benefits-and-income">
+
+        <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+        <h2>Part 1: Your benefits and income</h2>
+        <br>
+        <span>benefits you claimed</span>
+        <span>income from your employment and self-employment</span>
+        <br>
+        <span>You may need:</span>
+
+        <br>
+        <div><b><span>Your benefit letters</span></b></div>
+        <div><span>Showing the amounts you received</span></div>
+
+        <div><b><span>Your P60</span></b></div>
+        <div><span>For your total earnings, which may include things like private pensions or Statutory Maternity Pay</span></div>
+
+        <div><b><span>Your P11D or P9D</span></b></div>
+        <div><span>For company benefits you got. Also known as ‘benefits in kind’</span></div>
+
+        <div><b><span>Your P45</span></b></div>
+        <div><span>For any job you had that ended</span></div>
+
+        <div><b><span>Your Self Assessment returns</span></b></div>
+        <div><span>For your self-employment income</span></div>
+        <br>
+    </div>
+
+
 </div>
 
 

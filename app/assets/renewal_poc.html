@@ -552,7 +552,8 @@ h1.hidden {
         for (i = 0; i < arguments.length; i++) {
             var value = map.get(arguments[i]);
             if (value !== undefined) {
-                total = total + parseFloat(value).toFixed(2)
+                // Round down the value.
+                total = total + Math.floor(parseFloat(value));
             }
         }
         return(total);
@@ -569,16 +570,16 @@ h1.hidden {
 
 // TODO HARDWIRED TO ONLY BUILD SINGLE APPLICANT!
 
+
         // Build the household income.
         var otherHouseholdIncome = buildTotal("renewalData.HouseHoldIncome.saving_investment_dividend",
             "renewalData.HouseHoldIncome.pensions", "renewalData.HouseHoldIncome.trusts_settlements_or_estates",
             "renewalData.HouseHoldIncome.foreign_income", "renewalData.HouseHoldIncome.notional_income",
             "renewalData.HouseHoldIncome.profit_from_property");
 
-
         var taxableBenefits = buildTotal("renewalData.taxableBenefits.Bereavement-Allowance",
-            "renewalData.taxableBenefits.Carer’s Allowance",
-            "renewalData.taxableBenefits.Contribution-based Jobseeker’s Allowance",
+            "renewalData.taxableBenefits.Carer Allowance",
+            "renewalData.taxableBenefits.Contribution-based Jobseeker Allowance",
             "renewalData.taxableBenefits.Contribution-based Employment and Support Allowance",
             "renewalData.taxableBenefits.Incapacity-Benefit");
 
@@ -1037,12 +1038,12 @@ h1.hidden {
                           "modelId": "renewalData.taxableBenefits.Bereavement-Allowance"
                         },
                         {
-                          "option": "Carer’s Allowance",
-                          "modelId": "renewalData.taxableBenefits.Carer’s Allowance"
+                          "option": "Carer Allowance",
+                          "modelId": "renewalData.taxableBenefits.Carer Allowance"
                         },
                         {
-                          "option": "Contribution-based Jobseeker’s Allowance",
-                          "modelId": "renewalData.taxableBenefits.Contribution-based Jobseeker’s Allowance"
+                          "option": "Contribution-based Jobseeker Allowance",
+                          "modelId": "renewalData.taxableBenefits.Contribution-based Jobseeker Allowance"
                         },
                         {
                           "option": "Contribution-based Employment and Support Allowance",

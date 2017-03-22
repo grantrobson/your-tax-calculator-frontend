@@ -2,7 +2,7 @@
 * @Author: Mark Ford
 * @Date:   2017-03-21 10:07:51
 * @Last Modified by:   Mark Ford
-* @Last Modified time: 2017-03-21 16:40:08
+* @Last Modified time: 2017-03-22 12:15:09
 */
 @mixin font-size($sizeValue: 1.6) {
   font-size: ($sizeValue * 10) + px;
@@ -70,10 +70,43 @@ body {
   	input[type="button"].secondary{
   		@include button($button-bg-secondary, $button-text-secondary)
   	}
+  	#containerDiv > div{
+  		
+  		input[type="checkbox"]{
 
-  	#containerDiv{
-  		h3.question{
-  			//font-weight: bold
   		}
   	}
+	ul{
+		padding-left: 30px;
+		margin: 8px 0 16px;
+		li{
+			display: list-item;
+			list-style: disc outside;
+			h4{
+				font-weight: bold;
+			}
+		}
+	}
+
   }
+
+// Show / Hide input after checkbox
+input ~ .showIfChecked{
+	display: none;
+}
+input:checked ~ .showIfChecked{
+	display:block;
+	width: 100%;
+}
+
+  /*
+	POC Stuff
+  */
+      p.one {
+    border-style: solid;
+    border-width: 5px;
+    }
+
+    h1.hidden {
+    visibility: hidden;
+    }

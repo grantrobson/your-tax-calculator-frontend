@@ -2,17 +2,7 @@
 
 <head>
     <title>JavaScript TCR POC</title>
-
-<style>
-    p.one {
-    border-style: solid;
-    border-width: 5px;
-    }
-
-    h1.hidden {
-    visibility: hidden;
-    }
-</style>
+    <meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
 
 
 <script type="text/javascript">
@@ -71,7 +61,6 @@
             // Set text label.
             var label = document.getElementById("row_label_"+selectionType+"_ID_"+i);
             label.innerHTML = questionData.questionType.multipleChoiceOptions[i].option;
-            label.setAttribute("for", "row_"+selectionType+"_ID_"+i);
             // Check if the button (checkbox or radio) was previously selected.
             if (map.get(questionData.questionType.multipleChoiceOptions[i].modelId) == "true") {
                 radioButton.setAttribute("checked","checked");
@@ -84,20 +73,19 @@
             // update the controls based on type.
             if (selectionType == 'radio') {
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
-                radioButton.setAttribute("onClick", "toggleRadioButton(\""+questionData.questionType.multipleChoiceOptions[i].modelId+"\")");
+                radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId);
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
             } else if (selectionType == "checkbox") {
 
                 // Set the id of the number input field.
                 var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
-                input.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
-                input.setAttribute("name", "row_"+selectionType+"_ID_"+i);
-
+                radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
                 if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId)) {
                     input.setAttribute("value", map.get(questionData.questionType.multipleChoiceOptions[i].modelId));
-                    input.setAttribute("name", "row_"+selectionType+"_ID_"+i);
                 }
-                // Override onClick.
-                radioButton.setAttribute("onClick", "toggleCheckboxButton(\""+questionData.questionType.multipleChoiceOptions[i].modelId+"_INPUT\",\""+i+"\")");
+                
             }
         }
 
@@ -224,16 +212,7 @@
         }
     }
 
-    // Show/Hide the associated number input control.
-    function toggleCheckboxButton(ida, row) {
-        var inputField = document.getElementById("row_checkbox_ID_"+row);
-        var row = "number_entry_hidden_"+row;
-        if (inputField.checked == true) {
-            show(row);
-        } else {
-            hide(row);
-        }
-    }
+
 
     // TODO..validation and error handling!
     function MultipleChoiceNEXT() {
@@ -244,9 +223,10 @@
         // Cycle around associated checkbox input fields and check if ticked.
         for (var i = 0; i < arrayLength; i++) {
             // Obtain handle to checkbox.
-            var inputField = document.getElementById("row_checkbox_ID_"+i);
+            var inputField = document.getElementById(questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
             if (inputField.checked == true) {
-                var element = document.getElementById(questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT")
+                var element = document.getElementById("row_number_checkbox_ID_"+i)
+                console.log(element)
                 // Obtain the input value for the associated field and update map.
                 var input = element.value;
 
@@ -1491,7 +1471,7 @@
             <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
             
 
-            <div id="number_entry_hidden" style="display: none;">
+            <div id="number_entry_hidden" class="showIfChecked">
                 <input type="number" id="row_number_checkbox_ID" value="">
             </div>
         </div>
@@ -1561,18 +1541,19 @@
         <div id="benefits-and-income-intro">
             <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
             <h2>Completing your review</h2>
-            <h3>Your information will be saved as you progress.
-                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.</h3>
-            <br>
-            <span>This review is divided into 3 parts.</span>
-            <br>
-            <b><span>Part 1</span></b>
-            <span>Your benefits and income</span>
-            <b><span>Part 2</span></b>
-            <span>Other household income, such as income from property</span>
-            <b><span>Part 3</span></b>
-            <span>Report any changes to circumstances</span>
-            <br>
+            <p>Your information will be saved as you progress.
+                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
+            </p>
+            <p>This review is divided into 3 parts.</p>
+            <ul>
+                <li><h4>Part 1</h4>
+                Your benefits and income
+                </li>
+                <li><h4>Part 2</h4>
+                Other household income, such as income from property</li>
+                <li><h4>Part 3</h4>
+                Report any changes to circumstances</li>
+            </ul>
         </div>
 
 

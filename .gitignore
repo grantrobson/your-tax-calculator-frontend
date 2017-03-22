@@ -34,5 +34,7 @@ tmp
 .idea_modules
 bin
 app/assets/config.codekit3
+app/assets/renewal_poc.html.kit
+app/assets/renewal_poc.html.html
 
 **/javascripts/**/paye-estimator.js

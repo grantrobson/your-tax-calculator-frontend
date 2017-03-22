@@ -2,7 +2,7 @@
 * @Author: Mark Ford
 * @Date:   2017-03-21 10:07:51
 * @Last Modified by:   Mark Ford
-* @Last Modified time: 2017-03-22 12:15:09
+* @Last Modified time: 2017-03-22 13:47:11
 */
 @mixin font-size($sizeValue: 1.6) {
   font-size: ($sizeValue * 10) + px;
@@ -92,11 +92,20 @@ body {
 
 // Show / Hide input after checkbox
 input ~ .showIfChecked{
-	display: none;
+	
+  	input{
+  		height: 0;
+  		opacity: 0;
+  	}
 }
 input:checked ~ .showIfChecked{
-	display:block;
-	width: 100%;
+	height:auto;
+	input{
+		height:auto;
+		opacity: 1;
+		border: 1px solid;
+		transition: opacity 1s linear;
+	}
 }
 
   /*

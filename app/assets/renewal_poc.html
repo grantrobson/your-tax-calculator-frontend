@@ -118,9 +118,6 @@ input:checked ~ .showIfChecked {
     border: 1px solid;
     transition: opacity 1s linear; }
 
-/*
-    POC Stuff
-  */
 p.one {
   border-style: solid;
   border-width: 5px; }
@@ -198,7 +195,7 @@ h1.hidden {
             // update the controls based on type.
             if (selectionType == 'radio') {
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
-                radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId);
+                radioButton.setAttribute("name", "radio");  // TODO...if multiple radio buttons can be selected? If yes then drop name.
                 label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
             } else if (selectionType == "checkbox") {
 
@@ -275,7 +272,7 @@ h1.hidden {
     function resume(model) {
         hide("demo");
         map = new Map();
-        questionPos = START_QUESTION;
+        questionPos = START_QUESTION;   // TODO...OBTAIN THE LAST QUESTION FROM THE RENEWAL TYPE RECORDED!
         var tokens = model.split(",");
         tokens.forEach(token => {
          var data = token.split(":");
@@ -337,8 +334,6 @@ h1.hidden {
         }
     }
 
-
-
     // TODO..validation and error handling!
     function MultipleChoiceNEXT() {
 
@@ -392,8 +387,10 @@ h1.hidden {
             var inputField = document.getElementById(question.questionType.multipleChoiceOptions[i].modelId).checked;
             // Check if the control is checked.
             if (inputField == true) {
+                map.set(question.questionType.multipleChoiceOptions[i].modelId, "true");
                 enableNext = true;
-                break;
+            } else {
+                map.set(question.questionType.multipleChoiceOptions[i].modelId, "false");
             }
         }
 
@@ -413,28 +410,39 @@ h1.hidden {
         displayQuestion();
     }
 
-    function YES() {
-        stack.push(questionPos);
+    function NEXT_BOOLEAN_CONTINUE() {
         var question = getFromId(questionPos);
+        if (document.getElementById('boolean_no').checked == true || document.getElementById('boolean_yes').checked == true) {
+            stack.push(questionPos);
+        }
 
+        var route=false;
+        if (document.getElementById('boolean_no').checked == true) {
+            questionPos = question.questionType.noNextQuestionId;
+            route=true;
+        } else if (document.getElementById('boolean_yes').checked == true) {
+            questionPos = question.questionType.yesNextQuestionId;
+            route=true;
+        } else alert('Please select one of the options.');
+
+        if (route) {
+            displayQuestion();
+        }
+    }
+
+    function YES() {
+        var question = getFromId(questionPos);
         if (question.questionType.modelId !== "undefined") {
             map.set(question.questionType.modelId, "true");
         }
-
-        questionPos =  question.questionType.yesNextQuestionId;
-        displayQuestion();
     }
 
     function NO() {
-        stack.push(questionPos);
         var question = getFromId(questionPos);
 
         if (question.questionType.modelId !== "undefined") {
             map.set(question.questionType.modelId, "false");
         }
-
-        questionPos =  question.questionType.noNextQuestionId;
-        displayQuestion();
     }
 
     function startDemo() {
@@ -476,7 +484,7 @@ h1.hidden {
     function displayQuestion() {
         var question = getFromId(questionPos);
 
-        // TODO: Move to debug function
+// TODO: Move to debug function
         var trace = "Question:"+questionPos+"-"+question.questionType.type
         var span = document.getElementById("QuestionId");
         var text = document.createTextNode(trace);
@@ -499,6 +507,18 @@ h1.hidden {
             insertDynamicHeader(question, "dynamicHeader-Continue");
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
+
+            //  Default the value.
+            if (question.questionType.modelId !== "undefined") {
+                var checked = map.get(question.questionType.modelId);
+                if (checked !== undefined) {
+                    document.getElementById(checked == "false" ? 'boolean_no' : 'boolean_yes').checked = checked;
+                } else {
+                 document.getElementById('boolean_no').checked = false;
+                 document.getElementById('boolean_yes').checked = false;
+                }
+            } else alert(' BOOLEAN MODEL FIELD MISSING!');  // todo...add error handling function!
+
         } else if (question.questionType.type == "MultipleChoice") {
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("radio");
@@ -513,8 +533,7 @@ h1.hidden {
             if (decimalStore === undefined) {
                 // Clear any previous entry in the field.
                 document.getElementById('DecimalInput').value = ""
-            }
-            else if (decimalStore != "") {
+            } else if (decimalStore != "") {
                 document.getElementById('DecimalInput').value = decimalStore;
             }
 
@@ -552,7 +571,8 @@ h1.hidden {
         for (i = 0; i < arguments.length; i++) {
             var value = map.get(arguments[i]);
             if (value !== undefined) {
-                total = total + parseFloat(value).toFixed(2)
+                // Round down the value.
+                total = total + Math.floor(parseFloat(value));
             }
         }
         return(total);
@@ -565,9 +585,11 @@ h1.hidden {
         var taxableBenefits = 0;
         var nino = map.get("nino");
 
-        // NOTE: The question answers can only be used once.
+// NOTE: The question answers can only be used once.
 
 // TODO HARDWIRED TO ONLY BUILD SINGLE APPLICANT!
+// TODO...do not set attributes where values have not been defined.
+
 
         // Build the household income.
         var otherHouseholdIncome = buildTotal("renewalData.HouseHoldIncome.saving_investment_dividend",
@@ -575,10 +597,9 @@ h1.hidden {
             "renewalData.HouseHoldIncome.foreign_income", "renewalData.HouseHoldIncome.notional_income",
             "renewalData.HouseHoldIncome.profit_from_property");
 
-
         var taxableBenefits = buildTotal("renewalData.taxableBenefits.Bereavement-Allowance",
-            "renewalData.taxableBenefits.Carer’s Allowance",
-            "renewalData.taxableBenefits.Contribution-based Jobseeker’s Allowance",
+            "renewalData.taxableBenefits.Carer Allowance",
+            "renewalData.taxableBenefits.Contribution-based Jobseeker Allowance",
             "renewalData.taxableBenefits.Contribution-based Employment and Support Allowance",
             "renewalData.taxableBenefits.Incapacity-Benefit");
 
@@ -616,14 +637,13 @@ h1.hidden {
             "otherHouseholdIncome": otherHouseholdIncome,
             "isOtherHouseholdIncomeEst": getMapBooleanValue("renewalData.income.estimated")
           },
-          "hasChangeOfCircs": false     // TODO: HARDWIRED TO FALSE
+          "hasChangeOfCircs": false     // TODO: HARDWIRED TO FALSE - TODO...PICK UP FROM MODEL!!! HOW TO KNOW IF COC WAS MADE!?
         }
         return(JSON.stringify(submission));
     }
 
     function startup(renewalType, hasPartner, nino, endDate, startDate) {
         // Initialise globals.
-        questionPos = START_QUESTION;
         stack = [];
 
         // Add all parameters to map.
@@ -632,6 +652,11 @@ h1.hidden {
         map.set("nino", nino);
         map.set("endDate", endDate);
         map.set("startDate", startDate);
+
+
+        // Start question stored within journey.
+        var journey = data();
+        questionPos = journey.startQuestion;
 
         displayQuestion();
     }
@@ -648,69 +673,253 @@ h1.hidden {
         }
     }
 
+</script>
+
+    <script type="text/javascript">
+
+   function hide(id) {
+       var e = document.getElementById(id);
+        e.style.display = 'none';
+   }
+
+   function show(id) {
+       var e = document.getElementById(id);
+            e.style.display = 'block';
+   }
+
+</script>
+
+<script>
+
+    function hook(journeyOutcomeStatus) {
+        // TODO...Hardwired OS functions.
+
+        var nino = map.get("nino");
+        var isEstimatedIncome = false;
+        if (nino == "CS700100A") {
+            isEstimatedIncome = true;
+        }
+
+        var payload = {
+            "journeyOutcomeStatus":journeyOutcomeStatus,
+            "isEstimatedIncome":isEstimatedIncome
+            };
+
+        var response = JSON.stringify(payload);
+
+        // TODO...debug function.
+        var span = document.getElementById("dumpText"),
+        text = document.createTextNode(response);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+
+
+        // TODO...extend to supply a JSON object and not individual params.
+        // IOS callback.
+        try {
+            window.webkit.messageHandlers.iosmessagehandler.postMessage(response);
+        } catch(err) {}
+
+        // Windows callback.
+        try {
+            window.external.notify(response);
+        } catch(err) {}
+
+        // Android callback.
+        try {
+            Android.hook(response);
+        } catch(err) {}
+    }
+
+</script>
+
+</head>
+
+<body>
+<header>
+    <h1>Tax-Credit Renewal</h1>
+</header>
+<main>
+
+    <!-- MultipleChoice -->
+    <div id="MultipleChoice" style="display: none;">
+        <div id="dynamicHeader-MultipleChoice"></div>
+        <h3 id="headerMultipleChoice" class="question"></h3>
+        <div>
+            <div id="containerDiv"></div>
+        </div>
+        <input type="button" value="Next" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="secondary">
+    </div>
+
+    <!-- Associated set of input types for containerDiv. -->
+    <div style="display: none;">
+        <div id="row_ID_checkbox">
+            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID">
+            <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
+            
+
+            <div id="number_entry_hidden" class="showIfChecked">
+                <input type="number" id="row_number_checkbox_ID" value="">
+            </div>
+        </div>
+
+
+        <div id="row_ID_radio">
+            <input type="checkbox" id="row_radio_ID" name="row_radio_ID">
+            <label id="row_label_radio_ID" for="row_radio_ID"></label>
+        </div>
+    </div>
+
+    <!-- Boolean -->
+    <div id="Boolean" style="display: none;">
+        <h3 id="headerBoolean"></h3>
+        <label>Yes</label>
+        <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()">
+        <label>No</label>
+        <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()">
+        <input type="button" value="Next" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="secondary">
+    </div>
+
+    <!-- Continue -->
+    <div id="Continue" style="display: none;">
+        <div id="dynamicHeader-Continue"></div>
+
+        <h3 id="headerContinue"></h3>
+        <input type="button" value="Yes" onClick="javascript:NEXT_CONTINUE()" class="primary">
+        <input type="button" value="Come back later" onClick="javascript:BACK()" class="secondary">
+    </div>
+
+
+    <!-- Decimal Input -->
+    <div id="Decimal" style="display: none;">
+        <h3 id="headerDecimal"></h3>
+        <input type="number" id="DecimalInput">
+        <br>
+
+        <!-- Only displayed if model defines modelIdEstimatedIncome attribute. -->
+        <div id="estimatedIncomeDiv" style="display: none;">
+            <input type="checkbox" id="estimatedIncomeValue" name="estimatedIncomeValue" onClick="javascript:setEstimatedIncomeValue()">
+            <label for="estimatedIncomeValue">Estimated Income</label>
+            
+        </div>
+
+        <input type="button" value="Next" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="secondary">
+
+
+    </div>
+
+    <!-- Dynamic header DIV's -->
+    <div style="display: none;">
+
+
+        <div id="auto-renewal-header">
+
+            <!-- CSS DEV: Please see example layout https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/auto-joint/do_you_want_to_renew_now -->
+            <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
+            <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
+            <br>
+            <span>Your renewal pack should arrive by 30 June 2016. </span>
+            <br>
+            <br>
+        </div>
+
+        <div id="benefits-and-income-intro">
+            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+            <h2>Completing your review</h2>
+            <p>Your information will be saved as you progress.
+                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
+            </p>
+            <p>This review is divided into 3 parts.</p>
+            <ul>
+                <li><h4>Part 1</h4>
+                Your benefits and income
+                </li>
+                <li><h4>Part 2</h4>
+                Other household income, such as income from property</li>
+                <li><h4>Part 3</h4>
+                Report any changes to circumstances</li>
+            </ul>
+        </div>
+
+
+        <div id="part-1-your-benefits-and-income">
+
+            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+            <h2>Part 1: Your benefits and income</h2>
+            <br>
+            <span>benefits you claimed</span>
+            <span>income from your employment and self-employment</span>
+            <br>
+            <span>You may need:</span>
+
+            <br>
+            <div><b><span>Your benefit letters</span></b></div>
+            <div><span>Showing the amounts you received</span></div>
+
+            <div><b><span>Your P60</span></b></div>
+            <div><span>For your total earnings, which may include things like private pensions or Statutory Maternity Pay</span></div>
+
+            <div><b><span>Your P11D or P9D</span></b></div>
+            <div><span>For company benefits you got. Also known as ‘benefits in kind’</span></div>
+
+            <div><b><span>Your P45</span></b></div>
+            <div><span>For any job you had that ended</span></div>
+
+            <div><b><span>Your Self Assessment returns</span></b></div>
+            <div><span>For your self-employment income</span></div>
+            <br>
+        </div>
+
+
+    </div>
+
+
+    <div id="demo">
+        <input type="button" value="Enter app" onClick="javascript:startDemo()">
+    </div>
+
+    <br>
+    <br>
+
+
+    <p class="one">Debug</p>
+    <br>
+    <div id="Current question">
+        <b><span>Question Details</span></b>
+        <br>
+        <span id="QuestionId"></span>
+    </div>
+    <br>
+
+
+    <input type="button" value="Initialise model" onClick="javascript:resume('nino:CS123456B,renewalData.certainBenefits.incomeSupport:true,otherIncome.otherHouseholdIncome:1234.54')">
+    <input type="button" value="Extract Model" onClick="javascript:getModelData()">
+    <input type="button" value="API" onClick="javascript:extractAPI()">
+
+    <div id="dumpDiv">
+        <b><span>Debug</span></b>
+        <br><br>
+        <span id="dumpText"></span>
+    </div>
+</main>
+</body>
+
+<script>
+
     // Resolve associated questions for renewal flow.
     function data() {
 
         var nino = map.get("nino");
         var renewalType = map.get("renewalType");
 
-        // Auto renewal question.
-        if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
-
-////////////////////////////////////////////////////////////////////////////////
-// AUTO RENEWAL
-////////////////////////////////////////////////////////////////////////////////
+// TODO...LINK THE START QUESTIONPOS TO THE RENEWAL TYPE! THE OBJECT ASSOCIATED WITH THE RENEWAL CONTAINS THE START QUESTION POSITION. !
 
 
-            var autoRenewalJourney = {
-                "formType":"AutoRenewal",
-
-                "CreationData":"12/12/2017:10:13",
-
-                "questions": [
-                        {
-                            "id": "1",
-                            "question": "Do you need to report any changes to the details shown?",
-                            "questionType": {
-                              "type": "MultipleChoice",
-                              "headerDiv": "auto-renewal-header",
-                              "multipleChoiceOptions": [
-                                {
-                                  "option": "Yes",
-                                  "modelId": "auto-renewal-yes"
-                                },
-                                {
-                                  "option": "No",
-                                  "modelId": "auto-renewal-no"
-                                }
-                              ],
-                              "nextQuestionId": "2"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "question": "Renewal complete",
-                            "questionType": {
-                              "type": "JourneyCompleteAutoRenewal"
-                            }
-                        }
-                    ]
-                };
-
-            return(autoRenewalJourney);
-
-        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_APPLICANT) {
-
-////////////////////////////////////////////////////////////////////////////////
-// SINGLE APPLICANT!!!
-////////////////////////////////////////////////////////////////////////////////
-
-        var singleApplicantJourney = {
-            "formType":"SingleApplicant",
-
-            "CreationData":"12/12/2017:10:13",
-
-            "questions": [
+// NEW
+var singleApplicant = [
                     {
                         "id": "1",
                         "question": "",
@@ -778,7 +987,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "6",
                       "noNextQuestionId": "114",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "otherBenefits.OtherIncome.5"
                     }
                   },
                   {
@@ -788,7 +997,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "7",
                       "noNextQuestionId": "9",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "otherBenefits.OtherIncome.6"
                     }
                   },
 
@@ -834,7 +1043,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "9",
                       "noNextQuestionId": "9",
-//                      "modelId": "renewalData.income.estimated"
+                      "modelId": "renewalData.income.estimated.8"
                     }
                   },
                   {
@@ -844,7 +1053,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "10",
                       "noNextQuestionId": "13",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "otherBenefits.income.9"
                     }
                   },
 
@@ -855,7 +1064,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "11",
                       "noNextQuestionId": "12",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "otherBenefits.HouseHoldIncome.10"
                     }
                   },
 
@@ -879,7 +1088,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "13",
                       "noNextQuestionId": "4",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "otherBenefits.HouseHoldIncome.12"
                     }
                   },
 
@@ -918,7 +1127,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "115",
                       "noNextQuestionId": "118",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "otherBenefits.employed.114"
                     }
                   },
 
@@ -940,7 +1149,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "117",
                       "noNextQuestionId": "118",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "renewalData.company-benefits.116"
                     }
                   },
 
@@ -962,7 +1171,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "119",
                       "noNextQuestionId": "122",
-//                      "modelId": "otherBenefits.OtherIncome"      // TODO...RESET/CLEAR renewalData.employee.self-employment-profit
+                      "modelId": "renewalData.self-employed.118"      // TODO...RESET/CLEAR renewalData.employee.self-employment-profit
                     }
                   },
 
@@ -973,7 +1182,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "120",
                       "noNextQuestionId": "119a",
-//                      "modelId": "otherBenefits.OtherIncome"          // NO, then set renewalData.employee.self-employment-profit to 0
+                      "modelId": "renewalData.profit.119"          // NO, then set renewalData.employee.self-employment-profit to 0
                     }
                   },
                   {
@@ -983,7 +1192,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "122",
                       "noNextQuestionId": "122",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "renewalData.self-employed-estimate.119a"
                     }
                   },
 
@@ -1021,7 +1230,7 @@ h1.hidden {
                       "type": "Boolean",
                       "yesNextQuestionId": "123",
                       "noNextQuestionId": "6",
-//                      "modelId": "otherBenefits.OtherIncome"
+                      "modelId": "renewalData.benefits.122"
                     }
                   },
 
@@ -1037,12 +1246,12 @@ h1.hidden {
                           "modelId": "renewalData.taxableBenefits.Bereavement-Allowance"
                         },
                         {
-                          "option": "Carer’s Allowance",
-                          "modelId": "renewalData.taxableBenefits.Carer’s Allowance"
+                          "option": "Carer Allowance",
+                          "modelId": "renewalData.taxableBenefits.Carer Allowance"
                         },
                         {
-                          "option": "Contribution-based Jobseeker’s Allowance",
-                          "modelId": "renewalData.taxableBenefits.Contribution-based Jobseeker’s Allowance"
+                          "option": "Contribution-based Jobseeker Allowance",
+                          "modelId": "renewalData.taxableBenefits.Contribution-based Jobseeker Allowance"
                         },
                         {
                           "option": "Contribution-based Employment and Support Allowance",
@@ -1056,9 +1265,75 @@ h1.hidden {
                       "nextQuestionId": "6"
                     }
                   }
-                ]
+                ];
+
+// NEW
+
+
+
+
+        // Auto renewal question.
+        if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
+
+////////////////////////////////////////////////////////////////////////////////
+// AUTO RENEWAL
+////////////////////////////////////////////////////////////////////////////////
+
+            var autoRenewalJourney = {
+                "formType":"AutoRenewal",
+
+                "startQuestion":"a1",
+
+                "CreationData":"12/12/2017:10:13",
+
+<!-- TODO...ROUTE TO SINGLE APPLICANT IF YES IS SELECTED --- DEFINE THE ARRAY!!! -->
+
+                "questions": [
+                        {
+                            "id": "a1",
+                            "question": "Do you need to report any changes to the details shown?",
+                            "questionType": {
+                              "type": "Boolean",
+                              "yesNextQuestionId": "1",
+                              "noNextQuestionId": "a2",
+                              "modelId": "renewalData.auto-renewal"
+                            }
+                        },
+                        {
+                            "id": "a2",
+                            "question": "Renewal complete",
+                            "questionType": {
+                              "type": "JourneyCompleteAutoRenewal"
+                            }
+                        }
+                    ]
+                };
+
+            // TODO...cleanup. move to common builder function.
+            singleApplicant.forEach((question) => {
+                autoRenewalJourney.questions.push(question);
+            });
+            return(autoRenewalJourney);
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_APPLICANT) {
+
+////////////////////////////////////////////////////////////////////////////////
+// SINGLE APPLICANT!!!
+////////////////////////////////////////////////////////////////////////////////
+
+// TODO...SPLIT THE QUESTIONS INTO BLOCKS!!!?
+
+
+        var singleApplicantJourney = {
+            "formType":"SingleApplicant",
+            "startQuestion":"1",
+
+            "CreationData":"12/12/2017:10:13",
+
+            "questions": []
             };
 
+            singleApplicantJourney.questions = singleApplicant;
             return(singleApplicantJourney);
 
 
@@ -1070,50 +1345,20 @@ h1.hidden {
 
             var journey1 = {
                 "formType":"JointApplicant",
+                "startQuestion":"1",
 
                 "CreationData":"12/12/2017:10:13",
 
-                "questions": [
-                      {
-                        "id": "1",
-                        "question": "Did you get any of these benefits at the time between 6 April 2014 to 5 April 2015 ? \n\r - Income Support \n\r - Income - based Jobseeker's Allowance",
-                        "questionType": {
-                          "type": "Boolean",
-                          "yesNextQuestionId": "2",
-                          "noNextQuestionId": "3a",
-                          "modelId": "renewalData.certainBenefits.receivedBenefits"
-                        }
-                      },
-                      {
-                        "id": "2",
-                        "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
-                        "questionType": {
-                          "type": "MultipleChoice",
-                          "multipleChoiceOptions": [
-                            {
-                              "option": "Income Support",
-                              "modelId": "renewalData.certainBenefits.incomeSupport"
-                            },
-                            {
-                              "option": "Income-based Jobseeker's Allowance",
-                              "modelId": "renewalData.certainBenefits.jsa"
-                            }
-                          ],
-                          "nextQuestionId": "3a"
-                        }
-                      },
-                      {
-                        "id": "3a",
-                        "question": "Journey Complete",
-                        "questionType": {
-                          "type": "JourneyComplete"
-                        }
-                      }
-                    ]
+                "questions": []
                 };
+
+                // TODO...
+                journey1.question = singleApplicant;
+
             return(journey1);
         } else {
-            // Test questions for CSS developer to run through all question types.
+
+            // Additional test questions.
 
             var myObj = {
             "formType":"JointApplicant",
@@ -1509,238 +1754,8 @@ h1.hidden {
         return(myObj);
 
     }
-</script>
-
-    <script type="text/javascript">
-
-   function hide(id) {
-       var e = document.getElementById(id);
-        e.style.display = 'none';
-   }
-
-   function show(id) {
-       var e = document.getElementById(id);
-            e.style.display = 'block';
-   }
 
 </script>
 
-<script>
 
-    function hook(journeyOutcomeStatus) {
-        // TODO...Hardwired OS functions.
-
-        var nino = map.get("nino");
-        var isEstimatedIncome = false;
-        if (nino == "CS700100A") {
-            isEstimatedIncome = true;
-        }
-
-        var payload = {
-            "journeyOutcomeStatus":journeyOutcomeStatus,
-            "isEstimatedIncome":isEstimatedIncome
-        };
-
-        var response = JSON.stringify(payload);
-
-        // TODO...debug function.
-        var span = document.getElementById("dumpText"),
-        text = document.createTextNode(response);
-        span.innerHTML = ''; // clear existing
-        span.appendChild(text);
-
-
-        // TODO...extend to supply a JSON object and not individual params.
-        // IOS callback.
-        try {
-            window.webkit.messageHandlers.iosmessagehandler.postMessage(response);
-        } catch(err) {}
-
-        // Windows callback.
-        try {
-            window.external.notify(response);
-        } catch(err) {}
-
-        // Android callback.
-        try {
-            Android.hook(response);
-        } catch(err) {}
-    }
-
-</script>
-<!--
-<link rel="stylesheet" href="styles/styles.css">
--->
-</head>
-
-<body>
-<header>
-    <h1>Tax-Credit-Renewal JavaScript Application</h1>
-</header>
-<main>
-    <!-- MultipleChoice -->
-    <div id="MultipleChoice" style="display: none;">
-        <div id="dynamicHeader-MultipleChoice"></div>
-        <h3 id="headerMultipleChoice" class="question"></h3>
-        <div>
-            <div id="containerDiv"></div>
-        </div>
-        <input type="button" value="NEXT" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
-        <input type="button" value="BACK" onClick="javascript:BACK()" class="secondary">
-    </div>
-
-    <!-- Associated set of input types for containerDiv. -->
-    <div style="display: none;">
-        <div id="row_ID_checkbox">
-            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID">
-            <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
-            
-
-            <div id="number_entry_hidden" class="showIfChecked">
-                <input type="number" id="row_number_checkbox_ID" value="">
-            </div>
-        </div>
-
-
-        <div id="row_ID_radio">
-            <input type="checkbox" id="row_radio_ID" name="row_radio_ID">
-            <label id="row_label_radio_ID" for="row_radio_ID"></label>
-
-            <!-- TODO -->
-            
-        </div>
-    </div>
-
-    <!-- Boolean -->
-    <div id="Boolean" style="display: none;">
-        <h3 id="headerBoolean"></h3>
-        <input type="button" value="BACK" onClick="javascript:BACK()">
-        <input type="button" value="YES" onClick="javascript:YES()">
-        <input type="button" value="NO" onClick="javascript:NO()">
-    </div>
-
-
-    <!-- Continue -->
-    <div id="Continue" style="display: none;">
-        <div id="dynamicHeader-Continue"></div>
-
-        <h3 id="headerContinue"></h3>
-        <input type="button" value="YES" onClick="javascript:NEXT_CONTINUE()" class="primary">
-        <input type="button" value="COME BACK LATER" onClick="javascript:BACK()" class="secondary">
-    </div>
-
-
-    <!-- Decimal Input -->
-    <div id="Decimal" style="display: none;">
-        <h3 id="headerDecimal"></h3>
-        <input type="number" id="DecimalInput">
-        <br>
-
-        <!-- Only displayed if model defines modelIdEstimatedIncome attribute. -->
-        <div id="estimatedIncomeDiv" style="display: none;">
-            <input type="checkbox" id="estimatedIncomeValue" name="estimatedIncomeValue" onClick="javascript:setEstimatedIncomeValue()">
-            <label for="estimatedIncomeValue">Estimated Income</label>
-            
-        </div>
-
-        <input type="button" value="BACK" onClick="javascript:BACK()">
-        <input type="button" value="NEXT" onClick="javascript:NEXT_DECIMAL()">
-
-    </div>
-
-    <!-- Dynamic header DIV's -->
-    <div style="display: none;">
-
-
-        <div id="auto-renewal-header">
-
-            <!-- CSS DEV: Please see example layout https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/auto-joint/do_you_want_to_renew_now -->
-            <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
-            <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
-            <br>
-            <span>Your renewal pack should arrive by 30 June 2016. </span>
-            <br>
-            <br>
-        </div>
-
-        <div id="benefits-and-income-intro">
-            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
-            <h2>Completing your review</h2>
-            <p>Your information will be saved as you progress.
-                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
-            </p>
-            <p>This review is divided into 3 parts.</p>
-            <ul>
-                <li><h4>Part 1</h4>
-                Your benefits and income
-                </li>
-                <li><h4>Part 2</h4>
-                Other household income, such as income from property</li>
-                <li><h4>Part 3</h4>
-                Report any changes to circumstances</li>
-            </ul>
-        </div>
-
-
-        <div id="part-1-your-benefits-and-income">
-
-            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
-            <h2>Part 1: Your benefits and income</h2>
-            <br>
-            <span>benefits you claimed</span>
-            <span>income from your employment and self-employment</span>
-            <br>
-            <span>You may need:</span>
-
-            <br>
-            <div><b><span>Your benefit letters</span></b></div>
-            <div><span>Showing the amounts you received</span></div>
-
-            <div><b><span>Your P60</span></b></div>
-            <div><span>For your total earnings, which may include things like private pensions or Statutory Maternity Pay</span></div>
-
-            <div><b><span>Your P11D or P9D</span></b></div>
-            <div><span>For company benefits you got. Also known as ‘benefits in kind’</span></div>
-
-            <div><b><span>Your P45</span></b></div>
-            <div><span>For any job you had that ended</span></div>
-
-            <div><b><span>Your Self Assessment returns</span></b></div>
-            <div><span>For your self-employment income</span></div>
-            <br>
-        </div>
-
-
-    </div>
-
-
-    <div id="demo">
-        <input type="button" value="Enter app" onClick="javascript:startDemo()">
-    </div>
-
-    <br>
-    <br>
-
-
-    <p class="one">Tools - Please note below section is for debug support.</p>
-    <br>
-    <div id="Question Debug Trace">
-        <b><span>Question Details</span></b>
-        <br>
-        <span id="QuestionId"></span>
-    </div>
-    <br>
-
-
-    <input type="button" value="Initialise model" onClick="javascript:resume('nino:CS123456B,renewalData.certainBenefits.incomeSupport:true,otherIncome.otherHouseholdIncome:1234.54')">
-    <input type="button" value="Extract Model" onClick="javascript:getModelData()">
-    <input type="button" value="API" onClick="javascript:extractAPI()">
-
-    <div id="dumpDiv">
-        <b><span>Debug</span></b>
-        <br><br>
-        <span id="dumpText"></span>
-    </div>
-</main>
-</body>
 </html>

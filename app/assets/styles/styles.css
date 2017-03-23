@@ -91,6 +91,15 @@ main {
     padding: 16px 13px;
     text-align: center;
     width: 100%; }
+  main .container {
+    display: table; }
+    main .container > div {
+      display: table-row; }
+      main .container > div label {
+        display: table-cell;
+        padding: 0 0 10px 10px; }
+      main .container > div input[type="checkbox"], main .container > div input[type="radio"] {
+        display: table-cell; }
   main ul {
     padding-left: 30px;
     margin: 8px 0 16px; }

@@ -64,11 +64,18 @@ body {
   	input[type="button"].secondary{
   		@include button($button-bg-secondary, $button-text-secondary)
   	}
-  	#containerDiv > div{
-  		
-  		input[type="checkbox"]{
-
+  	.container {
+  		display: table;
+  		> div{
+  		display: table-row;
+  		label{
+  			display: table-cell;
+  			padding: 0 0 10px 10px;
   		}
+  		input[type="checkbox"], input[type="radio"]{
+  			display: table-cell;
+  		}
+  	}
   	}
 	ul{
 		padding-left: 30px;
@@ -86,7 +93,6 @@ body {
 
 // Show / Hide input after checkbox
 input ~ .showIfChecked{
-	
   	input{
   		height: 0;
   		opacity: 0;

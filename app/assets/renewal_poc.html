@@ -5,126 +5,138 @@
     <meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
 <style>
     html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline; }
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block; }
-
-body {
-  line-height: 1; }
-
-ol, ul {
-  list-style: none; }
-
-blockquote, q {
-  quotes: none; }
-
-blockquote:before, blockquote:after {
-  content: '';
-  content: none; }
-
-q:before, q:after {
-  content: '';
-  content: none; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-body {
-  background: #ccc; }
-
-header {
-  background: #000;
-  color: #fff;
-  padding: 10px 20px;
-  margin-bottom: 10px; }
-  header h1 {
-    font-family: SegoeUI;
-    font-size: 14px;
-    font-size: 1.4rem;
-    font-weight: bold;
-    text-align: center; }
-
-main {
-  background: #fff;
-  font-family: SegoeUI;
-  font-weight: normal;
-  font-size: 16px;
-  font-size: 1.6rem;
-  padding: 16px 20px; }
-  main h2 {
-    font-family: SegoeUI;
-    font-size: 20px;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 8px; }
-  main h3 {
-    font-family: SegoeUI;
-    font-size: 16px;
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 8px; }
-  main p, main span, main label {
-    font-size: 16px;
-    font-size: 1.6rem;
-    font-family: SegoeUI;
-    font-weight: normal; }
-  main input[type="button"].primary {
-    display: block;
-    background-color: #00823b;
-    color: #fff;
-    font-size: 16px;
-    font-size: 1.6rem;
-    border: 0;
-    padding: 16px 13px;
-    text-align: center;
-    width: 100%;
-    margin-top: 8px; }
-  main input[type="button"].secondary {
-    display: block;
-    background-color: #fff;
-    color: #2b8cc4;
-    font-size: 16px;
-    font-size: 1.6rem;
-    border: 0;
-    padding: 16px 13px;
-    text-align: center;
-    width: 100%; }
-  main ul {
-    padding-left: 30px;
-    margin: 8px 0 16px; }
-    main ul li {
-      display: list-item;
-      list-style: disc outside; }
-      main ul li h4 {
-        font-weight: bold; }
-
-input ~ .showIfChecked input {
-  height: 0;
-  opacity: 0; }
-
-input:checked ~ .showIfChecked {
-  height: auto; }
-  input:checked ~ .showIfChecked input {
-    height: auto;
-    opacity: 1;
-    border: 1px solid;
-    transition: opacity 1s linear; }
-
-p.one {
-  border-style: solid;
-  border-width: 5px; }
-
-h1.hidden {
-  visibility: hidden; }
-
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline; }
+    
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+      display: block; }
+    
+    body {
+      line-height: 1; }
+    
+    ol, ul {
+      list-style: none; }
+    
+    blockquote, q {
+      quotes: none; }
+    
+    blockquote:before, blockquote:after {
+      content: '';
+      content: none; }
+    
+    q:before, q:after {
+      content: '';
+      content: none; }
+    
+    table {
+      border-collapse: collapse;
+      border-spacing: 0; }
+    
+    body {
+      background: #ccc; }
+    
+    header {
+      background: #000;
+      color: #fff;
+      padding: 10px 20px;
+      margin-bottom: 10px; }
+      header h1 {
+        font-family: SegoeUI;
+        font-size: 14px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center; }
+    
+    main {
+      background: #fff;
+      font-family: SegoeUI;
+      font-weight: normal;
+      font-size: 16px;
+      font-size: 1.6rem;
+      padding: 16px 20px; }
+      main h2 {
+        font-family: SegoeUI;
+        font-size: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 8px; }
+      main h3 {
+        font-family: SegoeUI;
+        font-size: 16px;
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 8px; }
+      main p, main span, main label {
+        font-size: 16px;
+        font-size: 1.6rem;
+        font-family: SegoeUI;
+        font-weight: normal; }
+      main input[type="button"].primary {
+        display: block;
+        background-color: #00823b;
+        color: #fff;
+        font-size: 16px;
+        font-size: 1.6rem;
+        border: 0;
+        padding: 16px 13px;
+        text-align: center;
+        width: 100%;
+        margin-top: 8px; }
+      main input[type="button"].secondary {
+        display: block;
+        background-color: #fff;
+        color: #2b8cc4;
+        font-size: 16px;
+        font-size: 1.6rem;
+        border: 0;
+        padding: 16px 13px;
+        text-align: center;
+        width: 100%; }
+      main .container {
+        display: table; }
+        main .container > div {
+          display: table-row; }
+          main .container > div label {
+            display: table-cell;
+            padding: 0 0 10px 10px; }
+          main .container > div input[type="checkbox"], main .container > div input[type="radio"] {
+            display: table-cell; }
+      main ul {
+        padding-left: 30px;
+        margin: 8px 0 16px; }
+        main ul li {
+          display: list-item;
+          list-style: disc outside; }
+          main ul li h4 {
+            font-weight: bold; }
+    
+    input ~ .showIfChecked input {
+      height: 0;
+      opacity: 0; }
+    
+    input:checked ~ .showIfChecked {
+      height: auto; }
+      input:checked ~ .showIfChecked input {
+        height: auto;
+        opacity: 1;
+        border: 1px solid;
+        transition: opacity 1s linear; }
+    
+    /*
+        POC Stuff
+      */
+    p.one {
+      border-style: solid;
+      border-width: 5px; }
+    
+    h1.hidden {
+      visibility: hidden; }
+    
 </style>
 
 <script type="text/javascript">
@@ -746,7 +758,7 @@ h1.hidden {
         <div id="dynamicHeader-MultipleChoice"></div>
         <h3 id="headerMultipleChoice" class="question"></h3>
         <div>
-            <div id="containerDiv"></div>
+            <div id="containerDiv" class="container"></div>
         </div>
         <input type="button" value="Next" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
         <input type="button" value="Back" onClick="javascript:BACK()" class="secondary">
@@ -773,15 +785,23 @@ h1.hidden {
 
     <!-- Boolean -->
     <div id="Boolean" style="display: none;">
+
         <h3 id="headerBoolean"></h3>
-        <label>Yes</label>
-        <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()">
-        <label>No</label>
-        <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()">
+        <div class="container">
+            <div>
+                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()">
+                <label for="boolean_yes">Yes</label>
+            </div>
+            <div>
+                <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()">
+                <label for="boolean_no">No</label>
+            </div>
+        </div>
         <input type="button" value="Next" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
         <input type="button" value="Back" onClick="javascript:BACK()" class="secondary">
-    </div>
+        
 
+    </div>
     <!-- Continue -->
     <div id="Continue" style="display: none;">
         <div id="dynamicHeader-Continue"></div>
@@ -959,7 +979,7 @@ var singleApplicant = [
                         "type": "MultipleChoice",
                         "multipleChoiceOptions": [
                             {
-                            "option": "Income-based Jobseeker’s Allowance",
+                            "option": "Income-based Jobseeker\'s Allowance",
                             "modelId": "renewalData.certainBenefits.jobseeker"                  // certainBenefits.jsa
                             },
                             {
@@ -1756,6 +1776,4 @@ var singleApplicant = [
     }
 
 </script>
-
-
 </html>

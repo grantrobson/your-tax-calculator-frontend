@@ -37,6 +37,9 @@
       border-collapse: collapse;
       border-spacing: 0; }
     
+    * {
+      box-sizing: border-box; }
+    
     body {
       background: #ccc; }
     
@@ -65,7 +68,7 @@
         font-size: 2rem;
         font-weight: bold;
         margin-bottom: 8px; }
-      main h3 {
+      main h3, main #headerDecimal {
         font-family: SegoeUI;
         font-size: 16px;
         font-size: 1.6rem;
@@ -97,6 +100,11 @@
         padding: 16px 13px;
         text-align: center;
         width: 100%; }
+      main input[type="number"] {
+        border: 1px solid;
+        width: 100%;
+        margin-top: 8px;
+        padding: 5px; }
       main .container {
         display: table; }
         main .container > div {
@@ -117,14 +125,17 @@
     
     input ~ .showIfChecked input {
       height: 0;
-      opacity: 0; }
+      width: 0;
+      opacity: 0;
+      position: relative;
+      top: 2rem; }
     
     input:checked ~ .showIfChecked {
-      height: auto; }
+      height: auto;
+      width: auto; }
       input:checked ~ .showIfChecked input {
         height: auto;
         opacity: 1;
-        border: 1px solid;
         transition: opacity 1s linear; }
     
     /*
@@ -814,7 +825,7 @@
 
     <!-- Decimal Input -->
     <div id="Decimal" style="display: none;">
-        <h3 id="headerDecimal"></h3>
+        <label id="headerDecimal" for="DecimalInput"></label>
         <input type="number" id="DecimalInput">
         <br>
 
@@ -869,28 +880,30 @@
 
             <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
             <h2>Part 1: Your benefits and income</h2>
-            <br>
-            <span>benefits you claimed</span>
-            <span>income from your employment and self-employment</span>
-            <br>
-            <span>You may need:</span>
+            <h3>You will be asked about:</h3>
+            <ul>
+                <li>benefits you claimed</li>
+                <li>income from your employment and self-employment</li>
+            </ul>
 
-            <br>
-            <div><b><span>Your benefit letters</span></b></div>
-            <div><span>Showing the amounts you received</span></div>
+            <h3>You may need:</h3>
+            <ul>
+                <li><h4>Your benefit letters</h4>
+            Showing the amounts you received</li>
 
-            <div><b><span>Your P60</span></b></div>
-            <div><span>For your total earnings, which may include things like private pensions or Statutory Maternity Pay</span></div>
+            <li><h4>Your P60</h4>
+            For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
 
-            <div><b><span>Your P11D or P9D</span></b></div>
-            <div><span>For company benefits you got. Also known as ‘benefits in kind’</span></div>
+            <li><h4>Your P11D or P9D</h4>
+            For company benefits you got. Also known as 'benefits in kind'</li>
 
-            <div><b><span>Your P45</span></b></div>
-            <div><span>For any job you had that ended</span></div>
+            <li><h4>Your P45</h4>
+            For any job you had that ended</li>
 
-            <div><b><span>Your Self Assessment returns</span></b></div>
-            <div><span>For your self-employment income</span></div>
-            <br>
+            <li><h4>Your Self Assessment returns</h4>
+            For your self-employment income</li>
+            </ul>
+
         </div>
 
 
@@ -1107,7 +1120,7 @@ var singleApplicant = [
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "13",
-                      "noNextQuestionId": "13",
+                      "noNextQuestionId": "4",
                       "modelId": "otherBenefits.HouseHoldIncome.12"
                     }
                   },

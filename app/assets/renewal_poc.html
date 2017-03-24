@@ -176,13 +176,25 @@
 
         containerDiv.appendChild(cln);
 
-         var element = document.getElementById('number_entry_hidden_'+i);
+// TODO...generic recursive function.
+         var element = document.getElementById('row_div_checkbox_ID_'+i);
          if (element != null) {
             var child = element.children;
             for (c = 0; c < child.length; c++) {
                 cur = child[c];
                 if (cur.nodeType === 1 && cur.id) {
                     cur.id = cur.id + "_" + i;
+                }
+            }
+
+             element = document.getElementById('number_entry_hidden_'+i);
+             if (element != null) {
+                var child = element.children;
+                for (c = 0; c < child.length; c++) {
+                    cur = child[c];
+                    if (cur.nodeType === 1 && cur.id) {
+                        cur.id = cur.id + "_" + i;
+                    }
                 }
             }
         }
@@ -295,25 +307,57 @@
     function resume(model) {
         hide("demo");
         map = new Map();
-        questionPos = START_QUESTION;   // TODO...OBTAIN THE LAST QUESTION FROM THE RENEWAL TYPE RECORDED!
+        stack = [];
+
         var tokens = model.split(",");
         tokens.forEach(token => {
          var data = token.split(":");
          map.set(data[0],data[1]);
          });
-        toggleControls("hide");
-        displayQuestion();
+
+         // Build the question stack.
+         var stackData = map.get("stackDATA");
+         if (stackData !== undefined) {
+            var stackTokens = stackData.split("-");
+
+            stackTokens.forEach(position => {
+                stack.push(position);
+            });
+        }
+
+        // Set the current question.
+        questionPos = map.get("currentQuestionPos");
+        if (questionPos === undefined) {
+            alert("Failed to resume the application since question is missing!");
+        } else {
+            toggleControls("hide");
+            displayQuestion();
+        }
     }
 
     function getModelData() {
-        // TODO...Return JSON response  + include stack.
         var dumpData = "";
-        var first = 1;
+        var first = true;
         var append = "";
 
+        // Record the current question position.
+        map.set("currentQuestionPos", questionPos);
+
+        // Record the stack.
+        var stackData="";
+        // Build the stack.
+        for (i = 0; i < stack.length; i++) {
+            stackData = stackData + stack[i];
+            if (i != stack.length-1) {
+                stackData = stackData + "-";
+            }
+        }
+        map.set("stackDATA", stackData);
+
+        // Serialize the map to a string.
         map.forEach((value, key) => {
-            if (first == 1) {
-                first=0;
+            if (first) {
+                first=false;
                 append="";
             } else {
                 append=",";
@@ -321,8 +365,12 @@
             dumpData = dumpData + append + key+":"+value;
         });
 
-        // TODO...create debug function
-        var span = document.getElementById("dumpText"),
+        debugOut(dumpData, "dumpText");
+        return(dumpData);
+    }
+
+    function debugOut(dumpData, element) {
+        var span = document.getElementById(element);
         text = document.createTextNode(dumpData);
         span.innerHTML = ''; // clear existing
         span.appendChild(text);
@@ -507,12 +555,9 @@
     function displayQuestion() {
         var question = getFromId(questionPos);
 
-// TODO: Move to debug function
         var trace = "Question:"+questionPos+"-"+question.questionType.type
-        var span = document.getElementById("QuestionId");
-        var text = document.createTextNode(trace);
-        span.innerHTML = ''; // clear existing
-        span.appendChild(text);
+        // Trace for current question Id.
+         debugOut(trace, "QuestionId");
 
 
         if (question.questionType.type == "JourneyCompleteAutoRenewal") {
@@ -525,11 +570,24 @@
             toggleControls("hide");
             hook("JourneyComplete");
             return;
+        } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
+            // This indicates end of journey for all complete renewal journeys where the  renewal is not auto!
+            toggleControls("hide");
+            var response = "JourneyComplete";
+
+            var yesOption = map.get("coc.report-yes");
+            if (yesOption !== undefined && yesOption == "true") {
+                response = "RouteToChangeOfCircumstance";
+            }
+
+            hook(response);
+            return;
         } else if (question.questionType.type == "Continue") {
             initQuestion(question, 'Continue', 'headerContinue');
             insertDynamicHeader(question, "dynamicHeader-Continue");
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
+            insertDynamicHeader(question, "dynamicHeader-Boolean");
 
             //  Default the value.
             if (question.questionType.modelId !== "undefined") {
@@ -550,6 +608,8 @@
             dynamicRadioButton("checkbox");
         } else if (question.questionType.type == "Decimal") {
             initQuestion(question, 'Decimal', 'headerDecimal');
+            insertDynamicHeader(question, "dynamicHeader-Decimal");
+
             // Populate Decimal value from model if exists.
             var question = getFromId(questionPos);
             var decimalStore = map.get(question.questionType.modelId);
@@ -677,7 +737,7 @@
         map.set("startDate", startDate);
 
 
-        // Start question stored within journey.
+        // Obtain start question stored within journey.
         var journey = data();
         questionPos = journey.startQuestion;
 
@@ -698,7 +758,7 @@
 
 </script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
    function hide(id) {
        var e = document.getElementById(id);
@@ -729,13 +789,7 @@
             };
 
         var response = JSON.stringify(payload);
-
-        // TODO...debug function.
-        var span = document.getElementById("dumpText"),
-        text = document.createTextNode(response);
-        span.innerHTML = ''; // clear existing
-        span.appendChild(text);
-
+        debugOut(response, "dumpText");
 
         // TODO...extend to supply a JSON object and not individual params.
         // IOS callback.
@@ -760,7 +814,7 @@
 
 <body>
 <header>
-    <h1>Tax-Credit Renewal</h1>
+    <h1>Tax Credit Renewal</h1>
 </header>
 <main>
 
@@ -777,16 +831,18 @@
 
     <!-- Associated set of input types for containerDiv. -->
     <div style="display: none;">
+
         <div id="row_ID_checkbox">
             <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID">
-            <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
-            
+            <div class="col" id="row_div_checkbox_ID">
+                <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
 
-            <div id="number_entry_hidden" class="showIfChecked">
-                <input type="number" id="row_number_checkbox_ID" value="">
+
+                <div id="number_entry_hidden" class="showIfChecked">
+                    <input type="number" id="row_number_checkbox_ID" value="">
+                </div>
             </div>
         </div>
-
 
         <div id="row_ID_radio">
             <input type="checkbox" id="row_radio_ID" name="row_radio_ID">
@@ -796,6 +852,7 @@
 
     <!-- Boolean -->
     <div id="Boolean" style="display: none;">
+        <div id="dynamicHeader-Boolean"></div>
 
         <h3 id="headerBoolean"></h3>
         <div class="container">
@@ -825,6 +882,8 @@
 
     <!-- Decimal Input -->
     <div id="Decimal" style="display: none;">
+        <div id="dynamicHeader-Decimal"></div>
+
         <label id="headerDecimal" for="DecimalInput"></label>
         <input type="number" id="DecimalInput">
         <br>
@@ -920,15 +979,15 @@
 
     <p class="one">Debug</p>
     <br>
-    <div id="Current question">
-        <b><span>Question Details</span></b>
+    <div>
+        <b><span>Current Question:</span></b>
         <br>
         <span id="QuestionId"></span>
     </div>
     <br>
 
 
-    <input type="button" value="Initialise model" onClick="javascript:resume('nino:CS123456B,renewalData.certainBenefits.incomeSupport:true,otherIncome.otherHouseholdIncome:1234.54')">
+    <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:D,hasPartner:false,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,renewalData.certainBenefits.benefits:true,renewalData.certainBenefits.jobseeker:false,renewalData.certainBenefits.support_allowance:false,renewalData.certainBenefits.incomeSupport:true,renewalData.certainBenefits.pension_credit:false,otherBenefits.OtherIncome.5:true,otherBenefits.OtherIncome.6:false,otherBenefits.income.9:true,otherBenefits.HouseHoldIncome.10:false,otherBenefits.HouseHoldIncome.12:true,currentQuestionPos:13,stackDATA:1-2-3-4-5-6-9-10-12')">
     <input type="button" value="Extract Model" onClick="javascript:getModelData()">
     <input type="button" value="API" onClick="javascript:extractAPI()">
 
@@ -948,10 +1007,7 @@
         var nino = map.get("nino");
         var renewalType = map.get("renewalType");
 
-// TODO...LINK THE START QUESTIONPOS TO THE RENEWAL TYPE! THE OBJECT ASSOCIATED WITH THE RENEWAL CONTAINS THE START QUESTION POSITION. !
 
-
-// NEW
 var singleApplicant = [
                     {
                         "id": "1",
@@ -1120,7 +1176,7 @@ var singleApplicant = [
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "13",
-                      "noNextQuestionId": "4",
+                      "noNextQuestionId": "13",
                       "modelId": "otherBenefits.HouseHoldIncome.12"
                     }
                   },
@@ -1134,11 +1190,11 @@ var singleApplicant = [
                       "multipleChoiceOptions": [
                         {
                           "option": "I have changes to report",
-                          "modelId": "coc.1"
+                          "modelId": "coc.report-yes"
                         },
                         {
                           "option": "There are no changes",
-                          "modelId": "coc.2"
+                          "modelId": "coc.report-no"
                         }
                       ],
                       "nextQuestionId": "14"
@@ -1147,9 +1203,9 @@ var singleApplicant = [
                 },
                 {
                     "id": "14",
-                    "question": "Renewal complete",
+                    "question": "Route to change Of Circumstance",
                     "questionType": {
-                      "type": "JourneyComplete"
+                      "type": "RouteToChangeOfCircumstance"
                     }
                 },
 
@@ -1300,10 +1356,6 @@ var singleApplicant = [
                   }
                 ];
 
-// NEW
-
-
-
 
         // Auto renewal question.
         if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
@@ -1374,21 +1426,6 @@ var singleApplicant = [
 //SINGLE APPLICANT END!
 ///////////////////////////////////////////////////////
 
-        } else if (nino !== undefined && nino == "CS700100A") {
-
-            var journey1 = {
-                "formType":"JointApplicant",
-                "startQuestion":"1",
-
-                "CreationData":"12/12/2017:10:13",
-
-                "questions": []
-                };
-
-                // TODO...
-                journey1.question = singleApplicant;
-
-            return(journey1);
         } else {
 
             // Additional test questions.

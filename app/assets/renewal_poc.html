@@ -822,12 +822,13 @@
             isEstimatedIncome = true;
         }
 
-        var response = {
+        var hookResponse = {
             "journeyOutcomeStatus":journeyOutcomeStatus,
             "isEstimatedIncome":isEstimatedIncome
             };
 
-        debugOut(JSON.stringify(response), "dumpText");
+        var response = JSON.stringify(hookResponse);
+        debugOut(response, "dumpText");
 
         // IOS callback.
         try {

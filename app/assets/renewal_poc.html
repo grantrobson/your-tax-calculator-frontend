@@ -664,29 +664,33 @@
             displayQuestion();
 
             return;
+// START JOURNEY CONTROL QUESTIONS!
         } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
 
             // This indicates end of journey for auto renewals!
             toggleControls("hide");
             hook("JourneyCompleteAutoRenewal");
             return;
-        } else if (question.questionType.type == "JourneyComplete") {
+        } else if (question.questionType.type == "SaveAndComeBackLater") {
 
-            // This indicates end of journey for all complete renewal journeys where the  renewal is not auto!
+            // This indicates end of journey! User has quit.
             toggleControls("hide");
-            hook("JourneyComplete");
+            hook("SaveAndComeBackLater");
             return;
         } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
-
-            // This indicates end of journey for all complete renewal journeys where the  renewal is not auto!
+            // Route to Change of Circumstance.
             toggleControls("hide");
-            var response = "JourneyComplete";
-            var yesOption = map.get("coc.report-yes");
-            if (yesOption !== undefined && yesOption == "true") {
-                response = "RouteToChangeOfCircumstance";
-            }
-            hook(response);
+            hook("RouteToChangeOfCircumstance");
+
+            // Advance the questionPosition to the summary screen.
+            questionPos = "SUMMARY-SCREEN-TODO";
+
             return;
+
+        } else if (question.questionType.type == "SubmitRenewal") {
+            hook("SubmitRenewal");
+
+// END JOURNEY CONTROL QUESTIONS!
         } else if (question.questionType.type == "Continue") {
 
             initQuestion(question, 'Continue', 'headerContinue');
@@ -697,7 +701,7 @@
             insertDynamicHeader(question, "dynamicHeader-Boolean");
 
             //  Default the value.
-            if (question.questionType.modelId !== "undefined") {
+            if (question.questionType.modelId !== undefined) {
                 var checked = map.get(question.questionType.modelId);
                 if (checked !== undefined) {
                     document.getElementById(checked == "false" ? 'boolean_no' : 'boolean_yes').checked = checked;
@@ -705,7 +709,10 @@
                  document.getElementById('boolean_no').checked = false;
                  document.getElementById('boolean_yes').checked = false;
                 }
-            } else alert(' BOOLEAN MODEL FIELD MISSING!');  // todo...add error handling function!
+            } else {
+             document.getElementById('boolean_no').checked = false;
+             document.getElementById('boolean_yes').checked = false;
+            }
 
         } else if (question.questionType.type == "MultipleChoice") {
 
@@ -1119,7 +1126,7 @@
         <br>
 
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:R,hasPartner:false,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,renewalData.auto-renewal:true,renewalData.certainBenefits.benefits:true,renewalData.certainBenefits.jobseeker:true,renewalData.certainBenefits.support_allowance:false,renewalData.certainBenefits.incomeSupport:false,renewalData.certainBenefits.pension_credit:false,otherBenefits.OtherIncome.5:true,otherBenefits.OtherIncome.6:true,renewalData.HouseHoldIncome.saving_investment_dividend:3333,renewalData.HouseHoldIncome.pensions:2222,renewalData.HouseHoldIncome.trusts_settlements_or_estates:1111,renewalData.HouseHoldIncome.foreign_income:555,renewalData.HouseHoldIncome.notional_income:666,renewalData.income.estimated.8:true,otherBenefits.income.9:true,otherBenefits.HouseHoldIncome.10:true,renewalData.HouseHoldIncome.profit_from_property:333,otherBenefits.HouseHoldIncome.12:true,currentQuestionPos:Report any changes,stackDATA:a1#1#Benefits & Income - intro#3#Which untaxed benefit did you get#Do you still get this benefit#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:R,hasPartner:false,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,renewalData.auto-renewal:true,renewalData.certainBenefits.benefits:false,otherBenefits.employed.114:false,renewalData.self-employed.118:false,renewalData.benefits.122:false,otherBenefits.OtherIncome.6:false,otherBenefits.income.9:false,undefined:true,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:a1#1#Benefits & Income - intro#3#Were you employed#Were you self employed#Did you get any taxable benefits#Did you get any other household income#Did you get any income from property rental#Report any changes')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
 
@@ -1529,8 +1536,8 @@
                     "question": "Is the loss from renting out property an estimate?",
                     "questionType": {
                       "type": "Boolean",
-                      "yesNextQuestionId": "ROUTING DECISION COC", //"Report any changes",
-                      "noNextQuestionId": "ROUTING DECISION COC", //"Report any changes",
+                      "yesNextQuestionId": "ROUTING DECISION COC",
+                      "noNextQuestionId": "ROUTING DECISION COC",
                       "modelId": "otherBenefits.HouseHoldIncome.TODO111"
                     }
                   },
@@ -1551,8 +1558,8 @@
                     "question": "Is the profit from renting out property an estimate?",
                     "questionType": {
                       "type": "Boolean",
-                      "yesNextQuestionId": "ROUTING DECISION COC", // "Report any changes",
-                      "noNextQuestionId": "ROUTING DECISION COC", // "Report any changes",
+                      "yesNextQuestionId": "ROUTING DECISION COC",
+                      "noNextQuestionId": "ROUTING DECISION COC",
                       "modelId": "otherBenefits.HouseHoldIncome.12"
                     }
                   },
@@ -1572,27 +1579,20 @@
 
 //====================================================================
 // Report changes
+// NOTE: NO MODEL ID FOR THIS QUESTION. ALWAYS CLEARED AND USER HAS TO RE-SELECT. See coc.report-yes which is the global flag.
 
                   {
                     "id": "Report any changes",
-                    "question": "Report any changes - Check the details in your renewal paper pack for your single claim between 6 April 2016 and 5 April 2017.",
+                    "question": "Report any changes",
                     "questionType": {
-                      "type": "MultipleChoice",
-                      "multipleChoiceOptions": [
-                        {
-                          "option": "I have changes to report",
-                          "modelId": "coc.report-yes"
-                        },
-                        {
 
-// TODO...ROUTE TO THE SUMMARY SCREEN!!!
-                          "option": "There are no changes",
-                          "modelId": "coc.report-no"
-                        }
-                      ],
-                      "nextQuestionId": "Native-route-to-CoC"
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Native-route-to-CoC",
+                      "noNextQuestionId": "SUMMARY-SCREEN-TODO"
                     }
-                },
+                  },
+
+// TODO...Finish off CoC handling!
                 {
                     "id": "Native-route-to-CoC",
                     "question": "Route to change Of Circumstance",
@@ -1600,6 +1600,30 @@
                       "type": "RouteToChangeOfCircumstance"
                     }
                 },
+                {
+                    "id": "Native-submit-renewal",
+                    "question": "Submit the renewal",
+                    "questionType": {
+                      "type": "SubmitRenewal"
+                    }
+                },
+                {
+                    "id": "save-and-exit",
+                    "question": "SaveAndComeBackLater",
+                    "questionType": {
+                      "type": "SaveAndComeBackLater"
+                    }
+                },
+
+                  {
+                    "id": "SUMMARY-SCREEN-TODO",    // TMP SUMMARY SCREEN!!!
+                    "question": "SUMMARY - THIS IS JUST A DEMO SCREEN AND NOT complete",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Native-submit-renewal",
+                      "noNextQuestionId": "save-and-exit"
+                    }
+                  },
 
 
 //====================================================================

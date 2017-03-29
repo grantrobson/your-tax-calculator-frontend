@@ -600,11 +600,11 @@
             toggleControls("hide");
             hook("JourneyCompleteAutoRenewal");
             return;
-        } else if (question.questionType.type == "SaveAndComebackLater") {
+        } else if (question.questionType.type == "SaveAndComeBackLater") {
 
             // This indicates end of journey! User has quit.
             toggleControls("hide");
-            hook("SaveAndComebackLater");
+            hook("SaveAndComeBackLater");
             return;
         } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
             // Route to Change of Circumstance.
@@ -1537,9 +1537,9 @@
                 },
                 {
                     "id": "save-and-exit",
-                    "question": "SaveAndComebackLater",
+                    "question": "SaveAndComeBackLater",
                     "questionType": {
-                      "type": "SaveAndComebackLater"
+                      "type": "SaveAndComeBackLater"
                     }
                 },
 

@@ -1,6 +1,8 @@
-$bg-body: #ccc;
+$bg-body: #4A4A4A;
 $bg-header: #000;
 $bg-main: #fff;
+$bg-summary-section-header: #005ea5;
+
 
 $text-color-header: #fff;
 
@@ -12,4 +14,10 @@ $button-bg-secondary: #fff;
 $button-text-primary: #fff;
 $button-text-secondary: #2b8cc4;
 
+$main-side-padding: 20px;
+
 @import 'base';
+
+.back{
+	display: none;
+}

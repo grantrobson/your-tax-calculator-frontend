@@ -1,0 +1,36 @@
+$bg-body: #4A4A4A;
+$bg-header: #000;
+$bg-main: #fff;
+$bg-summary-section-header: #005ea5;
+
+$text-color-header: #fff;
+
+$font-heading: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+$font-copy: SFUIText-Regular, -apple-system, BlinkMacSystemFont, sans-serif;
+
+$button-bg-primary: #08822e;
+$button-bg-secondary: #fff;
+$button-text-primary: #fff;
+$button-text-secondary: #2b8cc4;
+
+$main-side-padding: 16px;
+
+@import 'base';
+
+.back{
+	position: fixed;
+	top: 10px;
+	left:8px;
+	width: 12.5px;
+	height: 21px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAA/CAYAAABjJtHDAAAAAXNSR0IArs4c6QAAARNJREFUaAXtmVEOgkAMRMGLyFE4+h4FT4LTBBqCS2AapRszTZpuSOs+n/1Ruy4p5nkekMVqEkL92gVsQrWw2gaggSxAKB75gECpga2EeYAnYHmAF8E+AB/1lf3eUwPDqxXkE9lOkMbM3D17JzB2SWRMxlgDbL92TMZYA2y/dkzGWANsv3ZMxlgDbL92TMZYA2x/sztmbwRwBcnEyAoI94NqQNqX2athvUP4QnbQLkMKkBXn/TLoKoIHGQyK8zEZdBXBgwwGxfmYDLqK4EEGg+J8TAZdRfAgg0FxPiaDriJ4kMGgOB/7a4M//xu97/sJKkfkC9lmXPyI7/01YavqBDAPbIU8AMwHOwBsB2wHWMzk+mxf37neumI439cFAAAAAElFTkSuQmCC');
+	background-size: 12.5px 21px;
+    background-repeat: no-repeat;
+    text-indent: -999em;
+    border: 0;
+}
+
+main input[type="button"].primary{
+	border-radius: 4px;
+	box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31);
+}

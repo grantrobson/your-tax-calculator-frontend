@@ -299,6 +299,7 @@
             // update the controls based on type.
             if (selectionType == 'radio') {
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
+                radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
                 radioButton.setAttribute("name", "radio");  // TODO...if multiple radio buttons can be selected? If yes then drop name.
                 label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
             } else if (selectionType == "checkbox") {
@@ -306,6 +307,7 @@
                 // Set the id of the number input field.
                 var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
                 radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
                 label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
                 if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId)) {
@@ -1186,19 +1188,23 @@
                                     "multipleChoiceOptions": [
                                         {
                                         "option": "Income-based Jobseeker\'s Allowance",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.jobseeker"
+                                        "modelId": "renewalData.Which untaxed benefits did partner get.jobseeker",
+                                        "questionId": "jobseeker"
                                         },
                                         {
                                         "option": "Income-related Employment and Support Allowance",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.support_allowance"
+                                        "modelId": "renewalData.Which untaxed benefits did partner get.support_allowance",
+                                        "questionId": "support_allowance"
                                         },
                                         {
                                         "option": "Income Support",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.incomeSupport"
+                                        "modelId": "renewalData.Which untaxed benefits did partner get.incomeSupport",
+                                        "questionId": "income_support"
                                         },
                                         {
                                         "option": "Pension Credit",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.pension_credit"
+                                        "modelId": "renewalData.Which untaxed benefits did partner get.pension_credit",
+                                        "questionId": "pension_credit"
                                         }
                                     ],
                                     "nextQuestionId": "Does partner still get this"
@@ -1348,23 +1354,28 @@
                         "multipleChoiceOptions": [
                             {
                             "option": "Bereavement Allowance",
-                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Bereavement Allowance"
+                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Bereavement Allowance",
+                            "questionId": "bereavement_allowance"
                             },
                             {
                             "option": "Carer\’s Allowance",
-                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Carer Allowance"
+                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Carer Allowance",
+                            "questionId": "carer_allowance"
                             },
                             {
                             "option": "Contribution-based Jobseeker\’s Allowance",
-                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Jobseeker Allowance"
+                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Jobseeker Allowance",
+                            "questionId": "jobseeker_allowance"
                             },
                             {
                             "option": "Contribution-based Employment and Support Allowance",
-                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Support Allowance"
+                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Support Allowance",
+                            "questionId": "Support Allowance"
                             },
                             {
                             "option": "Incapacity Benefit",
-                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Incapacity Benefit"
+                            "modelId": "renewalData.Select partner taxable benefits and enter amount.Incapacity Benefit",
+                            "questionId": "incapacity_benefit"
                             }
 
                         ],
@@ -1416,19 +1427,23 @@
                         "multipleChoiceOptions": [
                             {
                             "option": "Income-based Jobseeker\'s Allowance",
-                            "modelId": "renewalData.certainBenefits.jobseeker"                  // certainBenefits.jsa
+                            "modelId": "renewalData.certainBenefits.jobseeker",                  // certainBenefits.jsa
+                            "questionId": "jobseeker"
                             },
                             {
                             "option": "Income-related Employment and Support Allowance",
-                            "modelId": "renewalData.certainBenefits.support_allowance"          // certainBenefits.esa
+                            "modelId": "renewalData.certainBenefits.support_allowance",          // certainBenefits.esa
+                            "questionId": "support_allowance"
                             },
                             {
                             "option": "Income Support",
-                            "modelId": "renewalData.certainBenefits.incomeSupport"              // certainBenefits.incomeSupport
+                            "modelId": "renewalData.certainBenefits.incomeSupport",              // certainBenefits.incomeSupport
+                            "questionId": "income_support"
                             },
                             {
                             "option": "Pension Credit",
-                            "modelId": "renewalData.certainBenefits.pension_credit"             // certainBenefits.pensionCredit
+                            "modelId": "renewalData.certainBenefits.pension_credit",             // certainBenefits.pensionCredit
+                            "questionId": "pension_credit"
                             }
                         ],
                         "nextQuestionId": "Do you still get this benefit"
@@ -1469,23 +1484,28 @@
                       "multipleChoiceOptions": [
                         {
                           "option": "Savings, investments and dividends",
-                          "modelId": "renewalData.HouseHoldIncome.saving_investment_dividend"
+                          "modelId": "renewalData.HouseHoldIncome.saving_investment_dividend",
+                          "questionId": "saving_investment_dividend"
                         },
                         {
                           "option": "Pensions",
-                          "modelId": "renewalData.HouseHoldIncome.pensions"
+                          "modelId": "renewalData.HouseHoldIncome.pensions",
+                          "questionId": "pensions"
                         },
                         {
                           "option": "Trusts, settlements or estates",
-                          "modelId": "renewalData.HouseHoldIncome.trusts_settlements_or_estates"
+                          "modelId": "renewalData.HouseHoldIncome.trusts_settlements_or_estates",
+                          "questionId": "trusts_settlements_or_estates"
                         },
                         {
                           "option": "Foreign income",
-                          "modelId": "renewalData.HouseHoldIncome.foreign_income"
+                          "modelId": "renewalData.HouseHoldIncome.foreign_income",
+                          "questionId": "foreign_income"
                         },
                         {
                           "option": "Notional income",
-                          "modelId": "renewalData.HouseHoldIncome.notional_income"
+                          "modelId": "renewalData.HouseHoldIncome.notional_income",
+                          "questionId": "notional_income"
                         }
 
                       ],
@@ -1762,23 +1782,28 @@
                       "multipleChoiceOptions": [
                         {
                           "option": "Bereavement Allowance",
-                          "modelId": "renewalData.taxableBenefits.Bereavement-Allowance"
+                          "modelId": "renewalData.taxableBenefits.Bereavement-Allowance",
+                          "questionId": "bereavement_allowance"
                         },
                         {
                           "option": "Carer Allowance",
-                          "modelId": "renewalData.taxableBenefits.Carer Allowance"
+                          "modelId": "renewalData.taxableBenefits.Carer Allowance",
+                          "questionId": "carer_allowance"
                         },
                         {
                           "option": "Contribution-based Jobseeker Allowance",
-                          "modelId": "renewalData.taxableBenefits.Contribution-based Jobseeker Allowance"
+                          "modelId": "renewalData.taxableBenefits.Contribution-based Jobseeker Allowance",
+                          "questionId": "contribution_based_jobseeker_allowance"
                         },
                         {
                           "option": "Contribution-based Employment and Support Allowance",
-                          "modelId": "renewalData.taxableBenefits.Contribution-based Employment and Support Allowance"
+                          "modelId": "renewalData.taxableBenefits.Contribution-based Employment and Support Allowance",
+                          "questionId": "contribution_based_employment_and_support_allowance"
                         },
                         {
                           "option": "Incapacity Benefit",
-                          "modelId": "renewalData.taxableBenefits.Incapacity-Benefit"
+                          "modelId": "renewalData.taxableBenefits.Incapacity-Benefit",
+                          "questionId": "incapacity_benefit"
                         }
                       ],
                       "nextQuestionId": "ROUTING QUESTION DECISION", // "Were you employed" // TODO...

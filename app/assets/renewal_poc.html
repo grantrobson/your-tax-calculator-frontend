@@ -868,8 +868,8 @@
         var renewalDataJson = {};
         renewalDataJson.incomeDetails = getIncomeDetailsJson();
         renewalDataJson.certainBenefits = getCertainBenefitsJson();
-        renewalDataJson.otherIncome = getOtherIncomeJson();
         submission.renewalData = renewalDataJson;
+        submission.otherIncome = getOtherIncomeJson();
         submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
         return(JSON.stringify(submission));
     }

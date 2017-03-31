@@ -575,7 +575,6 @@
         }
     }
 
-    // todo...squash into single function with params.
     function YES() {
         var question = getFromId(questionPos);
         if (question.questionType.modelId !== "undefined") {
@@ -815,61 +814,63 @@
         return estimatedOtherIncome() || estimatedSeProfits();
     }
 
-    // TODO: Currently hardwired.
+    function addIfNonZero(obj, k, v){
+        if (typeof k !== 'undefined' && v !== 0) {obj[k] = v;}
+    }
+
     function buildSubmissionPostRequest() {
 
         // TODO...TEMP PLUMBING CODE. Drive the JSON result based on supplied NINO.
         var taxableBenefits = 0;
         var nino = map.get("nino");
 
-// NOTE: The question answers can only be used once.
+        function getIncomeDetailsJson() {
+            var json = {};
 
-// TODO HARDWIRED TO ONLY BUILD SINGLE APPLICANT!
-// TODO...do not set attributes where values have not been defined.
+            var taxableBenefits = buildTotal("taxableBenefits.bereavement_allowance",
+                "taxableBenefits.carer_allowance",
+                "taxableBenefits.contribution_based_jobseeker_allowance",
+                "taxableBenefits.contribution_based_employment_and_support_allowance",
+                "taxableBenefits.incapacity_benefit");
 
-        // Build the household income.
-        var otherHouseholdIncome = buildTotal("otherIncome.saving_investment_dividend",
-            "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
-            "otherIncome.foreign_income", "otherIncome.notional_income",
-            "otherIncome.profit_from_property");
-
-        var taxableBenefits = buildTotal("taxableBenefits.bereavement_allowance",
-            "taxableBenefits.carer_allowance",
-            "taxableBenefits.contribution_based_jobseeker_allowance",
-            "taxableBenefits.contribution_based_employment_and_support_allowance",
-            "taxableBenefits.incapacity_benefit");
-
-        var earnings = buildTotal("incomeDetails.earnings");
-
-        var companyBenefits = buildTotal("incomeDetails.companyBenefits");
-
-        var seProfits = buildTotal("incomeDetails.seProfits");
-
-        var submission = {
-
-          "renewalData": {
-            "incomeDetails": {
-              "taxableBenefits": taxableBenefits,
-              "earnings": earnings,
-              "companyBenefits": companyBenefits,
-              "seProfits": seProfits,
-              "seProfitsEstimated": estimatedSeProfits()
-            },
-
-            "certainBenefits": {
-              "receivedBenefits": getMapBooleanValue("certainBenefits.receivedBenefits"),
-              "incomeSupport": getMapBooleanValue("certainBenefits.incomeSupport"),
-              "jsa": getMapBooleanValue("certainBenefits.jsa"),
-              "esa": getMapBooleanValue("certainBenefits.esa"),
-              "pensionCredit": getMapBooleanValue("certainBenefits.pensionCredit")
-            }
-          },
-          "otherIncome": {
-            "otherHouseholdIncome": otherHouseholdIncome,
-            "isOtherHouseholdIncomeEst": estimatedOtherIncome()
-          },
-          "hasChangeOfCircs": getMapBooleanValue("hasChangeOfCircs")
+            addIfNonZero(json, "taxableBenefits", taxableBenefits);
+            addIfNonZero(json, "earnings", buildTotal("incomeDetails.earnings"));
+            addIfNonZero(json, "companyBenefits", buildTotal("incomeDetails.companyBenefits"));
+            addIfNonZero(json, "seProfits", buildTotal("incomeDetails.seProfits"));
+            addIfNonZero(json, "seProfitsEstimated", estimatedSeProfits());
+            return json;
         }
+
+        function getCertainBenefitsJson() {
+            var json = {};
+            addIfNonZero(json, "receivedBenefits", getMapBooleanValue("certainBenefits.receivedBenefits"));
+            addIfNonZero(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
+            addIfNonZero(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
+            addIfNonZero(json, "esa", getMapBooleanValue("certainBenefits.esa"));
+            addIfNonZero(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
+            return json;
+        }
+
+        function getOtherIncomeJson() {
+            var json = {};
+
+            var otherHouseholdIncome = buildTotal("otherIncome.saving_investment_dividend",
+                "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
+                "otherIncome.foreign_income", "otherIncome.notional_income",
+                "otherIncome.profit_from_property");
+
+            addIfNonZero(json, "otherHouseholdIncome", otherHouseholdIncome);
+            addIfNonZero(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+            return json;
+        }
+
+        var submission = {};
+        var renewalDataJson = {};
+        renewalDataJson.incomeDetails = getIncomeDetailsJson();
+        renewalDataJson.certainBenefits = getCertainBenefitsJson();
+        renewalDataJson.otherIncome = getOtherIncomeJson();
+        renewalDataJson.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
+        submission.renewalData = renewalDataJson;
         return(JSON.stringify(submission));
     }
 

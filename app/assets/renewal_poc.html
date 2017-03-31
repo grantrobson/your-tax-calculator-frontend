@@ -575,6 +575,7 @@
         }
     }
 
+    // todo...squash into single function with params.
     function YES() {
         var question = getFromId(questionPos);
         if (question.questionType.modelId !== "undefined") {
@@ -687,6 +688,8 @@
             // Advance the questionPosition to the summary screen.
             questionPos = "SUMMARY-SCREEN-TODO";
 
+            // Save switch which indicates user routed to CoC.
+            map.set("hasChangeOfCircs", "true");
             return;
 
         } else if (question.questionType.type == "SubmitRenewal") {
@@ -756,6 +759,9 @@
         } else {
             alert('Failed to resolve the question type ' + question.questionType.type);
         }
+
+        // Reset the scroll position when a new question is displayed.
+        window.scrollTo(0, 0);
     }
 
     function getMapBooleanValue(modelId) {
@@ -862,7 +868,7 @@
             "otherHouseholdIncome": otherHouseholdIncome,
             "isOtherHouseholdIncomeEst": estimatedOtherIncome()
           },
-          "hasChangeOfCircs": false     // TODO: HARDWIRED TO FALSE - TODO...PICK UP FROM MODEL!!! HOW TO KNOW IF COC WAS MADE!?
+          "hasChangeOfCircs": getMapBooleanValue("hasChangeOfCircs")
         }
         return(JSON.stringify(submission));
     }
@@ -1148,7 +1154,7 @@
         <br>
 
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:R,hasPartner:false,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,renewalData.auto-renewal:true,certainBenefits.receivedBenefits:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,undefined:false,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:a1#1#Benefits & Income - intro#Did you get any untaxed benefits#Were you employed#Were you self employed#Did you get any taxable benefits#Did you get any other household income#Did you get any income from property rental#Report any changes,undefined:true,hasChangeOfCircs:true')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
 
@@ -1370,7 +1376,7 @@
                         "id": "Select partner taxable benefits and enter amount",
                         "question": "Select partner taxable benefits and enter amount",
                         "questionType": {
-                        "type": "MultipleChoice",
+                        "type": "MultipleChoiceWithNumber",
                         "multipleChoiceOptions": [
                             {
                             "option": "Bereavement Allowance",
@@ -1917,7 +1923,7 @@
 
             var singleApplicantJourney = {
                 "formType":"SingleApplicant",
-                "startQuestion":"1",
+                "startQuestion":"1",                // TODO...fix fix reference to question '1'.
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
@@ -1933,7 +1939,7 @@
 
             var jointApplicantJourney = {
                 "formType":"SingleApplicant",
-                "startQuestion": "1",   // TODO...replace 1  id.
+                "startQuestion": "1",   // TODO...fix fix reference to question '1'.
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
@@ -1950,7 +1956,7 @@
 
             var single2YearsJourney = {
                 "formType":"SingleApplicant2Years",
-                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1,
+                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
@@ -1967,7 +1973,7 @@
 
             // Rewire journeys single applicant to route to "Report any changes".
             builtData=single2YearsJourney;
-            var override = getFromId("ROUTING DECISION COC");
+            var override = getFromId("ROUTING DECISION COC");   // TODO...MAGIC!
             // Override the JOINT_D2_ROUTE and route to "Report any changes". 2nd (PY data) time the routing question is invoked will be on the PY path.
             override.questionType.JOINT_D2_ROUTE = "Report any changes";
 
@@ -1979,7 +1985,7 @@
 
             var joint2YearsJourney = {
                 "formType":"Joint D2",
-                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1,
+                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };

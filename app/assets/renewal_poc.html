@@ -869,8 +869,8 @@
         renewalDataJson.incomeDetails = getIncomeDetailsJson();
         renewalDataJson.certainBenefits = getCertainBenefitsJson();
         renewalDataJson.otherIncome = getOtherIncomeJson();
-        renewalDataJson.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
         submission.renewalData = renewalDataJson;
+        submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
         return(JSON.stringify(submission));
     }
 

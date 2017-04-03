@@ -38,7 +38,7 @@ html {
   font-size: 10px; }
 
 body {
-  background: #4A4A4A; }
+  background: #DEE0E2; }
 
 header#page-header {
   background: #000;
@@ -48,7 +48,7 @@ header#page-header {
   width: 100%;
   top: 0; }
   header#page-header h1 {
-    font-family: SegoeUI;
+    font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 14px;
     font-size: 1.4rem;
     font-weight: bold;
@@ -56,20 +56,20 @@ header#page-header {
 
 main {
   background: #fff;
-  font-family: SegoeUI;
+  font-family: SFUIText-Regular, -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: normal;
   font-size: 16px;
   font-size: 1.6rem;
-  padding: 20px;
+  padding: 16px;
   margin-top: 40px; }
   main h2 {
-    font-family: SegoeUI;
+    font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 20px;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1em; }
   main h3, main #headerDecimal {
-    font-family: SegoeUI;
+    font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
     font-size: 1.6rem;
     font-weight: bold;
@@ -77,11 +77,11 @@ main {
   main p, main span, main label {
     font-size: 16px;
     font-size: 1.6rem;
-    font-family: SegoeUI;
+    font-family: SFUIText-Regular, -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: normal; }
   main input[type="button"].primary {
     display: block;
-    background-color: #00823b;
+    background-color: #08822e;
     color: #fff;
     font-size: 16px;
     font-size: 1.6rem;
@@ -145,8 +145,8 @@ main.summary {
   padding: 0; }
   main.summary article {
     margin: 0;
-    padding: 20px;
-    border-bottom: 5px solid #4A4A4A; }
+    padding: 16px;
+    border-bottom: 5px solid #DEE0E2; }
     main.summary article header p {
       font-size: 20px;
       font-size: 2rem;
@@ -156,35 +156,35 @@ main.summary {
       font-size: 3.2rem;
       font-weight: bold;
       text-align: center;
-      margin: 20px 0; }
+      margin: 16px 0; }
     main.summary article h2 {
-      font-family: SegoeUI;
+      font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold;
       background: #005ea5;
       color: #fff;
-      margin-top: -20px;
-      margin-right: -20px;
+      margin-top: -16px;
+      margin-right: -16px;
       margin-bottom: 20px;
-      margin-left: -20px;
-      padding: 20px; }
+      margin-left: -16px;
+      padding: 16px; }
     main.summary article h3 {
-      font-family: SegoeUI;
+      font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold;
-      padding-bottom: 20px;
+      padding-bottom: 16px;
       border-bottom: 2px solid #005ea5;
       margin-bottom: 0; }
     main.summary article h4 {
-      font-family: SegoeUI;
+      font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold;
       padding: 10px 0; }
     main.summary article h5 {
-      font-family: SegoeUI;
+      font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 20px;
       font-size: 2rem;
       font-weight: normal;
@@ -192,7 +192,7 @@ main.summary {
       border-top: 1px solid #bfc1c3;
       border-bottom: 1px solid #bfc1c3; }
     main.summary article table {
-      margin: 20px 0;
+      margin: 16px 0;
       border-top: 2px solid #005ea5;
       width: 100%; }
       main.summary article table tr {
@@ -200,7 +200,7 @@ main.summary {
       main.summary article table th, main.summary article table td {
         font-size: 16px;
         font-size: 1.6rem;
-        padding: 10px 0; }
+        padding: 8px 0; }
         main.summary article table th:first-child, main.summary article table td:first-child {
           text-align: left; }
         main.summary article table th:last-child, main.summary article table td:last-child {
@@ -228,4 +228,11 @@ h1.hidden {
   visibility: hidden; }
 
 .back {
-  display: none; }
+  position: fixed;
+  top: 10px;
+  left: 8px;
+  border: 0; }
+
+main input[type="button"].primary {
+  border-radius: 4px;
+  box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31); }

@@ -40,8 +40,11 @@
     * {
       box-sizing: border-box; }
     
+    html {
+      font-size: 10px; }
+    
     body {
-      background: #4A4A4A; }
+      background: #F2F2F2; }
     
     header#page-header {
       background: #000;
@@ -144,43 +147,72 @@
         opacity: 1;
         transition: opacity 1s linear; }
     
-    main.summary article {
-      margin: 0;
+    main.summary {
       padding: 0; }
-      main.summary article h2 {
-        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 20px;
-        font-size: 2rem;
-        font-weight: bold;
-        background: #005ea5;
-        color: #fff;
-        margin-top: -16px;
-        margin-right: -16px;
-        margin-bottom: 20px;
-        margin-left: -16px;
-        padding: 16px; }
-      main.summary article h3 {
-        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 20px;
-        font-size: 2rem;
-        font-weight: bold;
-        padding-bottom: 16px;
-        border-bottom: 2px solid #005ea5;
-        margin-bottom: 0; }
-      main.summary article h4 {
-        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 20px;
-        font-size: 2rem;
-        font-weight: bold;
-        padding: 10px 0; }
-      main.summary article h5 {
-        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 20px;
-        font-size: 2rem;
-        font-weight: normal;
-        padding: 10px 0;
-        border-top: 1px solid #bfc1c3;
-        border-bottom: 1px solid #bfc1c3; }
+      main.summary article {
+        margin: 0;
+        padding: 16px;
+        border-bottom: 5px solid #F2F2F2; }
+        main.summary article header p {
+          font-size: 20px;
+          font-size: 2rem;
+          font-weight: bold; }
+        main.summary article header h1 {
+          font-size: 32px;
+          font-size: 3.2rem;
+          font-weight: bold;
+          text-align: center;
+          margin: 16px 0; }
+        main.summary article h2 {
+          font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 20px;
+          font-size: 2rem;
+          font-weight: bold;
+          background: #005ea5;
+          color: #fff;
+          margin-top: -16px;
+          margin-right: -16px;
+          margin-bottom: 20px;
+          margin-left: -16px;
+          padding: 16px; }
+        main.summary article h3 {
+          font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 20px;
+          font-size: 2rem;
+          font-weight: bold;
+          padding-bottom: 16px;
+          border-bottom: 2px solid #005ea5;
+          margin-bottom: 0; }
+        main.summary article h4 {
+          font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 20px;
+          font-size: 2rem;
+          font-weight: bold;
+          padding: 10px 0; }
+        main.summary article h5 {
+          font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 20px;
+          font-size: 2rem;
+          font-weight: normal;
+          padding: 10px 0;
+          border-top: 1px solid #bfc1c3;
+          border-bottom: 1px solid #bfc1c3; }
+        main.summary article table {
+          margin: 16px 0;
+          border-top: 2px solid #005ea5;
+          width: 100%; }
+          main.summary article table tr {
+            border-bottom: 1px solid #bfc1c3; }
+          main.summary article table th, main.summary article table td {
+            font-size: 16px;
+            font-size: 1.6rem;
+            padding: 8px 0; }
+            main.summary article table th:first-child, main.summary article table td:first-child {
+              text-align: left; }
+            main.summary article table th:last-child, main.summary article table td:last-child {
+              text-align: right; }
+          main.summary article table th {
+            font-weight: bold; }
     
     .alert {
       padding: 10px 16px;

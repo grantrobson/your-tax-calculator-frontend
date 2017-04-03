@@ -763,6 +763,30 @@
         window.scrollTo(0, 0);
     }
 
+
+//*********************************************************************
+//  SUBMISSION CODE
+//*********************************************************************
+
+    var incomeDetailsModelIds = [
+        "incomeDetails.self_employed_profit_is_estimated",
+        "incomeDetails.self_employed_loss_is_estimated"];
+
+    var otherIncomeModelIds = ["otherIncome.rental_profit_is_estimated",
+        "otherIncome.rental_loss_is_estimated",
+        "otherIncome.isOtherHouseholdIncomeEst"];
+
+    var taxableBenefitsModelIds = ["taxableBenefits.bereavement_allowance",
+        "taxableBenefits.carer_allowance",
+        "taxableBenefits.contribution_based_jobseeker_allowance",
+        "taxableBenefits.contribution_based_employment_and_support_allowance",
+        "taxableBenefits.incapacity_benefit"];
+
+    var otherIncomModelIds = ["otherIncome.saving_investment_dividend",
+        "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
+        "otherIncome.foreign_income", "otherIncome.notional_income",
+        "otherIncome.profit_from_property"];
+
     function getMapBooleanValue(modelId) {
         var mapValue = map.get(modelId);
         var rtn = false;
@@ -775,44 +799,28 @@
         return(rtn);
     }
 
-
-    function containsKeyWithValueTrue() {
-        var args = [].slice.call(arguments);
-        var result = args.find(getMapBooleanValue);
-        return typeof result !== 'undefined';
+    function getMapIntValue(key) {
+        var value = map.get(key);
+        return typeof value !== 'undefined' ? Math.floor(parseFloat(value)) : 0;
     }
 
-
     function buildTotal() {
-        var total=0;
-        for (i = 0; i < arguments.length; i++) {
-            var value = map.get(arguments[i]);
-            if (value !== undefined) {
-                // Round down the value.
-                total = total + Math.floor(parseFloat(value));
-            }
-        }
-        return(total);
+        function accumulate(total, num) { return total + num;}
+        return [].slice.call(arguments[0]).map(getMapIntValue).reduce(accumulate);
     }
 
     function estimatedSeProfits() {
-        return containsKeyWithValueTrue(
-            "incomeDetails.self_employed_profit_is_estimated",
-            "incomeDetails.self_employed_loss_is_estimated"
-        );
+        return incomeDetailsModelIds.some(getMapBooleanValue)
     }
 
     function estimatedOtherIncome() {
-        return containsKeyWithValueTrue(
-            "otherIncome.rental_profit_is_estimated",
-            "otherIncome.rental_loss_is_estimated",
-            "otherIncome.isOtherHouseholdIncomeEst"
-        );
+        return otherIncomeModelIds.some(getMapBooleanValue)
     }
 
     function isEstimatedIncome() {
         return estimatedOtherIncome() || estimatedSeProfits();
     }
+
 
     function addIfNonZero(obj, k, v){
         if (typeof k !== 'undefined' && v !== 0) {obj[k] = v;}
@@ -827,50 +835,88 @@
         function getIncomeDetailsJson() {
             var json = {};
 
-            var taxableBenefits = buildTotal("taxableBenefits.bereavement_allowance",
-                "taxableBenefits.carer_allowance",
-                "taxableBenefits.contribution_based_jobseeker_allowance",
-                "taxableBenefits.contribution_based_employment_and_support_allowance",
-                "taxableBenefits.incapacity_benefit");
+            addIfNonZero(json, "taxableBenefits", buildTotal(taxableBenefitsModelIds));
+            addIfNonZero(json, "earnings", getMapIntValue("incomeDetails.earnings"));
+            addIfNonZero(json, "companyBenefits", getMapIntValue("incomeDetails.companyBenefits"));
+            addIfNonZero(json, "seProfits", getMapIntValue("incomeDetails.seProfits"));
+            addIfNonZero(json, "seProfitsEstimated", estimatedSeProfits());
+            return json;
+        }
 
-            addIfNonZero(json, "taxableBenefits", taxableBenefits);
-            addIfNonZero(json, "earnings", buildTotal("incomeDetails.earnings"));
-            addIfNonZero(json, "companyBenefits", buildTotal("incomeDetails.companyBenefits"));
-            addIfNonZero(json, "seProfits", buildTotal("incomeDetails.seProfits"));
+        function getIncomeDetailsJsonPY1() {
+            var json = {};
+
+            addIfNonZero(json, "taxableBenefits", buildTotal(previousYearModelIds(taxableBenefitsModelIds)));
+            addIfNonZero(json, "earnings", getMapIntValue("incomeDetails.earnings"+PREVIOUS_YEAR_MINUS_1));
+            addIfNonZero(json, "companyBenefits", getMapIntValue("incomeDetails.companyBenefits"+PREVIOUS_YEAR_MINUS_1));
+            addIfNonZero(json, "seProfits", getMapIntValue("incomeDetails.seProfits"+PREVIOUS_YEAR_MINUS_1));
             addIfNonZero(json, "seProfitsEstimated", estimatedSeProfits());
             return json;
         }
 
         function getCertainBenefitsJson() {
             var json = {};
-            addIfNonZero(json, "receivedBenefits", getMapBooleanValue("certainBenefits.receivedBenefits"));
-            addIfNonZero(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
-            addIfNonZero(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
-            addIfNonZero(json, "esa", getMapBooleanValue("certainBenefits.esa"));
-            addIfNonZero(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
+            var receivingBenefits = getMapBooleanValue("certainBenefits.receivedBenefits");
+            if(receivingBenefits) {
+                addIfNonZero(json, "receivedBenefits", receivingBenefits);
+                addIfNonZero(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
+                addIfNonZero(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
+                addIfNonZero(json, "esa", getMapBooleanValue("certainBenefits.esa"));
+                addIfNonZero(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
+            } else {
+                json.receivedBenefits = false;
+                json.incomeSupport = false;
+                json.jsa = false;
+                json.esa = false;
+                json.pensionCredit = false;
+            }
             return json;
         }
+
+
+        function previousYearModelIds(modelIds) {
+            return modelIds.map(id => id+PREVIOUS_YEAR_MINUS_1);
+        }
+
 
         function getOtherIncomeJson() {
             var json = {};
+            var income = buildTotal(otherIncomModelIds);
+            if(income === 0) {
+                return json;
+            } else {
+                addIfNonZero(json, "otherHouseholdIncome", income);
+                addIfNonZero(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+                return json;
+            }
+        }
 
-            var otherHouseholdIncome = buildTotal("otherIncome.saving_investment_dividend",
-                "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
-                "otherIncome.foreign_income", "otherIncome.notional_income",
-                "otherIncome.profit_from_property");
-
-            addIfNonZero(json, "otherHouseholdIncome", otherHouseholdIncome);
-            addIfNonZero(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+        function getOtherIncomeJsonPY1() {
+            var json = {};
+            addIfNonZero(json, "otherHouseholdIncome", buildTotal(previousYearModelIds(otherIncomModelIds)));
+            addIfNonZero(json, "isOtherHouseholdIncomeEst", false);
             return json;
         }
 
+        var renewalType = map.get("renewalType");
         var submission = {};
         var renewalDataJson = {};
+
         renewalDataJson.incomeDetails = getIncomeDetailsJson();
         renewalDataJson.certainBenefits = getCertainBenefitsJson();
-        submission.renewalData = renewalDataJson;
-        submission.otherIncome = getOtherIncomeJson();
         submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
+
+        var otherIncomeJson = getOtherIncomeJson();
+        if(otherIncomeJson === {}) {
+            submission.otherIncome = getOtherIncomeJson();
+        }
+
+        if(renewalType !== undefined && renewalType.toUpperCase() === SINGLE_D2) {
+            submission.otherIncomePY1 = getOtherIncomeJsonPY1();
+            renewalDataJson.incomeDetailsPY1 = getIncomeDetailsJsonPY1()
+        }
+
+        submission.renewalData = renewalDataJson;
         return(JSON.stringify(submission));
     }
 
@@ -1155,7 +1201,7 @@
         <br>
 
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:R,hasPartner:false,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,renewalData.auto-renewal:true,certainBenefits.receivedBenefits:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,undefined:false,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:a1#1#Benefits & Income - intro#Did you get any untaxed benefits#Were you employed#Were you self employed#Did you get any taxable benefits#Did you get any other household income#Did you get any income from property rental#Report any changes,undefined:true,hasChangeOfCircs:true')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
 

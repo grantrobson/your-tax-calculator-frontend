@@ -776,18 +776,16 @@
         "otherIncome.rental_loss_is_estimated",
         "otherIncome.isOtherHouseholdIncomeEst"];
 
-    var taxableBenefitsModelIds =
-        ["taxableBenefits.bereavement_allowance",
-            "taxableBenefits.carer_allowance",
-            "taxableBenefits.contribution_based_jobseeker_allowance",
-            "taxableBenefits.contribution_based_employment_and_support_allowance",
-            "taxableBenefits.incapacity_benefit"];
+    var taxableBenefitsModelIds = ["taxableBenefits.bereavement_allowance",
+        "taxableBenefits.carer_allowance",
+        "taxableBenefits.contribution_based_jobseeker_allowance",
+        "taxableBenefits.contribution_based_employment_and_support_allowance",
+        "taxableBenefits.incapacity_benefit"];
 
     var otherIncomModelIds = ["otherIncome.saving_investment_dividend",
         "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
         "otherIncome.foreign_income", "otherIncome.notional_income",
         "otherIncome.profit_from_property"];
-
 
     function getMapBooleanValue(modelId) {
         var mapValue = map.get(modelId);
@@ -822,6 +820,7 @@
     function isEstimatedIncome() {
         return estimatedOtherIncome() || estimatedSeProfits();
     }
+
 
     function addIfNonZero(obj, k, v){
         if (typeof k !== 'undefined' && v !== 0) {obj[k] = v;}
@@ -882,9 +881,14 @@
 
         function getOtherIncomeJson() {
             var json = {};
-            addIfNonZero(json, "otherHouseholdIncome", buildTotal(otherIncomModelIds));
-            addIfNonZero(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
-            return json;
+            var income = buildTotal(otherIncomModelIds);
+            if(income === 0) {
+                return json;
+            } else {
+                addIfNonZero(json, "otherHouseholdIncome", income);
+                addIfNonZero(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+                return json;
+            }
         }
 
         function getOtherIncomeJsonPY1() {
@@ -895,19 +899,22 @@
         }
 
         var renewalType = map.get("renewalType");
-
         var submission = {};
         var renewalDataJson = {};
+
         renewalDataJson.incomeDetails = getIncomeDetailsJson();
         renewalDataJson.certainBenefits = getCertainBenefitsJson();
-        submission.otherIncome = getOtherIncomeJson();
         submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
+
+        var otherIncomeJson = getOtherIncomeJson();
+        if(otherIncomeJson === {}) {
+            submission.otherIncome = getOtherIncomeJson();
+        }
 
         if(renewalType !== undefined && renewalType.toUpperCase() === SINGLE_D2) {
             submission.otherIncomePY1 = getOtherIncomeJsonPY1();
             renewalDataJson.incomeDetailsPY1 = getIncomeDetailsJsonPY1()
         }
-
 
         submission.renewalData = renewalDataJson;
         return(JSON.stringify(submission));

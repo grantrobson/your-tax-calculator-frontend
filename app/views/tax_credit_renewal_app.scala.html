@@ -14,17 +14,17 @@
 
     @tags.jsHtml()
 
+    @tags.jsQuestion()
+
     @tags.jsQuestionRouting()
 
     @tags.jsNative()
 
-    @tags.jsQuestion()
-
     @tags.jsSubmission()
 
-    @tags.jsTCRQuestions()
-
     @tags.jsSaveResume()
+
+    @tags.jsTCRQuestions()
 
 </head>
 
@@ -184,13 +184,12 @@
 
     </div>
 
-@if(debug == true) {
+    @if(debug == true) {
     <div id="debugShow">
-} else {
+    } else {
     <div id="debugHidden" style="display: none;">
-}
+    }
         <div id="demo">
-
             <div>
                 <label>Renewal Type</label>
                 <select id="RenewalType">

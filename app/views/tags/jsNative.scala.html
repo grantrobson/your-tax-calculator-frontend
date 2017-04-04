@@ -1,7 +1,5 @@
 <script>
 
-// TODO...CHANGE NAME TO jsNativeMobileApp
-
     function startup(renewalType, hasPartner, nino, endDate, startDate) {
         // Initialise globals.
         stack = [];
@@ -21,9 +19,6 @@
     }
 
     function hook(journeyOutcomeStatus) {
-        // TODO...Hardwired OS functions.
-
-        var nino = map.get("nino");
 
         var hookResponse = {
             "journeyOutcomeStatus":journeyOutcomeStatus,

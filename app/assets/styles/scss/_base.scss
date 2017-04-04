@@ -99,13 +99,19 @@ body {
 	ul{
 		padding-left: 30px;
 		margin: 8px 0 16px;
-		li{
-			display: list-item;
-			list-style: disc outside;
-			h4{
-				font-weight: bold;
+		&.bullets{
+			li{
+				display: list-item;
+				list-style: disc outside;
+				h4{
+					font-weight: bold;
+				}
+				+ li {
+					margin-top: 0.5rem;
+				}
 			}
 		}
+		
 	}
 
   }
@@ -115,10 +121,9 @@ input ~ .col {
 	.showIfChecked{
   	input{
   		height: 0;
-  		width: 0;
-  		opacity: 0;
-  		width: 100%;
-
+  		opacity: 0; 
+	    margin-top: 0;
+	    padding: 0;
   	}
 }
 }
@@ -128,8 +133,11 @@ input:checked {
 		width: auto;
 		input{
 			height:auto;
+			width: 100%;
 			opacity: 1;
-			transition: opacity 1s linear;
+			padding: 5px;
+			margin-top:8px;
+			transition: all 0.5s linear;
 		}
 	}
 }

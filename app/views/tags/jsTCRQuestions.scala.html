@@ -1,0 +1,900 @@
+<script language=javascript type="text/javascript">
+
+    // Resolve associated questions for renewal flow.
+    var builtData="";
+    function data() {
+
+        if (builtData) {
+            return(builtData);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // QUESTIONS START
+
+        var jointApplicant = [
+            {
+                "id": "Partner benefits & income intro",
+                "question": "Partner benefits & income intro",
+                "questionType": {
+                  "type": "Continue",
+    //                          "headerDiv": "benefits-and-income-intro", TODO...
+                  "nextQuestionId": "Did partner get any untaxed benefits?"
+                }
+            },
+
+            {
+                "id": "Did partner get any untaxed benefits?",
+                "question": "Did partner get any untaxed benefits?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Which untaxed benefits did partner get",
+                  "noNextQuestionId": "Was partner employed?",
+                  "modelId": "partner.certainBenefits.receivedBenefits"
+                }
+            },
+
+
+            {
+                "id": "Which untaxed benefits did partner get",
+                "question": "Which untaxed benefits did partner get?",
+                "questionType": {
+
+                    "type": "MultipleChoice",
+                    "multipleChoiceOptions": [
+                        {
+                            "option": "Income-based Jobseeker\'s Allowance",
+                            "modelId": "partner.certainBenefits.jsa",
+                            "questionId": "jobseeker"
+                        },
+                        {
+                            "option": "Income-related Employment and Support Allowance",
+                            "modelId": "partner.certainBenefits.esa",
+                            "questionId": "support_allowance"
+                        },
+                        {
+                            "option": "Income Support",
+                            "modelId": "partner.certainBenefits.incomeSupport",
+                            "questionId": "income_support"
+                        },
+                        {
+                            "option": "Pension Credit",
+                            "modelId": "partner.certainBenefits.pensionCredit",
+                            "questionId": "pension_credit"
+                        }
+                    ],
+                    "nextQuestionId": "Does partner still get this"
+                    }
+                },
+                {
+                    "id": "Does partner still get this",
+                    "previousQuestionOption" : "Which untaxed benefits did partner get",
+
+                    "question": "Does partner still get this ",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did you get any other household income",
+                      "noNextQuestionId": "Was partner employed?",
+                      "modelId": "partner.certainBenefits.Does partner still get this benefit"
+                    }
+                },
+
+                {
+                    "id": "Was partner employed?",
+                    "question": "Was partner employed?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "How much employed income did partner get?",
+                      "noNextQuestionId": "Was partner self-employed?",
+                      "modelId": "partner.incomeDetails.Was partner employed"
+                    }
+                },
+
+                {
+                    "id": "How much employed income did partner get?",
+                    "question": "How much employed income did partner get?",
+                    "questionType": {
+                      "type": "Decimal",
+//                          "headerDiv": "benefits-and-income-intro", TODO...
+                      "nextQuestionId": "Did partner get any company benefits?",
+                      "modelId": "partner.incomeDetails.earnings"
+                    }
+                },
+
+
+                {
+                    "id": "Did partner get any company benefits?",
+                    "question": "Did partner get any company benefits?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "How much company benefit did partner get?",
+                      "noNextQuestionId": "Was partner self-employed?",
+                      "modelId": "partner.incomeDetails.Did partner get any company benefits"
+                    }
+                },
+
+              {
+                "id": "How much company benefit did partner get?",
+                "question": "How much company benefit did partner get?",
+                "questionType": {
+                  "type": "Decimal",
+                  "nextQuestionId": "Was partner self-employed?",
+                  "modelId": "partner.incomeDetails.companyBenefits"
+                }
+              },
+
+                {
+                    "id": "Was partner self-employed?",
+                    "question": "Was partner self-employed?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did partner make profit from self-employment?",
+                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                      "modelId": "partner.incomeDetails.Was partner self-employed"
+                    }
+                },
+
+                {
+                    "id": "Did partner make profit from self-employment?",
+                    "question": "Did partner make profit from self-employment?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "How much profit did partner make from self-employment?",
+                      "noNextQuestionId": "Is partner self-employment loss estimated?",
+                      "modelId": "partner.incomeDetails.Did partner make profit from self-employment"
+                    }
+                },
+
+
+                {
+                    "id": "Is partner self-employment loss estimated?",
+                    "question": "Is partner self-employment loss estimated?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did partner get any taxable benefits?",
+                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                      "modelId": "partner.incomeDetails.self_employed_loss_is_estimated"
+                    }
+                },
+
+                {
+                    "id": "Is partner self-employment profit estimated?",
+                    "question": "Is partner self-employment profit estimated?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did partner get any taxable benefits?",
+                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                      "modelId": "partner.incomeDetails.seProfits"
+                    }
+                },
+
+
+                  {
+                    "id": "How much profit did partner make from self-employment?",
+                    "question": "How much profit did partner make from self-employment?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "Is partner self-employment profit estimated?",
+                      "modelId": "partner.incomeDetails.How much profit did partner make from self-employment"
+                    }
+                  },
+
+                {
+                    "id": "Is partner self-employment profit estimated?",
+                    "question": "Is partner self-employment profit estimated?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did partner get any taxable benefits?",
+                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                      "modelId": "partner.incomeDetails.self_employed_profit_is_estimated"
+                    }
+                },
+
+
+                {
+                    "id": "Did partner get any taxable benefits?",
+                    "question": "Did partner get any taxable benefits?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Select partner taxable benefits and enter amount",
+                      "noNextQuestionId": "Did you get any other household income",
+                      "modelId": "renewalData.Did partner get any taxable benefits"
+                    }
+                },
+
+                {
+                    "id": "Select partner taxable benefits and enter amount",
+                    "question": "Select partner taxable benefits and enter amount",
+                    "questionType": {
+                    "type": "MultipleChoiceWithNumber",
+                        "multipleChoiceOptions": [
+                            {
+                                "option": "Bereavement Allowance",
+                                "modelId": "partner.taxableBenefits.bereavement_allowance",
+                                "questionId": "bereavement_allowance"
+                            },
+                            {
+                                "option": "Carer Allowance",
+                                "modelId": "partner.taxableBenefits.carer_allowance",
+                                "questionId": "carer_allowance"
+                            },
+                            {
+                                "option": "Contribution-based Jobseeker Allowance",
+                                "modelId": "partner.taxableBenefits.contribution_based_jobseeker_allowance",
+                                "questionId": "contribution_based_jobseeker_allowance"
+                            },
+                            {
+                                "option": "Contribution-based Employment and Support Allowance",
+                                "modelId": "partner.taxableBenefits.contribution_based_employment_and_support_allowance",
+                                "questionId": "contribution_based_employment_and_support_allowance"
+                            },
+                            {
+                                "option": "Incapacity Benefit",
+                                "modelId": "partner.taxableBenefits.incapacity_benefit",
+                                "questionId": "incapacity_benefit"
+                            }
+                        ],
+                    "nextQuestionId": "Did you get any other household income"
+                    }
+                }
+            ];
+
+
+        var singleApplicant = [
+
+            {
+                "id": "1",                  // TODO...NAMING
+                "question": "",
+                "questionType": {
+                  "type": "Continue",
+                  "headerDiv": "benefits-and-income-intro",
+                  "nextQuestionId": "Benefits & Income - intro"
+                }
+            },
+
+            {
+                "id": "Benefits & Income - intro",
+                "question": "",
+                "questionType": {
+                  "type": "Continue",
+                  "headerDiv": "part-1-your-benefits-and-income",
+                  "nextQuestionId": "Did you get any untaxed benefits"
+                }
+            },
+//====================================================================
+// Benefits and income, maps to CERTAIN-BENEFITS!
+            {
+                "id": "Did you get any untaxed benefits",
+                "question": "Did you get any of these benefits for the whole time between 11 January 2017 and 5 April 2017?",
+                "questionType": {
+                    "type": "Boolean",
+                    "yesNextQuestionId": "Which untaxed benefit did you get",
+                    "noNextQuestionId": "Were you employed",
+                    "modelId": "certainBenefits.receivedBenefits"
+                }
+            },
+
+            {
+                "id": "Which untaxed benefit did you get",
+                "question": "Which did you get for the whole time between 6 April 2016 to 5 April 2017?",
+                "questionType": {
+                "type": "MultipleChoice",
+                "multipleChoiceOptions": [
+                    {
+                    "option": "Income-based Jobseeker\'s Allowance",
+                    "modelId": "certainBenefits.jsa",
+                    "questionId": "jobseeker"
+                    },
+                    {
+                    "option": "Income-related Employment and Support Allowance",
+                    "modelId": "certainBenefits.esa",
+                    "questionId": "support_allowance"
+                    },
+                    {
+                    "option": "Income Support",
+                    "modelId": "certainBenefits.incomeSupport",
+                    "questionId": "income_support"
+                    },
+                    {
+                    "option": "Pension Credit",
+                    "modelId": "certainBenefits.pensionCredit",
+                    "questionId": "pension_credit"
+                    }
+                ],
+                "nextQuestionId": "Do you still get this benefit"
+                }
+            },
+
+            {
+                "id": "Do you still get this benefit",
+                "question": "Do you still get ",
+                "previousQuestionOption" : "Which untaxed benefit did you get",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "ROUTING QUESTION DECISION",
+                  "noNextQuestionId": "Were you employed",
+                  "modelId": "certainBenefits.Do you still get this benefit"
+                }
+            },
+
+//====================================================================
+// Other household income. OTHER-INCOME
+
+            {
+                "id": "Did you get any other household income",
+                "question": "Part 2: Other household income - Did you get any of these sources of income between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Select other income sources & enter amount",
+                  "noNextQuestionId": "Did you get any income from property rental",
+                  "modelId": "otherIncome.Did you get any other household income"
+                }
+            },
+
+            {
+                "id": "Select other income sources & enter amount",
+                "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                "questionType": {
+                "type": "MultipleChoiceWithNumber",
+                    "multipleChoiceOptions": [
+                    {
+                        "option": "Savings, investments and dividends",
+                        "modelId": "otherIncome.saving_investment_dividend",
+                        "questionId": "saving_investment_dividend"
+                    },
+                    {
+                        "option": "Pensions",
+                        "modelId": "otherIncome.pensions",
+                        "questionId": "pensions"
+                    },
+                    {
+                        "option": "Trusts, settlements or estates",
+                        "modelId": "otherIncome.trusts_settlements_or_estates",
+                        "questionId": "trusts_settlements_or_estates"
+                    },
+                    {
+                        "option": "Foreign income",
+                        "modelId": "otherIncome.foreign_income",
+                        "questionId": "foreign_income"
+                    },
+                    {
+                        "option": "Notional income",
+                        "modelId": "otherIncome.notional_income",
+                        "questionId": "notional_income"
+                    }
+                ],
+                "nextQuestionId": "Are any of the income amounts estimated"
+                }
+            },
+
+
+            {
+                "id": "Are any of the income amounts estimated",
+                "question": "Are any of your sources of income amounts estimated?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Did you get any income from property rental",
+                  "noNextQuestionId": "Did you get any income from property rental",
+                  "modelId": "otherIncome.isOtherHouseholdIncomeEst"
+                }
+            },
+
+//====================================================================
+// Property
+
+            {
+                "id": "Did you get any income from property rental",
+                "question": "Did you get any income between 6 April 2016 and 5 April 2017 from renting out property?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Did you make a profit from property rental",
+                  "noNextQuestionId": "ROUTING DECISION COC", //"Report any changes",
+                  "modelId": "otherIncome.Did you get any income from property rental"
+                }
+            },
+
+
+            {
+                "id": "Did you make a profit from property rental",
+                "question": "Did you make a profit from renting out property between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Property rental profit - enter amount",
+                  "noNextQuestionId": "Is property rental loss estimated",
+                  "modelId": "otherIncome.Did you make a profit from property rental"
+                }
+            },
+
+            {
+                "id": "Is property rental loss estimated",
+                "question": "Is the loss from renting out property an estimate?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "ROUTING DECISION COC",
+                  "noNextQuestionId": "ROUTING DECISION COC",
+                  "modelId": "otherIncome.rental_loss_is_estimated"
+                }
+            },
+
+            {
+                "id": "Property rental profit - enter amount",
+                "question": "How much profit did you make from renting out property between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Decimal",
+                  "nextQuestionId": "Is property rental profit estimated",
+                  "modelId": "otherIncome.profit_from_property"
+                }
+            },
+
+            {
+                "id": "Is property rental profit estimated",
+                "question": "Is the profit from renting out property an estimate?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "ROUTING DECISION COC",
+                  "noNextQuestionId": "ROUTING DECISION COC",
+                  "modelId": "otherIncome.rental_profit_is_estimated"
+                }
+            },
+
+
+            // Decision!
+            {
+                "id": "ROUTING DECISION COC",
+                "question": "Routing decision function",
+                "questionType": {
+                  "type": "RoutingDecision",
+                    "JOINT_ROUTE": "Report any changes",
+                    "JOINT_D2_ROUTE": "Benefits & Income - intro", // Cycle to collect PY
+                    "OTHER_ROUTE": "Report any changes"
+                }
+            },
+
+//====================================================================
+// Report changes
+// NOTE: NO MODEL ID FOR THIS QUESTION. ALWAYS CLEARED AND USER HAS TO RE-SELECT. See coc.report-yes which is the global flag.
+
+            {
+                "id": "Report any changes",
+                "question": "Report any changes",
+                "questionType": {
+
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Native-route-to-CoC",
+                  "noNextQuestionId": "SUMMARY-SCREEN-TODO"
+                }
+            },
+
+// TODO...Finish off CoC handling!
+            {
+                "id": "Native-route-to-CoC",
+                "question": "Route to change Of Circumstance",
+                "questionType": {
+                  "type": "RouteToChangeOfCircumstance"
+                }
+            },
+            {
+                "id": "Native-submit-renewal",
+                "question": "Submit the renewal",
+                "questionType": {
+                  "type": "SubmitRenewal"
+                }
+            },
+            {
+                "id": "save-and-exit",
+                "question": "SaveAndComeBackLater",
+                "questionType": {
+                  "type": "SaveAndComeBackLater"
+                }
+            },
+
+            {
+                "id": "SUMMARY-SCREEN-TODO",    // TMP SUMMARY SCREEN!!!
+                "question": "SUMMARY - THIS IS JUST A DEMO SCREEN AND NOT complete",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Native-submit-renewal",
+                  "noNextQuestionId": "save-and-exit"
+                }
+            },
+
+//====================================================================
+// Employment!
+
+            {
+                "id": "Were you employed",
+                "question": "Were you employed as an employee at any time between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "How much employed income",
+                  "noNextQuestionId": "Were you self employed",
+                  "modelId": "incomeDetails.Were you employed"   // TODO...UPDATE MODELS TO REFLECT THE QUESTION!
+                }
+            },
+
+            {
+                "id": "How much employed income",
+                "question": "How much did you earn from all of your jobs as an employee between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Decimal",
+                  "nextQuestionId": "Did you get any company benefits",
+                  "modelId": "incomeDetails.earnings"
+                }
+            },
+                {
+                "id": "Did you get any company benefits",
+                "question": "Did you receive company benefits between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "How much company benefit",
+                  "noNextQuestionId": "Were you self employed",
+                  "modelId": "incomeDetails.Did you get any company benefits"
+                }
+            },
+
+            {
+                "id": "How much company benefit",
+                "question": "How much did you receive in company benefits between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Decimal",
+                  "nextQuestionId": "Were you self employed",
+                  "modelId": "incomeDetails.companyBenefits"
+                }
+            },
+            {
+                "id": "Were you self employed",
+                "question": "Were you self-employed at any time between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Did you make a profit from self-employment",
+                  "noNextQuestionId": "Did you get any taxable benefits",
+                  "modelId": "incomeDetails.Were you self employed"      // TODO...RESET/CLEAR renewalData.employee.self-employment-profit
+                }
+            },
+
+            {
+                "id": "Did you make a profit from self-employment",
+                "question": "Did you make a profit from your self-employment between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "How much profit from self-employment",
+                  "noNextQuestionId": "Is the self-employed loss estimated",
+                  "modelId": "incomeDetails.Did you make a profit from self-employment"          // NO, then set renewalData.employee.self-employment-profit to 0
+                }
+            },
+            {
+                "id": "Is the self-employed loss estimated",
+                "question": "Is your self-employed loss an estimate?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Did you get any taxable benefits",
+                  "noNextQuestionId": "Did you get any taxable benefits",
+                  "modelId": "incomeDetails.self_employed_loss_is_estimated"
+                }
+            },
+
+// *** seProfits - IF NOT SET THEN DEFAULT TO 0 -
+
+            {
+                "id": "How much profit from self-employment",
+                "question": "How much self-employed profit did you make between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "Decimal",
+                  "nextQuestionId": "Is the self-employed profit estimated",
+                  "modelId": "incomeDetails.seProfits"
+                }
+            },
+
+
+// *** seProfitsEstimated
+            {
+                "id": "Is the self-employed profit estimated",
+                "question": "Is your self-employed profit amount an estimate?",
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Did you get any taxable benefits",
+                  "noNextQuestionId": "Did you get any taxable benefits",
+                  "modelId": "incomeDetails.self_employed_profit_is_estimated"
+                }
+            },
+
+
+            {
+                "id": "ROUTING QUESTION DECISION",
+                "question": "Routing decision",
+
+                "questionType": {
+                  "type": "RoutingDecision",
+
+                    "JOINT_ROUTE": "Partner benefits & income intro",
+
+                    "OTHER_ROUTE": "Did you get any other household income" // TODO...IS THIS USED!!! CORRECT ROUTING IF PARTNER NOT DEFINED!
+                }
+            },
+
+// *** 1st applicant taxable benefits - NO ANSWER - route to "Did you get any other household income"
+            {
+                "id": "Did you get any taxable benefits",
+                "question": "Did you get any of these benefits between 6 April 2016 and 5 April 2017? Bereavement Allowance...add div section",
+
+                "questionType": {
+                  "type": "Boolean",
+                  "yesNextQuestionId": "Select taxable benefits and enter amount",
+                  "noNextQuestionId": "ROUTING QUESTION DECISION",
+                  "modelId": "renewalData.Did you get any taxable benefits"
+                }
+            },
+
+            {
+                "id": "Select taxable benefits and enter amount",
+                "question": "What benefits did you get between 6 April 2016 and 5 April 2017?",
+                "questionType": {
+                  "type": "MultipleChoiceWithNumber",
+                  "multipleChoiceOptions": [
+                    {
+                      "option": "Bereavement Allowance",
+                      "modelId": "taxableBenefits.bereavement_allowance",
+                      "questionId": "bereavement_allowance"
+                    },
+                    {
+                      "option": "Carer Allowance",
+                      "modelId": "taxableBenefits.carer_allowance",
+                      "questionId": "carer_allowance"
+                    },
+                    {
+                      "option": "Contribution-based Jobseeker Allowance",
+                      "modelId": "taxableBenefits.contribution_based_jobseeker_allowance",
+                      "questionId": "contribution_based_jobseeker_allowance"
+                    },
+                    {
+                      "option": "Contribution-based Employment and Support Allowance",
+                        "modelId": "taxableBenefits.contribution_based_employment_and_support_allowance",
+                      "questionId": "contribution_based_employment_and_support_allowance"
+                    },
+                    {
+                      "option": "Incapacity Benefit",
+                      "modelId": "taxableBenefits.incapacity_benefit",
+                      "questionId": "incapacity_benefit"
+                    }
+                  ],
+                  "nextQuestionId": "ROUTING QUESTION DECISION",
+                }
+            }
+        ];
+
+        // QUESTIONS END
+        ////////////////////////////////////////////////////////////////////////////////
+
+        var nino = map.get("nino");
+        var type = map.get("renewalType");
+        var hasPartner = map.get("hasPartner");
+
+        // Create journey based on renewal type.
+        if (type == AUTO_RENEWAL) {
+            renewalType = AUTO_RENEWAL;
+        } else if (hasPartner == false || hasPartner == "false") {
+            if (type == "D1") {
+                renewalType = SINGLE_D1;
+            } else {
+                renewalType = SINGLE_D2;
+            }
+        } else {
+            if (type == "D1") {
+                renewalType = JOINT_D1;
+            } else {
+                renewalType = JOINT_D2;
+            }
+        }
+        // Set the renewalType.
+        map.set("renewalType", renewalType);
+
+
+        // NOTE: Based on the type of renewal drives how the questions are defined. The renewal type collects either 1
+        // or 2 years worth of data for 1st and 2nd applicant.
+        // The application defines two sets of questions which are SingleApplicant and JointApplicant. By default
+        // SingleApplicant and JointApplicant define the PY (previous year) route. To collect the PY-1 questions, the
+        // same set of SingleApplicant and JointApplicant questions are cloned, and the questions are transformed to collect PY-1 data.
+
+        // The renewal type joint-d2 collects 2 years worth of data for both single and joint applicant. The questions are
+        // generated from the steps below.
+        //  1. Build initial set of questions from combining SingleApplicant and JointApplicant questions.
+        //  2. Cycle through all questions and transform questions to collect PY-1 data. The question id's, routing and modelId attributes are updated to append PY_1.
+        //  3. Append SingleApplicant and JointApplicant questions which represent PY data collection.
+        //  4. The RoutingDecision questions are updated to wire the PY-1 and PY questions.
+
+
+        // Build question journey based on the renewal type.
+        if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // AUTO RENEWAL
+            ////////////////////////////////////////////////////////////////////////////////
+
+            var autoRenewalJourney = {
+                "formType":"AutoRenewal",
+                "startQuestion":"a1",
+                "CreationData":"12/12/2017:10:13",
+                "questions": [
+                    {
+                        "id": "a1",
+                        "question": "Do you need to report any changes to the details shown?",
+                        "questionType": {
+                          "type": "Boolean",
+                          "yesNextQuestionId": "1", // Route to single applicant questions.
+                          "noNextQuestionId": "a2", // End of journey.
+                          "modelId": "renewalData.auto-renewal"
+                        }
+                    },
+                    {
+                        "id": "a2",
+                        "question": "Renewal complete",
+                        "questionType": {
+                          "type": "JourneyCompleteAutoRenewal"
+                        }
+                    }
+                ]
+            };
+
+            // Add singleApplicant questions to auto-renewal questions.
+            autoRenewalJourney.questions = autoRenewalJourney.questions.concat(singleApplicant);
+            builtData=autoRenewalJourney;
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D1) {
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // SINGLE D1
+            ////////////////////////////////////////////////////////////////////////////////
+
+            var singleApplicantJourney = {
+                "formType":"SingleApplicant",
+                "startQuestion":"1",                // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+            singleApplicantJourney.questions = singleApplicant;
+            builtData=singleApplicantJourney;
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D1) {
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // Joint D1 - 1st applicant and 2nd applicant.
+            ////////////////////////////////////////////////////////////////////////////////
+
+            var jointApplicantJourney = {
+                "formType":"SingleApplicant",
+                "startQuestion": "1",   // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+            // Add singleApplicant questions to jointApplicantJourney.
+            jointApplicantJourney.questions = jointApplicant.concat(singleApplicant);
+            builtData=jointApplicantJourney;
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D2) {
+
+            ///////////////////////////////////////////////////////
+            // SINGLE D2 - 2 years PY
+            ///////////////////////////////////////////////////////
+
+            var single2YearsJourney = {
+                "formType":"SingleApplicant2Years",
+                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+            // Build PY-1 questions.
+            single2YearsJourney.questions = JSON.parse(JSON.stringify(singleApplicant));
+            updateQuestionsForPreviousYear(single2YearsJourney.questions);
+
+            // Add PY questions.
+            singleApplicant.forEach((question) => {
+                single2YearsJourney.questions.push(question);
+            });
+
+            // Rewire journeys single applicant to route to "Report any changes".
+            builtData=single2YearsJourney;
+            var override = getFromId("ROUTING DECISION COC");   // TODO...MAGIC!
+            // Override the JOINT_D2_ROUTE and route to "Report any changes". 2nd (PY data) time the routing question is invoked will be on the PY path.
+            override.questionType.JOINT_D2_ROUTE = "Report any changes";
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
+
+            ///////////////////////////////////////////////////////
+            // JOINT D2 - 2 years + partner
+            ///////////////////////////////////////////////////////
+
+            var joint2YearsJourney = {
+                "formType":"Joint D2",
+                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+
+            // Add PY-1 1st applicant
+            joint2YearsJourney.questions = JSON.parse(JSON.stringify(singleApplicant));
+            // Add PY-1 2nd applicant
+            var jointClone = JSON.parse(JSON.stringify(jointApplicant));
+            jointClone.forEach((question) => {
+                joint2YearsJourney.questions.push(question);
+            });
+            // Override questions and add PY-1 id's to all question route ids.
+            updateQuestionsForPreviousYear(joint2YearsJourney.questions);
+
+            // Add PY 1st application journey to joint2YearsJourney.
+            singleApplicant.forEach((question) => {
+                joint2YearsJourney.questions.push(question);
+            });
+            // Add PY 2nd applicant journey to joint2YearsJourney.
+            jointApplicant.forEach((question) => {
+                joint2YearsJourney.questions.push(question);
+            });
+
+            builtData=joint2YearsJourney;
+
+            // Override routing. Route to partner benefits for previous year.
+            var overrideA = getFromId("ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1);
+            overrideA.questionType.JOINT_ROUTE = "Benefits & Income - intro";      // Route to 2nd year data collection.
+
+            var override = getFromId("ROUTING DECISION COC");
+            // Override the SINGLE_D2_ROUTE and route to "Report any changes". 2nd time the function is invoked will be on the PY path.
+            override.questionType.JOINT_D2_ROUTE = "Report any changes";
+        } else {
+            // TODO...FAILURE!!!
+            alert(' Failed to resolve journey');
+        }
+
+        // Debug code to dump generated questions!
+//        var tmp="";
+//        var count=0;
+//        builtData.questions.forEach((question) => {
+//            tmp = tmp + " Id:"+count+ ":"+ question.id;
+//            count = count + 1;
+//        });
+//        debugOut(tmp, "dumpText");
+//        alert(" number of questions : " + builtData.questions.length);
+
+        return(builtData);
+    }
+
+var PREVIOUS_YEAR_MINUS_1 = "_PY_1";
+
+    function updateQuestionsForPreviousYear(questions) {
+
+        questions.forEach((question) => {
+
+            question.id += PREVIOUS_YEAR_MINUS_1;
+
+            if (question.previousQuestionOption) {
+                question.previousQuestionOption += PREVIOUS_YEAR_MINUS_1;
+            }
+
+            if (question.questionType.modelId !== undefined) {
+                question.questionType.modelId += PREVIOUS_YEAR_MINUS_1;
+            }
+
+            if (question.questionType.type == "Boolean") {
+                  question.questionType.yesNextQuestionId += PREVIOUS_YEAR_MINUS_1;
+                  question.questionType.noNextQuestionId += PREVIOUS_YEAR_MINUS_1;
+
+            } else if (question.questionType.type == "MultipleChoiceWithNumber" || question.questionType.type == "MultipleChoice") {
+                var arrayLength = question.questionType.multipleChoiceOptions.length;
+                // Cycle around associated checkbox input fields and check if ticked.
+                for (var i = 0; i < arrayLength; i++) {
+                    question.questionType.multipleChoiceOptions[i].modelId += PREVIOUS_YEAR_MINUS_1;
+                }
+
+              question.questionType.nextQuestionId += PREVIOUS_YEAR_MINUS_1;
+
+            } else if (question.questionType.type == "RoutingDecision") {
+                 question.questionType.JOINT_ROUTE += PREVIOUS_YEAR_MINUS_1;
+                 question.questionType.OTHER_ROUTE += PREVIOUS_YEAR_MINUS_1;
+            } else {
+              question.questionType.nextQuestionId += PREVIOUS_YEAR_MINUS_1;
+            }
+        });
+    }
+
+</script>

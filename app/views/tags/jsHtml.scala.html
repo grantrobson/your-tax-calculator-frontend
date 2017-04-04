@@ -1,0 +1,72 @@
+<script type="text/javascript">
+
+   function hide(id) {
+       var e = document.getElementById(id);
+        e.style.display = 'none';
+   }
+
+   function show(id) {
+       var e = document.getElementById(id);
+            e.style.display = 'block';
+   }
+
+    function removeChildren(div) {
+        var node = document.getElementById(div)
+        while (node.hasChildNodes()) {
+            node.removeChild(node.lastChild);
+        }
+    }
+
+    // Update the id attribute fields of cloned row.
+    function updateChildren(id, i) {
+        var itm = document.getElementById(id);
+        var cln = itm.cloneNode(true);
+        var children = cln.children;
+
+        cln.id = cln.id + "_" + i;
+        for (c = 0; c < children.length; c++) {
+            cur = children[c];
+            if (cur.nodeType === 1 && cur.id) {
+                cur.id = cur.id + "_" + i;
+            }
+        }
+
+        containerDiv.appendChild(cln);
+
+/// TODO...generic recursive function.
+         var element = document.getElementById('row_div_checkbox_ID_'+i);
+         if (element != null) {
+            var child = element.children;
+            for (c = 0; c < child.length; c++) {
+                cur = child[c];
+                if (cur.nodeType === 1 && cur.id) {
+                    cur.id = cur.id + "_" + i;
+                }
+            }
+
+             element = document.getElementById('number_entry_hidden_'+i);
+             if (element != null) {
+                var child = element.children;
+                for (c = 0; c < child.length; c++) {
+                    cur = child[c];
+                    if (cur.nodeType === 1 && cur.id) {
+                        cur.id = cur.id + "_" + i;
+                    }
+                }
+            }
+        }
+    }
+
+    function insertDynamicHeader(questionData, dynamicHeaderDiv) {
+        // Check if dynamic header should be added to question.
+        if (questionData.questionType.headerDiv !== undefined) {
+            removeChildren(dynamicHeaderDiv);
+            var itm = document.getElementById(questionData.questionType.headerDiv);
+            var cln = itm.cloneNode(true);
+            var insertPoint = document.getElementById(dynamicHeaderDiv);
+            insertPoint.appendChild(cln);
+        }
+
+    }
+
+</script>

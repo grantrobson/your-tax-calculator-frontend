@@ -1,0 +1,69 @@
+
+<script type="text/javascript">
+
+    function resume(model) {
+        map = new Map();
+        stack = [];
+
+        // Populate the model with the resumed data.
+        var tokens = model.split(",");
+            tokens.forEach(token => {
+            var data = token.split(":");    // MAGIC!
+            map.set(data[0],data[1]);
+        });
+
+        // Build the question stack.
+        var stackData = map.get("stackDATA");
+        if (stackData !== undefined) {
+            var stackTokens = stackData.split("#"); // MAGIC!
+            stackTokens.forEach(position => {
+            stack.push(position);
+        });
+        }
+
+        // Set the current question.
+        questionPos = map.get("currentQuestionPos");
+
+        if (questionPos === undefined) {
+            alert("Failed to resume the application since question is missing!");
+        } else {
+            toggleControls("hide");
+            displayQuestion();
+        }
+    }
+
+    function getModelData() {
+        var dumpData = "";
+        var first = true;
+        var append = "";
+
+        // Record the current question position.
+        map.set("currentQuestionPos", questionPos);
+
+        // Record the stack.
+        var stackData="";
+        // Build the stack.
+        for (i = 0; i < stack.length; i++) {
+            stackData = stackData + stack[i];
+            if (i != stack.length-1) {
+                stackData = stackData + "#";    // TODO...MAGIC CHARACTER!
+            }
+        }
+        // Save the stack into the map.
+        map.set("stackDATA", stackData);
+
+        // De-serialize the map to a string.
+        map.forEach((value, key) => {
+            if (first) {
+                first=false;
+                append="";
+        } else {
+            append=",";
+        }
+        dumpData = dumpData + append + key+":"+value;
+        });
+
+        debugOut(dumpData, "dumpText");
+        return(dumpData);
+    }
+</script>

@@ -1,0 +1,253 @@
+@import uk.gov.hmrc.yourtaxcalculator.binders.NativeOS
+
+@(nativeOS:NativeOS, debug:Boolean)(implicit request: Request[_], messages: Messages)
+
+<html>
+
+<head>
+    <title>Tax credit renewal application</title>
+    <meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
+
+    @tags.nativeOSStyles(nativeOS.os)
+
+    @tags.jsDebug()
+
+    @tags.jsHtml()
+
+    @tags.jsQuestionRouting()
+
+    @tags.jsNative()
+
+    @tags.jsQuestion()
+
+    @tags.jsSubmission()
+
+    @tags.jsTCRQuestions()
+
+    @tags.jsSaveResume()
+
+</head>
+
+<body>
+<header id="page-header">
+    <h1>Tax Credit Renewal</h1>
+</header>
+<main>
+
+    <!-- MultipleChoice -->
+    <div id="MultipleChoice" style="display: none;">
+        <div id="dynamicHeader-MultipleChoice"></div>
+        <h3 id="headerMultipleChoice" class="question"></h3>
+        <div>
+            <div id="containerDiv" class="container"></div>
+        </div>
+        <input type="button" value="Next" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+    </div>
+
+    <!-- Associated set of input types for containerDiv. -->
+    <div style="display: none;">
+
+        <div id="row_ID_checkbox" class="row">
+            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID" class="col">
+            <div class="col" id="row_div_checkbox_ID">
+                <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
+
+
+                <div id="number_entry_hidden" class="showIfChecked">
+                    <input type="number" id="row_number_checkbox_ID" value="">
+                </div>
+            </div>
+        </div>
+
+        <div id="row_ID_radio" class="row">
+            <input type="checkbox" id="row_radio_ID" name="row_radio_ID" class="col">
+            <label id="row_label_radio_ID" for="row_radio_ID" class="col"></label>
+        </div>
+    </div>
+
+    <!-- Boolean -->
+    <div id="Boolean" style="display: none;">
+        <div id="dynamicHeader-Boolean"></div>
+
+        <h3 id="headerBoolean"></h3>
+        <div class="container">
+            <div class="row">
+                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" class="col">
+                <label for="boolean_yes" class="col">Yes</label>
+            </div>
+            <div class="row">
+                <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" class="col">
+                <label for="boolean_no" class="col">No</label>
+            </div>
+        </div>
+        <input type="button" value="Next" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+
+
+    </div>
+    <!-- Continue -->
+    <div id="Continue" style="display: none;">
+        <div id="dynamicHeader-Continue"></div>
+
+        <h3 id="headerContinue"></h3>
+        <input type="button" value="Yes" onClick="javascript:NEXT_CONTINUE()" class="primary">
+        <input type="button" value="Come back later" onClick="javascript:BACK()" class="secondary">
+    </div>
+
+
+    <!-- Decimal Input -->
+    <div id="Decimal" style="display: none;">
+        <div id="dynamicHeader-Decimal"></div>
+
+        <label id="headerDecimal" for="DecimalInput"></label>
+        <input type="number" id="DecimalInput">
+        <br>
+
+        <!-- Only displayed if model defines modelIdEstimatedIncome attribute. -->
+        <div id="estimatedIncomeDiv" style="display: none;">
+            <div class="row">
+                <input type="checkbox" id="estimatedIncomeValue" name="estimatedIncomeValue" onClick="javascript:setEstimatedIncomeValue()" class="col">
+                <label for="estimatedIncomeValue" class="col">Estimated Income</label>
+            </div>
+        </div>
+
+        <input type="button" value="Next" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+
+
+    </div>
+
+    <!-- Dynamic header DIV's -->
+    <div style="display: none;">
+
+
+        <div id="auto-renewal-header">
+
+            <!-- CSS DEV: Please see example layout https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/auto-joint/do_you_want_to_renew_now -->
+            <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
+            <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
+            <br>
+            <span>Your renewal pack should arrive by 30 June 2016. </span>
+            <br>
+            <br>
+        </div>
+
+        <div id="benefits-and-income-intro">
+            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+            <h2>Completing your review</h2>
+            <p>Your information will be saved as you progress.
+                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
+            </p>
+            <p>This review is divided into 3 parts.</p>
+            <ul>
+                <li><h4>Part 1</h4>
+                    Your benefits and income
+                </li>
+                <li><h4>Part 2</h4>
+                    Other household income, such as income from property</li>
+                <li><h4>Part 3</h4>
+                    Report any changes to circumstances</li>
+            </ul>
+        </div>
+
+
+        <div id="part-1-your-benefits-and-income">
+
+            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+            <h2>Part 1: Your benefits and income</h2>
+            <h3>You will be asked about:</h3>
+            <ul>
+                <li>benefits you claimed</li>
+                <li>income from your employment and self-employment</li>
+            </ul>
+
+            <h3>You may need:</h3>
+            <ul>
+                <li><h4>Your benefit letters</h4>
+                    Showing the amounts you received</li>
+
+                <li><h4>Your P60</h4>
+                    For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
+
+                <li><h4>Your P11D or P9D</h4>
+                    For company benefits you got. Also known as 'benefits in kind'</li>
+
+                <li><h4>Your P45</h4>
+                    For any job you had that ended</li>
+
+                <li><h4>Your Self Assessment returns</h4>
+                    For your self-employment income</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+@if(debug == true) {
+    <div id="debugShow">
+} else {
+    <div id="debugHidden" style="display: none;">
+}
+        <div id="demo">
+
+            <div>
+                <label>Renewal Type</label>
+                <select id="RenewalType">
+                    <option value="R">Auto Renewal</option>
+                    <option value="D1">Single D1</option>
+                    <option value="D2">Joint D2</option>
+                </select>
+                <label>Has Partner</label>
+                <select id="HasPartner">
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+            <br>
+            <input type="button" value="Start Application" onClick="javascript:startDemo()">
+        </div>
+
+        <br>
+        <br>
+
+
+        <h3>Question Trace</h3>
+        <br>
+        <div>
+            <b>Current Question:</b>
+            <br>
+            <div>
+                <b><label>Question Id:</label></b>
+                <span id="QuestionId"></span>
+            </div>
+            <div>
+                <label>Question Type:</label>
+                <span id="QuestionType"></span>
+            </div>
+        </div>
+        <br>
+
+        <input type="button" value="Initialise model" onClick="javascript:resume('')">
+        <input type="button" value="Extract Model" onClick="javascript:getModelData()">
+        <input type="button" value="API" onClick="javascript:extractAPI()">
+        <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
+
+        <div id="dumpDiv">
+            <b><span>Debug</span></b>
+            <br><br>
+            <span id="dumpText"></span>
+        </div>
+    </div>
+</main>
+</body>
+
+
+</html>
+
+<!--
+Test to verify outside of debug flag at build time.
+<script>
+    startup("D2", true, "Date1", "Date2");
+</script>
+-->

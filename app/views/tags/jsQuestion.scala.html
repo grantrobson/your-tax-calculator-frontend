@@ -1,0 +1,275 @@
+<script>
+    var   AUTO_RENEWAL = "R";
+    var      SINGLE_D1 = "SINGLE_D1";
+    var       JOINT_D1 = "JOINT_D1";
+    var      SINGLE_D2 = "SINGLE_D2";
+    var       JOINT_D2 = "JOINT_D2";
+
+    var questionPos = ""    // The current question position.
+    var stack = [];         // Store the question Id's based on user selection. Use for routing back through the selected questions.
+    var map = new Map();    // Holds the answers to questions and input values supplied to application on startup.
+
+    function dynamicRadioButton(selectionType) {
+        var questionData = getFromId(questionPos);
+        var arrayLength = questionData.questionType.multipleChoiceOptions.length;
+
+        // Remove all child nodes.
+        removeChildren("containerDiv");
+
+        // Create child nodes based on current question type.
+        for (var i = 0; i < arrayLength; i++) {
+
+            // Clone the associated input row based on type.
+            updateChildren("row_ID_"+selectionType, i);
+
+            // Obtain handle to the radio button.
+            var radioButton = document.getElementById("row_"+selectionType+"_ID_"+i);
+            // Set text label.
+            var label = document.getElementById("row_label_"+selectionType+"_ID_"+i);
+            label.innerHTML = questionData.questionType.multipleChoiceOptions[i].option;
+            // Check if the button (checkbox or radio) was previously selected.
+            if (map.get(questionData.questionType.multipleChoiceOptions[i].modelId) == "true") {
+                radioButton.setAttribute("checked","checked");
+            } else if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId) && selectionType=="checkbox") {
+                // Default the checkbox as checked and display the input number field.
+                radioButton.setAttribute("checked","checked");
+                show('number_entry_hidden_'+i);
+            }
+
+            // update the controls based on type.
+            if (selectionType == 'radio') {
+                radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
+                radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
+                radioButton.setAttribute("name", "radio");  // TODO...if multiple radio buttons can be selected? If yes then drop name.
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
+            } else if (selectionType == "checkbox") {
+
+                // Set the id of the number input field.
+                var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
+                radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
+                radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId)) {
+                    input.setAttribute("value", map.get(questionData.questionType.multipleChoiceOptions[i].modelId));
+                }
+
+            }
+        }
+
+        // Set the next onClick function based on the type of control.
+        if (selectionType == "checkbox") {
+          document.getElementById("MultipleChoiceNEXT").onclick = function() { MultipleChoiceNEXT(); };
+        } else {
+          document.getElementById("MultipleChoiceNEXT").onclick = function() { NEXT(); };
+        }
+
+        insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice");
+    }
+
+    function initQuestion(question, control, header) {
+        var questionOutput = question.question
+
+        // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
+        if (question.previousQuestionOption) {
+            var linkQuestion = getFromId(question.previousQuestionOption);
+            var arrayLength = linkQuestion.questionType.multipleChoiceOptions.length;
+
+            var optionValue="";
+            // Cycle around associated checkbox input fields and check if ticked.
+            for (var i = 0; i < arrayLength; i++) {
+                var mapEntry = map.get(linkQuestion.questionType.multipleChoiceOptions[i].modelId);
+                // Check if the control was checked.
+                if (mapEntry !== undefined && mapEntry == "true") {
+                    optionValue = linkQuestion.questionType.multipleChoiceOptions[i].option;
+                    break;
+                }
+            }
+            // Append the output question name with the name of the previous selected radio button.
+            questionOutput = questionOutput + optionValue + "?";
+        }
+
+        document.getElementById(header).innerHTML = questionOutput;
+        toggleControls("hide");
+        show(control);
+    }
+
+    function displayQuestion() {
+
+// TODO...
+// DEFINE MAP WITH FUNCTIONS HANDLING THE ACTIONS!!!
+
+
+        // TODO - Add function map and replace if/else.
+        var question = getFromId(questionPos);
+
+
+        // Trace for current question Id.
+        debugOut(questionPos, "QuestionId");
+        debugOut(question.questionType.type, "QuestionType");
+
+
+        if (question.questionType.type == "RoutingDecision") {
+            // Routing question - Based on the type of renewal, extract question Id from RoutingDecision question.
+            var renewalType = map.get("renewalType");
+            questionPos = "";
+
+            // Based on the renewal type, route to the next question.
+            if (renewalType == JOINT_D1 || renewalType == JOINT_D2 && question.questionType.JOINT_ROUTE !== undefined) {
+                questionPos = question.questionType.JOINT_ROUTE;
+
+            } else if (renewalType == SINGLE_D2 || renewalType == JOINT_D2) {
+                questionPos = question.questionType.JOINT_D2_ROUTE;
+            }
+
+            if (questionPos == undefined || questionPos == "") {
+                // Route to default question.
+                questionPos = question.questionType.OTHER_ROUTE;
+            }
+
+            displayQuestion();
+
+            return;
+// START JOURNEY CONTROL QUESTIONS!
+        } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
+
+            // This indicates end of journey for auto renewals!
+            toggleControls("hide");
+            hook("JourneyCompleteAutoRenewal");
+            return;
+        } else if (question.questionType.type == "SaveAndComeBackLater") {
+
+            // This indicates end of journey! User has quit.
+            toggleControls("hide");
+            hook("SaveAndComeBackLater");
+            return;
+        } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
+            // Route to Change of Circumstance.
+            toggleControls("hide");
+            hook("RouteToChangeOfCircumstance");
+
+            // Advance the questionPosition to the summary screen.
+            questionPos = "SUMMARY-SCREEN-TODO";
+
+            // Save switch which indicates user routed to CoC.
+            map.set("hasChangeOfCircs", "true");
+            return;
+
+        } else if (question.questionType.type == "SubmitRenewal") {
+            hook("SubmitRenewal");
+
+// END JOURNEY CONTROL QUESTIONS!
+        } else if (question.questionType.type == "Continue") {
+
+            initQuestion(question, 'Continue', 'headerContinue');
+            insertDynamicHeader(question, "dynamicHeader-Continue");
+
+        } else if (question.questionType.type == "Boolean") {
+
+            initQuestion(question, 'Boolean', 'headerBoolean');
+            insertDynamicHeader(question, "dynamicHeader-Boolean");
+
+            //  Default the value.
+            if (question.questionType.modelId !== undefined) {
+                var checked = map.get(question.questionType.modelId);
+                if (checked !== undefined) {
+                    document.getElementById(checked == "false" ? 'boolean_no' : 'boolean_yes').checked = checked;
+                } else {
+                 document.getElementById('boolean_no').checked = false;
+                 document.getElementById('boolean_yes').checked = false;
+                }
+            } else {
+             document.getElementById('boolean_no').checked = false;
+             document.getElementById('boolean_yes').checked = false;
+            }
+
+        } else if (question.questionType.type == "MultipleChoice") {
+
+            initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
+            dynamicRadioButton("radio");
+
+        } else if (question.questionType.type == "MultipleChoiceWithNumber") {
+
+            initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
+            dynamicRadioButton("checkbox");
+
+        } else if (question.questionType.type == "Decimal") {
+
+            initQuestion(question, 'Decimal', 'headerDecimal');
+            insertDynamicHeader(question, "dynamicHeader-Decimal");
+
+            // Populate Decimal value from model if exists.
+            var question = getFromId(questionPos);
+            var decimalStore = map.get(question.questionType.modelId);
+            if (decimalStore === undefined) {
+                // Clear any previous entry in the field.
+                document.getElementById('DecimalInput').value = ""
+            } else if (decimalStore != "") {
+                document.getElementById('DecimalInput').value = decimalStore;
+            }
+
+            // TODO...IS THIS FEATURE STILL REQUIRED?
+            // Toggle estimated-income checkbox if modelIdEstimatedIncome element defined in model.
+            hide('estimatedIncomeDiv');
+            if (question.questionType.modelIdEstimatedIncome !== undefined) {
+                var estimatedIncome = map.get(question.questionType.modelIdEstimatedIncome);
+                show('estimatedIncomeDiv');
+                // Set the checked state based on model value.
+                if (estimatedIncome == 'true') {
+                    document.getElementById('estimatedIncomeValue').checked = true;
+                } else {
+                 document.getElementById('estimatedIncomeValue').checked = false;
+                }
+            }
+        } else {
+            alert('Failed to resolve the question type ' + question.questionType.type);
+        }
+
+        // Reset the scroll position when a new question is displayed.
+        window.scrollTo(0, 0);
+    }
+
+
+    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue"];
+
+    function toggleControls(toggle) {
+        dynamicControls.forEach((item) => {
+            if (toggle == "show") show(item); else hide(item);
+        });
+    }
+
+    // Toggle estimatedIncome model value.
+    function setEstimatedIncomeValue() {
+        var questionData = getFromId(questionPos);
+        var radio = document.getElementById('estimatedIncomeValue');
+
+        if (radio.checked == true) {
+            map.set(questionData.questionType.modelIdEstimatedIncome, "true");
+        } else {
+            map.set(questionData.questionType.modelIdEstimatedIncome, "false");
+        }
+    }
+
+    function getFromId(id) {
+        var questions = data().questions;
+        var arrayLength = questions.length;
+        for (var i = 0; i < arrayLength; i++) {
+            if (questions[i].id == id) {
+                return questions[i];
+            }
+        }
+        // TODO...report failure to native app!!! Include GA alert!
+        alert("FAILED TO FIND ID ["+id+"]!!!");
+    }
+
+    function toggleRadioButton(id) {
+        var radio = document.getElementById(id);
+        if (radio.checked == true) {
+            map.set(id, "true");
+        } else {
+            map.set(id, "false");
+        }
+    }
+
+
+</script>

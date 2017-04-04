@@ -1,8 +1,8 @@
 # microservice specific routes
 
-GET        /calculator              uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.calculate(version: Option[String])
-GET        /spending                uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.spending(version: Option[String])
-GET        /receipting              uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.receipting(version: Option[String])
-POST       /version-check           uk.gov.hmrc.yourtaxcalculator.controllers.LiveVersionCheckController.preFlightCheck(journeyId: Option[String])
-GET        /renewal                 uk.gov.hmrc.yourtaxcalculator.controllers.TaxCreditRenewals.renewal(applicantType: Option[String])
-GET        /assets/*file            controllers.Assets.at(path="/public", file)
+GET        /tax-credit-renewals/:os     uk.gov.hmrc.yourtaxcalculator.controllers.TaxCreditRenewals.buildRenewalsContent(os:uk.gov.hmrc.yourtaxcalculator.binders.NativeOS, debug:Option[Boolean])
+GET        /calculator                  uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.calculate(version: Option[String])
+GET        /spending                    uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.spending(version: Option[String])
+GET        /receipting                  uk.gov.hmrc.yourtaxcalculator.controllers.Calculator.receipting(version: Option[String])
+POST       /version-check               uk.gov.hmrc.yourtaxcalculator.controllers.LiveVersionCheckController.preFlightCheck(journeyId: Option[String])
+GET        /assets/*file                controllers.Assets.at(path="/public", file)

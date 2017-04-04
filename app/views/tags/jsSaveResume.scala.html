@@ -63,6 +63,12 @@
         dumpData = dumpData + append + key+":"+value;
         });
 
+        // Android callback.
+        try {
+            HMRCAndroid.modelDataResult(JSON.stringify(dumpData));
+            return;
+        } catch(err) {}
+
         debugOut(dumpData, "dumpText");
         return(dumpData);
     }

@@ -1,0 +1,128 @@
+<script>
+
+    // TODO...rename to canGoBackToNative
+    function canGoBack() {
+        return(stack.length == 0 ? "true" : "false");
+    }
+
+    function BACK() {
+        if (stack.length == 0) {
+            questionPos = data().startQuestion;
+        } else {
+            questionPos = stack.pop();
+        }
+        toggleControls("hide");
+        displayQuestion();
+    }
+
+
+    // TODO..validation and error handling!
+    function MultipleChoiceNEXT() {
+
+        var questionData = getFromId(questionPos);
+        var arrayLength = questionData.questionType.multipleChoiceOptions.length;
+
+        // Cycle around associated checkbox input fields and check if ticked.
+        for (var i = 0; i < arrayLength; i++) {
+            // Obtain handle to checkbox.
+            var inputField = document.getElementById(questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+            // Check if input field is checked.
+            if (inputField.checked == true) {
+                var element = document.getElementById("row_number_checkbox_ID_"+i)
+                // Obtain the input value for the associated field and update map.
+                var input = element.value;
+                map.set(questionData.questionType.multipleChoiceOptions[i].modelId, input);
+            } else {
+                // Not ticked, remove from map.
+                map.delete(questionData.questionType.multipleChoiceOptions[i].modelId);
+            }
+        }
+
+        // Route to next question.
+        stack.push(questionPos);
+        var question = getFromId(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+        displayQuestion();
+    }
+
+    // TODO...Add validation. Define in future ticket.
+    function NEXT_DECIMAL() {
+        stack.push(questionPos);
+        var question = getFromId(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+
+        var decimalInput = document.getElementById("DecimalInput").value;
+        map.set(question.questionType.modelId, decimalInput+"");
+        displayQuestion();
+    }
+
+    function NEXT(nextId) {
+        var question = getFromId(questionPos);
+        var arrayLength = question.questionType.multipleChoiceOptions.length;
+
+        // TODO: This is temp code to handle Next button. Do not route to Next if no options selected.
+        var enableNext=false;
+        // Cycle around associated checkbox input fields and check if ticked.
+        for (var i = 0; i < arrayLength; i++) {
+            // Obtain handle to checkbox.
+            var inputField = document.getElementById(question.questionType.multipleChoiceOptions[i].modelId).checked;
+            // Check if the control is checked.
+            if (inputField == true) {
+                map.set(question.questionType.multipleChoiceOptions[i].modelId, "true");
+                enableNext = true;
+            } else {
+                map.set(question.questionType.multipleChoiceOptions[i].modelId, "false");
+            }
+        }
+
+        if (enableNext == false) {
+            alert(' Please select one of the options to continue.');
+        } else {
+            stack.push(questionPos);
+            questionPos = question.questionType.nextQuestionId;
+            displayQuestion();
+        }
+    }
+
+    function NEXT_CONTINUE() {
+        var question = getFromId(questionPos);
+        stack.push(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+        displayQuestion();
+    }
+
+    function NEXT_BOOLEAN_CONTINUE() {
+        var question = getFromId(questionPos);
+        if (document.getElementById('boolean_no').checked == true || document.getElementById('boolean_yes').checked == true) {
+            stack.push(questionPos);
+        }
+
+        var route=false;
+        if (document.getElementById('boolean_no').checked == true) {
+            questionPos = question.questionType.noNextQuestionId;
+            route=true;
+        } else if (document.getElementById('boolean_yes').checked == true) {
+            questionPos = question.questionType.yesNextQuestionId;
+            route=true;
+        } else alert('Please select one of the options.');
+
+        if (route) {
+            displayQuestion();
+        }
+    }
+
+    function YES() {
+        var question = getFromId(questionPos);
+        if (question.questionType.modelId !== "undefined") {
+            map.set(question.questionType.modelId, "true");
+        }
+    }
+
+    function NO() {
+        var question = getFromId(questionPos);
+
+        if (question.questionType.modelId !== "undefined") {
+            map.set(question.questionType.modelId, "false");
+        }
+    }
+</script>

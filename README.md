@@ -18,7 +18,8 @@
  | *Task* | *Supported Methods* | *Description* |
  |--------|----|----|
  | ```/your-tax-calculator-frontend/version-check``` | POST | Validates the mobile application version [More...](docs/version-check.md) |
- 
+ | ```/tax-estimator/tax-credit-renewals/:os``` | GET | Return the tax-credit-renwals JS app [More...](docs/tax-credit-renewals.md) |
+
  
 ### License
 

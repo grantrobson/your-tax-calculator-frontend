@@ -1,0 +1,17 @@
+@(os: String)
+
+<style>
+@os match {
+    case "android" => {
+        @styles_android()
+    }
+
+    case "ios" => {
+        @styles_ios()
+    }
+
+    case "windows" => {
+        @styles_win()
+    }
+}
+</style>

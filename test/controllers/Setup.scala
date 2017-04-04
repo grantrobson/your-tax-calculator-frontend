@@ -45,6 +45,12 @@ class TestVersionCheckService(updateRequired: Boolean, testJourneyId: Option[Str
   }
 }
 
+class TaxCreditRenewalsSuccess extends Setup {
+
+  val controller = new TaxCreditRenewals{}
+}
+
+
 class ThrowingVersionCheckService(exception: Exception) extends VersionCheckService {
   override val connector = VersionCheckConnector
   override def preFlightCheck(inputRequest:JsValue, journeyId:Option[String])(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[PreFlightCheckResponse] = {

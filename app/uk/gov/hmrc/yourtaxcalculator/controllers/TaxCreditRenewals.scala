@@ -20,6 +20,7 @@ import play.api.mvc.Action
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
+import uk.gov.hmrc.yourtaxcalculator.binders.NativeOS
 
 import scala.concurrent.Future
 
@@ -27,8 +28,8 @@ object TaxCreditRenewals extends TaxCreditRenewals
 
 trait TaxCreditRenewals extends FrontendController {
 
-  def renewal(version: Option[String]) = Action.async { implicit request =>
-    Future.successful(Ok(views.html.taxcreditrenewal("D1")))
+  def buildRenewalsContent(os:NativeOS, debug:Option[Boolean]) = Action.async { implicit request =>
+    Future.successful(Ok(views.html.tax_credit_renewal_app(os:NativeOS, debug.getOrElse(false))))
   }
 
 }

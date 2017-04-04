@@ -1,0 +1,46 @@
+<script>
+
+    function startup(renewalType, hasPartner, nino, endDate, startDate) {
+        // Initialise globals.
+        stack = [];
+
+        // Add all parameters to map.
+        map.set("renewalType", renewalType);
+        map.set("hasPartner", hasPartner);
+        map.set("nino", nino);
+        map.set("endDate", endDate);
+        map.set("startDate", startDate);
+
+        // Obtain start question from journey.
+        var journey = data();
+        questionPos = journey.startQuestion;
+        // Display the first question.
+        displayQuestion();
+    }
+
+    function hook(journeyOutcomeStatus) {
+
+        var hookResponse = {
+            "journeyOutcomeStatus":journeyOutcomeStatus,
+            "isEstimatedIncome": isEstimatedIncome()
+        };
+
+        var response = JSON.stringify(hookResponse);
+        debugOut(response, "dumpText");
+
+        // IOS callback.
+        try {
+            window.webkit.messageHandlers.iosmessagehandler.postMessage(response);
+        } catch(err) {}
+
+        // Windows callback.
+        try {
+            window.external.notify(response);
+        } catch(err) {}
+
+        // Android callback.
+        try {
+            Android.hook(response);
+        } catch(err) {}
+    }
+</script>

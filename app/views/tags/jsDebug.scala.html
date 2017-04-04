@@ -1,0 +1,38 @@
+<script>
+
+    function debugOut(dumpData, element) {
+        var span = document.getElementById(element);
+        text = document.createTextNode(dumpData);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+        return(dumpData);
+    }
+
+    function testCanGoBack() {
+        if (stack !== undefined) {
+            alert(" Can Go Back is " + canGoBack());
+        } else {
+             alert("No stack defined! Was the model resumed?");
+        }
+    }
+
+    function extractAPI() {
+        var apiJson = buildSubmissionPostRequest();
+        var span = document.getElementById("dumpText"),
+        text = document.createTextNode(apiJson);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+    }
+
+    function startDemo() {
+        toggleControls();
+        hide("demo");
+
+        var renewalType = document.getElementById("RenewalType").value;
+        var hasPartner = document.getElementById("HasPartner").value;
+
+        // Invoke the startup function and supply dummy data. This test data will run through complex set of questions.
+        startup(renewalType, hasPartner, "CS700100AD", "1/1/2017", "2/2/2017");
+    }
+
+</script>

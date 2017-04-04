@@ -160,6 +160,13 @@
         }
 
         submission.renewalData = renewalDataJson;
+
+        // Android callback.
+        try {
+            HMRCAndroid.submissionPostRequestResult(JSON.stringify(submission));
+            return;
+        } catch(err) {}
+
         return(JSON.stringify(submission));
     }
 </script>

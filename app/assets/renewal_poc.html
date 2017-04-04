@@ -768,21 +768,21 @@
 //  SUBMISSION CODE
 //*********************************************************************
 
-    var incomeDetailsModelIds = [
-        "incomeDetails.self_employed_profit_is_estimated",
-        "incomeDetails.self_employed_loss_is_estimated"];
-
-    var otherIncomeModelIds = ["otherIncome.rental_profit_is_estimated",
-        "otherIncome.rental_loss_is_estimated",
-        "otherIncome.isOtherHouseholdIncomeEst"];
-
     var taxableBenefitsModelIds = ["taxableBenefits.bereavement_allowance",
         "taxableBenefits.carer_allowance",
         "taxableBenefits.contribution_based_jobseeker_allowance",
         "taxableBenefits.contribution_based_employment_and_support_allowance",
         "taxableBenefits.incapacity_benefit"];
 
-    var otherIncomModelIds = ["otherIncome.saving_investment_dividend",
+    var incomeDetailsAreEstimatedModelIds = [
+        "incomeDetails.self_employed_profit_is_estimated",
+        "incomeDetails.self_employed_loss_is_estimated"];
+
+    var otherIncomesAreEstimatedModelIds = ["otherIncome.rental_profit_is_estimated",
+        "otherIncome.rental_loss_is_estimated",
+        "otherIncome.isOtherHouseholdIncomeEst"];
+
+    var otherHouseholdIncomeModelIds = ["otherIncome.saving_investment_dividend",
         "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
         "otherIncome.foreign_income", "otherIncome.notional_income",
         "otherIncome.profit_from_property"];
@@ -810,11 +810,11 @@
     }
 
     function estimatedSeProfits() {
-        return incomeDetailsModelIds.some(getMapBooleanValue)
+        return incomeDetailsAreEstimatedModelIds.some(getMapBooleanValue);
     }
 
     function estimatedOtherIncome() {
-        return otherIncomeModelIds.some(getMapBooleanValue)
+        return otherIncomesAreEstimatedModelIds.some(getMapBooleanValue);
     }
 
     function isEstimatedIncome() {
@@ -823,34 +823,52 @@
 
 
     function addIfNonZero(obj, k, v){
-        if (typeof k !== 'undefined' && v !== 0) {obj[k] = v;}
+        if (v !== 0) addProperty(obj, k, v);
     }
+
+    function addProperty(obj, k, v){
+        if (typeof k !== 'undefined') {obj[k] = v;}
+    }
+
 
     function buildSubmissionPostRequest() {
 
-        // TODO...TEMP PLUMBING CODE. Drive the JSON result based on supplied NINO.
         var taxableBenefits = 0;
         var nino = map.get("nino");
 
-        function getIncomeDetailsJson() {
+        function getIncomeDetailsJson(previousYear) {
             var json = {};
 
-            addIfNonZero(json, "taxableBenefits", buildTotal(taxableBenefitsModelIds));
-            addIfNonZero(json, "earnings", getMapIntValue("incomeDetails.earnings"));
-            addIfNonZero(json, "companyBenefits", getMapIntValue("incomeDetails.companyBenefits"));
-            addIfNonZero(json, "seProfits", getMapIntValue("incomeDetails.seProfits"));
-            addIfNonZero(json, "seProfitsEstimated", estimatedSeProfits());
-            return json;
-        }
+            var earningsKey ="incomeDetails.earnings";
+            var companyBenefitsKey ="incomeDetails.companyBenefits";
+            var seProfitsKey ="incomeDetails.seProfits";
+            var benefitsModelIds = taxableBenefitsModelIds;
+            var areEstimatedModelIds = incomeDetailsAreEstimatedModelIds;
 
-        function getIncomeDetailsJsonPY1() {
-            var json = {};
+            if(typeof previousYear !== 'undefined' && previousYear === PREVIOUS_YEAR_MINUS_1) {
+                benefitsModelIds = previousYearModelIds(benefitsModelIds);
+                areEstimatedModelIds = previousYearModelIds(areEstimatedModelIds);
+                earningsKey = earningsKey+PREVIOUS_YEAR_MINUS_1;
+                companyBenefitsKey = companyBenefitsKey+PREVIOUS_YEAR_MINUS_1;
+                seProfitsKey = seProfitsKey+PREVIOUS_YEAR_MINUS_1;
+            }
 
-            addIfNonZero(json, "taxableBenefits", buildTotal(previousYearModelIds(taxableBenefitsModelIds)));
-            addIfNonZero(json, "earnings", getMapIntValue("incomeDetails.earnings"+PREVIOUS_YEAR_MINUS_1));
-            addIfNonZero(json, "companyBenefits", getMapIntValue("incomeDetails.companyBenefits"+PREVIOUS_YEAR_MINUS_1));
-            addIfNonZero(json, "seProfits", getMapIntValue("incomeDetails.seProfits"+PREVIOUS_YEAR_MINUS_1));
-            addIfNonZero(json, "seProfitsEstimated", estimatedSeProfits());
+            var benefits = buildTotal(benefitsModelIds);
+            var earnings = getMapIntValue(earningsKey);
+            var companyBenefits = getMapIntValue(companyBenefitsKey);
+            var seProfits = getMapIntValue(seProfitsKey);
+
+            if(benefits + earnings + companyBenefits > 0) {
+                addIfNonZero(json, "taxableBenefits", benefits);
+                addIfNonZero(json, "earnings", earnings);
+                addIfNonZero(json, "companyBenefits", companyBenefits);
+            }
+
+            if(seProfits > 0) {
+                addProperty(json, "seProfits", seProfits);
+                addProperty(json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue));
+            }
+
             return json;
         }
 
@@ -858,17 +876,17 @@
             var json = {};
             var receivingBenefits = getMapBooleanValue("certainBenefits.receivedBenefits");
             if(receivingBenefits) {
-                addIfNonZero(json, "receivedBenefits", receivingBenefits);
-                addIfNonZero(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
-                addIfNonZero(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
-                addIfNonZero(json, "esa", getMapBooleanValue("certainBenefits.esa"));
-                addIfNonZero(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
+                addProperty(json, "receivedBenefits", receivingBenefits);
+                addProperty(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
+                addProperty(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
+                addProperty(json, "esa", getMapBooleanValue("certainBenefits.esa"));
+                addProperty(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
             } else {
-                json.receivedBenefits = false;
-                json.incomeSupport = false;
-                json.jsa = false;
-                json.esa = false;
-                json.pensionCredit = false;
+                addProperty(json, "receivedBenefits", false);
+                addProperty(json, "incomeSupport", false);
+                addProperty(json, "jsa", false);
+                addProperty(json, "esa", false);
+                addProperty(json, "pensionCredit", false);
             }
             return json;
         }
@@ -878,25 +896,22 @@
             return modelIds.map(id => id+PREVIOUS_YEAR_MINUS_1);
         }
 
-
-        function getOtherIncomeJson() {
+        function getOtherIncomeJson(previousYear) {
             var json = {};
-            var income = buildTotal(otherIncomModelIds);
-            if(income === 0) {
-                return json;
-            } else {
-                addIfNonZero(json, "otherHouseholdIncome", income);
-                addIfNonZero(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
-                return json;
+
+            var modelIds = otherHouseholdIncomeModelIds;
+            if(typeof previousYear !== 'undefined' && previousYear === PREVIOUS_YEAR_MINUS_1) {
+                modelIds = previousYearModelIds(otherHouseholdIncomeModelIds)
             }
-        }
 
-        function getOtherIncomeJsonPY1() {
-            var json = {};
-            addIfNonZero(json, "otherHouseholdIncome", buildTotal(previousYearModelIds(otherIncomModelIds)));
-            addIfNonZero(json, "isOtherHouseholdIncomeEst", false);
+            var otherHouseholdIncome = buildTotal(modelIds);
+            if(otherHouseholdIncome > 0) {
+                addIfNonZero(json, "otherHouseholdIncome", otherHouseholdIncome);
+                addProperty(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+            }
             return json;
         }
+
 
         var renewalType = map.get("renewalType");
         var submission = {};
@@ -905,15 +920,11 @@
         renewalDataJson.incomeDetails = getIncomeDetailsJson();
         renewalDataJson.certainBenefits = getCertainBenefitsJson();
         submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
-
-        var otherIncomeJson = getOtherIncomeJson();
-        if(otherIncomeJson === {}) {
-            submission.otherIncome = getOtherIncomeJson();
-        }
+        submission.otherIncome = getOtherIncomeJson();
 
         if(renewalType !== undefined && renewalType.toUpperCase() === SINGLE_D2) {
-            submission.otherIncomePY1 = getOtherIncomeJsonPY1();
-            renewalDataJson.incomeDetailsPY1 = getIncomeDetailsJsonPY1()
+            submission.otherIncomePY1 = getOtherIncomeJson(PREVIOUS_YEAR_MINUS_1);
+            renewalDataJson.incomeDetailsPY1 = getIncomeDetailsJson(PREVIOUS_YEAR_MINUS_1)
         }
 
         submission.renewalData = renewalDataJson;
@@ -1247,7 +1258,7 @@
                               "type": "Boolean",
                               "yesNextQuestionId": "Which untaxed benefits did partner get",
                               "noNextQuestionId": "Was partner employed?",
-                              "modelId": "certainBenefits.receivedBenefits"
+                              "modelId": "partner.certainBenefits.receivedBenefits"
                             }
                         },
 
@@ -1260,24 +1271,24 @@
                                     "type": "MultipleChoice",
                                     "multipleChoiceOptions": [
                                         {
-                                        "option": "Income-based Jobseeker\'s Allowance",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.jobseeker",
-                                        "questionId": "jobseeker"
+                                            "option": "Income-based Jobseeker\'s Allowance",
+                                            "modelId": "partner.certainBenefits.jsa",
+                                            "questionId": "jobseeker"
                                         },
                                         {
-                                        "option": "Income-related Employment and Support Allowance",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.support_allowance",
-                                        "questionId": "support_allowance"
+                                            "option": "Income-related Employment and Support Allowance",
+                                            "modelId": "partner.certainBenefits.esa",
+                                            "questionId": "support_allowance"
                                         },
                                         {
-                                        "option": "Income Support",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.incomeSupport",
-                                        "questionId": "income_support"
+                                            "option": "Income Support",
+                                            "modelId": "partner.certainBenefits.incomeSupport",
+                                            "questionId": "income_support"
                                         },
                                         {
-                                        "option": "Pension Credit",
-                                        "modelId": "renewalData.Which untaxed benefits did partner get.pension_credit",
-                                        "questionId": "pension_credit"
+                                            "option": "Pension Credit",
+                                            "modelId": "partner.certainBenefits.pensionCredit",
+                                            "questionId": "pension_credit"
                                         }
                                     ],
                                     "nextQuestionId": "Does partner still get this"
@@ -1292,7 +1303,7 @@
                                   "type": "Boolean",
                                   "yesNextQuestionId": "Did you get any other household income",
                                   "noNextQuestionId": "Was partner employed?",
-                                  "modelId": "renewalData.Does partner still get this benefit"
+                                  "modelId": "partner.certainBenefits.Does partner still get this benefit"
                                 }
                             },
 
@@ -1303,7 +1314,7 @@
                               "type": "Boolean",
                               "yesNextQuestionId": "How much employed income did partner get?",
                               "noNextQuestionId": "Was partner self-employed?",
-                              "modelId": "renewalData.Was partner employed"
+                              "modelId": "partner.incomeDetails.Was partner employed"
                             }
                         },
 
@@ -1314,7 +1325,7 @@
                                   "type": "Decimal",
         //                          "headerDiv": "benefits-and-income-intro", TODO...
                                   "nextQuestionId": "Did partner get any company benefits?",
-                                  "modelId": "renewalData.How much employed income did partner get"
+                                  "modelId": "partner.incomeDetails.earnings"
                                 }
                             },
 
@@ -1326,7 +1337,7 @@
                                   "type": "Boolean",
                                   "yesNextQuestionId": "How much company benefit did partner get?",
                                   "noNextQuestionId": "Was partner self-employed?",
-                                  "modelId": "renewalData.Did partner get any company benefits"
+                                  "modelId": "partner.incomeDetails.Did partner get any company benefits"
                                 }
                             },
 
@@ -1336,7 +1347,7 @@
                                 "questionType": {
                                   "type": "Decimal",
                                   "nextQuestionId": "Was partner self-employed?",
-                                  "modelId": "renewalData.How much company benefit did partner get"
+                                  "modelId": "partner.incomeDetails.companyBenefits"
                                 }
                               },
 
@@ -1347,7 +1358,7 @@
                               "type": "Boolean",
                               "yesNextQuestionId": "Did partner make profit from self-employment?",
                               "noNextQuestionId": "Did partner get any taxable benefits?",
-                              "modelId": "renewalData.Was partner self-employed"
+                              "modelId": "partner.incomeDetails.Was partner self-employed"
                             }
                         },
 
@@ -1358,7 +1369,7 @@
                                   "type": "Boolean",
                                   "yesNextQuestionId": "How much profit did partner make from self-employment?",
                                   "noNextQuestionId": "Is partner self-employment loss estimated?",
-                                  "modelId": "renewalData.Did partner make profit from self-employment"
+                                  "modelId": "partner.incomeDetails.Did partner make profit from self-employment"
                                 }
                             },
 
@@ -1370,7 +1381,7 @@
                                       "type": "Boolean",
                                       "yesNextQuestionId": "Did partner get any taxable benefits?",
                                       "noNextQuestionId": "Did partner get any taxable benefits?",
-                                      "modelId": "renewalData.Is partner self-employment loss estimated"
+                                      "modelId": "partner.incomeDetails.self_employed_loss_is_estimated"
                                     }
                                 },
 
@@ -1381,7 +1392,7 @@
                                       "type": "Boolean",
                                       "yesNextQuestionId": "Did partner get any taxable benefits?",
                                       "noNextQuestionId": "Did partner get any taxable benefits?",
-                                      "modelId": "renewalData.Is partner self-employment profit estimated"
+                                      "modelId": "partner.incomeDetails.seProfits"
                                     }
                                 },
 
@@ -1392,7 +1403,7 @@
                                     "questionType": {
                                       "type": "Decimal",
                                       "nextQuestionId": "Is partner self-employment profit estimated?",
-                                      "modelId": "renewalData.How much profit did partner make from self-employment"
+                                      "modelId": "partner.incomeDetails.How much profit did partner make from self-employment"
                                     }
                                   },
 
@@ -1403,7 +1414,7 @@
                                       "type": "Boolean",
                                       "yesNextQuestionId": "Did partner get any taxable benefits?",
                                       "noNextQuestionId": "Did partner get any taxable benefits?",
-                                      "modelId": "Is partner self-employment profit estimated"
+                                      "modelId": "partner.incomeDetails.self_employed_profit_is_estimated"
                                     }
                                 },
 
@@ -1427,27 +1438,27 @@
                             "multipleChoiceOptions": [
                                 {
                                     "option": "Bereavement Allowance",
-                                    "modelId": "taxableBenefits.bereavement_allowance",
+                                    "modelId": "partner.taxableBenefits.bereavement_allowance",
                                     "questionId": "bereavement_allowance"
                                 },
                                 {
                                     "option": "Carer Allowance",
-                                    "modelId": "taxableBenefits.carer_allowance",
+                                    "modelId": "partner.taxableBenefits.carer_allowance",
                                     "questionId": "carer_allowance"
                                 },
                                 {
                                     "option": "Contribution-based Jobseeker Allowance",
-                                    "modelId": "taxableBenefits.contribution_based_jobseeker_allowance",
+                                    "modelId": "partner.taxableBenefits.contribution_based_jobseeker_allowance",
                                     "questionId": "contribution_based_jobseeker_allowance"
                                 },
                                 {
                                     "option": "Contribution-based Employment and Support Allowance",
-                                    "modelId": "taxableBenefits.contribution_based_employment_and_support_allowance",
+                                    "modelId": "partner.taxableBenefits.contribution_based_employment_and_support_allowance",
                                     "questionId": "contribution_based_employment_and_support_allowance"
                                 },
                                 {
                                     "option": "Incapacity Benefit",
-                                    "modelId": "taxableBenefits.incapacity_benefit",
+                                    "modelId": "partner.taxableBenefits.incapacity_benefit",
                                     "questionId": "incapacity_benefit"
                                 }
                             ],

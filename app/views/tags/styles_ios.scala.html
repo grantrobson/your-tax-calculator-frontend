@@ -41,6 +41,7 @@ body {
   background: #F2F2F2; }
 
 header#page-header {
+  display: none;
   background: #000;
   color: #fff;
   padding: 10px 20px;
@@ -53,6 +54,9 @@ header#page-header {
     font-size: 1.4rem;
     font-weight: bold;
     text-align: center; }
+
+.debug header#page-header {
+  display: block; }
 
 main {
   background: #fff;
@@ -233,6 +237,7 @@ h1.hidden {
   visibility: hidden; }
 
 .back {
+  display: none;
   position: fixed;
   top: 10px;
   left: 8px;
@@ -243,6 +248,9 @@ h1.hidden {
   background-repeat: no-repeat;
   text-indent: -999em;
   border: 0; }
+
+.debug .back {
+  display: block; }
 
 main input[type="button"].primary {
   border-radius: 4px;

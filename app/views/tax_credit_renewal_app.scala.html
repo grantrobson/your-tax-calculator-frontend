@@ -28,7 +28,12 @@
 
 </head>
 
-<body>
+
+@if(debug == true) {
+        <body class="debug">
+    } else {
+        <body>
+    }
 <header id="page-header">
     <h1>Tax Credit Renewal</h1>
 </header>

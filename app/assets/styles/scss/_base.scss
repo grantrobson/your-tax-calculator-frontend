@@ -8,7 +8,7 @@
 	background-color: $background;
 	color: $text;
 	@include font-size(1.6);
-	
+
 	padding: 16px 13px;
 	text-align: center;
 	width:100%;
@@ -30,72 +30,75 @@ body {
   }
 
   header#page-header{
-  	background: $bg-header;
-  	color: $text-color-header;
-  	padding: 10px 20px;
-  	position: fixed;
-  	width: 100%;
-  	top: 0;
-  	h1{
-  		font-family: $font-heading;
-  		@include font-size(1.4);
-  		font-weight: bold;
-  		text-align: center;
-  	}
+	  display:none;
+	background: $bg-header;
+	color: $text-color-header;
+	padding: 10px 20px;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	h1{
+		font-family: $font-heading;
+		@include font-size(1.4);
+		font-weight: bold;
+		text-align: center;
+	}
   }
-
+.debug header#page-header{
+	display: block;
+}
   main{
-  	background: $bg-main;
-  	font-family: $font-copy;
-  	font-weight: normal;
-  	@include font-size(1.6);
-  	padding: $main-side-padding;
-  	margin-top: 40px;
-  	h2{
-  		font-family: $font-heading;
-  		@include font-size(2.0);
-  		font-weight: bold;
-  		margin-bottom: 1em;
-  	}
-  	h3, #headerDecimal{
-  		font-family: $font-heading;
-  		@include font-size(1.6);
-  		font-weight: bold;
-  		margin-bottom: 1em;
-  	}
-  	p, span, label{
-  		@include font-size(1.6);
-  		font-family: $font-copy;
-  		font-weight: normal;
-  	}
-  	input[type="button"].primary{
-  		@include button($button-bg-primary, $button-text-primary)
-  		-webkit-appearance: none;
-  		margin-top:8px;
-  	}
-  	input[type="button"].secondary{
-  		@include button($button-bg-secondary, $button-text-secondary)
-  		-webkit-appearance: none;
-  	}
-  	input[type="number"]{
-  		border: 1px solid;
-  		width: 100%;
-  		margin-top:8px;
-  		padding: 5px;
-  	}
-  	.container {
-  		display: table;
-  		> .row{
-  		display: table-row;
-  		.col{
-  			display: table-cell;
-  			padding: 0 0 10px 10px;
-  		}
-  		input[type="checkbox"], input[type="radio"]{
-  			display: table-cell;
-  		}
-  	}
-  	}
+	background: $bg-main;
+	font-family: $font-copy;
+	font-weight: normal;
+	@include font-size(1.6);
+	padding: $main-side-padding;
+	margin-top: 40px;
+	h2{
+		font-family: $font-heading;
+		@include font-size(2.0);
+		font-weight: bold;
+		margin-bottom: 1em;
+	}
+	h3, #headerDecimal{
+		font-family: $font-heading;
+		@include font-size(1.6);
+		font-weight: bold;
+		margin-bottom: 1em;
+	}
+	p, span, label{
+		@include font-size(1.6);
+		font-family: $font-copy;
+		font-weight: normal;
+	}
+	input[type="button"].primary{
+		@include button($button-bg-primary, $button-text-primary)
+		-webkit-appearance: none;
+		margin-top:8px;
+	}
+	input[type="button"].secondary{
+		@include button($button-bg-secondary, $button-text-secondary)
+		-webkit-appearance: none;
+	}
+	input[type="number"]{
+		border: 1px solid;
+		width: 100%;
+		margin-top:8px;
+		padding: 5px;
+	}
+	.container {
+		display: table;
+		> .row{
+		display: table-row;
+		.col{
+			display: table-cell;
+			padding: 0 0 10px 10px;
+		}
+		input[type="checkbox"], input[type="radio"]{
+			display: table-cell;
+		}
+	}
+	}
 	ul{
 		padding-left: 30px;
 		margin: 8px 0 16px;
@@ -111,7 +114,7 @@ body {
 				}
 			}
 		}
-		
+
 	}
 
   }
@@ -119,12 +122,12 @@ body {
 // Show / Hide input after checkbox
 input ~ .col {
 	.showIfChecked{
-  	input{
-  		height: 0;
-  		opacity: 0; 
-	    margin-top: 0;
-	    padding: 0;
-  	}
+	input{
+		height: 0;
+		opacity: 0;
+		margin-top: 0;
+		padding: 0;
+	}
 }
 }
 input:checked {
@@ -153,48 +156,48 @@ main.summary{
 			header{
 				p{
 					@include font-size(2.0);
-	  				font-weight: bold;
+					font-weight: bold;
 				}
 				h1{
 					@include font-size(3.2);
-	  				font-weight: bold;
-	  				text-align: center;
-	  				margin: $main-side-padding 0;
+					font-weight: bold;
+					text-align: center;
+					margin: $main-side-padding 0;
 				}
 			}
 			h2{
 				font-family: $font-heading;
 				@include font-size(2.0);
-	  			font-weight: bold;
-	  			background: $bg-summary-section-header;
-	  			color: $text-color-header;
-	  			margin-top: -$main-side-padding;
-	  			margin-right: -$main-side-padding;
-	  			margin-bottom: 20px;
-	  			margin-left: -$main-side-padding;
-	  			padding: $main-side-padding;
+				font-weight: bold;
+				background: $bg-summary-section-header;
+				color: $text-color-header;
+				margin-top: -$main-side-padding;
+				margin-right: -$main-side-padding;
+				margin-bottom: 20px;
+				margin-left: -$main-side-padding;
+				padding: $main-side-padding;
 			}
 			h3{
 				font-family: $font-heading;
 				@include font-size(2.0);
-	  			font-weight: bold;
-	  			padding-bottom: $main-side-padding;
-	  			border-bottom: 2px solid $bg-summary-section-header;
-	  			margin-bottom: 0;
+				font-weight: bold;
+				padding-bottom: $main-side-padding;
+				border-bottom: 2px solid $bg-summary-section-header;
+				margin-bottom: 0;
 			}
 			h4{
 				font-family: $font-heading;
 				@include font-size(2.0);
-	  			font-weight: bold;
-	  			padding: 10px 0;
+				font-weight: bold;
+				padding: 10px 0;
 			}
 			h5{
 				font-family: $font-heading;
 				@include font-size(2.0);
-	  			font-weight: normal;
-	  			padding: 10px 0;
-	  			border-top: 1px solid #bfc1c3;
-	  			border-bottom: 1px solid #bfc1c3;
+				font-weight: normal;
+				padding: 10px 0;
+				border-top: 1px solid #bfc1c3;
+				border-bottom: 1px solid #bfc1c3;
 			}
 			table{
 				margin: $main-side-padding 0;
@@ -240,11 +243,11 @@ main.summary{
   /*
 	POC Stuff
   */
-      p.one {
-    border-style: solid;
-    border-width: 5px;
-    }
+	  p.one {
+	border-style: solid;
+	border-width: 5px;
+	}
 
-    h1.hidden {
-    visibility: hidden;
-    }
+	h1.hidden {
+	visibility: hidden;
+	}

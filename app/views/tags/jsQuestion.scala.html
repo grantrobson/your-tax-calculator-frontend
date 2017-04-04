@@ -216,7 +216,12 @@
                  document.getElementById('estimatedIncomeValue').checked = false;
                 }
             }
-        } else {
+        } else if (question.questionType.type == 'Summary'){
+
+            initSummary()
+
+        }
+        else {
             alert('Failed to resolve the question type ' + question.questionType.type);
         }
 
@@ -225,7 +230,7 @@
     }
 
 
-    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue"];
+    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue", "Summary"];
 
     function toggleControls(toggle) {
         dynamicControls.forEach((item) => {

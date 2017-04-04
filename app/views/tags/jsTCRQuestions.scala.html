@@ -265,6 +265,7 @@
             {
                 "id": "Did you get any untaxed benefits",
                 "question": "Did you get any of these benefits for the whole time between 11 January 2017 and 5 April 2017?",
+                "section": "CERTAIN-BENEFITS",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Which untaxed benefit did you get",
@@ -276,6 +277,7 @@
             {
                 "id": "Which untaxed benefit did you get",
                 "question": "Which did you get for the whole time between 6 April 2016 to 5 April 2017?",
+                "section": "CERTAIN-BENEFITS",
                 "questionType": {
                 "type": "MultipleChoice",
                 "multipleChoiceOptions": [
@@ -307,6 +309,7 @@
             {
                 "id": "Do you still get this benefit",
                 "question": "Do you still get ",
+                "section": "CERTAIN-BENEFITS",
                 "previousQuestionOption" : "Which untaxed benefit did you get",
                 "questionType": {
                   "type": "Boolean",
@@ -322,6 +325,7 @@
             {
                 "id": "Did you get any other household income",
                 "question": "Part 2: Other household income - Did you get any of these sources of income between 6 April 2016 and 5 April 2017?",
+                "section":"OTHER-INCOME",
                 "questionType": {
                   "type": "Boolean",
                   "yesNextQuestionId": "Select other income sources & enter amount",
@@ -333,6 +337,7 @@
             {
                 "id": "Select other income sources & enter amount",
                 "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                "section":"OTHER-INCOME",
                 "questionType": {
                 "type": "MultipleChoiceWithNumber",
                     "multipleChoiceOptions": [
@@ -370,6 +375,7 @@
             {
                 "id": "Are any of the income amounts estimated",
                 "question": "Are any of your sources of income amounts estimated?",
+                "section":"OTHER-INCOME",
                 "questionType": {
                   "type": "Boolean",
                   "yesNextQuestionId": "Did you get any income from property rental",
@@ -486,14 +492,12 @@
                   "type": "SaveAndComeBackLater"
                 }
             },
-
+                //TODO SUMMARY Screen
             {
                 "id": "SUMMARY-SCREEN-TODO",    // TMP SUMMARY SCREEN!!!
                 "question": "SUMMARY - THIS IS JUST A DEMO SCREEN AND NOT complete",
                 "questionType": {
-                  "type": "Boolean",
-                  "yesNextQuestionId": "Native-submit-renewal",
-                  "noNextQuestionId": "save-and-exit"
+                  "type": "Summary"
                 }
             },
 

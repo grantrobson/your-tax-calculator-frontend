@@ -26,6 +26,8 @@
 
     @tags.jsTCRQuestions()
 
+    @tags.jsSummary()
+
 </head>
 
 <body>
@@ -117,6 +119,20 @@
 
 
     </div>
+
+        <!-- Decimal Input -->
+    <div id="Summary" style="display: none;">
+        <h1 id="headerSummary">SUMMARY</h1>
+        <div id="dynamicBody-Summary">
+            <h2> TEST </h2>
+        </div>
+
+        <input type="button" value="Next" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+
+
+    </div>
+
 
     <!-- Dynamic header DIV's -->
     <div style="display: none;">
@@ -227,7 +243,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:SINGLE_D1,hasPartner:false,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,certainBenefits.receivedBenefits:true,certainBenefits.jsa:true,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:false,certainBenefits.Do you still get this benefit:true,otherIncome.Did you get any other household income:true,otherIncome.saving_investment_dividend:1234,otherIncome.isOtherHouseholdIncomeEst:true,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:1234,otherIncome.rental_profit_is_estimated:true,undefined:true,hasChangeOfCircs:true,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:1#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">

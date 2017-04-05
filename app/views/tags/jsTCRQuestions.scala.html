@@ -668,13 +668,13 @@
         if (type == AUTO_RENEWAL) {
             renewalType = AUTO_RENEWAL;
         } else if (hasPartner == false || hasPartner == "false") {
-            if (type == "D1") {
+            if (type == "D") {
                 renewalType = SINGLE_D1;
             } else {
                 renewalType = SINGLE_D2;
             }
         } else {
-            if (type == "D1") {
+            if (type == "D") {
                 renewalType = JOINT_D1;
             } else {
                 renewalType = JOINT_D2;

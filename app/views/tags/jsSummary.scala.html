@@ -1,8 +1,30 @@
 <script>
   function initSummary() {
-    document.getElementById('dynamicBody-Summary').innerHTML = buildSection("CERTAIN-BENEFITS");
+    populateYourBenefitsAndIncome()
+
     toggleControls("hide");
     show("Summary");
+  }
+
+  function populateYourBenefitsAndIncome() {
+    document.getElementById('yourBenefitsAndIncome.typeOfBenefits').innerHTML = buildListOfBenefits();
+  }
+
+  function buildListOfBenefits() {
+    var question = getFromId('Which untaxed benefit did you get');
+    var options = question.questionType.multipleChoiceOptions;
+
+    var html = '';
+
+    for (var i = 0; i < options.length; i++) {
+        var option = options[i]
+        var answer = map.get(option.modelId)
+        if(typeof answer != "undefined" && answer == "true"){
+            html = html + '<h5>' + option.option + '</h5>'
+        }
+    }
+
+    return html;
   }
 
   function buildSection(section) {
@@ -18,46 +40,6 @@
     return results;
   }
 
-  function buildMultipleChoiceQuestionAndAnswer(question) {
-      question.questionType.multipleChoiceOptions.forEach( (option) => {
-        map.get(option.modelId)
-      })
-
-  }
-
-
-
-
-//  {
-//    "id": "Which untaxed benefit did you get",
-//          "question": "Which did you get for the whole time between 6 April 2016 to 5 April 2017?",
-//          "section": "CERTAIN-BENEFITS",
-//          "questionType": {
-//    "type": "MultipleChoice",
-//            "multipleChoiceOptions": [
-//      {
-//        "option": "Income-based Jobseeker\'s Allowance",
-//        "modelId": "certainBenefits.jsa",
-//        "questionId": "jobseeker"
-//      },
-//      {
-//        "option": "Income-related Employment and Support Allowance",
-//        "modelId": "certainBenefits.esa",
-//        "questionId": "support_allowance"
-//      },
-//      {
-//        "option": "Income Support",
-//        "modelId": "certainBenefits.incomeSupport",
-//        "questionId": "income_support"
-//      },
-//      {
-//        "option": "Pension Credit",
-//        "modelId": "certainBenefits.pensionCredit",
-//        "questionId": "pension_credit"
-//      }
-//    ],
-//            "nextQuestionId": "Do you still get this benefit"
-//  }
 
 
 </script>

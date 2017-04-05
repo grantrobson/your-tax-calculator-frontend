@@ -7,18 +7,62 @@
   }
 
   function populateYourBenefitsAndIncome() {
-    document.getElementById('yourBenefitsAndIncome.typeOfBenefits').innerHTML = buildListOfBenefits();
+      buildTableOfUntaxedBenefits();
+      displayUntaxedBenefitsWarn();
+      displayTotalIncomeFromWork();
+      buildTableOfOtherIncomes();
+      displayTotalTaxableBenefits()
+      displayTaxableBenefitsInfoOrWarn();
   }
 
-  function buildListOfBenefits() {
-    var question = getFromId('Which untaxed benefit did you get');
-    var options = question.questionType.multipleChoiceOptions;
+  function buildTableOfUntaxedBenefits() {
+      document.getElementById('yourBenefitsAndIncome.typeOfBenefits').innerHTML = buildListFromMultipleChoiceAnswers('Which untaxed benefit did you get');
+  }
+
+  function displayUntaxedBenefitsWarn() {
+      var question = getFromId('Did you get any untaxed benefits');
+      var answer = map.get(question.questionType.modelId);
+      if(typeof answer != undefined && answer == "false"){
+          document.getElementById('yourBenefitsAndIncome.didNotClaimWarning').style.display = "block";
+      }
+  }
+
+  function displayTotalIncomeFromWork() {
+      document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleNumberOption('Select other income sources & enter amount');
+  }
+
+  function buildTableOfOtherIncomes() {
+      document.getElementById('yourBenefitsAndIncome.otherIncome').innerHTML = buildTableFromMultipleChoiceAnswers('Select other income sources & enter amount');
+  }
+
+  function displayTotalTaxableBenefits() {
+      document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleNumberOption('Select taxable benefits and enter amount');
+  }
+
+  function displayTaxableBenefitsInfoOrWarn() {
+      var question = getFromId('Did you get any taxable benefits');
+      var answer = map.get(question.questionType.modelId);
+      if(typeof answer != undefined){
+          if (answer == "true") {
+              document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
+              document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
+          }
+          else
+          {
+              document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
+              document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
+          }
+      }
+  }
+
+  function buildListFromMultipleChoiceAnswers(questionId) {
+    var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
     var html = '';
 
     for (var i = 0; i < options.length; i++) {
-        var option = options[i]
-        var answer = map.get(option.modelId)
+        var option = options[i];
+        var answer = map.get(option.modelId);
         if(typeof answer != "undefined" && answer == "true"){
             html = html + '<h5>' + option.option + '</h5>'
         }
@@ -27,17 +71,34 @@
     return html;
   }
 
-  function buildSection(section) {
-    var questions = data().questions;
-    var arrayLength = questions.length;
-    var results = "";
-    for (var i = 0; i < arrayLength; i++) {
-      if (typeof(questions[i].section) != "undefined" && questions[i].section == section) {
-        results = results.concat('<div><h3>' + questions[i].question + '</h3>' +
-                '<h2>' + map.get(questions[i].questionType.modelId) + '</h2></div>');
+  function buildTableFromMultipleChoiceAnswers(questionId) {
+      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+
+      var html = '';
+
+      for (var i = 0; i < options.length; i++) {
+          var option = options[i];
+          var answer = map.get(option.modelId);
+          if(typeof answer != "undefined"){
+              html = html + '<tr><td>' + option.option + '</td><td>' + answer + '</td></tr>'
+          }
       }
-    }
-    return results;
+      return html;
+  }
+
+  function sumMultipleNumberOption(questionId) {
+      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+
+      var sum = 0;
+
+      for (var i = 0; i < options.length; i++) {
+          var option = options[i];
+          var answer = map.get(option.modelId);
+          if(typeof answer != "undefined"){
+              sum += parseFloat(answer)
+          }
+      }
+      return Math.floor(sum);
   }
 
 

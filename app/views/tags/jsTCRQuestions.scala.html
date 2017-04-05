@@ -34,49 +34,49 @@
             },
 
 
-            {
-                "id": "Which untaxed benefits did partner get",
-                "question": "Which untaxed benefits did partner get?",
-                "questionType": {
-
-                    "type": "MultipleChoice",
-                    "multipleChoiceOptions": [
-                        {
-                            "option": "Income-based Jobseeker\'s Allowance",
-                            "modelId": "partner.certainBenefits.jsa",
-                            "questionId": "jobseeker"
-                        },
-                        {
-                            "option": "Income-related Employment and Support Allowance",
-                            "modelId": "partner.certainBenefits.esa",
-                            "questionId": "support_allowance"
-                        },
-                        {
-                            "option": "Income Support",
-                            "modelId": "partner.certainBenefits.incomeSupport",
-                            "questionId": "income_support"
-                        },
-                        {
-                            "option": "Pension Credit",
-                            "modelId": "partner.certainBenefits.pensionCredit",
-                            "questionId": "pension_credit"
-                        }
-                    ],
-                    "nextQuestionId": "Does partner still get this"
-                    }
-                },
                 {
-                    "id": "Does partner still get this",
-                    "previousQuestionOption" : "Which untaxed benefits did partner get",
-
-                    "question": "Does partner still get this ",
+                    "id": "Which untaxed benefits did partner get",
+                    "question": "Which untaxed benefits did partner get?",
                     "questionType": {
-                      "type": "Boolean",
-                      "yesNextQuestionId": "Did you get any other household income",
-                      "noNextQuestionId": "Was partner employed?",
-                      "modelId": "partner.certainBenefits.Does partner still get this benefit"
-                    }
-                },
+
+                        "type": "MultipleChoice",
+                        "multipleChoiceOptions": [
+                            {
+                                "option": "Income-based Jobseeker\'s Allowance",
+                                "modelId": "partner.certainBenefits.jsa",
+                                "questionId": "jobseeker"
+                            },
+                            {
+                                "option": "Income-related Employment and Support Allowance",
+                                "modelId": "partner.certainBenefits.esa",
+                                "questionId": "support_allowance"
+                            },
+                            {
+                                "option": "Income Support",
+                                "modelId": "partner.certainBenefits.incomeSupport",
+                                "questionId": "income_support"
+                            },
+                            {
+                                "option": "Pension Credit",
+                                "modelId": "partner.certainBenefits.pensionCredit",
+                                "questionId": "pension_credit"
+                            }
+                        ],
+                        "nextQuestionId": "Does partner still get this"
+                        }
+                    },
+                    {
+                        "id": "Does partner still get this",
+                        "previousQuestionOption" : "Which untaxed benefits did partner get",
+
+                        "question": "Does partner still get this ",
+                        "questionType": {
+                          "type": "Boolean",
+                          "yesNextQuestionId": "Did you get any other household income",
+                          "noNextQuestionId": "Was partner employed?",
+                          "modelId": "partner.certainBenefits.Does partner still get this benefit"
+                        }
+                    },
 
                 {
                     "id": "Was partner employed?",
@@ -464,7 +464,6 @@
                 }
             },
 
-// TODO...Finish off CoC handling!
             {
                 "id": "Native-route-to-CoC",
                 "question": "Route to change Of Circumstance",
@@ -601,12 +600,9 @@
             {
                 "id": "ROUTING QUESTION DECISION",
                 "question": "Routing decision",
-
                 "questionType": {
                   "type": "RoutingDecision",
-
                     "JOINT_ROUTE": "Partner benefits & income intro",
-
                     "OTHER_ROUTE": "Did you get any other household income" // TODO...IS THIS USED!!! CORRECT ROUTING IF PARTNER NOT DEFINED!
                 }
             },
@@ -774,7 +770,7 @@
         } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D2) {
 
             ///////////////////////////////////////////////////////
-            // SINGLE D2 - 2 years PY
+            // SINGLE D2 - 2 years single applicant
             ///////////////////////////////////////////////////////
 
             var single2YearsJourney = {
@@ -795,6 +791,16 @@
 
             // Rewire journeys single applicant to route to "Report any changes".
             builtData=single2YearsJourney;
+
+            // Override routing.
+            updateRoutingForUntaxedBenefit(SINGLE_D2);
+            updateRoutingForProfitSelfEmployment(SINGLE_D2);
+            updateRoutingForHowMuchProfitSelfEmployment(SINGLE_D2);
+            updateRoutingForPartnerAndBenefits(SINGLE_D2);
+            updateRoutingForPartnerMakeProfitFromSelfEmployment(SINGLE_D2);
+            updateRoutingForSelectOtherIncomeSources(SINGLE_D2);
+            updateRoutingForDidMakeProfitFromPropertyRental(SINGLE_D2);
+
             var override = getFromId("ROUTING DECISION COC");   // TODO...MAGIC!
             // Override the JOINT_D2_ROUTE and route to "Report any changes". 2nd (PY data) time the routing question is invoked will be on the PY path.
             override.questionType.JOINT_D2_ROUTE = "Report any changes";
@@ -834,6 +840,15 @@
 
             builtData=joint2YearsJourney;
 
+            // Override routing.
+            updateRoutingForUntaxedBenefit(JOINT_D2);
+            updateRoutingForProfitSelfEmployment(JOINT_D2);
+            updateRoutingForHowMuchProfitSelfEmployment(JOINT_D2);
+            updateRoutingForPartnerAndBenefits(JOINT_D2);
+            updateRoutingForPartnerMakeProfitFromSelfEmployment(JOINT_D2);
+            updateRoutingForSelectOtherIncomeSources(JOINT_D2);
+            updateRoutingForDidMakeProfitFromPropertyRental(JOINT_D2);
+
             // Override routing. Route to partner benefits for previous year.
             var overrideA = getFromId("ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1);
             overrideA.questionType.JOINT_ROUTE = "Benefits & Income - intro";      // Route to 2nd year data collection.
@@ -846,20 +861,80 @@
             alert(' Failed to resolve journey');
         }
 
-        // Debug code to dump generated questions!
-//        var tmp="";
-//        var count=0;
-//        builtData.questions.forEach((question) => {
-//            tmp = tmp + " Id:"+count+ ":"+ question.id;
-//            count = count + 1;
-//        });
-//        debugOut(tmp, "dumpText");
-//        alert(" number of questions : " + builtData.questions.length);
+// Uncomment to debug questions.
+//        questionsDebugDump();
 
         return(builtData);
     }
 
-var PREVIOUS_YEAR_MINUS_1 = "_PY_1";
+    function updateRoutingForUntaxedBenefit(renewalType) {
+        if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
+            // PY override
+            var override = getFromId("Benefits & Income - intro");
+            override.questionType.nextQuestionId = "Were you employed";
+
+            // PY-1 override.
+            var overridePYminusOne = getFromId("Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.nextQuestionId = "Were you employed"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+    function updateRoutingForProfitSelfEmployment(renewalType) {
+        if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
+            // PY-1 override.
+            var overridePYminusOne = getFromId("Did you make a profit from self-employment"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.noNextQuestionId = "Did you get any taxable benefits"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+    function updateRoutingForHowMuchProfitSelfEmployment(renewalType) {
+        if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
+            // PY-1 override.
+            var overridePYminusOne = getFromId("How much profit from self-employment"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.nextQuestionId = "Did you get any taxable benefits"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+    function updateRoutingForPartnerAndBenefits(renewalType) {
+        if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
+            // PY-1 override.
+            var overridePYminusOne = getFromId("Partner benefits & income intro"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.nextQuestionId = "Was partner employed?"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+    function updateRoutingForPartnerMakeProfitFromSelfEmployment(renewalType) {
+        if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
+            // PY-1 override.
+            var overridePYminusOne = getFromId("Did partner make profit from self-employment?"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.noNextQuestionId = "Did partner get any taxable benefits?"+PREVIOUS_YEAR_MINUS_1;
+            overridePYminusOne = getFromId("How much profit did partner make from self-employment?"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.nextQuestionId = "Did partner get any taxable benefits?"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+    function updateRoutingForSelectOtherIncomeSources(renewalType) {
+        if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
+            // PY-1 override.
+            var overridePYminusOne = getFromId("Select other income sources & enter amount"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.nextQuestionId = "Did you get any income from property rental"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+    function updateRoutingForDidMakeProfitFromPropertyRental(renewalType) {
+        if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
+            // PY-1 override.
+            var overridePYminusOne = getFromId("Did you make a profit from property rental"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.noNextQuestionId = "ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1;
+
+            overridePYminusOne = getFromId("Property rental profit - enter amount"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne.questionType.nextQuestionId = "ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1;
+        }
+    }
+
+
+
+    var PREVIOUS_YEAR_MINUS_1 = "_PY_1";
 
     function updateQuestionsForPreviousYear(questions) {
 

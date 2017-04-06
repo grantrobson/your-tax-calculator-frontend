@@ -26,7 +26,11 @@
 
     @tags.jsTCRQuestions()
 
-    @tags.jsSummary()
+    @tags.jsSummaryHelpers()
+
+    @tags.jsSummarySingle()
+
+    @tags.jsSummaryJoint()
 
 </head>
 
@@ -122,6 +126,12 @@
             <header id="page-header">
                 <h1>Check and confirm your answers</h1>
             </header>
+            <div id="yourBenefitsAndIncomePY-1">
+            </div>
+            <div id="partnerIncomeAndBenefitsPY-1">
+            </div>
+            <div id="otherHouseHoldIncomePY-1">
+            </div>
             <div id="yourBenefitsAndIncome">
                 <article>
                     <h2 id="yourBenefitsAndIncome.header"/>
@@ -175,6 +185,8 @@
 
                 </article>
             </div>
+            <div id="partnerIncomeAndBenefits">
+            </div>
             <div id="otherHouseHoldIncome">
                 @*<article>*@
                     @*<header>*@
@@ -202,6 +214,8 @@
                     </table>
                     <input type="button" class="secondary edit" value="Change other household income" />
                 </article>
+            </div>
+            <div id="reportedChanges">
             </div>
         </main>
 

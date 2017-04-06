@@ -1004,7 +1004,7 @@
         }
 
 // Uncomment to debug questions.
-//        questionsDebugDump();
+        questionsDebugDump();
 
         return(builtData);
     }
@@ -1039,7 +1039,9 @@
 
     function updateRoutingForPartnerAndBenefits(renewalType) {
         if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
-            // PY-1 override.
+            // PY and PY-1 override.
+            var overridePY = getFromId("Partner benefits & income intro");
+            overridePY.questionType.nextQuestionId = "Was partner employed?";
             var overridePYminusOne = getFromId("Partner benefits & income intro"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "Was partner employed?"+PREVIOUS_YEAR_MINUS_1;
         }
@@ -1079,6 +1081,16 @@
 
     function updateQuestionsForPreviousYear(questions) {
 
+        function updateQuestionAnswerLinks(questionsToClear) {
+            if (questionsToClear !== undefined && questionsToClear.questionIds !== undefined) {
+                    var arrayLength = questionsToClear.questionIds.length;
+                    // Cycle around associated checkbox input fields and check if ticked.
+                    for (var i = 0; i < arrayLength; i++) {
+                        questionsToClear.questionIds[i] += PREVIOUS_YEAR_MINUS_1;
+                    }
+            }
+        }
+
         questions.forEach((question) => {
 
             question.id += PREVIOUS_YEAR_MINUS_1;
@@ -1095,14 +1107,8 @@
                 question.questionType.yesNextQuestionId += PREVIOUS_YEAR_MINUS_1;
                 question.questionType.noNextQuestionId += PREVIOUS_YEAR_MINUS_1;
 
-                // Update associated 'no' question links.
-                if (question.questionType.answerNo !== undefined && question.questionType.answerNo.questionIds !== undefined) {
-                        var arrayLength = question.questionType.answerNo.questionIds.length;
-                        // Cycle around associated checkbox input fields and check if ticked.
-                        for (var i = 0; i < arrayLength; i++) {
-                            question.questionType.answerNo.questionIds[i] += PREVIOUS_YEAR_MINUS_1;
-                        }
-                }
+                updateQuestionAnswerLinks(question.questionType.answerNo);
+                updateQuestionAnswerLinks(question.questionType.answerYes);
 
             } else if (question.questionType.type == "MultipleChoiceWithNumber" || question.questionType.type == "MultipleChoice") {
                 var arrayLength = question.questionType.multipleChoiceOptions.length;

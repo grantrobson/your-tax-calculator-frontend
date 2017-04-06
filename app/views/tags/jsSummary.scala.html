@@ -30,16 +30,16 @@
   }
 
   function displayUntaxedBenefitsAlert() {
-      var question = getFromId('Did you get any untaxed benefits');
-      var answer = map.get(question.questionType.modelId);
+      var answer = getAnswerForQuestion('Did you get any untaxed benefits');
+
       if (answer === "false") {
           document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
       }
   }
 
   function displayNoLongerReceivingBenefitsAlert() {
-      var question = getFromId('Do you still get this benefit');
-      var answer = map.get(question.questionType.modelId);
+      var answer = getAnswerForQuestion('Do you still get this benefit');
+
       if (answer === "false") {
           document.getElementById('yourBenefitsAndIncome.noLongerReceivingBenefitsAlert').style.display = "block";
       }
@@ -58,8 +58,8 @@
   }
 
   function displayTaxableBenefitsInfoOrAlert() {
-      var question = getFromId('Did you get any taxable benefits');
-      var answer = map.get(question.questionType.modelId);
+      var answer = getAnswerForQuestion('Did you get any taxable benefits');
+
       if (answer === "true") {
           document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
           document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
@@ -90,8 +90,7 @@
   function displayOtherHouseholdIncomeTotal() {
       var total = sumMultipleNumberOption('Select other income sources & enter amount');
 
-      var question = getFromId('Did you get any other household income');
-      var answer = map.get(question.questionType.modelId);
+      var answer = getAnswerForQuestion('Did you get any other household income');
 
       if(answer === "true"){
           total = total - 300
@@ -101,8 +100,8 @@
   }
 
   function displayOtherHouseholdIncomeInfoOrAlert() {
-      var question = getFromId('Did you get any other household income');
-      var answer = map.get(question.questionType.modelId);
+      var answer = getAnswerForQuestion('Did you get any other household income');
+
       if (answer === "true") {
           document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "none";
           document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "block";
@@ -117,8 +116,7 @@
   }
 
   function appendOtherIncomeAllowanceRow() {
-      var question = getFromId('Did you get any other household income');
-      var answer = map.get(question.questionType.modelId);
+      var answer = getAnswerForQuestion('Did you get any other household income');
 
       if(answer === "true"){
           var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML
@@ -129,6 +127,11 @@
 
 
   //Helpers
+  function getAnswerForQuestion(questionId) {
+      var question = getFromId(questionId);
+      map.get(question.questionType.modelId);
+  }
+
   function buildListFromRadioAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 

@@ -97,9 +97,32 @@
             stack.push(questionPos);
         }
 
+        function deleteQuestionData() {
+            // Clear associated question answers associated with 'yes' question route.
+            if (question.questionType.answerNo !== undefined && question.questionType.answerNo.questionIds !== undefined) {
+                var arrayLength = question.questionType.answerNo.questionIds.length;
+                // Cycle around questionIds.
+                for (var i = 0; i < arrayLength; i++) {
+                    resetQuestionData=getFromId(question.questionType.answerNo.questionIds[i]);
+                    if (resetQuestionData !== undefined) {
+                        if (resetQuestionData.questionType.type == "MultipleChoice" || resetQuestionData.questionType.type == "MultipleChoiceWithNumber") {
+                            var length = resetQuestionData.questionType.multipleChoiceOptions.length;
+                            // Cycle around associated model fields and delete from map.
+                            for (var inner = 0; inner < length; inner++) {
+                                map.delete(resetQuestionData.questionType.multipleChoiceOptions[inner].modelId);
+                            }
+                        } else {
+                            map.delete(resetQuestionData.questionType.modelId);
+                        }
+                    }
+                }
+            }
+        }
+
         var route=false;
         if (document.getElementById('boolean_no').checked == true) {
             questionPos = question.questionType.noNextQuestionId;
+            deleteQuestionData();
             route=true;
         } else if (document.getElementById('boolean_yes').checked == true) {
             questionPos = question.questionType.yesNextQuestionId;

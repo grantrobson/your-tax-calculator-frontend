@@ -1,29 +1,48 @@
 <script>
   function initSummary() {
-      populateYourBenefitsAndIncome();
+      populateYourBenefitsAndIncomeSection();
 
       toggleControls("hide");
       show("Summary");
   }
 
-  function populateYourBenefitsAndIncome() {
+  function populateYourBenefitsAndIncomeSection() {
       populateTableOfUntaxedBenefits();
-      displayUntaxedBenefitsWarning();
+      displayUntaxedBenefitsAlert();
+      displayNoLongerReceivingBenefitsAlert();
       displayTotalIncomeFromWork();
       populateTableOfOtherIncomes();
       displayTotalTaxableBenefits();
-      displayTaxableBenefitsInfoOrWarning();
+      displayTaxableBenefitsInfoOrAlert();
+      populateTableTaxableBenefits();
+  }
+
+  function populateOtherHouseholdIncome() {
+      populateTableOfUntaxedBenefits();
+      displayUntaxedBenefitsAlert();
+      displayTotalIncomeFromWork();
+      populateTableOfOtherIncomes();
+      displayTotalTaxableBenefits();
+      displayTaxableBenefitsInfoOrAlert();
   }
 
   function populateTableOfUntaxedBenefits() {
-      document.getElementById('yourBenefitsAndIncome.typeOfBenefits').innerHTML = buildListFromMultipleChoiceAnswers('Which untaxed benefit did you get');
+      document.getElementById('yourBenefitsAndIncome.typeOfBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
   }
 
-  function displayUntaxedBenefitsWarning() {
+  function displayUntaxedBenefitsAlert() {
       var question = getFromId('Did you get any untaxed benefits');
       var answer = map.get(question.questionType.modelId);
       if (answer === "false") {
-          document.getElementById('yourBenefitsAndIncome.didNotClaimWarning').style.display = "block";
+          document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
+      }
+  }
+
+  function displayNoLongerReceivingBenefitsAlert() {
+      var question = getFromId('Do you still get this benefit');
+      var answer = map.get(question.questionType.modelId);
+      if (answer === "false") {
+          document.getElementById('yourBenefitsAndIncome.noLongerReceivingBenefitsAlert').style.display = "block";
       }
   }
 
@@ -32,14 +51,14 @@
   }
 
   function populateTableOfOtherIncomes() {
-      document.getElementById('yourBenefitsAndIncome.otherIncome').innerHTML = buildTableFromMultipleChoiceAnswers('Select other income sources & enter amount');
+      document.getElementById('yourBenefitsAndIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceNumbersAnswers('Select other income sources & enter amount');
   }
 
   function displayTotalTaxableBenefits() {
       document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleNumberOption('Select taxable benefits and enter amount');
   }
 
-  function displayTaxableBenefitsInfoOrWarning() {
+  function displayTaxableBenefitsInfoOrAlert() {
       var question = getFromId('Did you get any taxable benefits');
       var answer = map.get(question.questionType.modelId);
       if (answer === "true") {
@@ -51,13 +70,17 @@
       }
   }
 
-  function buildListFromMultipleChoiceAnswers(questionId) {
+  function populateTableTaxableBenefits() {
+      document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceNumbersAnswers('Select taxable benefits and enter amount');
+  }
+
+  function buildListFromRadioAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
 
-          if (typeof answer !== "undefined") {
+          if (answer === "true") {
               return acc + '<h5>' + option.option + '</h5>'
           } else {
               return acc
@@ -65,14 +88,14 @@
       }, "");
   }
 
-  function buildTableFromMultipleChoiceAnswers(questionId) {
+  function buildTableFromMultipleChoiceNumbersAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
 
           if (typeof answer !== "undefined") {
-              return acc + '<tr><td>' + option.option + '</td><td>' + answer + '</td></tr>'
+              return acc + '<tr><td>' + option.option + '</td><td>' + Math.floor(parseFloat(answer)) + '</td></tr>'
           } else {
               return acc
           }

@@ -35,4 +35,16 @@
         startup(renewalType, hasPartner, "CS700100AD", "1/1/2017", "2/2/2017");
     }
 
+    function questionsDebugDump() {
+        // Debug code to dump generated questions!
+        var tmp="";
+        var count=0;
+        data().questions.forEach((question) => {
+            tmp = tmp + " Id:"+count+ ":"+ question.id;
+            count = count + 1;
+        });
+        tmp = "Number of questions: " + builtData.questions.length + " - Questions: " + tmp
+        debugOut(tmp, "dumpText");
+    }
+
 </script>

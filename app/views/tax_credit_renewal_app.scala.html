@@ -26,6 +26,8 @@
 
     @tags.jsTCRQuestions()
 
+    @tags.jsSummary()
+
 </head>
 
 
@@ -122,6 +124,60 @@
 
 
     </div>
+
+        <!-- Decimal Input -->
+    <div id="Summary" style="display: none;">
+        <header id="page-header">
+            <h1>Check and confirm your answers</h1>
+        </header>
+        <main class="summary">
+            <article>
+                <h2>Part 1: Your benefits and income</h2>
+                <h3>Benefits you do not pay tax on between 20 April 2016 and 5 April 2017</h3>
+                <h4>Type of benefit</h4>
+                <div id="yourBenefitsAndIncome.typeOfBenefits"></div>
+                <span class="alert alert--info" id="yourBenefitsAndIncome.didNotClaimWarning" style="display: none">You told us that you did not claim any of the listed benefits for the whole of this time.</span>
+                <input type="button" class="secondary edit" value="Edit button?" />
+            </article>
+
+            <article>
+                <header>
+                    <p class="pre-header">Your income from work between between 6 April 2016 and 5 April 2017</p>
+                    <h1 id="yourBenefitsAndIncome.otherIncomeTotal"/>
+                </header>
+                <p class="note">Your other household income has been rounded down to the nearest pound (£).</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type Of Income</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="yourBenefitsAndIncome.otherIncome"/>
+                </table>
+                <input type="button" class="secondary edit" value="Change your income" />
+            </article>
+
+            <article>
+                <header>
+                    <p class="pre-header">Benefits you pay tax on between 6 April 2016 and 5 April 2017</p>
+                    <h1 id="yourBenefitsAndIncome.taxableBenefits"/>
+                </header>
+                <p id="yourBenefitsAndIncome.taxableBenefitsInfo" class="note" style="display: none">
+                    Benefits you pay tax on between 6 April 2016 and 5 April 2017.
+                </p>
+                <p id="yourBenefitsAndIncome.taxableBenefitsWarn" class="note" style="display: none">
+                    You did not have any income from benefits you pay tax on.
+                </p>
+                <input type="button" class="secondary edit" value="Change benefits you pay tax on" />
+
+            </article>
+        </main>
+
+        <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+        <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
+    </div>
+
 
     <!-- Dynamic header DIV's -->
     <div style="display: none;">
@@ -252,7 +308,7 @@
                 <label>Renewal Type</label>
                 <select id="RenewalType">
                     <option value="R">Auto Renewal</option>
-                    <option value="D1">Single D1</option>
+                    <option value="D">Single D1</option>
                     <option value="D2">Joint D2</option>
                 </select>
                 <label>Has Partner</label>

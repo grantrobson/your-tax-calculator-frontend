@@ -111,6 +111,18 @@
         }
     }
 
+    function SUMMARY_CONFIRM_AND_RENEW() {
+        questionPos = 'Native-submit-renewal';
+
+        displayQuestion();
+    }
+
+    function SUMMARY_SAVE_AND_COME_BACK_LATER() {
+        questionPos = 'save-and-exit';
+
+        displayQuestion();
+    }
+
     function YES() {
         var question = getFromId(questionPos);
         if (question.questionType.modelId !== "undefined") {

@@ -169,7 +169,18 @@
             </article>
         </main>
 
-        <input type="button" value="Next" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <div class="container">
+            <div class="row">
+                <input type="radio" id="summary_yes" name="boolean_option" class="col">
+                <label for="summary_yes" class="col">Yes</label>
+            </div>
+            <div class="row">
+                <input type="radio" id="summary_no" name="boolean_option"  class="col">
+                <label for="summary_no" class="col">No</label>
+            </div>
+        </div>
+
+        <input type="button" value="Next" onClick="javascript:SUMMARY_NEXT()" class="primary">
         <input type="button" value="Back" onClick="javascript:BACK()" class="back">
     </div>
 

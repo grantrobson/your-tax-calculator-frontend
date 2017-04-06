@@ -111,6 +111,26 @@
         }
     }
 
+    function SUMMARY_NEXT() {
+        var question = getFromId(questionPos);
+        if (document.getElementById('summary_no').checked == true || document.getElementById('summary_yes').checked == true) {
+            stack.push(questionPos);
+        }
+
+        var route=false;
+        if (document.getElementById('summary_no').checked == true) {
+            questionPos = question.questionType.noNextQuestionId;
+            route=true;
+        } else if (document.getElementById('summary_yes').checked == true) {
+            questionPos = question.questionType.yesNextQuestionId;
+            route=true;
+        } else alert('Please select one of the options.');
+
+        if (route) {
+            displayQuestion();
+        }
+    }
+
     function YES() {
         var question = getFromId(questionPos);
         if (question.questionType.modelId !== "undefined") {

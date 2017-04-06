@@ -7,19 +7,19 @@
   }
 
   function populateYourBenefitsAndIncome() {
-      buildTableOfUntaxedBenefits();
-      displayUntaxedBenefitsWarn();
+      populateTableOfUntaxedBenefits();
+      displayUntaxedBenefitsWarning();
       displayTotalIncomeFromWork();
-      buildTableOfOtherIncomes();
+      populateTableOfOtherIncomes();
       displayTotalTaxableBenefits();
-      displayTaxableBenefitsInfoOrWarn();
+      displayTaxableBenefitsInfoOrWarning();
   }
 
-  function buildTableOfUntaxedBenefits() {
+  function populateTableOfUntaxedBenefits() {
       document.getElementById('yourBenefitsAndIncome.typeOfBenefits').innerHTML = buildListFromMultipleChoiceAnswers('Which untaxed benefit did you get');
   }
 
-  function displayUntaxedBenefitsWarn() {
+  function displayUntaxedBenefitsWarning() {
       var question = getFromId('Did you get any untaxed benefits');
       var answer = map.get(question.questionType.modelId);
       if (answer === "false") {
@@ -31,7 +31,7 @@
       document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleNumberOption('Select other income sources & enter amount');
   }
 
-  function buildTableOfOtherIncomes() {
+  function populateTableOfOtherIncomes() {
       document.getElementById('yourBenefitsAndIncome.otherIncome').innerHTML = buildTableFromMultipleChoiceAnswers('Select other income sources & enter amount');
   }
 
@@ -39,14 +39,13 @@
       document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleNumberOption('Select taxable benefits and enter amount');
   }
 
-  function displayTaxableBenefitsInfoOrWarn() {
+  function displayTaxableBenefitsInfoOrWarning() {
       var question = getFromId('Did you get any taxable benefits');
       var answer = map.get(question.questionType.modelId);
       if (answer === "true") {
           document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
           document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
-      }
-      else {
+      } else {
           document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
           document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
       }

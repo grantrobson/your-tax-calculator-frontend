@@ -111,24 +111,16 @@
         }
     }
 
-    function SUMMARY_NEXT() {
-        var question = getFromId(questionPos);
-        if (document.getElementById('summary_no').checked == true || document.getElementById('summary_yes').checked == true) {
-            stack.push(questionPos);
-        }
+    function SUMMARY_CONFIRM_AND_RENEW() {
+        questionPos = 'Native-submit-renewal';
 
-        var route=false;
-        if (document.getElementById('summary_no').checked == true) {
-            questionPos = question.questionType.noNextQuestionId;
-            route=true;
-        } else if (document.getElementById('summary_yes').checked == true) {
-            questionPos = question.questionType.yesNextQuestionId;
-            route=true;
-        } else alert('Please select one of the options.');
+        displayQuestion();
+    }
 
-        if (route) {
-            displayQuestion();
-        }
+    function SUMMARY_SAVE_AND_COME_BACK_LATER() {
+        questionPos = 'save-and-exit';
+
+        displayQuestion();
     }
 
     function YES() {

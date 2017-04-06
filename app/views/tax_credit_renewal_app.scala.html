@@ -124,7 +124,7 @@
         <main class="summary">
             <div id="yourBenefitsAndIncome">
                 <article>
-                    <h2>Part 1: Your benefits and income</h2>
+                    <h2 id="yourBenefitsAndIncome.header"/>
                     <h3>Benefits you do not pay tax on between 20 April 2016 and 5 April 2017</h3>
                     <h4>Type of benefit</h4>
                     <span class="alert alert--info" id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">You told us that you did not claim any of the listed benefits for the whole of this time.</span>
@@ -176,15 +176,21 @@
                 </article>
             </div>
             <div id="otherHouseHoldIncome">
-                <article>
-                    <h2>Part 1: Other household income</h2>
-                </article>
+                @*<article>*@
+                    @*<header>*@
+                        @*<h2 id="otherHouseholdIncome.header"/>*@
+                    @*</header>*@
+                @*</article>*@
 
                 <article>
                     <header>
-                        <h1 id="otherHouseHoldIncome.otherIncomeTotal"/>
+                        <h2 id="otherHouseholdIncome.header"/>
+                        <h3 class="pre-header">Your total other household income</h3>
+                        <h1 id="otherHouseholdIncome.total">asdadasd</h1>
                     </header>
-                    <p class="note">Your other household income has been rounded down to the nearest pound (£).</p>
+
+                    <p id="otherHouseholdIncome.noOtherIncome" class="note" style="display: none">You did not have any types of other income.</p>
+                    <p id="otherHouseholdIncome.roundDownWarn" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
                     <table>
                         <thead>
                             <tr>
@@ -192,7 +198,7 @@
                                 <th>Amount</th>
                             </tr>
                         </thead>
-                        <tbody id="otherHouseHoldIncome.otherIncome"/>
+                        <tbody id="otherHouseholdIncome.otherIncomeTable"/>
                     </table>
                     <input type="button" class="secondary edit" value="Change other household income" />
                 </article>

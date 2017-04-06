@@ -1,12 +1,15 @@
 <script>
   function initSummary() {
-      populateYourBenefitsAndIncomeSection();
+      populateYourBenefitsAndIncomeSection(1);
+      populateOtherHouseholdIncomeSection(2);
 
       toggleControls("hide");
       show("Summary");
   }
 
-  function populateYourBenefitsAndIncomeSection() {
+  //Your Benefits And Income
+  function populateYourBenefitsAndIncomeSection(sectionNo) {
+      setYourBenefitsAndIncomeSectionHeader(sectionNo);
       populateTableOfUntaxedBenefits();
       displayUntaxedBenefitsAlert();
       displayNoLongerReceivingBenefitsAlert();
@@ -17,13 +20,9 @@
       populateTableTaxableBenefits();
   }
 
-  function populateOtherHouseholdIncome() {
-      populateTableOfUntaxedBenefits();
-      displayUntaxedBenefitsAlert();
-      displayTotalIncomeFromWork();
-      populateTableOfOtherIncomes();
-      displayTotalTaxableBenefits();
-      displayTaxableBenefitsInfoOrAlert();
+
+  function setYourBenefitsAndIncomeSectionHeader(sectionNo) {
+      document.getElementById('yourBenefitsAndIncome.header').innerHTML = "Part " + sectionNo + ": Your benefits and income"
   }
 
   function populateTableOfUntaxedBenefits() {
@@ -74,6 +73,62 @@
       document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceNumbersAnswers('Select taxable benefits and enter amount');
   }
 
+  //Other Household Income
+
+  function populateOtherHouseholdIncomeSection(sectionNo) {
+      setOtherHouseholdIncomeSectionHeader(sectionNo);
+      displayOtherHouseholdIncomeTotal();
+      displayOtherHouseholdIncomeInfoOrAlert();
+      populateTableOfOtherIncome();
+      appendOtherIncomeAllowanceRow();
+  }
+
+  function setOtherHouseholdIncomeSectionHeader(sectionNo) {
+      document.getElementById('otherHouseholdIncome.header').innerHTML = "Part " + sectionNo + ": Other household income";
+  }
+
+  function displayOtherHouseholdIncomeTotal() {
+      var total = sumMultipleNumberOption('Select other income sources & enter amount');
+
+      var question = getFromId('Did you get any other household income');
+      var answer = map.get(question.questionType.modelId);
+
+      if(answer === "true"){
+          total = total - 300
+      }
+
+      document.getElementById('otherHouseholdIncome.total').innerHTML = "£" + total;
+  }
+
+  function displayOtherHouseholdIncomeInfoOrAlert() {
+      var question = getFromId('Did you get any other household income');
+      var answer = map.get(question.questionType.modelId);
+      if (answer === "true") {
+          document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "none";
+          document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "block";
+      } else {
+          document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "block";
+          document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "none";
+      }
+  }
+
+  function populateTableOfOtherIncome() {
+      document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceNumbersAnswers('Select other income sources & enter amount');
+  }
+
+  function appendOtherIncomeAllowanceRow() {
+      var question = getFromId('Did you get any other household income');
+      var answer = map.get(question.questionType.modelId);
+
+      if(answer === "true"){
+          var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML
+
+          document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>'
+      }
+  }
+
+
+  //Helpers
   function buildListFromRadioAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 

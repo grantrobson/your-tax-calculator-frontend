@@ -119,9 +119,9 @@
       var answer = getAnswerForQuestion('Did you get any other household income');
 
       if(answer === "true"){
-          var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML
+          var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML;
 
-          document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>'
+          document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
       }
   }
 
@@ -129,7 +129,7 @@
   //Helpers
   function getAnswerForQuestion(questionId) {
       var question = getFromId(questionId);
-      map.get(question.questionType.modelId);
+      return map.get(question.questionType.modelId);
   }
 
   function buildListFromRadioAnswers(questionId) {

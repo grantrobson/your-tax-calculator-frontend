@@ -1,9 +1,9 @@
 <script>
   function initSummary() {
-    populateYourBenefitsAndIncome()
+      populateYourBenefitsAndIncome();
 
-    toggleControls("hide");
-    show("Summary");
+      toggleControls("hide");
+      show("Summary");
   }
 
   function populateYourBenefitsAndIncome() {
@@ -11,7 +11,7 @@
       displayUntaxedBenefitsWarn();
       displayTotalIncomeFromWork();
       buildTableOfOtherIncomes();
-      displayTotalTaxableBenefits()
+      displayTotalTaxableBenefits();
       displayTaxableBenefitsInfoOrWarn();
   }
 
@@ -22,7 +22,7 @@
   function displayUntaxedBenefitsWarn() {
       var question = getFromId('Did you get any untaxed benefits');
       var answer = map.get(question.questionType.modelId);
-      if(typeof answer != undefined && answer == "false"){
+      if (answer === "false") {
           document.getElementById('yourBenefitsAndIncome.didNotClaimWarning').style.display = "block";
       }
   }
@@ -42,65 +42,59 @@
   function displayTaxableBenefitsInfoOrWarn() {
       var question = getFromId('Did you get any taxable benefits');
       var answer = map.get(question.questionType.modelId);
-      if(typeof answer != undefined){
-          if (answer == "true") {
-              document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
-              document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
-          }
-          else
-          {
-              document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
-              document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
-          }
+      if (answer === "true") {
+          document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
+          document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
+      }
+      else {
+          document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
+          document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
       }
   }
 
   function buildListFromMultipleChoiceAnswers(questionId) {
-    var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
-    var html = '';
+      return options.reduce(function (acc, option) {
+          var answer = map.get(option.modelId);
 
-    for (var i = 0; i < options.length; i++) {
-        var option = options[i];
-        var answer = map.get(option.modelId);
-        if(typeof answer != "undefined" && answer == "true"){
-            html = html + '<h5>' + option.option + '</h5>'
-        }
-    }
-
-    return html;
+          if (typeof answer !== "undefined") {
+              return acc + '<h5>' + option.option + '</h5>'
+          } else {
+              return acc
+          }
+      }, "");
   }
 
   function buildTableFromMultipleChoiceAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
-      var html = '';
-
-      for (var i = 0; i < options.length; i++) {
-          var option = options[i];
+      return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
-          if(typeof answer != "undefined"){
-              html = html + '<tr><td>' + option.option + '</td><td>' + answer + '</td></tr>'
+
+          if (typeof answer !== "undefined") {
+              return acc + '<tr><td>' + option.option + '</td><td>' + answer + '</td></tr>'
+          } else {
+              return acc
           }
-      }
-      return html;
+      }, "");
   }
 
   function sumMultipleNumberOption(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
-      var sum = 0;
-
-      for (var i = 0; i < options.length; i++) {
-          var option = options[i];
+      var result = options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
-          if(typeof answer != "undefined"){
-              sum += parseFloat(answer)
-          }
-      }
-      return Math.floor(sum);
-  }
 
+          if (typeof answer !== "undefined") {
+              return acc + parseFloat(answer)
+          } else {
+              return acc
+          }
+      }, 0);
+
+      return Math.floor(result);
+  }
 
 
 </script>

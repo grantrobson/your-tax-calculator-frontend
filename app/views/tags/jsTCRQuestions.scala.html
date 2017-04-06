@@ -319,7 +319,7 @@
                     "answerNo": {
                         "questionIds": [
                             "Which untaxed benefit did you get",
-                             "Do you still get this benefit"
+                             "Do you still get this benefit",
                         ]
                     }
                 }
@@ -363,12 +363,27 @@
                 "section": "CERTAIN-BENEFITS",
                 "previousQuestionOption" : "Which untaxed benefit did you get",
                 "questionType": {
-                  "type": "Boolean",
-                    "headerDiv": "do-you-still-get-this-benefit",
-                    // TODO: make header footer!
-                  "yesNextQuestionId": "ROUTING QUESTION DECISION",
-                  "noNextQuestionId": "Were you employed",
-                  "modelId": "certainBenefits.Do you still get this benefit"
+                    "type": "Boolean",
+                    "yesNextQuestionId": "ROUTING QUESTION DECISION",
+                    "noNextQuestionId": "Were you employed",
+                    "modelId": "certainBenefits.Do you still get this benefit",
+                    "answerYes": {
+                        "questionIds": [
+                            "Were you employed",
+                            "How much employed income",
+                            "Did you get any company benefits",
+                            "How much company benefit",
+                            "Were you self employed",
+                            "How much employed income",
+                            "Did you get any company benefits",
+                            "How much company benefit",
+                            "Did you make a profit from self-employment",
+                            "Is the self-employed loss estimated",
+                            "How much profit from self-employment",
+                            "Is the self-employed profit estimated",
+                            "Select taxable benefits and enter amount"
+                        ]
+                    }
                 }
             },
 

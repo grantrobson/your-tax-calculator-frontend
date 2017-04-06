@@ -91,41 +91,43 @@
         displayQuestion();
     }
 
+    function deleteQuestionData(questionDrop) {
+        // Clear associated question answers associated with 'yes' question route.
+        if (questionDrop !== undefined && questionDrop.questionIds !== undefined) {
+            var arrayLength = questionDrop.questionIds.length;
+            // Cycle around questionIds.
+            for (var i = 0; i < arrayLength; i++) {
+                resetQuestionData=getFromId(questionDrop.questionIds[i]);
+                if (resetQuestionData !== undefined) {
+                    if (resetQuestionData.questionType.type == "MultipleChoice" || resetQuestionData.questionType.type == "MultipleChoiceWithNumber") {
+                        var length = resetQuestionData.questionType.multipleChoiceOptions.length;
+                        // Cycle around associated model fields and delete from map.
+                        for (var inner = 0; inner < length; inner++) {
+                            map.delete(resetQuestionData.questionType.multipleChoiceOptions[inner].modelId);
+                        }
+                    } else {
+                        map.delete(resetQuestionData.questionType.modelId);
+                    }
+                }
+            }
+        }
+    }
+
+
     function NEXT_BOOLEAN_CONTINUE() {
         var question = getFromId(questionPos);
         if (document.getElementById('boolean_no').checked == true || document.getElementById('boolean_yes').checked == true) {
             stack.push(questionPos);
         }
 
-        function deleteQuestionData() {
-            // Clear associated question answers associated with 'yes' question route.
-            if (question.questionType.answerNo !== undefined && question.questionType.answerNo.questionIds !== undefined) {
-                var arrayLength = question.questionType.answerNo.questionIds.length;
-                // Cycle around questionIds.
-                for (var i = 0; i < arrayLength; i++) {
-                    resetQuestionData=getFromId(question.questionType.answerNo.questionIds[i]);
-                    if (resetQuestionData !== undefined) {
-                        if (resetQuestionData.questionType.type == "MultipleChoice" || resetQuestionData.questionType.type == "MultipleChoiceWithNumber") {
-                            var length = resetQuestionData.questionType.multipleChoiceOptions.length;
-                            // Cycle around associated model fields and delete from map.
-                            for (var inner = 0; inner < length; inner++) {
-                                map.delete(resetQuestionData.questionType.multipleChoiceOptions[inner].modelId);
-                            }
-                        } else {
-                            map.delete(resetQuestionData.questionType.modelId);
-                        }
-                    }
-                }
-            }
-        }
-
         var route=false;
         if (document.getElementById('boolean_no').checked == true) {
             questionPos = question.questionType.noNextQuestionId;
-            deleteQuestionData();
+            deleteQuestionData(question.questionType.answerNo);
             route=true;
         } else if (document.getElementById('boolean_yes').checked == true) {
             questionPos = question.questionType.yesNextQuestionId;
+            deleteQuestionData(question.questionType.answerYes);
             route=true;
         } else alert('Please select one of the options.');
 

@@ -85,7 +85,7 @@ main {
     font-weight: normal; }
   main input[type="button"].primary {
     display: block;
-    background-color: #08822e;
+    background-color: #00823b;
     color: #fff;
     font-size: 16px;
     font-size: 1.6rem;
@@ -226,6 +226,17 @@ main.summary {
     border-left-color: #0068af;
     background-color: rgba(43, 139, 195, 0.1); }
 
+details summary {
+  color: #2b8cc4; }
+
+details .panel {
+  clear: both;
+  border-left: 3px #bfc1c3 solid;
+  padding: 0.7894736842em;
+  margin-bottom: 0.7894736842em; }
+  details .panel * + * {
+    margin-top: 1em; }
+
 /*
 	POC Stuff
   */
@@ -243,5 +254,5 @@ h1.hidden {
   border: 0; }
 
 main input[type="button"].primary {
-  border-radius: 4px;
+  border-radius: 2px;
   box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31); }

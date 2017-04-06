@@ -1,7 +1,4 @@
 <script>
-
-        //Helpers
-
   function initSummary() {
       populateYourBenefitsAndIncomeSection(1);
       populateOtherHouseholdIncomeSection(2);
@@ -29,7 +26,7 @@
       }, "");
   }
 
-  function buildTableFromMultipleChoiceNumbersAnswers(questionId) {
+  function buildTableFromMultipleChoiceWithNumberAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
@@ -43,7 +40,7 @@
       }, "");
   }
 
-  function sumMultipleNumberOption(questionId) {
+  function sumMultipleChoiceWithNumberAnswers(questionId) {
       var options = getFromId(questionId).questionType.multipleChoiceOptions;
 
       var result = options.reduce(function (acc, option) {
@@ -58,6 +55,5 @@
 
       return Math.floor(result);
   }
-
 
 </script>

@@ -72,7 +72,11 @@ body {
 		font-weight: bold;
 		margin-bottom: 1.6rem;
 	}
-
+	  .pre-header{
+		  color:$text-color-pre-header;
+		  display: block;
+		  margin-bottom: 0.5em;
+	  }
 	p, span, label{
 		@include font-size(1.6);
 

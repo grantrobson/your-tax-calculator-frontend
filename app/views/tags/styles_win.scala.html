@@ -38,9 +38,10 @@ html {
   font-size: 10px; }
 
 body {
-  background: #4A4A4A; }
+  background: transparent; }
 
 header#page-header {
+  display: none;
   background: #000;
   color: #fff;
   padding: 10px 20px;
@@ -53,6 +54,9 @@ header#page-header {
     font-size: 1.4rem;
     font-weight: bold;
     text-align: center; }
+
+.debug header#page-header {
+  display: block; }
 
 main {
   background: #fff;
@@ -151,7 +155,7 @@ main.summary {
   main.summary article {
     margin: 0;
     padding: 20px;
-    border-bottom: 5px solid #4A4A4A; }
+    border-bottom: 5px solid transparent; }
     main.summary article header p {
       font-size: 20px;
       font-size: 2rem;
@@ -221,6 +225,17 @@ main.summary {
   .alert.alert--info {
     border-left-color: #0068af;
     background-color: rgba(43, 139, 195, 0.1); }
+
+details summary {
+  color: #2b8cc4; }
+
+details .panel {
+  clear: both;
+  border-left: 3px #bfc1c3 solid;
+  padding: 0.7894736842em;
+  margin-bottom: 0.7894736842em; }
+  details .panel * + * {
+    margin-top: 1em; }
 
 /*
 	POC Stuff

@@ -43,8 +43,9 @@
 
     <!-- MultipleChoice -->
     <div id="MultipleChoice" style="display: none;">
-        <div id="dynamicHeader-MultipleChoice"></div>
+        <div id="dynamicHeader-MultipleChoice-header"></div>
         <h3 id="headerMultipleChoice" class="question"></h3>
+        <div id="dynamicHeader-MultipleChoice-footer"></div>
         <div>
             <div id="containerDiv" class="container"></div>
         </div>
@@ -75,9 +76,10 @@
 
     <!-- Boolean -->
     <div id="Boolean" style="display: none;">
-        <div id="dynamicHeader-Boolean"></div>
-
+        <div id="dynamicHeader-Boolean-header"></div>
         <h3 id="headerBoolean"></h3>
+        <div id="dynamicHeader-Boolean-footer"></div>
+
         <div class="container">
             <div class="row">
                 <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" class="col">
@@ -95,9 +97,10 @@
     </div>
     <!-- Continue -->
     <div id="Continue" style="display: none;">
-        <div id="dynamicHeader-Continue"></div>
-
+        <div id="dynamicHeader-Continue-header"></div>
         <h3 id="headerContinue"></h3>
+        <div id="dynamicHeader-Continue-footer"></div>
+
         <input type="button" value="Yes" onClick="javascript:NEXT_CONTINUE()" class="primary">
         <input type="button" value="Come back later" onClick="javascript:BACK()" class="secondary">
     </div>
@@ -105,9 +108,10 @@
 
     <!-- Decimal Input -->
     <div id="Decimal" style="display: none;">
-        <div id="dynamicHeader-Decimal"></div>
-
+        <div id="dynamicHeader-Decimal-header"></div>
         <label id="headerDecimal" for="DecimalInput"></label>
+        <div id="dynamicHeader-Decimal-footer"></div>
+
         <input type="number" id="DecimalInput">
         <br>
 
@@ -298,11 +302,11 @@
 
 
 
-    @if(debug == true) {
+@if(debug == true) {
     <div id="debugShow">
-    } else {
+} else {
     <div id="debugHidden" style="display: none;">
-    }
+}
         <div id="demo">
             <div>
                 <label>Renewal Type</label>

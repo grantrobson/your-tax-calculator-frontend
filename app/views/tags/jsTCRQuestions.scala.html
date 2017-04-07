@@ -27,11 +27,10 @@
                 "question": "Did partner get any untaxed benefits?",
                 "questionType": {
                   "type": "Boolean",
-                    "headerDiv": "did-you-get-any-untaxed-benefits",
-                    // TODO: make header footer!
-                  "yesNextQuestionId": "Which untaxed benefits did partner get",
-                  "noNextQuestionId": "Was partner employed?",
-                  "modelId": "partner.certainBenefits.receivedBenefits",
+                    "questionHeaderDiv": "did-you-get-any-untaxed-benefits",
+                    "yesNextQuestionId": "Which untaxed benefits did partner get",
+                    "noNextQuestionId": "Was partner employed?",
+                    "modelId": "partner.certainBenefits.receivedBenefits",
 
                     "answerNo": {
                         "questionIds": [
@@ -289,7 +288,7 @@
                 "question": "",
                 "questionType": {
                   "type": "Continue",
-                  "headerDiv": "benefits-and-income-intro",
+                  "questionHeaderDiv": "benefits-and-income-intro",
                   "nextQuestionId": "Benefits & Income - intro"
                 }
             },
@@ -299,7 +298,7 @@
                 "question": "",
                 "questionType": {
                   "type": "Continue",
-                  "headerDiv": "part-1-your-benefits-and-income",
+                  "questionHeaderDiv": "part-1-your-benefits-and-income",
                   "nextQuestionId": "Did you get any untaxed benefits"
                 }
             },
@@ -311,8 +310,16 @@
                 "section": "CERTAIN-BENEFITS",
                 "questionType": {
                     "type": "Boolean",
-                    "headerDiv": "did-you-get-any-untaxed-benefits",
+
+//  ABOVE AND BELOW THE QUESTION!
+// questionHeaderDiv
+// questionFooterDiv
+
+
+                    "questionFooterDiv": "did-you-get-any-untaxed-benefits",
+
                     // TODO: make header footer!
+
                     "yesNextQuestionId": "Which untaxed benefit did you get",
                     "noNextQuestionId": "Were you employed",
                     "modelId": "certainBenefits.receivedBenefits",
@@ -417,7 +424,7 @@
                 "section":"OTHER-INCOME",
                 "questionType": {
                 "type": "MultipleChoiceWithNumber",
-                    "headerDiv": "which-of-these-benefits-did-you-get-at-the-time",
+                    "questionHeaderDiv": "which-of-these-benefits-did-you-get-at-the-time",
                     // TODO: make header footer!
                     "multipleChoiceOptions": [
                     {
@@ -457,7 +464,7 @@
                 "section":"OTHER-INCOME",
                 "questionType": {
                   "type": "Boolean",
-                    "headerDiv": "are-any-of-the-income-amounts-estimated",
+                    "questionHeaderDiv": "are-any-of-the-income-amounts-estimated",
                     // TODO: make header footer!
                   "yesNextQuestionId": "Did you get any income from property rental",
                   "noNextQuestionId": "Did you get any income from property rental",

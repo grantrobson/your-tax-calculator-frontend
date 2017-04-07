@@ -88,7 +88,7 @@
 
                 {
                     "id": "Was partner employed?",
-                    "question": "Was partner employed?",
+                    "question": "Was employed as an employee at any time between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "How much employed income did partner get?",
@@ -108,20 +108,21 @@
 
                 {
                     "id": "How much employed income did partner get?",
-                    "question": "How much employed income did partner get?",
+                    "question": "How much did earn from all jobs as an employee between 6 April 2016 and 5 April 2017?",
                     "questionType": {
-                      "type": "Decimal",
-//                          "headerDiv": "benefits-and-income-intro", TODO...
-                      "nextQuestionId": "Did partner get any company benefits?",
-                      "modelId": "partner.incomeDetails.earnings"
+                        "type": "Decimal",
+                        "questionFooterDiv": "How much employed income did partner get?",
+                        "nextQuestionId": "Did partner get any company benefits?",
+                        "modelId": "partner.incomeDetails.earnings"
                     }
                 },
 
                 {
                     "id": "Did partner get any company benefits?",
-                    "question": "Did partner get any company benefits?",
+                    "question": "Did receive company benefits between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                         "type": "Boolean",
+                        "questionFooterDiv": "Did partner get any company benefits?",
                         "yesNextQuestionId": "How much company benefit did partner get?",
                         "noNextQuestionId": "Was partner self-employed?",
                         "modelId": "partner.incomeDetails.Did partner get any company benefits",
@@ -135,7 +136,7 @@
 
               {
                 "id": "How much company benefit did partner get?",
-                "question": "How much company benefit did partner get?",
+                "question": "How much did receive in company benefits between 6 April 2016 and 5 April 2017?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Was partner self-employed?",
@@ -145,9 +146,10 @@
 
                 {
                     "id": "Was partner self-employed?",
-                    "question": "Was partner self-employed?",
+                    "question": "Was self-employed at any time between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                         "type": "Boolean",
+                        "questionFooterDiv": "Was partner self-employed?",
                         "yesNextQuestionId": "Did partner make profit from self-employment?",
                         "noNextQuestionId": "Did partner get any taxable benefits?",
                         "modelId": "partner.incomeDetails.Was partner self-employed",
@@ -165,7 +167,7 @@
 
                 {
                     "id": "Did partner make profit from self-employment?",
-                    "question": "Did partner make profit from self-employment?",
+                    "question": "Did make a profit from their self-employment between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                         "type": "Boolean",
                         "yesNextQuestionId": "How much profit did partner make from self-employment?",
@@ -205,7 +207,7 @@
 
                   {
                     "id": "How much profit did partner make from self-employment?",
-                    "question": "How much profit did partner make from self-employment?",
+                    "question": "How much self-employed profit did make between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                       "type": "Decimal",
                       "nextQuestionId": "Is partner self-employment profit estimated?",
@@ -227,9 +229,10 @@
 
                 {
                     "id": "Did partner get any taxable benefits?",
-                    "question": "Did partner get any taxable benefits?",
+                    "question": "Did get any of these benefits between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                       "type": "Boolean",
+                      "questionFooterDiv": "Did partner get any taxable benefits?",
                       "yesNextQuestionId": "Select partner taxable benefits and enter amount",
                       "noNextQuestionId": "Did you get any other household income",
                       "modelId": "partner.Did partner get any taxable benefits",
@@ -245,9 +248,11 @@
 
                 {
                     "id": "Select partner taxable benefits and enter amount",
-                    "question": "Select partner taxable benefits and enter amount",
+                    "question": "What benefits did get between 6 April 2016 and 5 April 2017?",
                     "questionType": {
                     "type": "MultipleChoiceWithNumber",
+                        "questionFooterDiv": "Select partner taxable benefits and enter amount",
+
                         "multipleChoiceOptions": [
                             {
                                 "option": "Bereavement Allowance",

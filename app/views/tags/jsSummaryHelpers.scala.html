@@ -2,6 +2,7 @@
   function initSummary() {
       populateYourBenefitsAndIncomeSection(1);
       populateOtherHouseholdIncomeSection(2);
+      populateReportedChangesSection(3);
 
       toggleControls("hide");
       show("Summary");
@@ -53,7 +54,7 @@
           }
       }, 0);
 
-      return Math.floor(result);
+      return Math.max(Math.floor(result), 0);
   }
 
 </script>

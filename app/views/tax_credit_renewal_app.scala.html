@@ -188,12 +188,6 @@
             <div id="partnerIncomeAndBenefits">
             </div>
             <div id="otherHouseHoldIncome">
-                @*<article>*@
-                    @*<header>*@
-                        @*<h2 id="otherHouseholdIncome.header"/>*@
-                    @*</header>*@
-                @*</article>*@
-
                 <article>
                     <header>
                         <h2 id="otherHouseholdIncome.header"/>
@@ -216,11 +210,28 @@
                 </article>
             </div>
             <div id="reportedChanges">
+                <article>
+                    <header>
+                        <h2 id="reportedChanges.header"/>
+                    </header>
+                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a change to any of your personal circumstances.</p>
+                    <input type="button" class="secondary edit" value="Report a change to your personal circumstances" />
+                </article>
+            </div>
+            <div id="declaration">
+                <article>
+                    <header>
+                        <h2>Declaration</h2>
+                    </header>
+                    <p style="font-weight: bold">By sending your review and renewing your claim, you confirm that the information you have provided is correct and complete.</p>
+                    <br/>
+                    <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
+                    <br/>
+                    <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+                    <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
+                </article>
             </div>
         </main>
-
-        <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
-        <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
     </div>
 
 

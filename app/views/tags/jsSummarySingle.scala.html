@@ -1,120 +1,130 @@
 <script>
 //Your Benefits And Income
-  function populateYourBenefitsAndIncomeSection(sectionNo) {
-      setYourBenefitsAndIncomeSectionHeader(sectionNo);
-      populateTableOfUntaxedBenefits();
-      displayUntaxedBenefitsAlert();
-      displayNoLongerReceivingBenefitsAlert();
-      displayTotalIncomeFromWork();
-      populateTableOfOtherIncomes();
-      displayTotalTaxableBenefits();
-      displayTaxableBenefitsInfoOrAlert();
-      populateTableTaxableBenefits();
-  }
+function populateYourBenefitsAndIncomeSection(sectionNo) {
+    setYourBenefitsAndIncomeSectionHeader(sectionNo);
+    populateTableOfUntaxedBenefits();
+    displayUntaxedBenefitsAlert();
+    displayNoLongerReceivingBenefitsAlert();
+    displayTotalIncomeFromWork();
+    populateTableOfOtherIncomes();
+    displayTotalTaxableBenefits();
+    displayTaxableBenefitsInfoOrAlert();
+    populateTableTaxableBenefits();
+}
 
 
-  function setYourBenefitsAndIncomeSectionHeader(sectionNo) {
-      document.getElementById('yourBenefitsAndIncome.header').innerHTML = "Part " + sectionNo + ": Your benefits and income"
-  }
+function setYourBenefitsAndIncomeSectionHeader(sectionNo) {
+    document.getElementById('yourBenefitsAndIncome.header').innerHTML = "Part " + sectionNo + ": Your benefits and income"
+}
 
-  function populateTableOfUntaxedBenefits() {
-      document.getElementById('yourBenefitsAndIncome.typeOfBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
-  }
+function populateTableOfUntaxedBenefits() {
+    document.getElementById('yourBenefitsAndIncome.typeOfBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
+}
 
-  function displayUntaxedBenefitsAlert() {
-      var answer = getAnswerForQuestion('Did you get any untaxed benefits');
+function displayUntaxedBenefitsAlert() {
+    var answer = getAnswerForQuestion('Did you get any untaxed benefits');
 
-      if (answer === "false") {
-          document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
-      }
-  }
+    if (answer === "false") {
+        document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
+    }
+}
 
-  function displayNoLongerReceivingBenefitsAlert() {
-      var answer = getAnswerForQuestion('Do you still get this benefit');
+function displayNoLongerReceivingBenefitsAlert() {
+    var answer = getAnswerForQuestion('Do you still get this benefit');
 
-      if (answer === "false") {
-          document.getElementById('yourBenefitsAndIncome.noLongerReceivingBenefitsAlert').style.display = "block";
-      }
-  }
+    if (answer === "false") {
+        document.getElementById('yourBenefitsAndIncome.noLongerReceivingBenefitsAlert').style.display = "block";
+    }
+}
 
-  function displayTotalIncomeFromWork() {
-      document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
-  }
+function displayTotalIncomeFromWork() {
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+}
 
-  function populateTableOfOtherIncomes() {
-      document.getElementById('yourBenefitsAndIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
-  }
+function populateTableOfOtherIncomes() {
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+}
 
-  function displayTotalTaxableBenefits() {
-      document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
-  }
+function displayTotalTaxableBenefits() {
+    document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+}
 
-  function displayTaxableBenefitsInfoOrAlert() {
-      var answer = getAnswerForQuestion('Did you get any taxable benefits');
+function displayTaxableBenefitsInfoOrAlert() {
+    var answer = getAnswerForQuestion('Did you get any taxable benefits');
 
-      if (answer === "true") {
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
-      } else {
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
-      }
-  }
+    if (answer === "true") {
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
+    } else {
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
+    }
+}
 
-  function populateTableTaxableBenefits() {
-      document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
-  }
+function populateTableTaxableBenefits() {
+    document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+}
 
-  //Other Household Income
+//Other Household Income
 
-  function populateOtherHouseholdIncomeSection(sectionNo) {
-      setOtherHouseholdIncomeSectionHeader(sectionNo);
-      displayOtherHouseholdIncomeTotal();
-      displayOtherHouseholdIncomeInfoOrAlert();
-      populateTableOfOtherIncome();
-      appendOtherIncomeAllowanceRow();
-  }
+function populateOtherHouseholdIncomeSection(sectionNo) {
+    setOtherHouseholdIncomeSectionHeader(sectionNo);
+    displayOtherHouseholdIncomeTotal();
+    displayOtherHouseholdIncomeInfoOrAlert();
+    populateTableOfOtherIncome();
+    appendOtherIncomeAllowanceRow();
+}
 
-  function setOtherHouseholdIncomeSectionHeader(sectionNo) {
-      document.getElementById('otherHouseholdIncome.header').innerHTML = "Part " + sectionNo + ": Other household income";
-  }
+function setOtherHouseholdIncomeSectionHeader(sectionNo) {
+    document.getElementById('otherHouseholdIncome.header').innerHTML = "Part " + sectionNo + ": Other household income";
+}
 
-  function displayOtherHouseholdIncomeTotal() {
-      var total = sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+function displayOtherHouseholdIncomeTotal() {
+    var total = sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
 
-      var answer = getAnswerForQuestion('Did you get any other household income');
+    var answer = getAnswerForQuestion('Did you get any other household income');
 
-      if(answer === "true"){
-          total = total - 300
-      }
+    if (answer === "true") {
+        total = Math.max(total - 300, 0)
+    }
 
-      document.getElementById('otherHouseholdIncome.total').innerHTML = "£" + total;
-  }
+    document.getElementById('otherHouseholdIncome.total').innerHTML = "£" + total;
+}
 
-  function displayOtherHouseholdIncomeInfoOrAlert() {
-      var answer = getAnswerForQuestion('Did you get any other household income');
+function displayOtherHouseholdIncomeInfoOrAlert() {
+    var answer = getAnswerForQuestion('Did you get any other household income');
 
-      if (answer === "true") {
-          document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "none";
-          document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "block";
-      } else {
-          document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "block";
-          document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "none";
-      }
-  }
+    if (answer === "true") {
+        document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "none";
+        document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "block";
+    } else {
+        document.getElementById('otherHouseholdIncome.noOtherIncome').style.display = "block";
+        document.getElementById('otherHouseholdIncome.roundDownWarn').style.display = "none";
+    }
+}
 
-  function populateTableOfOtherIncome() {
-      document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
-  }
+function populateTableOfOtherIncome() {
+    document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+}
 
-  function appendOtherIncomeAllowanceRow() {
-      var answer = getAnswerForQuestion('Did you get any other household income');
+function appendOtherIncomeAllowanceRow() {
+    var answer = getAnswerForQuestion('Did you get any other household income');
 
-      if(answer === "true"){
-          var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML;
+    if (answer === "true") {
+        var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML;
 
-          document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
-      }
-  }
+        document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
+    }
+}
+
+// Reported changes
+
+function populateReportedChangesSection(sectionNo) {
+    setReportedChangesSectionHeader(sectionNo);
+}
+
+function setReportedChangesSectionHeader(sectionNo) {
+    document.getElementById('reportedChanges.header').innerHTML = "Part " + sectionNo + ": Reported changes";
+}
 
 </script>

@@ -315,14 +315,7 @@
                 "section": "CERTAIN-BENEFITS",
                 "questionType": {
                     "type": "Boolean",
-
-//  ABOVE AND BELOW THE QUESTION!
-// questionHeaderDiv
-// questionFooterDiv
-
-
                     "questionFooterDiv": "did-you-get-any-untaxed-benefits",
-
                     "yesNextQuestionId": "Which untaxed benefit did you get",
                     "noNextQuestionId": "Were you employed",
                     "modelId": "certainBenefits.receivedBenefits",
@@ -467,11 +460,11 @@
                 "question": "Are any of your sources of income amounts estimated?",
                 "section":"OTHER-INCOME",
                 "questionType": {
-                  "type": "Boolean",
+                    "type": "Boolean",
                     "questionFooterDiv": "are-any-of-the-income-amounts-estimated",
-                  "yesNextQuestionId": "Did you get any income from property rental",
-                  "noNextQuestionId": "Did you get any income from property rental",
-                  "modelId": "otherIncome.isOtherHouseholdIncomeEst"
+                    "yesNextQuestionId": "Did you get any income from property rental",
+                    "noNextQuestionId": "Did you get any income from property rental",
+                    "modelId": "otherIncome.isOtherHouseholdIncomeEst"
                 }
             },
 
@@ -483,6 +476,7 @@
                 "question": "Did you get any income between 6 April 2016 and 5 April 2017 from renting out property?",
                 "questionType": {
                     "type": "Boolean",
+                    "questionFooterDiv": "Did you get any income from property rental",
                     "yesNextQuestionId": "Did you make a profit from property rental",
                     "noNextQuestionId": "ROUTING DECISION COC", //"Report any changes",
                     "modelId": "otherIncome.Did you get any income from property rental",

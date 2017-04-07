@@ -65,6 +65,8 @@
             var cln = itm.cloneNode(true);
             var insertPoint = document.getElementById(dynamicHeaderDiv);
             insertPoint.appendChild(cln);
+        } else {
+            removeChildren(dynamicHeaderDiv);
         }
 
         // Check if dynamic header should be added to question.
@@ -74,6 +76,8 @@
             var cln = itm.cloneNode(true);
             var insertPoint = document.getElementById(dynamicFooterDiv);
             insertPoint.appendChild(cln);
+        } else {
+            removeChildren(dynamicFooterDiv);
         }
 
     }

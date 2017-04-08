@@ -190,7 +190,20 @@
 
                 </article>
             </div>
-            <div id="partnerIncomeAndBenefits">
+            <div id="partnersIncomeAndBenefits">
+                <article>
+                    <h2 id="partnersIncomeAndBenefits.header"/>
+                    <h3>Benefits your partner does not pay tax on between 20 April 2016 and 5 April 2017</h3>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
+                        You told us that your partner did not claim any of the listed benefits for the whole of this time.
+                    </span>
+                    <h4 id="partnersIncomeAndBenefits.typeOfBenefitsListHeader" style="display: none">Type of benefit</h4>
+                    <div id="partnersIncomeAndBenefits.typeOfBenefitsList" style="display: none"></div>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingBenefitsAlert" style="display: none">
+                        You said your partner no longer gets this benefit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change benefits" />
+                </article>
             </div>
             <div id="otherHouseHoldIncome">
                 <article>
@@ -402,7 +415,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:JOINT_D1,hasPartner:true,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,certainBenefits.receivedBenefits:true,certainBenefits.jsa:false,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:true,certainBenefits.Do you still get this benefit:true,partner.certainBenefits.receivedBenefits:true,partner.certainBenefits.jsa:false,partner.certainBenefits.esa:false,partner.certainBenefits.incomeSupport:true,partner.certainBenefits.pensionCredit:false,partner.certainBenefits.Does partner still get this benefit:true,otherIncome.Did you get any other household income:true,otherIncome.saving_investment_dividend:10000,otherIncome.trusts_settlements_or_estates:20000,otherIncome.isOtherHouseholdIncomeEst:false,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:3000,otherIncome.rental_profit_is_estimated:false,undefined:false,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:1#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Partner benefits & income intro#Did partner get any untaxed benefits?#Which untaxed benefits did partner get#Does partner still get this#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('renewalType:JOINT_D1,hasPartner:true,nino:CS700100AD,endDate:1/1/2017,startDate:2/2/2017,certainBenefits.receivedBenefits:true,certainBenefits.jsa:false,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:true,certainBenefits.Do you still get this benefit:true,partner.certainBenefits.receivedBenefits:true,partner.certainBenefits.jsa:false,partner.certainBenefits.esa:false,partner.certainBenefits.incomeSupport:true,partner.certainBenefits.pensionCredit:false,partner.certainBenefits.Does partner still get this benefit:true,otherIncome.Did you get any other household income:true,otherIncome.saving_investment_dividend:1000.10,otherIncome.pensions:500.1,otherIncome.isOtherHouseholdIncomeEst:true,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:12123,otherIncome.rental_profit_is_estimated:true,undefined:true,hasChangeOfCircs:true,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:1#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Partner benefits & income intro#Did partner get any untaxed benefits?#Which untaxed benefits did partner get#Does partner still get this#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">

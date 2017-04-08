@@ -65,6 +65,40 @@ function populateTableTaxableBenefits() {
     document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
 }
 
+
+//Your partner benefits and income
+function populateYourPartnerBenefitsAndIncomeSection(sectionNo) {
+    setSectionHeader("partnersIncomeAndBenefits.header", sectionNo, "Your partner's benefits and income");
+    displayListOfPartnerBenefitsOrAlert();
+    displayPartnerNoLongerReceivingBenefitAlert();
+    displayPartnerNoLongerReceivingBenefitAlert();
+}
+
+function setSectionHeader(elementId, sectionNo, sectionName) {
+    document.getElementById(elementId).innerHTML = "Part " + sectionNo + ": " + sectionName;
+}
+
+function displayListOfPartnerBenefitsOrAlert() {
+    var answer = getAnswerForQuestion('Did partner get any untaxed benefits?');
+
+    if (answer === "true") {
+        document.getElementById('partnersIncomeAndBenefits.typeOfBenefitsListHeader').style.display = "block";
+
+        document.getElementById('partnersIncomeAndBenefits.typeOfBenefitsList').style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.typeOfBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefits did partner get');
+    } else {
+        document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "none";
+    }
+}
+
+function displayPartnerNoLongerReceivingBenefitAlert() {
+    var answer = getAnswerForQuestion('Does partner still get this');
+
+    if (answer === "true") {
+        document.getElementById('partnersIncomeAndBenefits.noLongerReceivingBenefitsAlert').style.display = "none";
+    }
+}
+
 //Other Household Income
 
 function populateOtherHouseholdIncomeSection(sectionNo) {

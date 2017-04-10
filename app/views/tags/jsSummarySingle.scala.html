@@ -69,35 +69,67 @@ function populateTableTaxableBenefits() {
 //Your partner benefits and income
 function populateYourPartnerBenefitsAndIncomeSection(sectionNo) {
     setSectionHeader("partnersIncomeAndBenefits.header", sectionNo, "Your partner's benefits and income");
-    displayListOfPartnerBenefitsOrAlert();
-    displayPartnerNoLongerReceivingBenefitAlert();
-    displayPartnerNoLongerReceivingBenefitAlert();
+    displayListOfPartnersUntaxedBenefitsOrAlert();
+    displayPartnerNoLongerReceivingUntaxedBenefitAlert();
+
+    displayPartnersTotalIncomeFromWork();
+    populateTableOfPartnerOtherIncomes();
 }
 
 function setSectionHeader(elementId, sectionNo, sectionName) {
     document.getElementById(elementId).innerHTML = "Part " + sectionNo + ": " + sectionName;
 }
 
-function displayListOfPartnerBenefitsOrAlert() {
+function displayListOfPartnersUntaxedBenefitsOrAlert() {
     var answer = getAnswerForQuestion('Did partner get any untaxed benefits?');
 
     if (answer === "true") {
-        document.getElementById('partnersIncomeAndBenefits.typeOfBenefitsListHeader').style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsListHeader').style.display = "block";
 
-        document.getElementById('partnersIncomeAndBenefits.typeOfBenefitsList').style.display = "block";
-        document.getElementById('partnersIncomeAndBenefits.typeOfBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefits did partner get');
+        document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefits did partner get');
     } else {
         document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "none";
     }
 }
 
-function displayPartnerNoLongerReceivingBenefitAlert() {
+function displayPartnerNoLongerReceivingUntaxedBenefitAlert() {
     var answer = getAnswerForQuestion('Does partner still get this');
 
     if (answer === "true") {
-        document.getElementById('partnersIncomeAndBenefits.noLongerReceivingBenefitsAlert').style.display = "none";
+        document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
     }
 }
+
+function displayPartnersTotalIncomeFromWork() {
+    var total = sumAnswersFromListOfQuestions(['How much employed income did partner get?',
+        'How much company benefit did partner get?',
+        'How much profit did partner make from self-employment?']);
+
+    document.getElementById('partnersIncomeAndBenefits.otherIncomeTotal').innerHTML = '£' + total;
+}
+
+function sumAnswersFromListOfQuestions(questions) {
+    return questions.reduce(function (acc, question) {
+        if (typeof getAnswerForQuestion(question) !== 'undefined') {
+            return acc + parseFloat(getAnswerForQuestion(questions))
+        } else {
+            return acc
+        }
+    }, 0);
+}
+
+function populateTableOfPartnerOtherIncomes() {
+    var html = '<tr><td>Earnings from employment</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much employed income did partner get?'))) + '</td></tr>'
+            + '<tr><td>Company benefits</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much company benefit did partner get?'))) + '</td></tr>';
+    if (getAnswerForQuestion('Did partner make profit from self-employment?') == 'true') {
+        html = html + '<tr><td>Profit from self-employment</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much profit did partner make from self-employment?'))) + '</td></tr>';
+    } else {
+        html = html + '<tr><td>Profit from self-employment</td><td>0</td></tr>';
+    }
+    document.getElementById('partnersIncomeAndBenefits.otherIncomeTable').innerHTML = html
+}
+
 
 //Other Household Income
 

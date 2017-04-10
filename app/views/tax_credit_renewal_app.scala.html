@@ -197,12 +197,35 @@
                     <span class="alert alert--info" id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
                         You told us that your partner did not claim any of the listed benefits for the whole of this time.
                     </span>
-                    <h4 id="partnersIncomeAndBenefits.typeOfBenefitsListHeader" style="display: none">Type of benefit</h4>
-                    <div id="partnersIncomeAndBenefits.typeOfBenefitsList" style="display: none"></div>
-                    <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingBenefitsAlert" style="display: none">
+                    <h4 id="partnersIncomeAndBenefits.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
+                    <div id="partnersIncomeAndBenefits.untaxedBenefitsList" style="display: none"></div>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said your partner no longer gets this benefit.
                     </span>
                     <input type="button" class="secondary edit" value="Change benefits" />
+                </article>
+                <article>
+                    <header>
+                        <p class="pre-header">Your partner's income from work between 6 April 2016 and 5 April 2017</p>
+                        <h1 id="partnersIncomeAndBenefits.otherIncomeTotal"/>
+                    </header>
+                    <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnersIncomeAndBenefits.otherIncomeTable"/>
+                    </table>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert" style="display: none">
+                        You said your partner's profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit your partner actually made.
+                    </span>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert" style="display: none">
+                        You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change your partner's income" />
                 </article>
             </div>
             <div id="otherHouseHoldIncome">

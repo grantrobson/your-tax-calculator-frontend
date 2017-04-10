@@ -216,13 +216,23 @@ function appendOtherIncomeAllowanceRow() {
 }
 
 // Reported changes
-
 function populateReportedChangesSection(sectionNo) {
     setReportedChangesSectionHeader(sectionNo);
+    displayChangesOrNoChagesWarning();
 }
 
 function setReportedChangesSectionHeader(sectionNo) {
     document.getElementById('reportedChanges.header').innerHTML = "Part " + sectionNo + ": Reported changes";
+}
+
+function displayChangesOrNoChagesWarning() {
+    var answer = getAnswerForQuestion('Report any changes');
+
+    if (answer === "true") {
+        document.getElementById('reportedChanges.someChangesWarning').style.display = "block";
+    } else {
+        document.getElementById('reportedChanges.noChangesWarning').style.display = "block";
+    }
 }
 
 </script>

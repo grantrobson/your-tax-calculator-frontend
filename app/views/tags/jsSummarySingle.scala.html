@@ -2,8 +2,7 @@
 //Your Benefits And Income
 function populateYourBenefitsAndIncomeSection(sectionNo) {
     setYourBenefitsAndIncomeSectionHeader(sectionNo);
-    populateTableOfUntaxedBenefits();
-    displayUntaxedBenefitsAlert();
+    displayListOfUntaxedBenefitsOrAlert();
     displayNoLongerReceivingBenefitsAlert();
     displayTotalIncomeFromWork();
     populateTableOfOtherIncomes();
@@ -17,14 +16,16 @@ function setYourBenefitsAndIncomeSectionHeader(sectionNo) {
     document.getElementById('yourBenefitsAndIncome.header').innerHTML = "Part " + sectionNo + ": Your benefits and income"
 }
 
-function populateTableOfUntaxedBenefits() {
-    document.getElementById('yourBenefitsAndIncome.typeOfBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
-}
 
-function displayUntaxedBenefitsAlert() {
+function displayListOfUntaxedBenefitsOrAlert() {
     var answer = getAnswerForQuestion('Did you get any untaxed benefits');
 
-    if (answer === "false") {
+    if (answer === "true") {
+        document.getElementById('yourBenefitsAndIncome.untaxedBenefitsListHeader').style.display = "block";
+
+        document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
+    } else {
         document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
     }
 }
@@ -33,16 +34,28 @@ function displayNoLongerReceivingBenefitsAlert() {
     var answer = getAnswerForQuestion('Do you still get this benefit');
 
     if (answer === "false") {
-        document.getElementById('yourBenefitsAndIncome.noLongerReceivingBenefitsAlert').style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
     }
 }
 
 function displayTotalIncomeFromWork() {
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+    var total = sumAnswersFromListOfQuestions(['How much employed income',
+        'How much company benefit',
+        'How much profit from self-employment']);
+
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = '£' + total;
 }
 
 function populateTableOfOtherIncomes() {
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+    var questions = [{
+        id: 'How much employed income', label: 'Earnings from employment'
+    }, {
+        id: 'How much company benefit', label: 'Company benefits'
+    }, {
+        id: 'How much profit from self-employment', label: 'Profit from self-employment'
+    }];
+
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTable').innerHTML = buildTableFromListOfNumericQuestions(questions);
 }
 
 function displayTotalTaxableBenefits() {
@@ -93,7 +106,7 @@ function displayListOfPartnersUntaxedBenefitsOrAlert() {
         document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').style.display = "block";
         document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefits did partner get');
     } else {
-        document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "none";
+        document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "block";
     }
 }
 

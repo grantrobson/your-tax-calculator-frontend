@@ -1,8 +1,10 @@
 <script>
   function initSummary() {
       populateYourBenefitsAndIncomeSection(1);
-      populateOtherHouseholdIncomeSection(2);
-      populateReportedChangesSection(3);
+      populateYourPartnerBenefitsAndIncomeSection(2);
+      populateOtherHouseholdIncomeSection(3);
+      populateReportedChangesSection(4);
+      populateDeclarationSection();
 
       toggleControls("hide");
       show("Summary");
@@ -11,6 +13,10 @@
   function getAnswerForQuestion(questionId) {
       var question = getFromId(questionId);
       return map.get(question.questionType.modelId);
+  }
+
+  function getAnswerForModelId(modelId) {
+      return map.get(modelId);
   }
 
   function buildListFromRadioAnswers(questionId) {

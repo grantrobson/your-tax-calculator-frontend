@@ -271,8 +271,8 @@
                 <article>
                     <header>
                         <h2 id="otherHouseholdIncome.header"/>
-                        <h3 class="pre-header">Your total other household income</h3>
-                        <h1 id="otherHouseholdIncome.total">asdadasd</h1>
+                        <h3>Your total other household income</h3>
+                        <h1 id="otherHouseholdIncome.total"/>
                     </header>
 
                     <p id="otherHouseholdIncome.noOtherIncome" class="note" style="display: none">You did not have any types of other income.</p>
@@ -286,6 +286,15 @@
                         </thead>
                         <tbody id="otherHouseholdIncome.otherIncomeTable"/>
                     </table>
+                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert" style="display: none">
+                        You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
+                    </span>
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
+                        You said your loss from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
+                        You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
                     <input type="button" class="secondary edit" value="Change other household income" />
                 </article>
             </div>
@@ -308,6 +317,7 @@
                     <br/>
                     <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
                     <br/>
+                    <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
                     <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
                     <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
                 </article>
@@ -688,7 +698,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('multi-pack:true,partner-name:NICKP,startDate_PY_1:6th April 2015,endDate_PY_1:5th April 2016,renewalType:SINGLE_D1,hasPartner:false,nino:CS700100AD,endDate:6th April 2017,startDate:5th April 2016,confirm-pack-receipt:true,certainBenefits.receivedBenefits:true,certainBenefits.jsa:true,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:false,certainBenefits.Do you still get this benefit:false,incomeDetails.Were you employed:true,incomeDetails.earnings:1223,incomeDetails.Did you get any company benefits:true,incomeDetails.companyBenefits:3123123,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:true,taxableBenefits.bereavement_allowance:1232,taxableBenefits.carer_allowance:1232,otherIncome.Did you get any other household income:true,otherIncome.saving_investment_dividend:123213,otherIncome.pensions:12313,otherIncome.isOtherHouseholdIncomeEst:true,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:12313,otherIncome.rental_profit_is_estimated:true,undefined:false,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Were you employed#How much employed income#Did you get any company benefits#How much company benefit#Were you self employed#Did you get any taxable benefits#Select taxable benefits and enter amount#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('multi-pack:true,partner-name:NICKP,startDate_PY_1:6th April 2015,endDate_PY_1:5th April 2016,renewalType:JOINT_D1,hasPartner:true,nino:CS700100AD,endDate:6th April 2017,startDate:5th April 2016,confirm-pack-receipt:true,certainBenefits.receivedBenefits:true,certainBenefits.jsa:false,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:true,certainBenefits.Do you still get this benefit:false,incomeDetails.Were you employed:true,incomeDetails.earnings:2323,incomeDetails.Did you get any company benefits:false,incomeDetails.Were you self employed:true,incomeDetails.Did you make a profit from self-employment:true,incomeDetails.seProfits:2324,incomeDetails.self_employed_profit_is_estimated:true,renewalData.Did you get any taxable benefits:true,taxableBenefits.contribution_based_jobseeker_allowance:32234,taxableBenefits.contribution_based_employment_and_support_allowance:234234,partner.certainBenefits.receivedBenefits:true,partner.certainBenefits.jsa:false,partner.certainBenefits.esa:false,partner.certainBenefits.incomeSupport:true,partner.certainBenefits.pensionCredit:false,partner.certainBenefits.Does partner still get this benefit:false,partner.incomeDetails.Was partner employed:true,partner.incomeDetails.earnings:2343,partner.incomeDetails.Did partner get any company benefits:true,partner.incomeDetails.companyBenefits:234243,partner.incomeDetails.Was partner self-employed:true,undefined:false,partner.incomeDetails.How much profit did partner make from self-employment:3354,partner.incomeDetails.seProfits:false,partner.Did partner get any taxable benefits:true,partner.taxableBenefits.contribution_based_jobseeker_allowance:332,partner.taxableBenefits.contribution_based_employment_and_support_allowance:4456456,otherIncome.Did you get any other household income:true,otherIncome.foreign_income:34534,otherIncome.notional_income:4646,otherIncome.isOtherHouseholdIncomeEst:true,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:345345435,otherIncome.rental_profit_is_estimated:true,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Were you employed#How much employed income#Did you get any company benefits#Were you self employed#Did you make a profit from self-employment#How much profit from self-employment#Is the self-employed profit estimated#Did you get any taxable benefits#Select taxable benefits and enter amount#Partner benefits & income intro#Did partner get any untaxed benefits?#Which untaxed benefits did partner get#Does partner still get this#Was partner employed?#How much employed income did partner get?#Did partner get any company benefits?#How much company benefit did partner get?#Was partner self-employed?#Did partner make profit from self-employment?#How much profit did partner make from self-employment?#Is partner self-employment profit estimated?#Did partner get any taxable benefits?#Select partner taxable benefits and enter amount#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">

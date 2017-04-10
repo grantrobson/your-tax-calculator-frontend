@@ -235,4 +235,17 @@ function displayChangesOrNoChagesWarning() {
     }
 }
 
+// Declaration
+function populateDeclarationSection() {
+    displayShareDetailsWithPartnerWarning()
+}
+
+function displayShareDetailsWithPartnerWarning() {
+    var answer = getAnswerForModelId('renewalType');
+
+    if (answer === "JOINT_D1" || answer === "JOINT_D2") {
+        document.getElementById('declaration.shareDetailsWithPartnerWarning').style.display = "block";
+    }
+}
+
 </script>

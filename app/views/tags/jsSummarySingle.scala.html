@@ -74,6 +74,10 @@ function populateYourPartnerBenefitsAndIncomeSection(sectionNo) {
 
     displayPartnersTotalIncomeFromWork();
     populateTableOfPartnerOtherIncomes();
+    displayPartnersSelfEmploymentProfitLossAlert();
+
+    displayPartnersTotalUntaxedBenefits();
+    populateTableOfPartnersUntaxedBenefits();
 }
 
 function setSectionHeader(elementId, sectionNo, sectionName) {
@@ -119,6 +123,31 @@ function populateTableOfPartnerOtherIncomes() {
     }];
 
     document.getElementById('partnersIncomeAndBenefits.otherIncomeTable').innerHTML = buildTableFromListOfNumericQuestions(questions);
+}
+
+function displayPartnersSelfEmploymentProfitLossAlert() {
+    if (getAnswerForQuestion('Is partner self-employment profit estimated?') === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert').style.display = "block";
+    }
+
+    if (getAnswerForQuestion('Is partner self-employment loss estimated?') === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert').style.display = "block";
+    }
+}
+
+function displayPartnersTotalUntaxedBenefits() {
+    if (getAnswerForQuestion('Did partner get any taxable benefits?') === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal').style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount');
+
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsInfo').style.display = "block";
+    } else {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsWarn').style.display = "block";
+    }
+}
+
+function populateTableOfPartnersUntaxedBenefits() {
+    document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount');
 }
 
 //Other Household Income

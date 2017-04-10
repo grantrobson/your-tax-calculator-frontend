@@ -1,6 +1,6 @@
 <script language=javascript type="text/javascript">
 
-    // Resolve associated questions for renewal flow.
+    // Resolve associated questions for renewal flow and initialize HTML based on supplied renewal type.
     var builtData="";
     function data() {
 
@@ -14,7 +14,8 @@
         var jointApplicant = [
             {
                 "id": "Partner benefits & income intro",
-                "question": "Partner benefits & income intro",
+                "group": "partner",
+                "question": "Part [REPLACE_X]: Your partner/'s benefits & income intro",
                 "questionType": {
                   "type": "Continue",
                   "questionFooterDiv": "Partner benefits & income intro",
@@ -24,7 +25,8 @@
 
             {
                 "id": "Did partner get any untaxed benefits?",
-                "question": "Did partner get any untaxed benefits?",
+                "group": "partner",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Did partner get any untaxed benefits?",
                 "questionType": {
                   "type": "Boolean",
                     "questionFooterDiv": "did-you-get-any-untaxed-benefits",
@@ -44,7 +46,8 @@
 
                 {
                     "id": "Which untaxed benefits did partner get",
-                    "question": "Which untaxed benefits did partner get?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Which untaxed benefits did partner get?",
                     "questionType": {
 
                         "type": "MultipleChoice",
@@ -75,9 +78,10 @@
                     },
                     {
                         "id": "Does partner still get this",
+                        "group": "partner",
                         "previousQuestionOption" : "Which untaxed benefits did partner get",
 
-                        "question": "Does partner still get this ",
+                        "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Does partner still get this ",
                         "questionType": {
                           "type": "Boolean",
                           "yesNextQuestionId": "Did you get any other household income",
@@ -88,7 +92,8 @@
 
                 {
                     "id": "Was partner employed?",
-                    "question": "Was employed as an employee at any time between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Was employed as an employee at any time between [DATE_A] and [DATE_B]?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "How much employed income did partner get?",
@@ -108,7 +113,8 @@
 
                 {
                     "id": "How much employed income did partner get?",
-                    "question": "How much did earn from all jobs as an employee between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>How much did earn from all jobs as an employee between [DATE_A] and [DATE_B]?",
                     "questionType": {
                         "type": "Decimal",
                         "questionFooterDiv": "How much employed income did partner get?",
@@ -119,7 +125,8 @@
 
                 {
                     "id": "Did partner get any company benefits?",
-                    "question": "Did receive company benefits between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Did receive company benefits between [DATE_A] and [DATE_B]?",
                     "questionType": {
                         "type": "Boolean",
                         "questionFooterDiv": "Did partner get any company benefits?",
@@ -136,7 +143,8 @@
 
               {
                 "id": "How much company benefit did partner get?",
-                "question": "How much did receive in company benefits between 6 April 2016 and 5 April 2017?",
+                "group": "partner",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>How much did receive in company benefits between [DATE_A] and [DATE_B]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Was partner self-employed?",
@@ -146,7 +154,8 @@
 
                 {
                     "id": "Was partner self-employed?",
-                    "question": "Was self-employed at any time between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Was self-employed at any time between [DATE_A] and [DATE_B]?",
                     "questionType": {
                         "type": "Boolean",
                         "questionFooterDiv": "Was partner self-employed?",
@@ -167,7 +176,8 @@
 
                 {
                     "id": "Did partner make profit from self-employment?",
-                    "question": "Did make a profit from their self-employment between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Did make a profit from their self-employment between [DATE_A] and [DATE_B]?",
                     "questionType": {
                         "type": "Boolean",
                         "yesNextQuestionId": "How much profit did partner make from self-employment?",
@@ -184,7 +194,8 @@
 
                 {
                     "id": "Is partner self-employment loss estimated?",
-                    "question": "Is partner self-employment loss estimated?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Is partner self-employment loss estimated?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "Did partner get any taxable benefits?",
@@ -195,7 +206,8 @@
 
                 {
                     "id": "Is partner self-employment profit estimated?",
-                    "question": "Is partner self-employment profit estimated?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Is partner self-employment profit estimated?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "Did partner get any taxable benefits?",
@@ -207,7 +219,8 @@
 
                   {
                     "id": "How much profit did partner make from self-employment?",
-                    "question": "How much self-employed profit did make between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>How much self-employed profit did make between [DATE_A] and [DATE_B]?",
                     "questionType": {
                       "type": "Decimal",
                       "nextQuestionId": "Is partner self-employment profit estimated?",
@@ -217,7 +230,8 @@
 
                 {
                     "id": "Is partner self-employment profit estimated?",
-                    "question": "Is partner self-employment profit estimated?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Is partner self-employment profit estimated?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "Did partner get any taxable benefits?",
@@ -229,7 +243,8 @@
 
                 {
                     "id": "Did partner get any taxable benefits?",
-                    "question": "Did get any of these benefits between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Did get any of these benefits between [DATE_A] and [DATE_B]?",
                     "questionType": {
                       "type": "Boolean",
                       "questionFooterDiv": "Did partner get any taxable benefits?",
@@ -248,7 +263,8 @@
 
                 {
                     "id": "Select partner taxable benefits and enter amount",
-                    "question": "What benefits did get between 6 April 2016 and 5 April 2017?",
+                    "group": "partner",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>What benefits did get between [DATE_A] and [DATE_B]?",
                     "questionType": {
                     "type": "MultipleChoiceWithNumber",
                         "questionFooterDiv": "Select partner taxable benefits and enter amount",
@@ -286,24 +302,56 @@
             ];
 
 
+        var startQuestions = [
+            {
+                "id": "confirm-pack-receipt",
+                "question": "Your renewal pack for [DATE_A] to [DATE_B]",
+                "questionType": {
+                    "type": "Boolean",
+                    "questionFooterDiv": "confirm-pack-receipt",
+                    "yesNextQuestionId": "Completing review message",
+                    "noNextQuestionId": "pack-not-received",
+                    "modelId": "confirm-pack-receipt"
+                }
+            },
+            {
+                "id": "pack-not-received",
+                "question": "You have not received your renewal pack yet",
+                "questionType": {
+                    "type": "Continue",
+                    "questionFooterDiv": "pack-not-received",
+                    "nextQuestionId": "journey-complete",
+                    "modelId": "pack-not-received"
+                }
+            },
+            {
+                "id": "Completing review message",
+                "question": "Completing review message",
+                "questionType": {
+                    "type": "Continue",
+                    "questionHeaderDiv": "Completing review message",
+                    "nextQuestionId": "Benefits & Income - intro"
+                }
+            },
+            {
+                "id": "journey-complete",
+                "question": "completed journey",
+                "questionType": {
+                    "type": "JourneyComplete"
+                }
+            }
+        ];
+
+
         var singleApplicant = [
 
             {
-                "id": "1",                  // TODO...NAMING
-                "question": "",
-                "questionType": {
-                  "type": "Continue",
-                  "questionHeaderDiv": "benefits-and-income-intro",
-                  "nextQuestionId": "Benefits & Income - intro"
-                }
-            },
-
-            {
                 "id": "Benefits & Income - intro",
-                "question": "",
+                "group": "benefits-and-income",
+                "question": "Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>",
                 "questionType": {
                   "type": "Continue",
-                  "questionHeaderDiv": "part-1-your-benefits-and-income",
+                  "questionFooterDiv": "part-1-your-benefits-and-income",
                   "nextQuestionId": "Did you get any untaxed benefits"
                 }
             },
@@ -311,7 +359,8 @@
 // Benefits and income, maps to CERTAIN-BENEFITS!
             {
                 "id": "Did you get any untaxed benefits",
-                "question": "<span class='pre-header'>Part 2 of 4: Your partner’s benefits and income</span> Did you get any of these benefits for the whole time between 11 January 2017 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span> Did you get any of these benefits for the whole time between [DATE_A] and [DATE_B]?",
                 "section": "CERTAIN-BENEFITS",
                 "questionType": {
                     "type": "Boolean",
@@ -330,7 +379,8 @@
 
             {
                 "id": "Which untaxed benefit did you get",
-                "question": "Which did you get for the whole time between 6 April 2016 to 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Which did you get for the whole time between [DATE_A] to [DATE_B]?",
                 "section": "CERTAIN-BENEFITS",
                 "questionType": {
                 "type": "MultipleChoice",
@@ -362,7 +412,8 @@
 
             {
                 "id": "Do you still get this benefit",
-                "question": "Do you still get ",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Do you still get ",
                 "section": "CERTAIN-BENEFITS",
                 "previousQuestionOption" : "Which untaxed benefit did you get",
                 "questionType": {
@@ -395,11 +446,12 @@
 
             {
                 "id": "Did you get any other household income",
-                "question": "Part 2: Other household income",
+                "group": "household-income",
+                "question": "Part [REPLACE_X]: Other household income<br><p>Did you get any of these sources of income between <nobr>[DATE_A]</nobr> and <nobr>[DATE_B]?</nobr></p>",
                 "section":"OTHER-INCOME",
                 "questionType": {
                   "type": "Boolean",
-                  "questionFooterDiv": "Part 2: Other household income",
+                  "questionFooterDiv": "Other household income",
 
                   "yesNextQuestionId": "Select other income sources & enter amount",
                   "noNextQuestionId": "Did you get any income from property rental",
@@ -418,7 +470,8 @@
 
             {
                 "id": "Select other income sources & enter amount",
-                "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Which of these benefits did you get at the time between [DATE_A] to [DATE_B]?",
                 "section":"OTHER-INCOME",
                 "questionType": {
                 "type": "MultipleChoiceWithNumber",
@@ -457,7 +510,8 @@
 
             {
                 "id": "Are any of the income amounts estimated",
-                "question": "Are any of your sources of income amounts estimated?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Are any of your sources of income amounts estimated?",
                 "section":"OTHER-INCOME",
                 "questionType": {
                     "type": "Boolean",
@@ -468,12 +522,10 @@
                 }
             },
 
-//====================================================================
-// Property
-
             {
                 "id": "Did you get any income from property rental",
-                "question": "Did you get any income between 6 April 2016 and 5 April 2017 from renting out property?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you get any income between [DATE_A] and [DATE_B] from renting out property?",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "Did you get any income from property rental",
@@ -496,7 +548,8 @@
 
             {
                 "id": "Did you make a profit from property rental",
-                "question": "Did you make a profit from renting out property between 6 April 2016 and 5 April 2017?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you make a profit from renting out property between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Property rental profit - enter amount",
@@ -514,7 +567,8 @@
 
             {
                 "id": "Is property rental loss estimated",
-                "question": "Is the loss from renting out property an estimate?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Is the loss from renting out property an estimate?",
                 "questionType": {
                   "type": "Boolean",
                   "yesNextQuestionId": "ROUTING DECISION COC",
@@ -525,7 +579,8 @@
 
             {
                 "id": "Property rental profit - enter amount",
-                "question": "How much profit did you make from renting out property between 6 April 2016 and 5 April 2017?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>How much profit did you make from renting out property between [DATE_A] and [DATE_B]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Is property rental profit estimated",
@@ -535,7 +590,8 @@
 
             {
                 "id": "Is property rental profit estimated",
-                "question": "Is the profit from renting out property an estimate?",
+                "group": "household-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Is the profit from renting out property an estimate?",
                 "questionType": {
                   "type": "Boolean",
                   "yesNextQuestionId": "ROUTING DECISION COC",
@@ -563,10 +619,10 @@
 
             {
                 "id": "Report any changes",
-                "question": "Report any changes",
+                "question": "Part [REPLACE_Y]: Report any changes",
                 "questionType": {
-
                   "type": "Boolean",
+                  "questionFooterDiv": "report-any-changes",
                   "yesNextQuestionId": "Native-route-to-CoC",
                   "noNextQuestionId": "SUMMARY-SCREEN-TODO"
                 }
@@ -606,7 +662,8 @@
 
             {
                 "id": "Were you employed",
-                "question": "Were you employed as an employee at any time between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Were you employed as an employee at any time between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "How much employed income",
@@ -626,7 +683,8 @@
 
             {
                 "id": "How much employed income",
-                "question": "How much did you earn from all of your jobs as an employee between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>How much did you earn from all of your jobs as an employee between [DATE_A] and [DATE_B]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Did you get any company benefits",
@@ -635,7 +693,8 @@
             },
                 {
                 "id": "Did you get any company benefits",
-                "question": "Did you receive company benefits between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Did you receive company benefits between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "How much company benefit",
@@ -653,7 +712,8 @@
 
             {
                 "id": "How much company benefit",
-                "question": "How much did you receive in company benefits between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>How much did you receive in company benefits between [DATE_A] and [DATE_B]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Were you self employed",
@@ -662,7 +722,8 @@
             },
             {
                 "id": "Were you self employed",
-                "question": "Were you self-employed at any time between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Were you self-employed at any time between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Did you make a profit from self-employment",
@@ -678,10 +739,10 @@
                     }
                 }
             },
-
             {
                 "id": "Did you make a profit from self-employment",
-                "question": "Did you make a profit from your self-employment between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Did you make a profit from your self-employment between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "How much profit from self-employment",
@@ -697,7 +758,8 @@
             },
             {
                 "id": "Is the self-employed loss estimated",
-                "question": "Is your self-employed loss an estimate?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Is your self-employed loss an estimate?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Did you get any taxable benefits",
@@ -706,11 +768,10 @@
                 }
             },
 
-// *** seProfits - IF NOT SET THEN DEFAULT TO 0 -
-
             {
                 "id": "How much profit from self-employment",
-                "question": "How much self-employed profit did you make between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>How much self-employed profit did you make between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Decimal",
                     "nextQuestionId": "Is the self-employed profit estimated",
@@ -723,11 +784,10 @@
                 }
             },
 
-
-// *** seProfitsEstimated
             {
                 "id": "Is the self-employed profit estimated",
-                "question": "Is your self-employed profit amount an estimate?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Is your self-employed profit amount an estimate?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Did you get any taxable benefits",
@@ -743,14 +803,15 @@
                 "questionType": {
                   "type": "RoutingDecision",
                     "JOINT_ROUTE": "Partner benefits & income intro",
-                    "OTHER_ROUTE": "Did you get any other household income" // TODO...IS THIS USED!!! CORRECT ROUTING IF PARTNER NOT DEFINED!
+                    "OTHER_ROUTE": "Did you get any other household income"
                 }
             },
 
 // *** 1st applicant taxable benefits - NO ANSWER - route to "Did you get any other household income"
             {
                 "id": "Did you get any taxable benefits",
-                "question": "Did you get any of these benefits between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Did you get any of these benefits between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "Did you get any taxable benefits",
@@ -762,13 +823,13 @@
                             "Select taxable benefits and enter amount"
                         ]
                     }
-
                 }
             },
 
             {
                 "id": "Select taxable benefits and enter amount",
-                "question": "What benefits did you get between 6 April 2016 and 5 April 2017?",
+                "group": "benefits-and-income",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>What benefits did you get between [DATE_A] and [DATE_B]?",
                 "questionType": {
                   "type": "MultipleChoiceWithNumber",
                   "multipleChoiceOptions": [
@@ -809,6 +870,10 @@
         var nino = map.get("nino");
         var type = map.get("renewalType");
         var hasPartner = map.get("hasPartner");
+        var posY = 0;
+        var headerData = new Map();
+        var introMap = new Map();
+
 
         // Create journey based on renewal type.
         if (type == AUTO_RENEWAL) {
@@ -828,7 +893,6 @@
         }
         // Set the renewalType.
         map.set("renewalType", renewalType);
-
 
         // NOTE: Based on the type of renewal drives how the questions are defined. The renewal type collects either 1
         // or 2 years worth of data for 1st and 2nd applicant.
@@ -861,7 +925,7 @@
                         "question": "Do you need to report any changes to the details shown?",
                         "questionType": {
                           "type": "Boolean",
-                          "yesNextQuestionId": "1", // Route to single applicant questions.
+                          "yesNextQuestionId": "confirm-pack-receipt",
                           "noNextQuestionId": "a2", // End of journey.
                           "modelId": "renewalData.auto-renewal"
                         }
@@ -877,24 +941,30 @@
             };
 
             // Add singleApplicant questions to auto-renewal questions.
-            autoRenewalJourney.questions = autoRenewalJourney.questions.concat(singleApplicant);
+            autoRenewalJourney.questions = autoRenewalJourney.questions.concat(singleApplicant).concat(startQuestions);
             builtData=autoRenewalJourney;
+
+            // Update question headers and update HTML div for 'Completing review message' DIV.
+            headers_SINGLE_D1();
 
         } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D1) {
 
             ////////////////////////////////////////////////////////////////////////////////
-            // SINGLE D1
+            // SINGLE D1 - single applicant
             ////////////////////////////////////////////////////////////////////////////////
 
             var singleApplicantJourney = {
                 "formType":"SingleApplicant",
-                "startQuestion":"1",                // TODO...fix fix reference to question '1'.
+                "startQuestion":"confirm-pack-receipt",
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
 
-            singleApplicantJourney.questions = singleApplicant;
+            singleApplicantJourney.questions = singleApplicant.concat(startQuestions);;
             builtData=singleApplicantJourney;
+
+            // Update question headers and update HTML div for 'Completing review message' DIV.
+            headers_SINGLE_D1();
 
         } else if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D1) {
 
@@ -904,14 +974,17 @@
 
             var jointApplicantJourney = {
                 "formType":"SingleApplicant",
-                "startQuestion": "1",   // TODO...fix fix reference to question '1'.
+                "startQuestion": "confirm-pack-receipt",
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
 
             // Add singleApplicant questions to jointApplicantJourney.
-            jointApplicantJourney.questions = jointApplicant.concat(singleApplicant);
+            jointApplicantJourney.questions = jointApplicant.concat(singleApplicant).concat(startQuestions);
             builtData=jointApplicantJourney;
+
+            // Update question headers and update HTML div for 'Completing review message' DIV.
+            headers_JOINT_D1();
 
         } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D2) {
 
@@ -921,7 +994,7 @@
 
             var single2YearsJourney = {
                 "formType":"SingleApplicant2Years",
-                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
+                "startQuestion": "confirm-pack-receipt",
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
@@ -934,9 +1007,11 @@
             singleApplicant.forEach((question) => {
                 single2YearsJourney.questions.push(question);
             });
+            // Add start questions.
+            single2YearsJourney.questions = single2YearsJourney.questions.concat(startQuestions);
 
             // Rewire journeys single applicant to route to "Report any changes".
-            builtData=single2YearsJourney;
+            builtData=single2YearsJourney
 
             // Override routing.
             updateRoutingForUntaxedBenefit(SINGLE_D2);
@@ -947,9 +1022,15 @@
             updateRoutingForSelectOtherIncomeSources(SINGLE_D2);
             updateRoutingForDidMakeProfitFromPropertyRental(SINGLE_D2);
 
-            var override = getFromId("ROUTING DECISION COC");   // TODO...MAGIC!
+            var override = getFromId("ROUTING DECISION COC");
             // Override the JOINT_D2_ROUTE and route to "Report any changes". 2nd (PY data) time the routing question is invoked will be on the PY path.
             override.questionType.JOINT_D2_ROUTE = "Report any changes";
+            // re-wire start question to route to PY-1 question.
+            override = getFromId("Completing review message");
+            override.questionType.nextQuestionId = "Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1;
+
+            // Update question headers and update HTML div for 'Completing review message' DIV.
+            headers_SINGLE_D2();
 
         } else if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
 
@@ -959,11 +1040,10 @@
 
             var joint2YearsJourney = {
                 "formType":"Joint D2",
-                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1,
+                "startQuestion": "confirm-pack-receipt",
                 "CreationData":"12/12/2017:10:13",
                 "questions": []
                 };
-
 
             // Add PY-1 1st applicant
             joint2YearsJourney.questions = JSON.parse(JSON.stringify(singleApplicant));
@@ -983,6 +1063,8 @@
             jointApplicant.forEach((question) => {
                 joint2YearsJourney.questions.push(question);
             });
+            // Add start questions.
+            joint2YearsJourney.questions = joint2YearsJourney.questions.concat(startQuestions);
 
             builtData=joint2YearsJourney;
 
@@ -997,13 +1079,21 @@
 
             // Override routing. Route to partner benefits for previous year.
             var overrideA = getFromId("ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1);
-            overrideA.questionType.JOINT_ROUTE = "Benefits & Income - intro";      // Route to 2nd year data collection.
+            overrideA.questionType.JOINT_ROUTE = "Benefits & Income - intro";      // Route to 2nd year.
 
             var override = getFromId("ROUTING DECISION COC");
             // Override the SINGLE_D2_ROUTE and route to "Report any changes". 2nd time the function is invoked will be on the PY path.
             override.questionType.JOINT_D2_ROUTE = "Report any changes";
+
+            // re-wire start question to route to PY-1 question.
+            override = getFromId("Completing review message");
+            override.questionType.nextQuestionId = "Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1;
+
+            // Update question headers and update HTML div for 'Completing review message' DIV.
+            headers_JOINT_D2();
+
         } else {
-            // TODO...FAILURE!!!
+            // TODO...FAILURE!!! Add new native error hook!
             alert(' Failed to resolve journey');
         }
 
@@ -1098,6 +1188,15 @@
         questions.forEach((question) => {
 
             question.id += PREVIOUS_YEAR_MINUS_1;
+
+            if (question.question !== undefined) {
+                question.question = question.question.replace("[DATE_A]","[DATE_A"+PREVIOUS_YEAR_MINUS_1+"]");
+                question.question = question.question.replace("[DATE_B]","[DATE_B"+PREVIOUS_YEAR_MINUS_1+"]");
+            }
+
+            if (question.group !== undefined) {
+                question.group += PREVIOUS_YEAR_MINUS_1;
+            }
 
             if (question.previousQuestionOption) {
                 question.previousQuestionOption += PREVIOUS_YEAR_MINUS_1;

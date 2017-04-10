@@ -100,6 +100,9 @@
         var question = getFromId(questionPos);
 
         // Trace for current question Id.
+        if (question.group !== undefined) {
+            debugOut(question.group, "QuestionGroup");
+        }
         debugOut(questionPos, "QuestionId");
         debugOut(question.questionType.type, "QuestionType");
 
@@ -126,6 +129,12 @@
 
             return;
 // START JOURNEY CONTROL QUESTIONS!
+        } else if (question.questionType.type == "JourneyComplete") {
+
+            // This indicates end of journey.
+            toggleControls("hide");
+            hook("JourneyComplete");
+            return;
         } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
 
             // This indicates end of journey for auto renewals!

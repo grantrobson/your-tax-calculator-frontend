@@ -66,11 +66,9 @@ function displayTaxableBenefitsInfoOrAlert() {
     var answer = getAnswerForQuestion('Did you get any taxable benefits');
 
     if (answer === "true") {
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert').style.display = "block";
     } else {
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert').style.display = "block";
     }
 }
 
@@ -87,7 +85,7 @@ function populateYourPartnerBenefitsAndIncomeSection(sectionNo) {
 
     displayPartnersTotalIncomeFromWork();
     populateTableOfPartnerOtherIncomes();
-    displayPartnersSelfEmploymentProfitLossAlert();
+    displayPartnersSelfEmploymentProfitLossEstimatedAlerts();
 
     displayPartnersTotalUntaxedBenefits();
     populateTableOfPartnersUntaxedBenefits();
@@ -138,7 +136,7 @@ function populateTableOfPartnerOtherIncomes() {
     document.getElementById('partnersIncomeAndBenefits.otherIncomeTable').innerHTML = buildTableFromListOfNumericQuestions(questions);
 }
 
-function displayPartnersSelfEmploymentProfitLossAlert() {
+function displayPartnersSelfEmploymentProfitLossEstimatedAlerts() {
     if (getAnswerForQuestion('Is partner self-employment profit estimated?') === 'true') {
         document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert').style.display = "block";
     }
@@ -153,9 +151,9 @@ function displayPartnersTotalUntaxedBenefits() {
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal').style.display = "block";
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount');
 
-        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsInfo').style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert').style.display = "block";
     } else {
-        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsWarn').style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert').style.display = "block";
     }
 }
 
@@ -171,6 +169,7 @@ function populateOtherHouseholdIncomeSection(sectionNo) {
     displayOtherHouseholdIncomeInfoOrAlert();
     populateTableOfOtherIncome();
     appendOtherIncomeAllowanceRow();
+    displayOtherIncomeEstimatesAlerts()
 }
 
 function setOtherHouseholdIncomeSectionHeader(sectionNo) {
@@ -212,6 +211,18 @@ function appendOtherIncomeAllowanceRow() {
         var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML;
 
         document.getElementById('otherHouseholdIncome.otherIncomeTable').innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
+    }
+}
+
+function displayOtherIncomeEstimatesAlerts() {
+    if (getAnswerForQuestion('Are any of the income amounts estimated') === 'true') {
+        document.getElementById('otherHouseholdIncome.anyIncomeEstimatedAlert').style.display = "block";
+    }
+    if (getAnswerForQuestion('Is property rental loss estimated') === 'true') {
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert').style.display = "block";
+    }
+    if (getAnswerForQuestion('Is property rental profit estimated') === 'true') {
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert').style.display = "block";
     }
 }
 

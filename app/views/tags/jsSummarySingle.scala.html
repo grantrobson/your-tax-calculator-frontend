@@ -1,20 +1,25 @@
 <script>
 //Your Benefits And Income
-function populateYourBenefitsAndIncomeSection(sectionNo) {
-    setYourBenefitsAndIncomeSectionHeader(sectionNo);
-    populateTableOfUntaxedBenefits();
-    displayUntaxedBenefitsAlert();
-    displayNoLongerReceivingBenefitsAlert();
-    displayTotalIncomeFromWork();
-    populateTableOfOtherIncomes();
-    displayTotalTaxableBenefits();
-    displayTaxableBenefitsInfoOrAlert();
-    populateTableTaxableBenefits();
+function populateYourBenefitsAndIncomeSection(sectionNo, period) {
+    setYourBenefitsAndIncomeSectionHeader(sectionNo, period);
+
+    if(period !== "_PY_1") {
+        populateTableOfUntaxedBenefits();
+        displayUntaxedBenefitsAlert();
+    }
+//    displayNoLongerReceivingBenefitsAlert(period);
+    displayTotalIncomeAndTableOfIncomeFromWork(period);
+//    populateTableOfOtherIncomes(period);
+
+//    displaySelfEmploymentProfitLossInfoAlert(period)
+//    displayTotalTaxableBenefits();
+//    displayTaxableBenefitsInfoOrAlert();
+//    populateTableTaxableBenefits();
 }
 
 
-function setYourBenefitsAndIncomeSectionHeader(sectionNo) {
-    document.getElementById('yourBenefitsAndIncome.header').innerHTML = "Part " + sectionNo + ": Your benefits and income"
+function setYourBenefitsAndIncomeSectionHeader(sectionNo, period) {
+    document.getElementById('yourBenefitsAndIncome.header' + period).innerHTML = "Part " + sectionNo + ": Your benefits and income"
 }
 
 function populateTableOfUntaxedBenefits() {
@@ -37,13 +42,28 @@ function displayNoLongerReceivingBenefitsAlert() {
     }
 }
 
-function displayTotalIncomeFromWork() {
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
+function displayTotalIncomeAndTableOfIncomeFromWork(period) {
+    var sum = 0;
+    var html = '';
+    if(getAnswerForQuestion('Were you employed' + period) === "true") {
+        var answer = Math.floor(parseFloat(getAnswerForQuestion('How much employed income' + period)));
+        sum = sum + answer;
+        html = html + '<tr><td>' + 'Earnings from employment' + '</td><td>' + answer + '</td></tr>';
+        if(getAnswerForQuestion('Did you get any company benefits' + period) === "true") {
+            answer = Math.floor(parseFloat(getAnswerForQuestion('How much company benefit' + period)));
+            sum = sum + answer;
+            html = html + '<tr><td>' + 'Company benefits' + '</td><td>' + answer + '</td></tr>';
+        }
+        if(getAnswerForQuestion('Were you self employed' + period) === "true" && getAnswerForQuestion('Did you make a profit from self-employment' + period) === "true") {
+            answer = Math.floor(parseFloat(getAnswerForQuestion('How much profit from self-employment' + period)));
+            sum = sum + answer;
+            html = html + '<tr><td>' + 'Profit from self-employment' + '</td><td>' + answer + '</td></tr>';
+        }
+    }
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' + period).innerHTML = "£" + sum;
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTable' + period).innerHTML = html;
 }
 
-function populateTableOfOtherIncomes() {
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount');
-}
 
 function displayTotalTaxableBenefits() {
     document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
@@ -64,6 +84,22 @@ function displayTaxableBenefitsInfoOrAlert() {
 function populateTableTaxableBenefits() {
     document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable').innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
 }
+
+
+//Self Employment
+
+function displaySelfEmploymentProfitLossInfoAlert(period) {
+
+    if(getAnswerForQuestion('Is the self-employed profit estimated' + period) === "true") {
+        document.getElementById('yourBenefitsAndIncome.selfEmploymentProfitLossInfoAlert' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.selfEmploymentProfitLossInfoAlert' + period).innerHTML = 'You said your profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.';
+    }
+    else if(getAnswerForQuestion('Is the self-employed loss estimated' + period) === "true") {
+        document.getElementById('yourBenefitsAndIncome.selfEmploymentProfitLossInfoAlert' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.selfEmploymentProfitLossInfoAlert' + period).innerHTML = 'You said your loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if you actually made a profit.';
+    }
+}
+
 
 //Other Household Income
 

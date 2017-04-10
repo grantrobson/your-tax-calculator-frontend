@@ -1,9 +1,28 @@
 <script>
-  function initSummary() {
+
+  function initSingleD1Summary() {
       populateYourBenefitsAndIncomeSection(1);
       populateOtherHouseholdIncomeSection(2);
       populateReportedChangesSection(3);
+      toggleControls("hide");
+      show("Summary");
 
+  }
+
+  function initSingleD2Summary(){
+     populateYourBenefitsAndIncomeSection(1, "_PY_1")
+
+//     populateOtherHouseholdIncomeSection(2, "_PY_1")
+//     populateYourBenefitsAndIncomeSection(3, "")
+//     populateOtherHouseholdIncomeSection(4, "")
+//     populateReportedChangesSection(5)
+      toggleControls("hide");
+      show("Summary");
+  }
+
+  function initJointD1Summary() {
+      populateYourBenefitsAndIncomeSection(1);
+      populatePartnerBenefitsAndIncomeSection(2);
       toggleControls("hide");
       show("Summary");
   }
@@ -55,6 +74,10 @@
       }, 0);
 
       return Math.max(Math.floor(result), 0);
+  }
+
+  function hasPartner() {
+      return map.get("hasPartner");
   }
 
 </script>

@@ -1,4 +1,94 @@
 <script>
 
+    function populatePartnerBenefitsAndIncomeSection(sectionNumber){
+        if (hasPartner() === "true") {
+            setPartnerBenefitsAndIncomeSectionHeader(sectionNumber);
+            populateTableOfPartnerUntaxedBenefits();
+            displayUntaxedPartnerBenefitsAlert();
+            displayNoLongerReceivingPartnerBenefitsAlert();
+            displayTotalPartnerIncomeFromWork();
+            populateTableOfPartnerOtherIncomes();
+//            displayTotalPartnerTaxableBenefits();
+//            displayPartnerTaxableBenefitsInfoOrAlert();
+        }
+    }
+
+    function setPartnerBenefitsAndIncomeSectionHeader(sectionNumber) {
+        document.getElementById('yourPartnerBenefitsAndIncome.header').innerHTML = "Part " + sectionNumber + ": Your partner's benefits and income"
+    }
+
+    function populateTableOfPartnerUntaxedBenefits() {
+        document.getElementById('yourPartnerBenefitsAndIncome.typeOfBenefitsList').innerHTML = buildListFromMultipleChoiceAnswers('Which untaxed benefits did partner get');
+    }
+
+    function displayUntaxedPartnerBenefitsAlert() {
+        var answer = getAnswerForQuestion('Did partner get any untaxed benefits?');
+
+        if (answer === "false") {
+            document.getElementById('yourPartnerBenefitsAndIncome.didNotClaimAlert').style.display = "block";
+        }
+    }
+
+    function displayNoLongerReceivingPartnerBenefitsAlert() {
+        var answer = getAnswerForQuestion('Does partner still get this');
+
+        if (answer === "false") {
+            document.getElementById('yourPartnerBenefitsAndIncome.noLongerReceivingBenefitsAlert').style.display = "block";
+        }
+    }
+
+    function buildListFromMultipleChoiceAnswers(questionId) {
+        var options = getFromId(questionId).questionType.multipleChoiceOptions;
+
+        return options.reduce(function (acc, option) {
+            var answer = map.get(option.modelId);
+
+            if (typeof answer !== "undefined") {
+                return acc + '<h5>' + option.option + '</h5>'
+            } else {
+                return acc
+            }
+        }, "");
+    }
+
+    function displayTotalPartnerIncomeFromWork() {
+        var sum = 0;
+        if(getAnswerForQuestion('Was partner employed?') === "true") {
+            sum = sum + parseFloat(getAnswerForQuestion('How much employed income did partner get?'));
+            if(getAnswerForQuestion('Did partner get any company benefits?') === "true") {
+                sum = sum + parseFloat(getAnswerForQuestion('How much company benefit did partner get?'));
+                if(getAnswerForQuestion('Did partner make profit from self-employment?') == "true") {
+                    sum = sum + parseFloat(getAnswerForQuestion('How much profit did partner make from self-employment?'));
+                }
+            }
+        }
+        document.getElementById('yourPartnerBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sum;
+    }
+
+    function populateTableOfPartnerOtherIncomes() {
+        var html = '';
+        html = html + '<tr><td>' + 'Earnings from employment' + '</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much employed income did partner get?'))) + '</td></tr>';
+        html = html + '<tr><td>' + 'Company benefits' + '</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much company benefit did partner get?'))) + '</td></tr>';
+        if(getAnswerForQuestion('Did partner make profit from self-employment?') == "true") {
+            html = html + '<tr><td>' + 'Profit from self-employment' + '</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much profit did partner make from self-employment?'))) + '</td></tr>';
+        }
+        document.getElementById('yourPartnerBenefitsAndIncome.otherIncomeTable').innerHTML = html
+    }
+
+//    function displayTotalPartnerTaxableBenefits() {
+//        document.getElementById('yourPartnerBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+//    }
+//
+//    function displayPartnerTaxableBenefitsInfoOrAlert() {
+//        var answer = getAnswerForQuestion('Did you get any taxable benefits');
+//
+//        if (answer === "true") {
+//            document.getElementById('yourPartnerBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
+//            document.getElementById('yourPartnerBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
+//        } else {
+//            document.getElementById('yourPartnerBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
+//            document.getElementById('yourPartnerBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
+//        }
+//    }
 
 </script>

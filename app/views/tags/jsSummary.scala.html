@@ -1,10 +1,10 @@
 <script>
-  function initSummary() {
-      populateYourBenefitsAndIncome();
-
-      toggleControls("hide");
-      show("Summary");
-  }
+//  function initSummary() {
+//      populateYourBenefitsAndIncome();
+//
+//      toggleControls("hide");
+//      show("Summary");
+//  }
 
   function populateYourBenefitsAndIncome() {
       populateTableOfUntaxedBenefits();
@@ -13,6 +13,11 @@
       populateTableOfOtherIncomes();
       displayTotalTaxableBenefits();
       displayTaxableBenefitsInfoOrWarning();
+  }
+
+  function populatePartnerBenefitsAndIncome() {
+      populatePartnerBenefitsAndIncomeSection()
+
   }
 
   function populateTableOfUntaxedBenefits() {

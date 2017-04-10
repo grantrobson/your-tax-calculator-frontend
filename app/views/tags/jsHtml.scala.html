@@ -57,14 +57,27 @@
         }
     }
 
-    function insertDynamicHeader(questionData, dynamicHeaderDiv) {
+    function insertDynamicHeader(questionData, dynamicHeaderDiv, dynamicFooterDiv) {
         // Check if dynamic header should be added to question.
-        if (questionData.questionType.headerDiv !== undefined) {
+        if (questionData.questionType.questionHeaderDiv !== undefined) {
             removeChildren(dynamicHeaderDiv);
-            var itm = document.getElementById(questionData.questionType.headerDiv);
+            var itm = document.getElementById(questionData.questionType.questionHeaderDiv);
             var cln = itm.cloneNode(true);
             var insertPoint = document.getElementById(dynamicHeaderDiv);
             insertPoint.appendChild(cln);
+        } else {
+            removeChildren(dynamicHeaderDiv);
+        }
+
+        // Check if dynamic header should be added to question.
+        if (questionData.questionType.questionFooterDiv !== undefined) {
+            removeChildren(dynamicFooterDiv);
+            var itm = document.getElementById(questionData.questionType.questionFooterDiv);
+            var cln = itm.cloneNode(true);
+            var insertPoint = document.getElementById(dynamicFooterDiv);
+            insertPoint.appendChild(cln);
+        } else {
+            removeChildren(dynamicFooterDiv);
         }
 
     }

@@ -109,27 +109,17 @@ function displayPartnersTotalIncomeFromWork() {
     document.getElementById('partnersIncomeAndBenefits.otherIncomeTotal').innerHTML = '£' + total;
 }
 
-function sumAnswersFromListOfQuestions(questions) {
-    return questions.reduce(function (acc, question) {
-        if (typeof getAnswerForQuestion(question) !== 'undefined') {
-            return acc + parseFloat(getAnswerForQuestion(questions))
-        } else {
-            return acc
-        }
-    }, 0);
-}
-
 function populateTableOfPartnerOtherIncomes() {
-    var html = '<tr><td>Earnings from employment</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much employed income did partner get?'))) + '</td></tr>'
-            + '<tr><td>Company benefits</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much company benefit did partner get?'))) + '</td></tr>';
-    if (getAnswerForQuestion('Did partner make profit from self-employment?') == 'true') {
-        html = html + '<tr><td>Profit from self-employment</td><td>' + Math.floor(parseFloat(getAnswerForQuestion('How much profit did partner make from self-employment?'))) + '</td></tr>';
-    } else {
-        html = html + '<tr><td>Profit from self-employment</td><td>0</td></tr>';
-    }
-    document.getElementById('partnersIncomeAndBenefits.otherIncomeTable').innerHTML = html
-}
+    var questions = [{
+        id: 'How much employed income did partner get?', label: 'Earnings from employment'
+    }, {
+        id: 'How much company benefit did partner get?', label: 'Company benefits'
+    }, {
+        id: 'How much profit did partner make from self-employment?', label: 'Profit from self-employment'
+    }];
 
+    document.getElementById('partnersIncomeAndBenefits.otherIncomeTable').innerHTML = buildTableFromListOfNumericQuestions(questions);
+}
 
 //Other Household Income
 

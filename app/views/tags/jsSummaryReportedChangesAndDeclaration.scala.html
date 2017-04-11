@@ -1,0 +1,36 @@
+<script>
+
+// Reported changes
+function populateReportedChangesSection(sectionNo) {
+    setReportedChangesSectionHeader(sectionNo);
+    displayChangesOrNoChangesWarning();
+}
+
+function setReportedChangesSectionHeader(sectionNo) {
+    document.getElementById('reportedChanges.header').innerHTML = "Part " + sectionNo + ": Reported changes";
+}
+
+function displayChangesOrNoChangesWarning() {
+    var answer = getAnswerForQuestion('Report any changes');
+
+    if (answer === "true") {
+        document.getElementById('reportedChanges.someChangesWarning').style.display = "block";
+    } else {
+        document.getElementById('reportedChanges.noChangesWarning').style.display = "block";
+    }
+}
+
+// Declaration
+function populateDeclarationSection() {
+    displayShareDetailsWithPartnerWarning()
+}
+
+function displayShareDetailsWithPartnerWarning() {
+    var answer = getAnswerForModelId('renewalType');
+
+    if (answer === "JOINT_D1" || answer === "JOINT_D2") {
+        document.getElementById('declaration.shareDetailsWithPartnerWarning').style.display = "block";
+    }
+}
+
+</script>

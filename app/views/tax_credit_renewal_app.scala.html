@@ -30,6 +30,16 @@
 
     @tags.jsSummary()
 
+    @tags.jsSummaryHelpers()
+
+    @tags.jsSummaryBenefitsAndIncome()
+
+    @tags.jsSummaryOtherHouseholdIncome()
+
+    @tags.jsSummaryPartnerBenefitsAndIncome()
+
+    @tags.jsSummaryReportedChangesAndDeclaration()
+
 </head>
 
 
@@ -62,8 +72,6 @@
             <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID" class="col">
             <div class="col" id="row_div_checkbox_ID">
                 <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
-
-
                 <div id="number_entry_hidden" class="showIfChecked">
                     <input type="number" id="row_number_checkbox_ID" value="">
                 </div>
@@ -71,7 +79,7 @@
         </div>
 
         <div id="row_ID_radio" class="row">
-            <input type="checkbox" id="row_radio_ID" name="row_radio_ID" class="col">
+            <input type="radio" id="row_radio_ID" name="row_radio_ID" class="col">
             <label id="row_label_radio_ID" for="row_radio_ID" class="col"></label>
         </div>
     </div>
@@ -133,55 +141,332 @@
 
         <!-- Decimal Input -->
     <div id="Summary" style="display: none;">
-        <header id="page-header-summary">
-            <h1>Check and confirm your answers</h1>
-        </header>
         <main class="summary">
-            <article>
-                <h2>Part 1: Your benefits and income</h2>
-                <h3>Benefits you do not pay tax on between 20 April 2016 and 5 April 2017</h3>
-                <h4>Type of benefit</h4>
-                <div id="yourBenefitsAndIncome.typeOfBenefits"></div>
-                <span class="alert alert--info" id="yourBenefitsAndIncome.didNotClaimWarning" style="display: none">You told us that you did not claim any of the listed benefits for the whole of this time.</span>
-                <input type="button" class="secondary edit" value="Edit button?" />
-            </article>
+            <header id="page-header">
+                <h1>Check and confirm your answers</h1>
+            </header>
+            <div id="yourBenefitsAndIncome_PY_1" style="display: none">
+                <article>
+                    <header>
+                        <h2 id="yourBenefitsAndIncome.header_PY_1"/>
+                        <h3 id="yourBenefitsAndIncome.otherIncomePreHeader_PY_1" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your total income</h4>
+                        <h1 id="yourBenefitsAndIncome.otherIncomeTotal_PY_1"/>
+                    </header>
+                    <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yourBenefitsAndIncome.otherIncomeTable_PY_1"/>
+                    </table>
+                    <input type="button" class="secondary edit" value="Change your income" />
+                </article>
+                <article>
+                    <header>
+                        <h3 id="yourBenefitsAndIncome.benefitsPreHeader_PY_1" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h1 id="yourBenefitsAndIncome.taxableBenefits_PY_1"/>
+                    </header>
+                    <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
+                        Your income from benefits you pay tax on has been rounded down to the nearest pound (£).
+                    </p>
+                    <p id="yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert_PY_1" class="note" style="display: none">
+                        You did not have any income from benefits you pay tax on.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yourBenefitsAndIncome.taxableBenefitsTable_PY_1"/>
+                    </table>
+                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" />
 
-            <article>
-                <header>
-                    <p class="pre-header">Your income from work between between 6 April 2016 and 5 April 2017</p>
-                    <h1 id="yourBenefitsAndIncome.otherIncomeTotal"/>
-                </header>
-                <p class="note">Your other household income has been rounded down to the nearest pound (£).</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody id="yourBenefitsAndIncome.otherIncome"/>
-                </table>
-                <input type="button" class="secondary edit" value="Change your income" />
-            </article>
+                </article>
+            </div>
+            <div id="partnersIncomeAndBenefits_PY_1" style="display: none">
+                <article>
+                    <header>
+                        <h2 id="partnersIncomeAndBenefits.header_PY_1"/>
+                        <h3 id="partnersIncomeAndBenefits.otherIncomePreHeader_PY_1" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your partner's total income</h4>
+                        <h1 id="partnersIncomeAndBenefits.otherIncomeTotal_PY_1"/>
+                    </header>
+                    <p class="note">Your partner's income from work has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnersIncomeAndBenefits.otherIncomeTable_PY_1"/>
+                    </table>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
+                        You said your partner's profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit your partner actually made.
+                    </span>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
+                        You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change your partner's income" />
+                </article>
+                <article>
+                    <header>
+                        <p id="partnersIncomeAndBenefits.benefitsPreHeader_PY_1" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your partners total benefits</h4>
+                        <h1 id="partnersIncomeAndBenefits.taxableBenefitsTotal_PY_1"/>
+                    </header>
+                    <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
+                        Your partner's income from benefits you pay tax on has been rounded down to the nearest pound (£).
+                    </p>
+                    <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert_PY_1" class="note" style="display: none">
+                        Your partner did not have any income from benefits you pay tax on.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnersIncomeAndBenefits.taxableBenefitsTable_PY_1"/>
+                    </table>
+                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" />
+                </article>
+            </div>
+            <div id="otherHouseholdIncome_PY_1" style="display: none">
+                <article>
+                    <header>
+                        <h2 id="otherHouseholdIncome.header_PY_1"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your total other household income</h4>
+                        <h1 id="otherHouseholdIncome.total_PY_1"/>
+                    </header>
 
-            <article>
-                <header>
-                    <p class="pre-header">Benefits you pay tax on between 6 April 2016 and 5 April 2017</p>
-                    <h1 id="yourBenefitsAndIncome.taxableBenefits"/>
-                </header>
-                <p id="yourBenefitsAndIncome.taxableBenefitsInfo" class="note" style="display: none">
-                    Benefits you pay tax on between 6 April 2016 and 5 April 2017.
-                </p>
-                <p id="yourBenefitsAndIncome.taxableBenefitsWarn" class="note" style="display: none">
-                    You did not have any income from benefits you pay tax on.
-                </p>
-                <input type="button" class="secondary edit" value="Change benefits you pay tax on" />
+                    <p id="otherHouseholdIncome.noOtherIncome_PY_1" class="note" style="display: none">You did not have any types of other income.</p>
+                    <p id="otherHouseholdIncome.roundDownWarn_PY_1" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="otherHouseholdIncome.otherIncomeTable_PY_1"/>
+                    </table>
+                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert_PY_1" style="display: none">
+                        You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
+                    </span>
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
+                        You said your loss from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
+                        You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change other household income" />
+                </article>
+            </div>
+            <div id="yourBenefitsAndIncome" style="display: none">
+                <article>
+                    <header>
+                    <h2 id="yourBenefitsAndIncome.header"/>
+                    <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
+                    </header>
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
+                        You told us that you did not claim any of the listed benefits for the whole of this time.
+                    </span>
+                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
+                    <div id="yourBenefitsAndIncome.untaxedBenefitsList"></div>
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
+                        You said you no longer get this benefit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change benefits" />
+                </article>
 
-            </article>
+                <article>
+                    <header>
+                        <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your total income</h4>
+                        <h1 id="yourBenefitsAndIncome.otherIncomeTotal"/>
+                    </header>
+                    <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yourBenefitsAndIncome.otherIncomeTable"/>
+                    </table>
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
+                        You said your profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
+                        You said your loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if you actually made a profit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change your income" />
+                </article>
+
+                <article>
+                    <header>
+                        <p id="yourBenefitsAndIncome.benefitsPreHeader" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h1 id="yourBenefitsAndIncome.taxableBenefits"/>
+                    </header>
+                    <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert" class="note" style="display: none">
+                        Your income from benefits you pay tax on has been rounded down to the nearest pound (£).
+                    </p>
+                    <p id="yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert" class="note" style="display: none">
+                        You did not have any income from benefits you pay tax on.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yourBenefitsAndIncome.taxableBenefitsTable"/>
+                    </table>
+                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" />
+
+                </article>
+            </div>
+            <div id="partnersIncomeAndBenefits" style="display: none;">
+                <article>
+                    <h2 id="partnersIncomeAndBenefits.header"/>
+                    <h3>Benefits your partner does not pay tax on between 20 April 2016 and 5 April 2017</h3>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
+                        You told us that your partner did not claim any of the listed benefits for the whole of this time.
+                    </span>
+                    <h4 id="partnersIncomeAndBenefits.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
+                    <div id="partnersIncomeAndBenefits.untaxedBenefitsList" style="display: none"></div>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
+                        You said your partner no longer gets this benefit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change benefits" />
+                </article>
+                <article>
+                    <header>
+                        <p id="partnersIncomeAndBenefits.otherIncomePreHeader" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your partner's total income</h4>
+                        <h1 id="partnersIncomeAndBenefits.otherIncomeTotal"/>
+                    </header>
+                    <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnersIncomeAndBenefits.otherIncomeTable"/>
+                    </table>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert" style="display: none">
+                        You said your partner's profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit your partner actually made.
+                    </span>
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert" style="display: none">
+                        You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change your partner's income" />
+                </article>
+                <article>
+                    <header>
+                        <p id="partnersIncomeAndBenefits.benefitsPreHeader" class="pre-header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your partner's total benefits</h4>
+                        <h1 id="partnersIncomeAndBenefits.taxableBenefitsTotal"/>
+                    </header>
+                    <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert" class="note" style="display: none">
+                        Your partner's income from benefits you pay tax on has been rounded down to the nearest pound (£).
+                    </p>
+                    <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert" class="note" style="display: none">
+                        Your partner did not have any income from benefits you pay tax on.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnersIncomeAndBenefits.taxableBenefitsTable"/>
+                    </table>
+                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" />
+
+                </article>
+            </div>
+            <div id="otherHouseholdIncome" style="display: none;">
+                <article>
+                    <header>
+                        <h2 id="otherHouseholdIncome.header"/>
+                        <br/>
+                        <h4 style="text-align: center; font-weight: normal">Your total other household income</h4>
+                        <h1 id="otherHouseholdIncome.total"/>
+                    </header>
+
+                    <p id="otherHouseholdIncome.noOtherIncome" class="note" style="display: none">You did not have any types of other income.</p>
+                    <p id="otherHouseholdIncome.roundDownWarn" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="otherHouseholdIncome.otherIncomeTable"/>
+                    </table>
+                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert" style="display: none">
+                        You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
+                    </span>
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
+                        You said your loss from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
+                        You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <input type="button" class="secondary edit" value="Change other household income" />
+                </article>
+            </div>
+            <div id="reportedChanges">
+                <article>
+                    <header>
+                        <h2 id="reportedChanges.header"/>
+                    </header>
+                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a change to any of your personal circumstances.</p>
+                    <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or more of your personal circumstances..</p>
+                    <input type="button" class="secondary edit" value="Report a change to your personal circumstances" />
+                </article>
+            </div>
+            <div id="declaration">
+                <article>
+                    <header>
+                        <h2>Declaration</h2>
+                    </header>
+                    <p style="font-weight: bold">By sending your review and renewing your claim, you confirm that the information you have provided is correct and complete.</p>
+                    <br/>
+                    <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
+                    <br/>
+                    <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
+                    <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+                    <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
+                </article>
+            </div>
         </main>
-
-        <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
-        <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
     </div>
 
 
@@ -519,8 +804,8 @@
                 <label>Renewal Type</label>
                 <select id="RenewalType">
                     <option value="R">Auto Renewal</option>
-                    <option value="D">Single D1</option>
-                    <option value="D2">Joint D2</option>
+                    <option value="D">D1</option>
+                    <option value="D2">D2</option>
                 </select>
                 <label>Has Partner</label>
                 <select id="HasPartner">

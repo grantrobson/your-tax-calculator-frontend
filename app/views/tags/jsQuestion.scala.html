@@ -224,9 +224,7 @@
                 }
             }
         } else if (question.questionType.type == 'Summary'){
-
-            initSummary()
-
+            initSummary();
         }
         else {
             alert('Failed to resolve the question type ' + question.questionType.type);
@@ -266,7 +264,7 @@
             }
         }
         // TODO...report failure to native app!!! Include GA alert!
-        alert("FAILED TO FIND ID ["+id+"]!!!");
+//        alert("FAILED TO FIND ID ["+id+"]!!!");
     }
 
     function toggleRadioButton(id) {

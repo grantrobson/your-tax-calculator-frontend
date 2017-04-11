@@ -1,0 +1,80 @@
+<script>
+
+  function getAnswerForQuestion(questionId) {
+      var question = getFromId(questionId);
+      return map.get(question.questionType.modelId);
+  }
+
+  function getAnswerForModelId(modelId) {
+      return map.get(modelId);
+  }
+
+  function buildListFromRadioAnswers(questionId) {
+      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+
+      return options.reduce(function (acc, option) {
+          var answer = map.get(option.modelId);
+
+          if (answer === "true") {
+              return acc + '<h5>' + option.option + '</h5>'
+          } else {
+              return acc
+          }
+      }, "");
+  }
+
+  function buildTableFromMultipleChoiceWithNumberAnswers(questionId) {
+      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+
+      return options.reduce(function (acc, option) {
+          var answer = map.get(option.modelId);
+
+          if (typeof answer !== "undefined") {
+              return acc + '<tr><td>' + option.option + '</td><td>' + Math.floor(parseFloat(answer)) + '</td></tr>'
+          } else {
+              return acc
+          }
+      }, "");
+  }
+
+  function buildTableFromListOfNumericQuestions(questions) {
+      return questions.reduce(function (acc, question) {
+          if (typeof getAnswerForQuestion(question.id) !== 'undefined') {
+              return acc + '<tr><td>' + question.label + '</td><td>' + Math.floor(parseFloat(getAnswerForQuestion(question.id))) + '</td></tr>';
+          } else {
+              return acc + '<tr><td>' + question.label + '</td><td>0</td></tr>';
+          }
+      }, '');
+  }
+
+  function sumMultipleChoiceWithNumberAnswers(questionId) {
+      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+
+      var result = options.reduce(function (acc, option) {
+          var answer = map.get(option.modelId);
+
+          if (typeof answer !== "undefined") {
+              return acc + parseFloat(answer)
+          } else {
+              return acc
+          }
+      }, 0);
+
+      return Math.max(Math.floor(result), 0);
+  }
+
+  function hasPartner() {
+      return map.get("hasPartner") === "true";
+  }
+
+  function sumAnswersFromListOfQuestions(questions) {
+      return questions.reduce(function (acc, question) {
+          if (typeof getAnswerForQuestion(question) !== 'undefined') {
+              return acc + parseFloat(getAnswerForQuestion(question))
+          } else {
+              return acc
+          }
+      }, 0);
+  }
+
+</script>

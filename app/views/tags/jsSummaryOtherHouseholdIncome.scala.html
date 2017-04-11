@@ -1,0 +1,73 @@
+<script>
+
+//Other Household Income
+
+function populateOtherHouseholdIncomeSection(sectionNo, period) {
+    showOtherHuoseholdIncomeSection(period)
+    setOtherHouseholdIncomeSectionHeader(sectionNo, period);
+    displayOtherHouseholdIncomeTotal(period);
+    displayOtherHouseholdIncomeInfoOrAlert(period);
+    populateTableOfOtherIncome(period);
+    appendOtherIncomeAllowanceRow(period);
+    displayOtherIncomeEstimatesAlerts(period)
+}
+
+function showOtherHuoseholdIncomeSection(period) {
+    document.getElementById('otherHouseholdIncome' + period).style.display = "block";
+}
+
+function setOtherHouseholdIncomeSectionHeader(sectionNo, period) {
+    document.getElementById('otherHouseholdIncome.header' + period).innerHTML = "Part " + sectionNo + ": Other household income";
+}
+
+function displayOtherHouseholdIncomeTotal(period) {
+    var total = sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
+
+    var answer = getAnswerForQuestion('Did you get any other household income' + period);
+
+    if (answer === "true") {
+        total = Math.max(total - 300, 0)
+    }
+
+    document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "£" + total;
+}
+
+function displayOtherHouseholdIncomeInfoOrAlert(period) {
+    var answer = getAnswerForQuestion('Did you get any other household income' + period);
+
+    if (answer === "true") {
+        document.getElementById('otherHouseholdIncome.noOtherIncome' + period).style.display = "none";
+        document.getElementById('otherHouseholdIncome.roundDownWarn' + period).style.display = "block";
+    } else {
+        document.getElementById('otherHouseholdIncome.noOtherIncome' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.roundDownWarn' + period).style.display = "none";
+    }
+}
+
+function populateTableOfOtherIncome(period) {
+    document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
+}
+
+function appendOtherIncomeAllowanceRow(period) {
+    var answer = getAnswerForQuestion('Did you get any other household income' + period);
+
+    if (answer === "true") {
+        var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).innerHTML;
+
+        document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
+    }
+}
+
+function displayOtherIncomeEstimatesAlerts(period) {
+    if (getAnswerForQuestion('Are any of the income amounts estimated' + period) === 'true') {
+        document.getElementById('otherHouseholdIncome.anyIncomeEstimatedAlert' + period).style.display = "block";
+    }
+    if (getAnswerForQuestion('Is property rental loss estimated' +  period) === 'true') {
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert' + period).style.display = "block";
+    }
+    if (getAnswerForQuestion('Is property rental profit estimated' + period) === 'true') {
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "block";
+    }
+}
+
+</script>

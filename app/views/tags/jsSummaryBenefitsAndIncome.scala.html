@@ -1,0 +1,99 @@
+<script>
+//Your Benefits And Income
+function populateYourBenefitsAndIncomeSection(sectionNo, period) {
+    showYourBenefitsAndIncomeSection(period);
+    setYourBenefitsAndIncomeSectionHeader(sectionNo, period);
+    setNoTaxBenefitPreHeader(period);
+    setPreHeader('yourBenefitsAndIncome.otherIncomePreHeader', period, 'Your income from work between between ');
+    displayListOfUntaxedBenefitsOrAlert(period);
+    displayNoLongerReceivingBenefitsAlert(period);
+    displayTotalIncomeFromWork(period);
+    populateTableOfOtherIncomes(period);
+    setBenefitsPreHeader(period);
+    displayTotalTaxableBenefits(period);
+    displayTaxableBenefitsInfoOrAlert(period);
+    populateTableTaxableBenefits(period);
+}
+
+function showYourBenefitsAndIncomeSection(period) {
+    document.getElementById('yourBenefitsAndIncome' + period).style.display = "block";
+}
+
+function setNoTaxBenefitPreHeader(period) {
+    if(period !== "_PY_1") {
+        setPreHeader('yourBenefitsAndIncome.noTaxBenefitHeader', period, 'Benefits you do not pay tax on between ')
+    }
+}
+
+function setYourBenefitsAndIncomeSectionHeader(sectionNo, period) {
+    document.getElementById('yourBenefitsAndIncome.header' + period).innerHTML = "Part " + sectionNo + ": Your benefits and income"
+}
+
+function displayListOfUntaxedBenefitsOrAlert(period) {
+    if(period !== "_PY_1") {
+        var answer = getAnswerForQuestion('Did you get any untaxed benefits');
+
+        if (answer === "true") {
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsListHeader').style.display = "block";
+
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "block";
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
+        } else {
+            document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
+        }
+    }
+}
+
+function displayNoLongerReceivingBenefitsAlert(period) {
+    if(period !== "_PY_1") {
+        var answer = getAnswerForQuestion('Do you still get this benefit');
+
+        if (answer === "false") {
+            document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
+        }
+    }
+}
+
+function displayTotalIncomeFromWork(period) {
+    var total = sumAnswersFromListOfQuestions(['How much employed income',
+        'How much company benefit',
+        'How much profit from self-employment']);
+
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' +  period).innerHTML = '£' + total;
+}
+
+function populateTableOfOtherIncomes(period) {
+    var questions = [{
+        id: 'How much employed income', label: 'Earnings from employment'
+    }, {
+        id: 'How much company benefit', label: 'Company benefits'
+    }, {
+        id: 'How much profit from self-employment', label: 'Profit from self-employment'
+    }];
+
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTable' + period).innerHTML = buildTableFromListOfNumericQuestions(questions);
+}
+
+function setBenefitsPreHeader(period) {
+    document.getElementById('yourBenefitsAndIncome.benefitsPreHeader' + period).innerHTML = "Benefits you pay tax on between " + map.get("startDate" + period) + " and " + map.get("endDate" + period)
+}
+
+function displayTotalTaxableBenefits(period) {
+    document.getElementById('yourBenefitsAndIncome.taxableBenefits' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+}
+
+function displayTaxableBenefitsInfoOrAlert(period) {
+    var answer = getAnswerForQuestion('Did you get any taxable benefits');
+
+    if (answer === "true") {
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
+    }
+}
+
+function populateTableTaxableBenefits(period) {
+    document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+}
+
+</script>

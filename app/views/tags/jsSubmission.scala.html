@@ -23,12 +23,12 @@
         var mapValue = map.get(modelId);
         var rtn = false;
 
-        if (mapValue !== undefined) {
-            if (mapValue == 'true') {
+        if (isDefined(mapValue)) {
+            if (mapValue === 'true') {
                 rtn = true;
             }
         }
-        return(rtn);
+        return (rtn);
     }
 
     function isDefined(variable) {
@@ -37,11 +37,18 @@
 
     function getMapIntValue(key) {
         var value = map.get(key);
-        return typeof value !== 'undefined' ? Math.floor(parseFloat(value)) : 0;
+        return isDefined(value) ? Math.floor(parseFloat(value)) : 0;
+    }
+
+    function getRenewalType() {
+        return map.get("renewalType").toUpperCase();
     }
 
     function buildTotal() {
-        function accumulate(total, num) { return total + num;}
+        function accumulate(total, num) {
+            return total + num;
+        }
+
         return [].slice.call(arguments[0]).map(getMapIntValue).reduce(accumulate);
     }
 
@@ -58,49 +65,49 @@
     }
 
 
-    function addIfNonZero(obj, k, v){
+    function addIfNonZero(obj, k, v) {
         if (v !== 0) addProperty(obj, k, v);
     }
 
-    function addProperty(obj, k, v){
-        if (typeof k !== 'undefined') {obj[k] = v;}
+    function addProperty(obj, k, v) {
+        if (isDefined(k)) {
+            obj[k] = v;
+        }
     }
 
+
+    function isPreviousYearMinus1(previousYear) {
+        return isDefined(previousYear) && previousYear === PREVIOUS_YEAR_MINUS_1;
+    }
 
     function buildSubmissionPostRequest() {
 
         var taxableBenefits = 0;
         var nino = map.get("nino");
 
-        function getIncomeDetailsJson(previousYear) {
+        function previousYearModelIds(modelIds) {
+            return modelIds.map(id => id + PREVIOUS_YEAR_MINUS_1);
+        }
+
+        function previousYearModelId(modelId) {
+            return modelId + PREVIOUS_YEAR_MINUS_1;
+        }
+
+        function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, benefitsModelIds, areEstimatedModelIds) {
             var json = {};
-
-            var earningsKey ="incomeDetails.earnings";
-            var companyBenefitsKey ="incomeDetails.companyBenefits";
-            var seProfitsKey ="incomeDetails.seProfits";
-            var benefitsModelIds = taxableBenefitsModelIds;
-            var areEstimatedModelIds = incomeDetailsAreEstimatedModelIds;
-
-            if(typeof previousYear !== 'undefined' && previousYear === PREVIOUS_YEAR_MINUS_1) {
-                benefitsModelIds = previousYearModelIds(benefitsModelIds);
-                areEstimatedModelIds = previousYearModelIds(areEstimatedModelIds);
-                earningsKey = earningsKey+PREVIOUS_YEAR_MINUS_1;
-                companyBenefitsKey = companyBenefitsKey+PREVIOUS_YEAR_MINUS_1;
-                seProfitsKey = seProfitsKey+PREVIOUS_YEAR_MINUS_1;
-            }
 
             var benefits = buildTotal(benefitsModelIds);
             var earnings = getMapIntValue(earningsKey);
             var companyBenefits = getMapIntValue(companyBenefitsKey);
             var seProfits = getMapIntValue(seProfitsKey);
 
-            if(benefits + earnings + companyBenefits > 0) {
+            if (benefits + earnings + companyBenefits > 0) {
                 addIfNonZero(json, "taxableBenefits", benefits);
                 addIfNonZero(json, "earnings", earnings);
                 addIfNonZero(json, "companyBenefits", companyBenefits);
             }
 
-            if(seProfits > 0) {
+            if (seProfits > 0) {
                 addProperty(json, "seProfits", seProfits);
                 addProperty(json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue));
             }
@@ -111,7 +118,7 @@
         function getCertainBenefitsJson() {
             var json = {};
             var receivingBenefits = getMapBooleanValue("certainBenefits.receivedBenefits");
-            if(receivingBenefits) {
+            if (receivingBenefits) {
                 addProperty(json, "receivedBenefits", receivingBenefits);
                 addProperty(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
                 addProperty(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
@@ -127,55 +134,51 @@
             return json;
         }
 
-
-        function previousYearModelIds(modelIds) {
-            return modelIds.map(id => id+PREVIOUS_YEAR_MINUS_1);
-        }
-
-        function getOtherIncomeJson(previousYear) {
-            var json = {};
-
-            var modelIds = otherHouseholdIncomeModelIds;
-            if(isDefined(previousYear) && previousYear === PREVIOUS_YEAR_MINUS_1) {
-                modelIds = previousYearModelIds(otherHouseholdIncomeModelIds)
+        function getOtherIncomeJson(otherIncomeIds, otherIncomeEstimatedIds) {
+            var otherIncomeTotal = buildTotal(otherIncomeIds);
+            if (otherIncomeTotal > 0) {
+                return {
+                    otherHouseholdIncome: buildTotal(otherIncomeIds),
+                    isOtherHouseholdIncomeEst: otherIncomeEstimatedIds.some(getMapBooleanValue)
+                };
+            } else {
+                return {};
             }
-
-            var otherHouseholdIncome = buildTotal(modelIds);
-            if(otherHouseholdIncome > 0) {
-                addIfNonZero(json, "otherHouseholdIncome", otherHouseholdIncome);
-
-                if(isDefined(previousYear) && previousYear === PREVIOUS_YEAR_MINUS_1) {
-                    addProperty(json, "isOtherHouseholdIncomeEst", false);
-                } else {
-                    addProperty(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
-                }
-            }
-            return json;
         }
 
+        var submission = {
+            renewalData: {
+                incomeDetails: getIncomeDetailsJson(
+                        "incomeDetails.earnings",
+                        "incomeDetails.companyBenefits",
+                        "incomeDetails.seProfits",
+                        taxableBenefitsModelIds,
+                        incomeDetailsAreEstimatedModelIds),
+                certainBenefits: getCertainBenefitsJson()
+            },
+            otherIncome: getOtherIncomeJson(otherHouseholdIncomeModelIds, otherIncomesAreEstimatedModelIds),
+            hasChangeOfCircs: getMapBooleanValue("hasChangeOfCircs"),
+        };
 
-        var renewalType = map.get("renewalType");
-        var submission = {};
-        var renewalDataJson = {};
+        if (getRenewalType() === SINGLE_D2) {
+            submission.renewalData.incomeDetailsPY1 = getIncomeDetailsJson(
+                    previousYearModelId("incomeDetails.earnings"),
+                    previousYearModelId("incomeDetails.companyBenefits"),
+                    previousYearModelId("incomeDetails.seProfits"),
+                    previousYearModelIds(taxableBenefitsModelIds),
+                    previousYearModelIds(incomeDetailsAreEstimatedModelIds));
 
-        renewalDataJson.incomeDetails = getIncomeDetailsJson();
-        renewalDataJson.certainBenefits = getCertainBenefitsJson();
-        submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
-        submission.otherIncome = getOtherIncomeJson();
-
-        if(renewalType !== undefined && renewalType.toUpperCase() === SINGLE_D2) {
-            submission.otherIncomePY1 = getOtherIncomeJson(PREVIOUS_YEAR_MINUS_1);
-            renewalDataJson.incomeDetailsPY1 = getIncomeDetailsJson(PREVIOUS_YEAR_MINUS_1)
+            submission.otherIncomePY1 = getOtherIncomeJson(previousYearModelIds(otherHouseholdIncomeModelIds),
+                    previousYearModelIds(otherIncomesAreEstimatedModelIds));
         }
-
-        submission.renewalData = renewalDataJson;
 
         // Android callback.
         try {
             HMRCAndroid.submissionPostRequestResult(JSON.stringify(submission));
             return;
-        } catch(err) {}
+        } catch (err) {
+        }
 
-        return(JSON.stringify(submission));
+        return (JSON.stringify(submission));
     }
 </script>

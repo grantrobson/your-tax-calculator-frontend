@@ -38,3 +38,4 @@ app/assets/config.codekit3
 app/assets/renewal_poc.html.html
 
 **/javascripts/**/paye-estimator.js
+node_modules/

@@ -64,7 +64,7 @@
           document.getElementById("MultipleChoiceNEXT").onclick = function() { NEXT(); };
         }
 
-        insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice");
+        insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice-header", "dynamicHeader-MultipleChoice-footer");
     }
 
     function initQuestion(question, control, header) {
@@ -100,6 +100,9 @@
         var question = getFromId(questionPos);
 
         // Trace for current question Id.
+        if (question.group !== undefined) {
+            debugOut(question.group, "QuestionGroup");
+        }
         debugOut(questionPos, "QuestionId");
         debugOut(question.questionType.type, "QuestionType");
 
@@ -126,6 +129,12 @@
 
             return;
 // START JOURNEY CONTROL QUESTIONS!
+        } else if (question.questionType.type == "JourneyComplete") {
+
+            // This indicates end of journey.
+            toggleControls("hide");
+            hook("JourneyComplete");
+            return;
         } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
 
             // This indicates end of journey for auto renewals!
@@ -155,14 +164,12 @@
 
 // END JOURNEY CONTROL QUESTIONS!
         } else if (question.questionType.type == "Continue") {
-
             initQuestion(question, 'Continue', 'headerContinue');
-            insertDynamicHeader(question, "dynamicHeader-Continue");
+            insertDynamicHeader(question, "dynamicHeader-Continue-header", "dynamicHeader-Continue-footer");
 
         } else if (question.questionType.type == "Boolean") {
-
             initQuestion(question, 'Boolean', 'headerBoolean');
-            insertDynamicHeader(question, "dynamicHeader-Boolean");
+            insertDynamicHeader(question, "dynamicHeader-Boolean-header" ,"dynamicHeader-Boolean-footer");
 
             //  Default the value.
             if (question.questionType.modelId !== undefined) {
@@ -191,7 +198,7 @@
         } else if (question.questionType.type == "Decimal") {
 
             initQuestion(question, 'Decimal', 'headerDecimal');
-            insertDynamicHeader(question, "dynamicHeader-Decimal");
+            insertDynamicHeader(question, "dynamicHeader-Decimal-header", "dynamicHeader-Decimal-footer");
 
             // Populate Decimal value from model if exists.
             var question = getFromId(questionPos);
@@ -217,12 +224,7 @@
                 }
             }
         } else if (question.questionType.type == 'Summary'){
-
-//            initSummary()
-            initSingleD2Summary();
-//            initJointD1Summary()
-
-
+            initSummary();
         }
         else {
             alert('Failed to resolve the question type ' + question.questionType.type);

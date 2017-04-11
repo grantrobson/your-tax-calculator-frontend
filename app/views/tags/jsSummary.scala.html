@@ -1,104 +1,59 @@
 <script>
-//  function initSummary() {
-//      populateYourBenefitsAndIncome();
-//
-//      toggleControls("hide");
-//      show("Summary");
-//  }
 
-  function populateYourBenefitsAndIncome() {
-      populateTableOfUntaxedBenefits();
-      displayUntaxedBenefitsWarning();
-      displayTotalIncomeFromWork();
-      populateTableOfOtherIncomes();
-      displayTotalTaxableBenefits();
-      displayTaxableBenefitsInfoOrWarning();
-  }
+function initSummary() {
+    var renewalType = getAnswerForModelId("renewalType");
+    if(renewalType == SINGLE_D1) {
+        initSingleD1Summary();
+    }
+    else if (renewalType == SINGLE_D2) {
+        initSingleD2Summary();
+    }
+    else if (renewalType == JOINT_D1) {
+        initJointD1Summary();
+    }
+    else {
+        initJointD2Summary();
+    }
+}
 
-  function populatePartnerBenefitsAndIncome() {
-      populatePartnerBenefitsAndIncomeSection()
+function initSingleD1Summary() {
+    populateYourBenefitsAndIncomeSection(1, "");
+    populateOtherHouseholdIncomeSection(2, "");
+    populateReportedChangesSection(3, "");
+    toggleControls("hide");
+    show("Summary");
+}
 
-  }
+function initSingleD2Summary(){
+    populateYourBenefitsAndIncomeSection(1, "_PY_1")
+    populateOtherHouseholdIncomeSection(2, "_PY_1")
+    populateYourBenefitsAndIncomeSection(3, "")
+    populateOtherHouseholdIncomeSection(4, "")
+    populateReportedChangesSection(5)
+    toggleControls("hide");
+    show("Summary");
+}
 
-  function populateTableOfUntaxedBenefits() {
-      document.getElementById('yourBenefitsAndIncome.typeOfBenefits').innerHTML = buildListFromMultipleChoiceAnswers('Which untaxed benefit did you get');
-  }
+function initJointD1Summary() {
+    populateYourBenefitsAndIncomeSection(1, "");
+    populateYourPartnerBenefitsAndIncomeSection(2, "");
+    populateOtherHouseholdIncomeSection(3, "");
+    populateReportedChangesSection(4)
+    populateDeclarationSection();
+    toggleControls("hide");
+    show("Summary");
+}
 
-  function displayUntaxedBenefitsWarning() {
-      var question = getFromId('Did you get any untaxed benefits');
-      var answer = map.get(question.questionType.modelId);
-      if (answer === "false") {
-          document.getElementById('yourBenefitsAndIncome.didNotClaimWarning').style.display = "block";
-      }
-  }
-
-  function displayTotalIncomeFromWork() {
-      document.getElementById('yourBenefitsAndIncome.otherIncomeTotal').innerHTML = "£" + sumMultipleNumberOption('Select other income sources & enter amount');
-  }
-
-  function populateTableOfOtherIncomes() {
-      document.getElementById('yourBenefitsAndIncome.otherIncome').innerHTML = buildTableFromMultipleChoiceAnswers('Select other income sources & enter amount');
-  }
-
-  function displayTotalTaxableBenefits() {
-      document.getElementById('yourBenefitsAndIncome.taxableBenefits').innerHTML = "£" + sumMultipleNumberOption('Select taxable benefits and enter amount');
-  }
-
-  function displayTaxableBenefitsInfoOrWarning() {
-      var question = getFromId('Did you get any taxable benefits');
-      var answer = map.get(question.questionType.modelId);
-      if (answer === "true") {
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "block";
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "none";
-      } else {
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsInfo').style.display = "none";
-          document.getElementById('yourBenefitsAndIncome.taxableBenefitsWarn').style.display = "block";
-      }
-  }
-
-  function buildListFromMultipleChoiceAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
-
-      return options.reduce(function (acc, option) {
-          var answer = map.get(option.modelId);
-
-          if (typeof answer !== "undefined") {
-              return acc + '<h5>' + option.option + '</h5>'
-          } else {
-              return acc
-          }
-      }, "");
-  }
-
-  function buildTableFromMultipleChoiceAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
-
-      return options.reduce(function (acc, option) {
-          var answer = map.get(option.modelId);
-
-          if (typeof answer !== "undefined") {
-              return acc + '<tr><td>' + option.option + '</td><td>' + answer + '</td></tr>'
-          } else {
-              return acc
-          }
-      }, "");
-  }
-
-  function sumMultipleNumberOption(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
-
-      var result = options.reduce(function (acc, option) {
-          var answer = map.get(option.modelId);
-
-          if (typeof answer !== "undefined") {
-              return acc + parseFloat(answer)
-          } else {
-              return acc
-          }
-      }, 0);
-
-      return Math.floor(result);
-  }
-
-
+function initJointD2Summary() {
+    populateYourBenefitsAndIncomeSection(1, "_PY_1");
+    populateYourPartnerBenefitsAndIncomeSection(2, "_PY_1");
+    populateOtherHouseholdIncomeSection(3, "_PY_1")
+    populateYourBenefitsAndIncomeSection(4, "");
+    populateYourPartnerBenefitsAndIncomeSection(5, "");
+    populateOtherHouseholdIncomeSection(6, "")
+    populateReportedChangesSection(7)
+    populateDeclarationSection();
+    toggleControls("hide");
+    show("Summary");
+}
 </script>

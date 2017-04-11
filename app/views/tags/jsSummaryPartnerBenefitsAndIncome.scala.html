@@ -1,0 +1,103 @@
+<script>
+
+//Your partner benefits and income
+function populateYourPartnerBenefitsAndIncomeSection(sectionNo, period) {
+    if(hasPartner()){
+        showPartnerBenefitsAndIncomeSection(period);
+        setSectionHeader("partnersIncomeAndBenefits.header" + period, sectionNo, "Your partner's benefits and income");
+        setPreHeader('partnersIncomeAndBenefits.otherIncomePreHeader', period, 'Your partners income from work between between ');
+        displayListOfPartnersUntaxedBenefitsOrAlert(period);
+        displayPartnerNoLongerReceivingUntaxedBenefitAlert(period);
+        displayPartnersTotalIncomeFromWork(period);
+        populateTableOfPartnerOtherIncomes(period);
+        setPreHeader('partnersIncomeAndBenefits.benefitsPreHeader', period, 'Benefits your partner pays tax on between ');
+        displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period);
+        displayPartnersTotalUntaxedBenefits(period);
+        populateTableOfPartnersUntaxedBenefits(period);
+    }
+}
+
+
+function showPartnerBenefitsAndIncomeSection(period) {
+    document.getElementById('partnersIncomeAndBenefits' + period).style.display = "block";
+}
+
+function setSectionHeader(elementId, sectionNo, sectionName) {
+    document.getElementById(elementId).innerHTML = "Part " + sectionNo + ": " + sectionName;
+}
+
+function setPreHeader(id, period, text) {
+    document.getElementById(id + period).innerHTML = text + map.get("startDate" + period) + " and " + map.get("endDate" + period)
+}
+
+function displayListOfPartnersUntaxedBenefitsOrAlert(period) {
+    if(period !== "_PY_1") {
+        var answer = getAnswerForQuestion('Did partner get any untaxed benefits?');
+
+        if (typeof answer !== "undefined" && answer === "true") {
+            document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsListHeader').style.display = "block";
+
+            document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').style.display = "block";
+            document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefits did partner get');
+        } else {
+            document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "block";
+        }
+    }
+}
+
+function displayPartnerNoLongerReceivingUntaxedBenefitAlert(period) {
+    if(period !== "_PY_1") {
+        var answer = getAnswerForQuestion('Does partner still get this');
+
+        if (answer === "true") {
+            document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
+        }
+    }
+}
+
+function displayPartnersTotalIncomeFromWork(period) {
+    var total = sumAnswersFromListOfQuestions(['How much employed income did partner get?' + period,
+        'How much company benefit did partner get?' + period,
+        'How much profit did partner make from self-employment?' + period]);
+
+    document.getElementById('partnersIncomeAndBenefits.otherIncomeTotal' + period).innerHTML = '£' + total;
+}
+
+function populateTableOfPartnerOtherIncomes(period) {
+    var questions = [{
+        id: 'How much employed income did partner get?' + period, label: 'Earnings from employment'
+    }, {
+        id: 'How much company benefit did partner get?' + period, label: 'Company benefits'
+    }, {
+        id: 'How much profit did partner make from self-employment?' + period, label: 'Profit from self-employment'
+    }];
+
+    document.getElementById('partnersIncomeAndBenefits.otherIncomeTable' + period).innerHTML = buildTableFromListOfNumericQuestions(questions);
+}
+
+function displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period) {
+    if (getAnswerForQuestion('Is partner self-employment profit estimated?' + period) === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "block";
+    }
+
+    if (getAnswerForQuestion('Is partner self-employment loss estimated?' + period) === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert' + period).style.display = "block";
+    }
+}
+
+function displayPartnersTotalUntaxedBenefits(period) {
+    if (getAnswerForQuestion('Did partner get any taxable benefits?' + period) === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
+
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
+    }
+}
+
+function populateTableOfPartnersUntaxedBenefits(period) {
+    document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
+}
+
+</script>

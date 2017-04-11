@@ -1,0 +1,31 @@
+{
+  "name": "your-tax-calculator-frontend",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/hmrc/your-tax-calculator-frontend.svg)](https://travis-ci.org/hmrc/your-tax-calculator-frontend) [ ![Download](https://api.bintray.com/packages/hmrc/releases/your-tax-calculator-frontend/images/download.svg) ](https://bintray.com/hmrc/releases/your-tax-calculator-frontend/_latestVersion)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "styles": "node project/build-styles.js",
+    "start": "chokidar 'app/assets/**/*.scss' -c 'npm run styles'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmrc/your-tax-calculator-frontend.git"
+  },
+  "keywords": [],
+  "author": "Rory Powis <rory.powis@digital.hmrc.gov.uk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hmrc/your-tax-calculator-frontend/issues"
+  },
+  "homepage": "https://github.com/hmrc/your-tax-calculator-frontend#readme",
+  "devDependencies": {
+    "chokidar-cli": "^1.2.0",
+    "fs-extra": "^2.1.2",
+    "glob": "^7.1.1",
+    "node-sass": "^4.5.2"
+  }
+}

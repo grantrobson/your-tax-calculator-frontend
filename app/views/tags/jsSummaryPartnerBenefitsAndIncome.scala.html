@@ -52,6 +52,9 @@ function displayPartnerNoLongerReceivingUntaxedBenefitAlert(period) {
         if (answer === "true") {
             document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
         }
+        else {
+            document.getElementById('partnersIncomeAndBenefits.whichNoTaxBenefits').style.display = "block";
+        }
     }
 }
 

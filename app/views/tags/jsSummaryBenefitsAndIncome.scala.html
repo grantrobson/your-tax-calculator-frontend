@@ -35,11 +35,12 @@ function displayListOfUntaxedBenefitsOrAlert(period) {
 
         if (answer === "true") {
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsListHeader').style.display = "block";
-
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "block";
+
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
         } else {
             document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
+            document.getElementById('yourBenefitsAndIncome.whichNoTaxBenefits').style.display = "block";
         }
     }
 }

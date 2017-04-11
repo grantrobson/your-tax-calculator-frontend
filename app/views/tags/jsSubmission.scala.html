@@ -1,6 +1,7 @@
 <script>
 
-    var taxableBenefitsModelIds = ["taxableBenefits.bereavement_allowance",
+    var taxableBenefitsModelIds = [
+        "taxableBenefits.bereavement_allowance",
         "taxableBenefits.carer_allowance",
         "taxableBenefits.contribution_based_jobseeker_allowance",
         "taxableBenefits.contribution_based_employment_and_support_allowance",
@@ -79,16 +80,8 @@
         return modelIds.map(id => id + PREVIOUS_YEAR_MINUS_1);
     }
 
-    function previousYearModelId(modelId) {
-        return modelId + PREVIOUS_YEAR_MINUS_1;
-    }
-
     function partnerModelIds(modelIds) {
         return modelIds.map(id => 'partner.' + id);
-    }
-
-    function partnerModelId(modelId) {
-        return 'partner.' + modelId
     }
 
     function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, benefitsModelIds, areEstimatedModelIds) {
@@ -170,9 +163,9 @@
 
     function addSingleD2Data(submission) {
         submission.renewalData.incomeDetailsPY1 = getIncomeDetailsJson(
-                previousYearModelId("incomeDetails.earnings"),
-                previousYearModelId("incomeDetails.companyBenefits"),
-                previousYearModelId("incomeDetails.seProfits"),
+                "incomeDetails.earnings_PY_1",
+                "incomeDetails.companyBenefits_PY_1",
+                "incomeDetails.seProfits_PY_1",
                 previousYearModelIds(taxableBenefitsModelIds),
                 previousYearModelIds(incomeDetailsAreEstimatedModelIds));
 
@@ -185,30 +178,30 @@
     function addJointD1Data(submission) {
         submission.applicant2Data = {
             incomeDetails: getIncomeDetailsJson(
-                    partnerModelId("incomeDetails.earnings"),
-                    partnerModelId("incomeDetails.companyBenefits"),
-                    partnerModelId("incomeDetails.seProfits"),
+                    "partner.incomeDetails.earnings",
+                    "partner.incomeDetails.companyBenefits",
+                    "partner.incomeDetails.seProfits",
                     partnerModelIds(taxableBenefitsModelIds),
                     partnerModelIds(incomeDetailsAreEstimatedModelIds)),
             certainBenefits: getCertainBenefitsJson(
-                    partnerModelId("certainBenefits.receivedBenefits"),
-                    partnerModelId("certainBenefits.incomeSupport"),
-                    partnerModelId("certainBenefits.jsa"),
-                    partnerModelId("certainBenefits.esa"),
-                    partnerModelId("certainBenefits.pensionCredit")
+                    "partner.certainBenefits.receivedBenefits",
+                    "partner.certainBenefits.incomeSupport",
+                    "partner.certainBenefits.jsa",
+                    "partner.certainBenefits.esa",
+                    "partner.certainBenefits.pensionCredit"
             )
-        }
+        };
 
         return submission;
     }
 
     function addJointD2Data(submission) {
         submission.applicant2Data.incomeDetailsPY1 = getIncomeDetailsJson(
-                previousYearModelId("incomeDetails.earnings"),
-                previousYearModelId("incomeDetails.companyBenefits"),
-                previousYearModelId("incomeDetails.seProfits"),
-                previousYearModelIds(taxableBenefitsModelIds),
-                previousYearModelIds(incomeDetailsAreEstimatedModelIds))
+                "partner.incomeDetails.earnings_PY_1",
+                "partner.incomeDetails.companyBenefits_PY_1",
+                "partner.incomeDetails.seProfits_PY_1",
+                previousYearModelIds(partnerModelIds(taxableBenefitsModelIds)),
+                previousYearModelIds(partnerModelIds(incomeDetailsAreEstimatedModelIds)));
 
         return submission;
     }

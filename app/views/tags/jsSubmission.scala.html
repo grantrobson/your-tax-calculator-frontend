@@ -204,7 +204,39 @@
             }
         }
 
+        if (getRenewalType() === JOINT_D2) {
+            submission.renewalData.incomeDetailsPY1 = getIncomeDetailsJson(
+                    previousYearModelId("incomeDetails.earnings"),
+                    previousYearModelId("incomeDetails.companyBenefits"),
+                    previousYearModelId("incomeDetails.seProfits"),
+                    previousYearModelIds(taxableBenefitsModelIds),
+                    previousYearModelIds(incomeDetailsAreEstimatedModelIds));
 
+            submission.otherIncomePY1 = getOtherIncomeJson(previousYearModelIds(otherHouseholdIncomeModelIds),
+                    previousYearModelIds(otherIncomesAreEstimatedModelIds));
+
+            submission.applicant2Data = {
+                incomeDetails: getIncomeDetailsJson(
+                        partnerModelId("incomeDetails.earnings"),
+                        partnerModelId("incomeDetails.companyBenefits"),
+                        partnerModelId("incomeDetails.seProfits"),
+                        partnerModelIds(taxableBenefitsModelIds),
+                        partnerModelIds(incomeDetailsAreEstimatedModelIds)),
+                incomeDetailsPY1: getIncomeDetailsJson(
+                        previousYearModelId("incomeDetails.earnings"),
+                        previousYearModelId("incomeDetails.companyBenefits"),
+                        previousYearModelId("incomeDetails.seProfits"),
+                        previousYearModelIds(taxableBenefitsModelIds),
+                        previousYearModelIds(incomeDetailsAreEstimatedModelIds)),
+                certainBenefits: getCertainBenefitsJson(
+                        partnerModelId("certainBenefits.receivedBenefits"),
+                        partnerModelId("certainBenefits.incomeSupport"),
+                        partnerModelId("certainBenefits.jsa"),
+                        partnerModelId("certainBenefits.esa"),
+                        partnerModelId("certainBenefits.pensionCredit")
+                )
+            }
+        }
 
         // Android callback.
         try {

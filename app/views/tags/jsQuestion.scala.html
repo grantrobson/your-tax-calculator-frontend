@@ -129,28 +129,28 @@
 
             return;
 // START JOURNEY CONTROL QUESTIONS!
-        } else if (question.questionType.type == "JourneyComplete") {
+        } else if (question.questionType.type == JOURNEY_COMPLETE) {
 
             // This indicates end of journey.
             toggleControls("hide");
-            hook("JourneyComplete");
+            hook(JOURNEY_COMPLETE);
             return;
-        } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
+        } else if (question.questionType.type == JOURNEY_COMPLETE_AUTO_RENEWAL) {
 
             // This indicates end of journey for auto renewals!
             toggleControls("hide");
-            hook("JourneyCompleteAutoRenewal");
+            hook(JOURNEY_COMPLETE_AUTO_RENEWAL);
             return;
-        } else if (question.questionType.type == "SaveAndComeBackLater") {
+        } else if (question.questionType.type == SAVE_AND_COME_BACK_LATER) {
 
             // This indicates end of journey! User has quit.
             toggleControls("hide");
-            hook("SaveAndComeBackLater");
+            hook(SAVE_AND_COME_BACK_LATER);
             return;
-        } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
+        } else if (question.questionType.type == ROUTE_TO_COC) {
             // Route to Change of Circumstance.
             toggleControls("hide");
-            hook("RouteToChangeOfCircumstance");
+            hook(ROUTE_TO_COC);
 
             // Advance the questionPosition to the summary screen.
             questionPos = "summary-screen";
@@ -159,8 +159,8 @@
             map.set("hasChangeOfCircs", "true");
             return;
 
-        } else if (question.questionType.type == "SubmitRenewal") {
-            hook("SubmitRenewal");
+        } else if (question.questionType.type == SUBMIT_RENEWAL) {
+            hook(SUBMIT_RENEWAL);
 
 // END JOURNEY CONTROL QUESTIONS!
         } else if (question.questionType.type == "Continue") {

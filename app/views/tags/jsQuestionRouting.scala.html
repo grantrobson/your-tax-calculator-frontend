@@ -15,6 +15,13 @@
         displayQuestion();
     }
 
+    function nativeRequestToAutoSave() {
+        hook(SAVE_AND_CONTINUE);
+    }
+
+    function nativeRequestToSaveAndExit() {
+        hook(SAVE_AND_COME_BACK_LATER);
+    }
 
     // TODO..validation and error handling!
     function MultipleChoiceNEXT() {
@@ -42,6 +49,7 @@
         stack.push(questionPos);
         var question = getFromId(questionPos);
         questionPos = question.questionType.nextQuestionId;
+        nativeRequestToAutoSave();
         displayQuestion();
     }
 
@@ -53,6 +61,7 @@
 
         var decimalInput = document.getElementById("DecimalInput").value;
         map.set(question.questionType.modelId, decimalInput+"");
+        nativeRequestToAutoSave();
         displayQuestion();
     }
 
@@ -80,6 +89,7 @@
         } else {
             stack.push(questionPos);
             questionPos = question.questionType.nextQuestionId;
+            nativeRequestToAutoSave();
             displayQuestion();
         }
     }
@@ -88,6 +98,7 @@
         var question = getFromId(questionPos);
         stack.push(questionPos);
         questionPos = question.questionType.nextQuestionId;
+        nativeRequestToAutoSave();
         displayQuestion();
     }
 
@@ -132,6 +143,7 @@
         } else alert('Please select one of the options.');
 
         if (route) {
+            nativeRequestToAutoSave();
             displayQuestion();
         }
     }
@@ -163,5 +175,10 @@
         }
     }
 
+    // TODO: The summary screen could invoke the hook directly.
+    function SAVE_AND_EXIT() {
+        // Invoke the hook.
+        nativeRequestToSaveAndExit();
+    }
 
 </script>

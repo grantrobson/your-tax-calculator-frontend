@@ -164,7 +164,7 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.otherIncomeTable_PY_1"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change your income" />
+                    <input type="button" class="secondary edit" value="Change your income" onClick="javascript:changeIncome('_PY_1')"/>
                 </article>
                 <article>
                     <header>
@@ -188,7 +188,7 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.taxableBenefitsTable_PY_1"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" />
+                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" onClick="javascript:changeTaxableBenefits('_PY_1')" />
 
                 </article>
             </div>
@@ -217,7 +217,7 @@
                     <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
                         You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change your partner's income" />
+                    <input type="button" class="secondary edit" value="Change your partner's income" onClick="javascript:changePartnerIncome('_PY_1')" />
                 </article>
                 <article>
                     <header>
@@ -241,7 +241,7 @@
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.taxableBenefitsTable_PY_1"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" />
+                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" onClick="javascript:changePartnerBenefits('_PY_1')"/>
                 </article>
             </div>
             <div id="otherHouseholdIncome_PY_1" style="display: none">
@@ -273,7 +273,7 @@
                     <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
                         You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <input type="button" class="secondary edit" value="Change other household income" />
+                    <input type="button" class="secondary edit" value="Change other household income" onClick="javascript:changeHouseholdIncome('_PY_1')"/>
                 </article>
             </div>
             <div id="yourBenefitsAndIncome" style="display: none">
@@ -290,10 +290,7 @@
                     <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said you no longer get this benefit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change benefits" />
-                </article>
-
-                <article>
+                    <input type="button" class="secondary edit" value="Change benefits" onClick="javascript:changeUnTaxedBenefits()" />
                     <header>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
                         <br/>
@@ -316,7 +313,7 @@
                     <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if you actually made a profit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change your income" />
+                    <input type="button" class="secondary edit" value="Change your income" onclick="javascript:changeIncome('')" />
                 </article>
 
                 <article>
@@ -341,7 +338,7 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.taxableBenefitsTable"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" />
+                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" onClick="javascript:changeTaxableBenefits('')" />
 
                 </article>
             </div>
@@ -357,7 +354,7 @@
                     <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said your partner no longer gets this benefit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change benefits" />
+                    <input type="button" class="secondary edit" value="Change benefits" onclick="javascript:changeTaxableBenefits('')"/>
                 </article>
                 <article>
                     <header>
@@ -382,7 +379,7 @@
                     <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change your partner's income" />
+                    <input type="button" class="secondary edit" value="Change your partner's income" onClick="javascript:changePartnerIncome('')" />
                 </article>
                 <article>
                     <header>
@@ -406,7 +403,7 @@
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.taxableBenefitsTable"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" />
+                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" onClick="javascript:changePartnerBenefits('')"/>
 
                 </article>
             </div>
@@ -439,7 +436,7 @@
                     <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
                         You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <input type="button" class="secondary edit" value="Change other household income" />
+                    <input type="button" class="secondary edit" value="Change other household income" onClick="javascript:changeHouseholdIncome('')"/>
                 </article>
             </div>
             <div id="reportedChanges">
@@ -449,7 +446,7 @@
                     </header>
                     <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a change to any of your personal circumstances.</p>
                     <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or more of your personal circumstances..</p>
-                    <input type="button" class="secondary edit" value="Report a change to your personal circumstances" />
+                    <input type="button" class="secondary edit" value="Report a change to your personal circumstances" onclick="javascript:changePersonalCircumstances()"/>
                 </article>
             </div>
             <div id="declaration">
@@ -842,7 +839,8 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('')">
+        @*<input type="button" value="Initialise model" onClick="javascript:resume('')">*@
+    <input type="button" value="Initialise model" onClick="javascript:resume('multi-pack:true,partner-name:NICKP,startDate_PY_1:6th April 2015,endDate_PY_1:5th April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,endDate:6th April 2017,startDate:5th April 2016,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.earnings_PY_1:3256,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:3466,incomeDetails.Were you self employed_PY_1:true,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:23463,renewalData.Did you get any taxable benefits_PY_1:true,taxableBenefits.bereavement_allowance_PY_1:2346,taxableBenefits.carer_allowance_PY_1:3346,taxableBenefits.contribution_based_jobseeker_allowance_PY_1:3557,taxableBenefits.contribution_based_employment_and_support_allowance_PY_1:8865,taxableBenefits.incapacity_benefit_PY_1:5668,partner.incomeDetails.Was partner employed_PY_1:true,partner.incomeDetails.earnings_PY_1:4567,partner.incomeDetails.Did partner get any company benefits_PY_1:true,partner.incomeDetails.companyBenefits_PY_1:5557,partner.incomeDetails.Was partner self-employed_PY_1:true,undefined:false,partner.incomeDetails.How much profit did partner make from self-employment_PY_1:34663,partner.Did partner get any taxable benefits_PY_1:true,partner.taxableBenefits.bereavement_allowance_PY_1:2346,partner.taxableBenefits.carer_allowance_PY_1:6666,partner.taxableBenefits.contribution_based_jobseeker_allowance_PY_1:333,partner.taxableBenefits.contribution_based_employment_and_support_allowance_PY_1:222,partner.taxableBenefits.incapacity_benefit_PY_1:4444,otherIncome.Did you get any other household income_PY_1:true,otherIncome.saving_investment_dividend_PY_1:88765,otherIncome.pensions_PY_1:667,otherIncome.trusts_settlements_or_estates_PY_1:889,otherIncome.foreign_income_PY_1:9000,otherIncome.Did you get any income from property rental_PY_1:true,otherIncome.Did you make a profit from property rental_PY_1:false,incomeDetails.Were you employed:true,incomeDetails.earnings:234,incomeDetails.Did you get any company benefits:true,incomeDetails.companyBenefits:66666,incomeDetails.Were you self employed:true,incomeDetails.Did you make a profit from self-employment:true,incomeDetails.seProfits:1123,incomeDetails.self_employed_profit_is_estimated:true,renewalData.Did you get any taxable benefits:true,taxableBenefits.bereavement_allowance:8966,taxableBenefits.carer_allowance:46778,taxableBenefits.contribution_based_jobseeker_allowance:6784,taxableBenefits.contribution_based_employment_and_support_allowance:4684,taxableBenefits.incapacity_benefit:2333,partner.incomeDetails.Was partner employed:true,partner.incomeDetails.earnings:3333,partner.incomeDetails.Did partner get any company benefits:true,partner.incomeDetails.companyBenefits:1111,partner.incomeDetails.Was partner self-employed:true,partner.incomeDetails.How much profit did partner make from self-employment:111,partner.incomeDetails.seProfits:true,partner.Did partner get any taxable benefits:true,partner.taxableBenefits.bereavement_allowance:9,partner.taxableBenefits.carer_allowance:8,partner.taxableBenefits.contribution_based_jobseeker_allowance:7,partner.taxableBenefits.contribution_based_employment_and_support_allowance:6,partner.taxableBenefits.incapacity_benefit:5,otherIncome.Did you get any other household income:true,otherIncome.saving_investment_dividend:99,otherIncome.pensions:88,otherIncome.trusts_settlements_or_estates:77,otherIncome.foreign_income:66,otherIncome.notional_income:55,otherIncome.isOtherHouseholdIncomeEst:true,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:5555,otherIncome.rental_profit_is_estimated:true,currentQuestionPos:SUMMARY-SCREEN-TODO,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Select taxable benefits and enter amount_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#How much employed income did partner get?_PY_1#Did partner get any company benefits?_PY_1#How much company benefit did partner get?_PY_1#Was partner self-employed?_PY_1#Did partner make profit from self-employment?_PY_1#How much profit did partner make from self-employment?_PY_1#Did partner get any taxable benefits?_PY_1#Select partner taxable benefits and enter amount_PY_1#Did you get any other household income_PY_1#Select other income sources & enter amount_PY_1#Did you get any income from property rental_PY_1#Did you make a profit from property rental_PY_1#Benefits & Income - intro#Were you employed#How much employed income#Did you get any company benefits#How much company benefit#Were you self employed#Did you make a profit from self-employment#How much profit from self-employment#Is the self-employed profit estimated#Did you get any taxable benefits#Select taxable benefits and enter amount#Partner benefits & income intro#Was partner employed?#How much employed income did partner get?#Did partner get any company benefits?#How much company benefit did partner get?#Was partner self-employed?#Did partner make profit from self-employment?#How much profit did partner make from self-employment?#Is partner self-employment profit estimated?#Did partner get any taxable benefits?#Select partner taxable benefits and enter amount#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">

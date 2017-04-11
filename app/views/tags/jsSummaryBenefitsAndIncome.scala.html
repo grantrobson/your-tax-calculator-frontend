@@ -55,20 +55,20 @@ function displayNoLongerReceivingBenefitsAlert(period) {
 }
 
 function displayTotalIncomeFromWork(period) {
-    var total = sumAnswersFromListOfQuestions(['How much employed income',
-        'How much company benefit',
-        'How much profit from self-employment']);
+    var total = sumAnswersFromListOfQuestions(['How much employed income' + period,
+        'How much company benefit' + period,
+        'How much profit from self-employment' + period]);
 
     document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' +  period).innerHTML = '£' + total;
 }
 
 function populateTableOfOtherIncomes(period) {
     var questions = [{
-        id: 'How much employed income', label: 'Earnings from employment'
+        id: 'How much employed income' + period, label: 'Earnings from employment'
     }, {
-        id: 'How much company benefit', label: 'Company benefits'
+        id: 'How much company benefit' + period, label: 'Company benefits'
     }, {
-        id: 'How much profit from self-employment', label: 'Profit from self-employment'
+        id: 'How much profit from self-employment' + period, label: 'Profit from self-employment'
     }];
 
     document.getElementById('yourBenefitsAndIncome.otherIncomeTable' + period).innerHTML = buildTableFromListOfNumericQuestions(questions);

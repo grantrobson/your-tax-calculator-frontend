@@ -1,0 +1,31 @@
+$bg-body: #DEE0E2;
+$bg-header: #000;
+$bg-main: #fff;
+$bg-summary-section-header: #005ea5;
+
+$text-color-header: #fff;
+$text-color-pre-header: #6f777b;
+
+$font-heading: 'Roboto', sans-serif;
+$font-copy: 'Roboto', sans-serif;
+
+$button-bg-primary: #00823b;
+$button-bg-secondary: #fff;
+$button-text-primary: #fff;
+$button-text-secondary: #2b8cc4;
+
+$main-side-padding: 16px;
+
+@import 'base';
+
+.back{
+	position: fixed;
+	top: 10px;
+	left:8px;
+    border: 0;
+}
+
+main input[type="button"].primary{
+	border-radius: 2px;
+	box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31);
+}

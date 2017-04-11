@@ -1,0 +1,2137 @@
+<html>
+
+<head>
+    <title>JavaScript TCR POC</title>
+    <meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
+<style>
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline; }
+    
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+      display: block; }
+    
+    body {
+      line-height: 1; }
+    
+    ol, ul {
+      list-style: none; }
+    
+    blockquote, q {
+      quotes: none; }
+    
+    blockquote:before, blockquote:after {
+      content: '';
+      content: none; }
+    
+    q:before, q:after {
+      content: '';
+      content: none; }
+    
+    table {
+      border-collapse: collapse;
+      border-spacing: 0; }
+    
+    * {
+      box-sizing: border-box; }
+    
+    body {
+      background: #4A4A4A; }
+    
+    header#page-header {
+      background: #000;
+      color: #fff;
+      padding: 10px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0; }
+      header#page-header h1 {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 14px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center; }
+    
+    main {
+      background: #fff;
+      font-family: SFUIText-Regular, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: normal;
+      font-size: 16px;
+      font-size: 1.6rem;
+      padding: 16px;
+      margin-top: 40px; }
+      main h2 {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1em; }
+      main h3, main #headerDecimal {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 16px;
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 1em; }
+      main p, main span, main label {
+        font-size: 16px;
+        font-size: 1.6rem;
+        font-family: SFUIText-Regular, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: normal; }
+      main input[type="button"].primary {
+        display: block;
+        background-color: #08822e;
+        color: #fff;
+        font-size: 16px;
+        font-size: 1.6rem;
+        padding: 16px 13px;
+        text-align: center;
+        width: 100%;
+        border: 0;
+        margin-bottom: 8px;
+        -webkit-appearance: none;
+        margin-top: 8px; }
+      main input[type="button"].secondary {
+        display: block;
+        background-color: #fff;
+        color: #2b8cc4;
+        font-size: 16px;
+        font-size: 1.6rem;
+        padding: 16px 13px;
+        text-align: center;
+        width: 100%;
+        border: 0;
+        margin-bottom: 8px;
+        -webkit-appearance: none; }
+      main input[type="number"] {
+        border: 1px solid;
+        width: 100%;
+        margin-top: 8px;
+        padding: 5px; }
+      main .container {
+        display: table; }
+        main .container > .row {
+          display: table-row; }
+          main .container > .row .col {
+            display: table-cell;
+            padding: 0 0 10px 10px; }
+          main .container > .row input[type="checkbox"], main .container > .row input[type="radio"] {
+            display: table-cell; }
+      main ul {
+        padding-left: 30px;
+        margin: 8px 0 16px; }
+        main ul li {
+          display: list-item;
+          list-style: disc outside; }
+          main ul li h4 {
+            font-weight: bold; }
+    
+    input ~ .col .showIfChecked input {
+      height: 0;
+      width: 0;
+      opacity: 0;
+      width: 100%; }
+    
+    input:checked ~ .col .showIfChecked {
+      height: auto;
+      width: auto; }
+      input:checked ~ .col .showIfChecked input {
+        height: auto;
+        opacity: 1;
+        transition: opacity 1s linear; }
+    
+    main.summary article {
+      margin: 0;
+      padding: 0; }
+      main.summary article h2 {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        background: #005ea5;
+        color: #fff;
+        margin-top: -16px;
+        margin-right: -16px;
+        margin-bottom: 20px;
+        margin-left: -16px;
+        padding: 16px; }
+      main.summary article h3 {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #005ea5;
+        margin-bottom: 0; }
+      main.summary article h4 {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 10px 0; }
+      main.summary article h5 {
+        font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-size: 2rem;
+        font-weight: normal;
+        padding: 10px 0;
+        border-top: 1px solid #bfc1c3;
+        border-bottom: 1px solid #bfc1c3; }
+
+    .alert {
+      padding: 10px 16px;
+      margin: 1em 0;
+      border-left: 4px solid;
+      display: block; }
+      .alert.alert--info {
+        border-left-color: #0068af;
+        background-color: rgba(43, 139, 195, 0.1); }
+
+    /*
+        POC Stuff
+      */
+    p.one {
+      border-style: solid;
+      border-width: 5px; }
+    
+    h1.hidden {
+      visibility: hidden; }
+    
+    .back {
+      position: fixed;
+      top: 10px;
+      left: 8px;
+      width: 12.5px;
+      height: 21px;
+      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAA/CAYAAABjJtHDAAAAAXNSR0IArs4c6QAAARNJREFUaAXtmVEOgkAMRMGLyFE4+h4FT4LTBBqCS2AapRszTZpuSOs+n/1Ruy4p5nkekMVqEkL92gVsQrWw2gaggSxAKB75gECpga2EeYAnYHmAF8E+AB/1lf3eUwPDqxXkE9lOkMbM3D17JzB2SWRMxlgDbL92TMZYA2y/dkzGWANsv3ZMxlgDbL92TMZYA2x/sztmbwRwBcnEyAoI94NqQNqX2athvUP4QnbQLkMKkBXn/TLoKoIHGQyK8zEZdBXBgwwGxfmYDLqK4EEGg+J8TAZdRfAgg0FxPiaDriJ4kMGgOB/7a4M//xu97/sJKkfkC9lmXPyI7/01YavqBDAPbIU8AMwHOwBsB2wHWMzk+mxf37neumI439cFAAAAAElFTkSuQmCC");
+      background-size: 12.5px 21px;
+      background-repeat: no-repeat;
+      text-indent: -999em;
+      border: 0; }
+
+    main input[type="button"].primary {
+      border-radius: 4px;
+      box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31); }
+
+</style>
+
+<script type="text/javascript">
+    var map = new Map();
+
+    function removeChildren(div) {
+        var node = document.getElementById(div)
+        while (node.hasChildNodes()) {
+            node.removeChild(node.lastChild);
+        }
+    }
+
+    // Update the id attribute fields of cloned row.
+    function updateChildren(id, i) {
+        var itm = document.getElementById(id);
+        var cln = itm.cloneNode(true);
+        var children = cln.children;
+
+        cln.id = cln.id + "_" + i;
+        for (c = 0; c < children.length; c++) {
+            cur = children[c];
+            if (cur.nodeType === 1 && cur.id) {
+                cur.id = cur.id + "_" + i;
+            }
+        }
+
+        containerDiv.appendChild(cln);
+
+/// TODO...generic recursive function.
+         var element = document.getElementById('row_div_checkbox_ID_'+i);
+         if (element != null) {
+            var child = element.children;
+            for (c = 0; c < child.length; c++) {
+                cur = child[c];
+                if (cur.nodeType === 1 && cur.id) {
+                    cur.id = cur.id + "_" + i;
+                }
+            }
+
+             element = document.getElementById('number_entry_hidden_'+i);
+             if (element != null) {
+                var child = element.children;
+                for (c = 0; c < child.length; c++) {
+                    cur = child[c];
+                    if (cur.nodeType === 1 && cur.id) {
+                        cur.id = cur.id + "_" + i;
+                    }
+                }
+            }
+        }
+    }
+
+    function dynamicRadioButton(selectionType) {
+        var questionData = getFromId(questionPos);
+        var arrayLength = questionData.questionType.multipleChoiceOptions.length;
+
+        // Remove all child nodes.
+        removeChildren("containerDiv");
+
+        // Create child nodes based on current question type.
+        for (var i = 0; i < arrayLength; i++) {
+
+            // Clone the associated input row based on type.
+            updateChildren("row_ID_"+selectionType, i);
+
+            // Obtain handle to the radio button.
+            var radioButton = document.getElementById("row_"+selectionType+"_ID_"+i);
+            // Set text label.
+            var label = document.getElementById("row_label_"+selectionType+"_ID_"+i);
+            label.innerHTML = questionData.questionType.multipleChoiceOptions[i].option;
+            // Check if the button (checkbox or radio) was previously selected.
+            if (map.get(questionData.questionType.multipleChoiceOptions[i].modelId) == "true") {
+                radioButton.setAttribute("checked","checked");
+            } else if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId) && selectionType=="checkbox") {
+                // Default the checkbox as checked and display the input number field.
+                radioButton.setAttribute("checked","checked");
+                show('number_entry_hidden_'+i);
+            }
+
+            // update the controls based on type.
+            if (selectionType == 'radio') {
+                radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
+                radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
+                radioButton.setAttribute("name", "radio");  // TODO...if multiple radio buttons can be selected? If yes then drop name.
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
+            } else if (selectionType == "checkbox") {
+
+                // Set the id of the number input field.
+                var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
+                radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
+                radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+                if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId)) {
+                    input.setAttribute("value", map.get(questionData.questionType.multipleChoiceOptions[i].modelId));
+                }
+                
+            }
+        }
+
+        // Set the next onClick function based on the type of control.
+        if (selectionType == "checkbox") {
+          document.getElementById("MultipleChoiceNEXT").onclick = function() { MultipleChoiceNEXT(); };
+        } else {
+          document.getElementById("MultipleChoiceNEXT").onclick = function() { NEXT(); };
+        }
+
+        insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice");
+    }
+
+    function insertDynamicHeader(questionData, dynamicHeaderDiv) {
+        // Check if dynamic header should be added to question.
+        if (questionData.questionType.headerDiv !== undefined) {
+            removeChildren(dynamicHeaderDiv);
+            var itm = document.getElementById(questionData.questionType.headerDiv);
+            var cln = itm.cloneNode(true);
+            var insertPoint = document.getElementById(dynamicHeaderDiv);
+            insertPoint.appendChild(cln);
+        }
+
+    }
+
+</script>
+
+<script language=javascript type="text/javascript">
+
+    var   AUTO_RENEWAL = "R";
+    var      SINGLE_D1 = "SINGLE_D1";
+    var       JOINT_D1 = "JOINT_D1";
+    var      SINGLE_D2 = "SINGLE_D2";
+    var       JOINT_D2 = "JOINT_D2";
+
+    var questionPos = ""
+    var stack = [];
+    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue"];
+
+    function toggleControls(toggle) {
+        dynamicControls.forEach((item) => {
+            if (toggle == "show") show(item); else hide(item);
+        });
+    }
+
+    function canGoBack() {
+        return(stack.length == 0 ? "true" : "false");
+    }
+
+    function BACK() {
+        if (stack.length == 0) {
+            questionPos = data().startQuestion;
+        } else {
+            questionPos = stack.pop();
+        }
+        toggleControls("hide");
+        displayQuestion();
+    }
+
+    // TODO...EXTEND ERROR HANDLING.
+    function resume(model) {
+        hide("demo");
+        map = new Map();
+        stack = [];
+
+        // Populate the model with the resumed data.
+        var tokens = model.split(",");
+        tokens.forEach(token => {
+         var data = token.split(":");
+         map.set(data[0],data[1]);
+         });
+
+         // Build the question stack.
+         var stackData = map.get("stackDATA");
+         if (stackData !== undefined) {
+            var stackTokens = stackData.split("#");
+
+            stackTokens.forEach(position => {
+                stack.push(position);
+            });
+        }
+
+        // Set the current question.
+        questionPos = map.get("currentQuestionPos");
+
+        if (questionPos === undefined) {
+            alert("Failed to resume the application since question is missing!");
+        } else {
+            toggleControls("hide");
+            displayQuestion();
+        }
+    }
+
+    function getModelData() {
+        var dumpData = "";
+        var first = true;
+        var append = "";
+
+        // Record the current question position.
+        map.set("currentQuestionPos", questionPos);
+
+        // Record the stack.
+        var stackData="";
+        // Build the stack.
+        for (i = 0; i < stack.length; i++) {
+            stackData = stackData + stack[i];
+            if (i != stack.length-1) {
+                stackData = stackData + "#";    // TODO...MAGIC CHARACTER!
+            }
+        }
+        // Save the stack into the map.
+        map.set("stackDATA", stackData);
+
+        // De-serialize the map to a string.
+        map.forEach((value, key) => {
+            if (first) {
+                first=false;
+                append="";
+            } else {
+                append=",";
+            }
+            dumpData = dumpData + append + key+":"+value;
+        });
+
+        debugOut(dumpData, "dumpText");
+        return(dumpData);
+    }
+
+    function debugOut(dumpData, element) {
+        var span = document.getElementById(element);
+        text = document.createTextNode(dumpData);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+        return(dumpData);
+    }
+
+    // TODO: Move to debug script
+    function extractAPI() {
+        var apiJson = buildSubmissionPostRequest();
+        var span = document.getElementById("dumpText"),
+        text = document.createTextNode(apiJson);
+        span.innerHTML = ''; // clear existing
+        span.appendChild(text);
+    }
+
+    function getFromId(id) {
+        var questions = data().questions;
+        var arrayLength = questions.length;
+        for (var i = 0; i < arrayLength; i++) {
+            if (questions[i].id == id) {
+                return questions[i];
+            }
+        }
+        // TODO...report failure to native app!!! Include GA alert!
+        alert("FAILED TO FIND ID ["+id+"]!!!");
+    }
+
+    function toggleRadioButton(id) {
+    var radio = document.getElementById(id);
+        if (radio.checked == true) {
+            map.set(id, "true");
+        } else {
+            map.set(id, "false");
+        }
+    }
+
+    // TODO..validation and error handling!
+    function MultipleChoiceNEXT() {
+
+        var questionData = getFromId(questionPos);
+        var arrayLength = questionData.questionType.multipleChoiceOptions.length;
+
+        // Cycle around associated checkbox input fields and check if ticked.
+        for (var i = 0; i < arrayLength; i++) {
+            // Obtain handle to checkbox.
+            var inputField = document.getElementById(questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+            // Check if input field is checked.
+            if (inputField.checked == true) {
+                var element = document.getElementById("row_number_checkbox_ID_"+i)
+                // Obtain the input value for the associated field and update map.
+                var input = element.value;
+                map.set(questionData.questionType.multipleChoiceOptions[i].modelId, input);
+            } else {
+                // Not ticked, remove from map.
+                map.delete(questionData.questionType.multipleChoiceOptions[i].modelId);
+            }
+        }
+
+        // Route to next question.
+        stack.push(questionPos);
+        var question = getFromId(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+        displayQuestion();
+    }
+
+    // TODO...Add validation. Define in future ticket.
+    function NEXT_DECIMAL() {
+        stack.push(questionPos);
+        var question = getFromId(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+
+        var decimalInput = document.getElementById("DecimalInput").value;
+        map.set(question.questionType.modelId, decimalInput+"");
+        displayQuestion();
+    }
+
+    function NEXT(nextId) {
+        var question = getFromId(questionPos);
+        var arrayLength = question.questionType.multipleChoiceOptions.length;
+
+        // TODO: This is temp code to handle Next button. Do not route to Next if no options selected.
+        var enableNext=false;
+        // Cycle around associated checkbox input fields and check if ticked.
+        for (var i = 0; i < arrayLength; i++) {
+            // Obtain handle to checkbox.
+            var inputField = document.getElementById(question.questionType.multipleChoiceOptions[i].modelId).checked;
+            // Check if the control is checked.
+            if (inputField == true) {
+                map.set(question.questionType.multipleChoiceOptions[i].modelId, "true");
+                enableNext = true;
+            } else {
+                map.set(question.questionType.multipleChoiceOptions[i].modelId, "false");
+            }
+        }
+
+        if (enableNext == false) {
+            alert(' Please select one of the options to continue.');
+        } else {
+            stack.push(questionPos);
+            questionPos = question.questionType.nextQuestionId;
+            displayQuestion();
+        }
+    }
+
+    function NEXT_CONTINUE() {
+        var question = getFromId(questionPos);
+        stack.push(questionPos);
+        questionPos = question.questionType.nextQuestionId;
+        displayQuestion();
+    }
+
+    function NEXT_BOOLEAN_CONTINUE() {
+        var question = getFromId(questionPos);
+        if (document.getElementById('boolean_no').checked == true || document.getElementById('boolean_yes').checked == true) {
+            stack.push(questionPos);
+        }
+
+        var route=false;
+        if (document.getElementById('boolean_no').checked == true) {
+            questionPos = question.questionType.noNextQuestionId;
+            route=true;
+        } else if (document.getElementById('boolean_yes').checked == true) {
+            questionPos = question.questionType.yesNextQuestionId;
+            route=true;
+        } else alert('Please select one of the options.');
+
+        if (route) {
+            displayQuestion();
+        }
+    }
+
+    function YES() {
+        var question = getFromId(questionPos);
+        if (question.questionType.modelId !== "undefined") {
+            map.set(question.questionType.modelId, "true");
+        }
+    }
+
+    function NO() {
+        var question = getFromId(questionPos);
+
+        if (question.questionType.modelId !== "undefined") {
+            map.set(question.questionType.modelId, "false");
+        }
+    }
+
+    function startDemo() {
+        toggleControls();
+        hide("demo");
+
+        var renewalType = document.getElementById("RenewalType").value;
+        var hasPartner = document.getElementById("HasPartner").value;
+
+        // Invoke the startup function and supply dummy data. This test data will run through complex set of questions.
+
+        startup(renewalType, hasPartner, "CS700100AD", "1/1/2017", "2/2/2017");
+
+// TODO...ADD THE DATES PY, PY - 1
+// TODO...start / end
+
+//        startup("D1", false, "CS700100AD", "1/1/2017", "2/2/2017");
+//        startup("D1", false, "CS700100AD", "1/1/2017", "2/2/2017");
+//        startup(SINGLE_D2, false, "CS700100AD", "1/1/2017", "2/2/2017");
+    }
+
+    function initQuestion(question, control, header) {
+        var questionOutput = question.question
+
+        // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
+        if (question.previousQuestionOption) {
+            var linkQuestion = getFromId(question.previousQuestionOption);
+            var arrayLength = linkQuestion.questionType.multipleChoiceOptions.length;
+            // Obtain the option name of the selected value!
+
+            var optionValue="";
+            // Cycle around associated checkbox input fields and check if ticked.
+            for (var i = 0; i < arrayLength; i++) {
+                var mapEntry = map.get(linkQuestion.questionType.multipleChoiceOptions[i].modelId);
+                // Check if the control was checked.
+                if (mapEntry !== undefined && mapEntry == "true") {
+                    optionValue = linkQuestion.questionType.multipleChoiceOptions[i].option;
+                    break;
+                }
+            }
+            // Append the output question with the name of the previous selected radio button.
+            questionOutput = questionOutput + optionValue + "?";
+        }
+
+        document.getElementById(header).innerHTML = questionOutput;
+        toggleControls("hide");
+        show(control);
+    }
+
+    function displayQuestion() {
+        // TODO - Add function map and replace if/else.
+        var question = getFromId(questionPos);
+
+        // Trace for current question Id.
+        debugOut(questionPos, "QuestionId");
+        debugOut(question.questionType.type, "QuestionType");
+
+        if (question.questionType.type == "RoutingDecision") {
+            // Routing question - Based on the type of renewal, extract question Id from RoutingDecision question.
+            var renewalType = map.get("renewalType");
+            questionPos = "";
+
+            // Based on the renewal type, route to the next question.
+            if (renewalType == JOINT_D1 || renewalType == JOINT_D2 && question.questionType.JOINT_ROUTE !== undefined) {
+                questionPos = question.questionType.JOINT_ROUTE;
+
+            } else if (renewalType == SINGLE_D2 || renewalType == JOINT_D2) {
+                questionPos = question.questionType.JOINT_D2_ROUTE;
+            }
+
+            if (questionPos == undefined || questionPos == "") {
+                // Route to default question.
+                questionPos = question.questionType.OTHER_ROUTE;
+            }
+
+            displayQuestion();
+
+            return;
+// START JOURNEY CONTROL QUESTIONS!
+        } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
+
+            // This indicates end of journey for auto renewals!
+            toggleControls("hide");
+            hook("JourneyCompleteAutoRenewal");
+            return;
+        } else if (question.questionType.type == "SaveAndComeBackLater") {
+
+            // This indicates end of journey! User has quit.
+            toggleControls("hide");
+            hook("SaveAndComeBackLater");
+            return;
+        } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
+            // Route to Change of Circumstance.
+            toggleControls("hide");
+            hook("RouteToChangeOfCircumstance");
+
+            // Advance the questionPosition to the summary screen.
+            questionPos = "SUMMARY-SCREEN-TODO";
+
+            // Save switch which indicates user routed to CoC.
+            map.set("hasChangeOfCircs", "true");
+            return;
+
+        } else if (question.questionType.type == "SubmitRenewal") {
+            hook("SubmitRenewal");
+
+// END JOURNEY CONTROL QUESTIONS!
+        } else if (question.questionType.type == "Continue") {
+
+            initQuestion(question, 'Continue', 'headerContinue');
+            insertDynamicHeader(question, "dynamicHeader-Continue");
+        } else if (question.questionType.type == "Boolean") {
+
+            initQuestion(question, 'Boolean', 'headerBoolean');
+            insertDynamicHeader(question, "dynamicHeader-Boolean");
+
+            //  Default the value.
+            if (question.questionType.modelId !== undefined) {
+                var checked = map.get(question.questionType.modelId);
+                if (checked !== undefined) {
+                    document.getElementById(checked == "false" ? 'boolean_no' : 'boolean_yes').checked = checked;
+                } else {
+                 document.getElementById('boolean_no').checked = false;
+                 document.getElementById('boolean_yes').checked = false;
+                }
+            } else {
+             document.getElementById('boolean_no').checked = false;
+             document.getElementById('boolean_yes').checked = false;
+            }
+
+        } else if (question.questionType.type == "MultipleChoice") {
+
+            initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
+            dynamicRadioButton("radio");
+        } else if (question.questionType.type == "MultipleChoiceWithNumber") {
+
+            initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
+            dynamicRadioButton("checkbox");
+
+        } else if (question.questionType.type == "Decimal") {
+
+            initQuestion(question, 'Decimal', 'headerDecimal');
+            insertDynamicHeader(question, "dynamicHeader-Decimal");
+
+            // Populate Decimal value from model if exists.
+            var question = getFromId(questionPos);
+            var decimalStore = map.get(question.questionType.modelId);
+            if (decimalStore === undefined) {
+                // Clear any previous entry in the field.
+                document.getElementById('DecimalInput').value = ""
+            } else if (decimalStore != "") {
+                document.getElementById('DecimalInput').value = decimalStore;
+            }
+
+            // TODO...IS THIS FEATURE STILL REQUIRED?
+            // Toggle estimated-income checkbox if modelIdEstimatedIncome element defined in model.
+            hide('estimatedIncomeDiv');
+            if (question.questionType.modelIdEstimatedIncome !== undefined) {
+                var estimatedIncome = map.get(question.questionType.modelIdEstimatedIncome);
+                show('estimatedIncomeDiv');
+                // Set the checked state based on model value.
+                if (estimatedIncome == 'true') {
+                    document.getElementById('estimatedIncomeValue').checked = true;
+                } else {
+                 document.getElementById('estimatedIncomeValue').checked = false;
+                }
+            }
+        } else {
+            alert('Failed to resolve the question type ' + question.questionType.type);
+        }
+
+        // Reset the scroll position when a new question is displayed.
+        window.scrollTo(0, 0);
+    }
+
+
+//*********************************************************************
+//  SUBMISSION CODE
+//*********************************************************************
+
+    var taxableBenefitsModelIds = ["taxableBenefits.bereavement_allowance",
+        "taxableBenefits.carer_allowance",
+        "taxableBenefits.contribution_based_jobseeker_allowance",
+        "taxableBenefits.contribution_based_employment_and_support_allowance",
+        "taxableBenefits.incapacity_benefit"];
+
+    var incomeDetailsAreEstimatedModelIds = [
+        "incomeDetails.self_employed_profit_is_estimated",
+        "incomeDetails.self_employed_loss_is_estimated"];
+
+    var otherIncomesAreEstimatedModelIds = ["otherIncome.rental_profit_is_estimated",
+        "otherIncome.rental_loss_is_estimated",
+        "otherIncome.isOtherHouseholdIncomeEst"];
+
+    var otherHouseholdIncomeModelIds = ["otherIncome.saving_investment_dividend",
+        "otherIncome.pensions", "otherIncome.trusts_settlements_or_estates",
+        "otherIncome.foreign_income", "otherIncome.notional_income",
+        "otherIncome.profit_from_property"];
+
+    function getMapBooleanValue(modelId) {
+        var mapValue = map.get(modelId);
+        var rtn = false;
+
+        if (mapValue !== undefined) {
+            if (mapValue == 'true') {
+                rtn = true;
+            }
+        }
+        return(rtn);
+    }
+
+    function getMapIntValue(key) {
+        var value = map.get(key);
+        return typeof value !== 'undefined' ? Math.floor(parseFloat(value)) : 0;
+    }
+
+    function buildTotal() {
+        function accumulate(total, num) { return total + num;}
+        return [].slice.call(arguments[0]).map(getMapIntValue).reduce(accumulate);
+    }
+
+    function estimatedSeProfits() {
+        return incomeDetailsAreEstimatedModelIds.some(getMapBooleanValue);
+    }
+
+    function estimatedOtherIncome() {
+        return otherIncomesAreEstimatedModelIds.some(getMapBooleanValue);
+    }
+
+    function isEstimatedIncome() {
+        return estimatedOtherIncome() || estimatedSeProfits();
+    }
+
+
+    function addIfNonZero(obj, k, v){
+        if (v !== 0) addProperty(obj, k, v);
+    }
+
+    function addProperty(obj, k, v){
+        if (typeof k !== 'undefined') {obj[k] = v;}
+    }
+
+
+    function buildSubmissionPostRequest() {
+
+        var taxableBenefits = 0;
+        var nino = map.get("nino");
+
+        function getIncomeDetailsJson(previousYear) {
+            var json = {};
+
+            var earningsKey ="incomeDetails.earnings";
+            var companyBenefitsKey ="incomeDetails.companyBenefits";
+            var seProfitsKey ="incomeDetails.seProfits";
+            var benefitsModelIds = taxableBenefitsModelIds;
+            var areEstimatedModelIds = incomeDetailsAreEstimatedModelIds;
+
+            if(typeof previousYear !== 'undefined' && previousYear === PREVIOUS_YEAR_MINUS_1) {
+                benefitsModelIds = previousYearModelIds(benefitsModelIds);
+                areEstimatedModelIds = previousYearModelIds(areEstimatedModelIds);
+                earningsKey = earningsKey+PREVIOUS_YEAR_MINUS_1;
+                companyBenefitsKey = companyBenefitsKey+PREVIOUS_YEAR_MINUS_1;
+                seProfitsKey = seProfitsKey+PREVIOUS_YEAR_MINUS_1;
+            }
+
+            var benefits = buildTotal(benefitsModelIds);
+            var earnings = getMapIntValue(earningsKey);
+            var companyBenefits = getMapIntValue(companyBenefitsKey);
+            var seProfits = getMapIntValue(seProfitsKey);
+
+            if(benefits + earnings + companyBenefits > 0) {
+                addIfNonZero(json, "taxableBenefits", benefits);
+                addIfNonZero(json, "earnings", earnings);
+                addIfNonZero(json, "companyBenefits", companyBenefits);
+            }
+
+            if(seProfits > 0) {
+                addProperty(json, "seProfits", seProfits);
+                addProperty(json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue));
+            }
+
+            return json;
+        }
+
+        function getCertainBenefitsJson() {
+            var json = {};
+            var receivingBenefits = getMapBooleanValue("certainBenefits.receivedBenefits");
+            if(receivingBenefits) {
+                addProperty(json, "receivedBenefits", receivingBenefits);
+                addProperty(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
+                addProperty(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
+                addProperty(json, "esa", getMapBooleanValue("certainBenefits.esa"));
+                addProperty(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
+            } else {
+                addProperty(json, "receivedBenefits", false);
+                addProperty(json, "incomeSupport", false);
+                addProperty(json, "jsa", false);
+                addProperty(json, "esa", false);
+                addProperty(json, "pensionCredit", false);
+            }
+            return json;
+        }
+
+
+        function previousYearModelIds(modelIds) {
+            return modelIds.map(id => id+PREVIOUS_YEAR_MINUS_1);
+        }
+
+        function getOtherIncomeJson(previousYear) {
+            var json = {};
+
+            var modelIds = otherHouseholdIncomeModelIds;
+            if(typeof previousYear !== 'undefined' && previousYear === PREVIOUS_YEAR_MINUS_1) {
+                modelIds = previousYearModelIds(otherHouseholdIncomeModelIds)
+            }
+
+            var otherHouseholdIncome = buildTotal(modelIds);
+            if(otherHouseholdIncome > 0) {
+                addIfNonZero(json, "otherHouseholdIncome", otherHouseholdIncome);
+                addProperty(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+            }
+            return json;
+        }
+
+
+        var renewalType = map.get("renewalType");
+        var submission = {};
+        var renewalDataJson = {};
+
+        renewalDataJson.incomeDetails = getIncomeDetailsJson();
+        renewalDataJson.certainBenefits = getCertainBenefitsJson();
+        submission.hasChangeOfCircs = getMapBooleanValue("hasChangeOfCircs");
+        submission.otherIncome = getOtherIncomeJson();
+
+        if(renewalType !== undefined && renewalType.toUpperCase() === SINGLE_D2) {
+            submission.otherIncomePY1 = getOtherIncomeJson(PREVIOUS_YEAR_MINUS_1);
+            renewalDataJson.incomeDetailsPY1 = getIncomeDetailsJson(PREVIOUS_YEAR_MINUS_1)
+        }
+
+        submission.renewalData = renewalDataJson;
+        return(JSON.stringify(submission));
+    }
+
+    function startup(renewalType, hasPartner, nino, endDate, startDate) {
+        // Initialise globals.
+        stack = [];
+
+        // Add all parameters to map.
+        map.set("renewalType", renewalType);
+        map.set("hasPartner", hasPartner);
+        map.set("nino", nino);
+        map.set("endDate", endDate);
+        map.set("startDate", startDate);
+
+        // Obtain start question from journey.
+        var journey = data();
+        questionPos = journey.startQuestion;
+        // Display the first question.
+        displayQuestion();
+    }
+
+    // Toggle estimatedIncome model value.
+    function setEstimatedIncomeValue() {
+        var questionData = getFromId(questionPos);
+        var radio = document.getElementById('estimatedIncomeValue');
+
+        if (radio.checked == true) {
+            map.set(questionData.questionType.modelIdEstimatedIncome, "true");
+        } else {
+            map.set(questionData.questionType.modelIdEstimatedIncome, "false");
+        }
+    }
+
+
+
+</script>
+
+<script type="text/javascript">
+
+   function hide(id) {
+       var e = document.getElementById(id);
+        e.style.display = 'none';
+   }
+
+   function show(id) {
+       var e = document.getElementById(id);
+            e.style.display = 'block';
+   }
+
+</script>
+
+<script>
+
+    function hook(journeyOutcomeStatus) {
+        // TODO...Hardwired OS functions.
+
+        var nino = map.get("nino");
+
+        var hookResponse = {
+            "journeyOutcomeStatus":journeyOutcomeStatus,
+            "isEstimatedIncome": isEstimatedIncome()
+        };
+
+        var response = JSON.stringify(hookResponse);
+        debugOut(response, "dumpText");
+
+        // IOS callback.
+        try {
+            window.webkit.messageHandlers.iosmessagehandler.postMessage(response);
+        } catch(err) {}
+
+        // Windows callback.
+        try {
+            window.external.notify(response);
+        } catch(err) {}
+
+        // Android callback.
+        try {
+            Android.hook(response);
+        } catch(err) {}
+    }
+
+</script>
+
+</head>
+
+<body>
+<header id="page-header">
+    <h1>Tax Credit Renewal</h1>
+</header>
+<main>
+
+    <!-- MultipleChoice -->
+    <div id="MultipleChoice" style="display: none;">
+        <div id="dynamicHeader-MultipleChoice"></div>
+        <h3 id="headerMultipleChoice" class="question"></h3>
+        <div>
+            <div id="containerDiv" class="container"></div>
+        </div>
+        <input type="button" value="Next" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+    </div>
+
+    <!-- Associated set of input types for containerDiv. -->
+    <div style="display: none;">
+
+        <div id="row_ID_checkbox" class="row">
+            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID" class="col">
+            <div class="col" id="row_div_checkbox_ID">
+                <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
+
+
+                <div id="number_entry_hidden" class="showIfChecked">
+                    <input type="number" id="row_number_checkbox_ID" value="">
+                </div>
+            </div>
+        </div>
+
+        <div id="row_ID_radio" class="row">
+            <input type="checkbox" id="row_radio_ID" name="row_radio_ID" class="col">
+            <label id="row_label_radio_ID" for="row_radio_ID" class="col"></label>
+        </div>
+    </div>
+
+    <!-- Boolean -->
+    <div id="Boolean" style="display: none;">
+        <div id="dynamicHeader-Boolean"></div>
+
+        <h3 id="headerBoolean"></h3>
+        <div class="container">
+            <div class="row">
+                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" class="col">
+                <label for="boolean_yes" class="col">Yes</label>
+            </div>
+            <div class="row">
+                <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" class="col">
+                <label for="boolean_no" class="col">No</label>
+            </div>
+        </div>
+        <input type="button" value="Next" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+        
+
+    </div>
+    <!-- Continue -->
+    <div id="Continue" style="display: none;">
+        <div id="dynamicHeader-Continue"></div>
+
+        <h3 id="headerContinue"></h3>
+        <input type="button" value="Yes" onClick="javascript:NEXT_CONTINUE()" class="primary">
+        <input type="button" value="Come back later" onClick="javascript:BACK()" class="secondary">
+    </div>
+
+
+    <!-- Decimal Input -->
+    <div id="Decimal" style="display: none;">
+        <div id="dynamicHeader-Decimal"></div>
+
+        <label id="headerDecimal" for="DecimalInput"></label>
+        <input type="number" id="DecimalInput">
+        <br>
+
+        <!-- Only displayed if model defines modelIdEstimatedIncome attribute. -->
+        <div id="estimatedIncomeDiv" style="display: none;">
+            <div class="row">
+                <input type="checkbox" id="estimatedIncomeValue" name="estimatedIncomeValue" onClick="javascript:setEstimatedIncomeValue()" class="col">
+                <label for="estimatedIncomeValue" class="col">Estimated Income</label>
+            </div>
+        </div>
+
+        <input type="button" value="Next" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <input type="button" value="Back" onClick="javascript:BACK()" class="back">
+
+
+    </div>
+
+    <!-- Dynamic header DIV's -->
+    <div style="display: none;">
+
+
+        <div id="auto-renewal-header">
+
+            <!-- CSS DEV: Please see example layout https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/auto-joint/do_you_want_to_renew_now -->
+            <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
+            <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
+            <br>
+            <span>Your renewal pack should arrive by 30 June 2016. </span>
+            <br>
+            <br>
+        </div>
+
+        <div id="benefits-and-income-intro">
+            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+            <h2>Completing your review</h2>
+            <p>Your information will be saved as you progress.
+                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
+            </p>
+            <p>This review is divided into 3 parts.</p>
+            <ul>
+                <li><h4>Part 1</h4>
+                Your benefits and income
+                </li>
+                <li><h4>Part 2</h4>
+                Other household income, such as income from property</li>
+                <li><h4>Part 3</h4>
+                Report any changes to circumstances</li>
+            </ul>
+        </div>
+
+
+        <div id="part-1-your-benefits-and-income">
+
+            <!-- CSS DEV: https://tax-credits-renewals-prototype.herokuapp.com/iterate-2016/sprint-27/singleD1/intro -->
+            <h2>Part 1: Your benefits and income</h2>
+            <h3>You will be asked about:</h3>
+            <ul>
+                <li>benefits you claimed</li>
+                <li>income from your employment and self-employment</li>
+            </ul>
+
+            <h3>You may need:</h3>
+            <ul>
+                <li><h4>Your benefit letters</h4>
+            Showing the amounts you received</li>
+
+            <li><h4>Your P60</h4>
+            For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
+
+            <li><h4>Your P11D or P9D</h4>
+            For company benefits you got. Also known as 'benefits in kind'</li>
+
+            <li><h4>Your P45</h4>
+            For any job you had that ended</li>
+
+            <li><h4>Your Self Assessment returns</h4>
+            For your self-employment income</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div>
+        <div id="demo">
+
+            <div>
+                <label>Renewal Type</label>
+                <select id="RenewalType">
+                    <option value="R">Auto Renewal</option>
+                    <option value="D1">Single D1</option>
+                    <option value="D2">Joint D2</option>
+                </select>
+                <label>Has Partner</label>
+                <select id="HasPartner">
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+            <br>
+            <input type="button" value="Start Application" onClick="javascript:startDemo()">
+        </div>
+
+        <br>
+        <br>
+
+
+        <h3>Question Trace</h3>
+        <br>
+        <div>
+            <b>Current Question:</b>
+            <br>
+            <div>
+                <b><label>Question Id:</label></b>
+                <span id="QuestionId"></span>
+            </div>
+            <div>
+                <label>Question Type:</label>
+                <span id="QuestionType"></span>
+            </div>
+        </div>
+        <br>
+
+
+        <input type="button" value="Initialise model" onClick="javascript:resume('')">
+        <input type="button" value="Extract Model" onClick="javascript:getModelData()">
+        <input type="button" value="API" onClick="javascript:extractAPI()">
+
+        <div id="dumpDiv">
+            <b><span>Debug</span></b>
+            <br><br>
+            <span id="dumpText"></span>
+        </div>
+    </div>
+</main>
+</body>
+
+<script language=javascript type="text/javascript">
+
+    // Resolve associated questions for renewal flow.
+    var builtData="";
+    function data() {
+
+        if (builtData) {
+            return(builtData);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // QUESTIONS START
+
+        var jointApplicant = [
+                    {
+                        "id": "Partner benefits & income intro",
+                        "question": "Partner benefits & income intro",
+                        "questionType": {
+                          "type": "Continue",
+//                          "headerDiv": "benefits-and-income-intro", TODO...
+                          "nextQuestionId": "Did partner get any untaxed benefits?"
+                        }
+                    },
+
+
+                        // D1 ONLY
+                        {
+                            "id": "Did partner get any untaxed benefits?",
+                            "question": "Did partner get any untaxed benefits?",
+                            "questionType": {
+                              "type": "Boolean",
+                              "yesNextQuestionId": "Which untaxed benefits did partner get",
+                              "noNextQuestionId": "Was partner employed?",
+                              "modelId": "partner.certainBenefits.receivedBenefits"
+                            }
+                        },
+
+
+                            {
+                                "id": "Which untaxed benefits did partner get",
+                                "question": "Which untaxed benefits did partner get?",
+                                "questionType": {
+
+                                    "type": "MultipleChoice",
+                                    "multipleChoiceOptions": [
+                                        {
+                                            "option": "Income-based Jobseeker\'s Allowance",
+                                            "modelId": "partner.certainBenefits.jsa",
+                                            "questionId": "jobseeker"
+                                        },
+                                        {
+                                            "option": "Income-related Employment and Support Allowance",
+                                            "modelId": "partner.certainBenefits.esa",
+                                            "questionId": "support_allowance"
+                                        },
+                                        {
+                                            "option": "Income Support",
+                                            "modelId": "partner.certainBenefits.incomeSupport",
+                                            "questionId": "income_support"
+                                        },
+                                        {
+                                            "option": "Pension Credit",
+                                            "modelId": "partner.certainBenefits.pensionCredit",
+                                            "questionId": "pension_credit"
+                                        }
+                                    ],
+                                    "nextQuestionId": "Does partner still get this"
+                                    }
+                                },
+                            {
+                                "id": "Does partner still get this",
+                                "previousQuestionOption" : "Which untaxed benefits did partner get",
+
+                                "question": "Does partner still get this ",
+                                "questionType": {
+                                  "type": "Boolean",
+                                  "yesNextQuestionId": "Did you get any other household income",
+                                  "noNextQuestionId": "Was partner employed?",
+                                  "modelId": "partner.certainBenefits.Does partner still get this benefit"
+                                }
+                            },
+
+                        {
+                            "id": "Was partner employed?",
+                            "question": "Was partner employed?",
+                            "questionType": {
+                              "type": "Boolean",
+                              "yesNextQuestionId": "How much employed income did partner get?",
+                              "noNextQuestionId": "Was partner self-employed?",
+                              "modelId": "partner.incomeDetails.Was partner employed"
+                            }
+                        },
+
+                            {
+                                "id": "How much employed income did partner get?",
+                                "question": "How much employed income did partner get?",
+                                "questionType": {
+                                  "type": "Decimal",
+        //                          "headerDiv": "benefits-and-income-intro", TODO...
+                                  "nextQuestionId": "Did partner get any company benefits?",
+                                  "modelId": "partner.incomeDetails.earnings"
+                                }
+                            },
+
+
+                            {
+                                "id": "Did partner get any company benefits?",
+                                "question": "Did partner get any company benefits?",
+                                "questionType": {
+                                  "type": "Boolean",
+                                  "yesNextQuestionId": "How much company benefit did partner get?",
+                                  "noNextQuestionId": "Was partner self-employed?",
+                                  "modelId": "partner.incomeDetails.Did partner get any company benefits"
+                                }
+                            },
+
+                              {
+                                "id": "How much company benefit did partner get?",
+                                "question": "How much company benefit did partner get?",
+                                "questionType": {
+                                  "type": "Decimal",
+                                  "nextQuestionId": "Was partner self-employed?",
+                                  "modelId": "partner.incomeDetails.companyBenefits"
+                                }
+                              },
+
+                        {
+                            "id": "Was partner self-employed?",
+                            "question": "Was partner self-employed?",
+                            "questionType": {
+                              "type": "Boolean",
+                              "yesNextQuestionId": "Did partner make profit from self-employment?",
+                              "noNextQuestionId": "Did partner get any taxable benefits?",
+                              "modelId": "partner.incomeDetails.Was partner self-employed"
+                            }
+                        },
+
+                            {
+                                "id": "Did partner make profit from self-employment?",
+                                "question": "Did partner make profit from self-employment?",
+                                "questionType": {
+                                  "type": "Boolean",
+                                  "yesNextQuestionId": "How much profit did partner make from self-employment?",
+                                  "noNextQuestionId": "Is partner self-employment loss estimated?",
+                                  "modelId": "partner.incomeDetails.Did partner make profit from self-employment"
+                                }
+                            },
+
+
+                                {
+                                    "id": "Is partner self-employment loss estimated?",
+                                    "question": "Is partner self-employment loss estimated?",
+                                    "questionType": {
+                                      "type": "Boolean",
+                                      "yesNextQuestionId": "Did partner get any taxable benefits?",
+                                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                                      "modelId": "partner.incomeDetails.self_employed_loss_is_estimated"
+                                    }
+                                },
+
+                                {
+                                    "id": "Is partner self-employment profit estimated?",
+                                    "question": "Is partner self-employment profit estimated?",
+                                    "questionType": {
+                                      "type": "Boolean",
+                                      "yesNextQuestionId": "Did partner get any taxable benefits?",
+                                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                                      "modelId": "partner.incomeDetails.seProfits"
+                                    }
+                                },
+
+
+                                  {
+                                    "id": "How much profit did partner make from self-employment?",
+                                    "question": "How much profit did partner make from self-employment?",
+                                    "questionType": {
+                                      "type": "Decimal",
+                                      "nextQuestionId": "Is partner self-employment profit estimated?",
+                                      "modelId": "partner.incomeDetails.How much profit did partner make from self-employment"
+                                    }
+                                  },
+
+                                {
+                                    "id": "Is partner self-employment profit estimated?",
+                                    "question": "Is partner self-employment profit estimated?",
+                                    "questionType": {
+                                      "type": "Boolean",
+                                      "yesNextQuestionId": "Did partner get any taxable benefits?",
+                                      "noNextQuestionId": "Did partner get any taxable benefits?",
+                                      "modelId": "partner.incomeDetails.self_employed_profit_is_estimated"
+                                    }
+                                },
+
+
+                                {
+                                    "id": "Did partner get any taxable benefits?",
+                                    "question": "Did partner get any taxable benefits?",
+                                    "questionType": {
+                                      "type": "Boolean",
+                                      "yesNextQuestionId": "Select partner taxable benefits and enter amount",
+                                      "noNextQuestionId": "Did you get any other household income",
+                                      "modelId": "renewalData.Did partner get any taxable benefits"
+                                    }
+                                },
+
+                    {
+                        "id": "Select partner taxable benefits and enter amount",
+                        "question": "Select partner taxable benefits and enter amount",
+                        "questionType": {
+                        "type": "MultipleChoiceWithNumber",
+                            "multipleChoiceOptions": [
+                                {
+                                    "option": "Bereavement Allowance",
+                                    "modelId": "partner.taxableBenefits.bereavement_allowance",
+                                    "questionId": "bereavement_allowance"
+                                },
+                                {
+                                    "option": "Carer Allowance",
+                                    "modelId": "partner.taxableBenefits.carer_allowance",
+                                    "questionId": "carer_allowance"
+                                },
+                                {
+                                    "option": "Contribution-based Jobseeker Allowance",
+                                    "modelId": "partner.taxableBenefits.contribution_based_jobseeker_allowance",
+                                    "questionId": "contribution_based_jobseeker_allowance"
+                                },
+                                {
+                                    "option": "Contribution-based Employment and Support Allowance",
+                                    "modelId": "partner.taxableBenefits.contribution_based_employment_and_support_allowance",
+                                    "questionId": "contribution_based_employment_and_support_allowance"
+                                },
+                                {
+                                    "option": "Incapacity Benefit",
+                                    "modelId": "partner.taxableBenefits.incapacity_benefit",
+                                    "questionId": "incapacity_benefit"
+                                }
+                            ],
+                        "nextQuestionId": "Did you get any other household income"
+                        }
+                    }
+                ];
+
+
+                var singleApplicant = [
+
+                    {
+                        "id": "1",                  // TODO...NAMING
+                        "question": "",
+                        "questionType": {
+                          "type": "Continue",
+                          "headerDiv": "benefits-and-income-intro",
+                          "nextQuestionId": "Benefits & Income - intro"
+                        }
+                    },
+
+                    {
+                        "id": "Benefits & Income - intro",
+                        "question": "",
+                        "questionType": {
+                          "type": "Continue",
+                          "headerDiv": "part-1-your-benefits-and-income",
+                          "nextQuestionId": "Did you get any untaxed benefits"
+                        }
+                    },
+//====================================================================
+// Benefits and income, maps to CERTAIN-BENEFITS!
+                    {
+                        "id": "Did you get any untaxed benefits",
+                        "question": "Did you get any of these benefits for the whole time between 11 January 2017 and 5 April 2017?",
+                        "questionType": {
+                            "type": "Boolean",
+                            "yesNextQuestionId": "Which untaxed benefit did you get",
+                            "noNextQuestionId": "Were you employed",
+                            "modelId": "certainBenefits.receivedBenefits"
+                        }
+                    },
+
+                    {
+                        "id": "Which untaxed benefit did you get",
+                        "question": "Which did you get for the whole time between 6 April 2016 to 5 April 2017?",
+                        "questionType": {
+                        "type": "MultipleChoice",
+                        "multipleChoiceOptions": [
+                            {
+                            "option": "Income-based Jobseeker\'s Allowance",
+                            "modelId": "certainBenefits.jsa",
+                            "questionId": "jobseeker"
+                            },
+                            {
+                            "option": "Income-related Employment and Support Allowance",
+                            "modelId": "certainBenefits.esa",
+                            "questionId": "support_allowance"
+                            },
+                            {
+                            "option": "Income Support",
+                            "modelId": "certainBenefits.incomeSupport",
+                            "questionId": "income_support"
+                            },
+                            {
+                            "option": "Pension Credit",
+                            "modelId": "certainBenefits.pensionCredit",
+                            "questionId": "pension_credit"
+                            }
+                        ],
+                        "nextQuestionId": "Do you still get this benefit"
+                        }
+                    },
+
+                  {
+                    "id": "Do you still get this benefit",
+                    "question": "Do you still get ",
+                    "previousQuestionOption" : "Which untaxed benefit did you get",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "ROUTING QUESTION DECISION",
+                      "noNextQuestionId": "Were you employed",
+                      "modelId": "certainBenefits.Do you still get this benefit"
+                    }
+                  },
+
+//====================================================================
+// Other household income. OTHER-INCOME
+
+                  {
+                    "id": "Did you get any other household income",
+                    "question": "Part 2: Other household income - Did you get any of these sources of income between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Select other income sources & enter amount",
+                      "noNextQuestionId": "Did you get any income from property rental",
+                      "modelId": "otherIncome.Did you get any other household income"
+                    }
+                  },
+
+                  {
+                    "id": "Select other income sources & enter amount",
+                    "question": "Which of these benefits did you get at the time between 6 April 2014 to 5 April 2015?",
+                    "questionType": {
+                      "type": "MultipleChoiceWithNumber",
+                      "multipleChoiceOptions": [
+                        {
+                          "option": "Savings, investments and dividends",
+                          "modelId": "otherIncome.saving_investment_dividend",
+                          "questionId": "saving_investment_dividend"
+                        },
+                        {
+                          "option": "Pensions",
+                          "modelId": "otherIncome.pensions",
+                          "questionId": "pensions"
+                        },
+                        {
+                          "option": "Trusts, settlements or estates",
+                          "modelId": "otherIncome.trusts_settlements_or_estates",
+                          "questionId": "trusts_settlements_or_estates"
+                        },
+                        {
+                          "option": "Foreign income",
+                          "modelId": "otherIncome.foreign_income",
+                          "questionId": "foreign_income"
+                        },
+                        {
+                          "option": "Notional income",
+                          "modelId": "otherIncome.notional_income",
+                          "questionId": "notional_income"
+                        }
+
+                      ],
+                      "nextQuestionId": "Are any of the income amounts estimated"
+                    }
+                  },
+
+
+                  {
+                    "id": "Are any of the income amounts estimated",
+                    "question": "Are any of your sources of income amounts estimated?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did you get any income from property rental",
+                      "noNextQuestionId": "Did you get any income from property rental",
+                      "modelId": "otherIncome.isOtherHouseholdIncomeEst"
+                    }
+                  },
+
+//====================================================================
+// Property
+
+                  {
+                    "id": "Did you get any income from property rental",
+                    "question": "Did you get any income between 6 April 2016 and 5 April 2017 from renting out property?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did you make a profit from property rental",
+                      "noNextQuestionId": "ROUTING DECISION COC", //"Report any changes",
+                      "modelId": "otherIncome.Did you get any income from property rental"
+                    }
+                  },
+
+
+                  {
+                    "id": "Did you make a profit from property rental",
+                    "question": "Did you make a profit from renting out property between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Property rental profit - enter amount",
+                      "noNextQuestionId": "Is property rental loss estimated",
+                      "modelId": "otherIncome.Did you make a profit from property rental"
+                    }
+                  },
+
+                  {
+                    "id": "Is property rental loss estimated",
+                    "question": "Is the loss from renting out property an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "ROUTING DECISION COC",
+                      "noNextQuestionId": "ROUTING DECISION COC",
+                      "modelId": "otherIncome.rental_loss_is_estimated"
+                    }
+                  },
+
+                  {
+                    "id": "Property rental profit - enter amount",
+                    "question": "How much profit did you make from renting out property between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "Is property rental profit estimated",
+                      "modelId": "otherIncome.profit_from_property"
+                    }
+                  },
+
+
+                  {
+                    "id": "Is property rental profit estimated",
+                    "question": "Is the profit from renting out property an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "ROUTING DECISION COC",
+                      "noNextQuestionId": "ROUTING DECISION COC",
+                      "modelId": "otherIncome.rental_profit_is_estimated"
+                    }
+                  },
+
+
+                    // Decision!
+                  {
+                    "id": "ROUTING DECISION COC",
+                    "question": "Routing decision function",
+                    "questionType": {
+                      "type": "RoutingDecision",
+                        "JOINT_ROUTE": "Report any changes",
+                        "JOINT_D2_ROUTE": "Benefits & Income - intro", // Cycle to collect PY
+                        "OTHER_ROUTE": "Report any changes"
+                    }
+                  },
+
+//====================================================================
+// Report changes
+// NOTE: NO MODEL ID FOR THIS QUESTION. ALWAYS CLEARED AND USER HAS TO RE-SELECT. See coc.report-yes which is the global flag.
+
+                  {
+                    "id": "Report any changes",
+                    "question": "Report any changes",
+                    "questionType": {
+
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Native-route-to-CoC",
+                      "noNextQuestionId": "SUMMARY-SCREEN-TODO"
+                    }
+                  },
+
+// TODO...Finish off CoC handling!
+                {
+                    "id": "Native-route-to-CoC",
+                    "question": "Route to change Of Circumstance",
+                    "questionType": {
+                      "type": "RouteToChangeOfCircumstance"
+                    }
+                },
+                {
+                    "id": "Native-submit-renewal",
+                    "question": "Submit the renewal",
+                    "questionType": {
+                      "type": "SubmitRenewal"
+                    }
+                },
+                {
+                    "id": "save-and-exit",
+                    "question": "SaveAndComeBackLater",
+                    "questionType": {
+                      "type": "SaveAndComeBackLater"
+                    }
+                },
+
+                  {
+                    "id": "SUMMARY-SCREEN-TODO",    // TMP SUMMARY SCREEN!!!
+                    "question": "SUMMARY - THIS IS JUST A DEMO SCREEN AND NOT complete",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Native-submit-renewal",
+                      "noNextQuestionId": "save-and-exit"
+                    }
+                  },
+
+
+//====================================================================
+// Employment!
+
+                  {
+                    "id": "Were you employed",
+                    "question": "Were you employed as an employee at any time between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "How much employed income",
+                      "noNextQuestionId": "Were you self employed",
+                      "modelId": "incomeDetails.Were you employed"   // TODO...UPDATE MODELS TO REFLECT THE QUESTION!
+                    }
+                  },
+
+                  {
+                    "id": "How much employed income",
+                    "question": "How much did you earn from all of your jobs as an employee between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "Did you get any company benefits",
+                      "modelId": "incomeDetails.earnings"
+                    }
+                  },
+                  {
+                    "id": "Did you get any company benefits",
+                    "question": "Did you receive company benefits between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "How much company benefit",
+                      "noNextQuestionId": "Were you self employed",
+                      "modelId": "incomeDetails.Did you get any company benefits"
+                    }
+                  },
+
+                  {
+                    "id": "How much company benefit",
+                    "question": "How much did you receive in company benefits between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "Were you self employed",
+                      "modelId": "incomeDetails.companyBenefits"
+                    }
+                  },
+                  {
+                    "id": "Were you self employed",
+                    "question": "Were you self-employed at any time between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did you make a profit from self-employment",
+                      "noNextQuestionId": "Did you get any taxable benefits",
+                      "modelId": "incomeDetails.Were you self employed"      // TODO...RESET/CLEAR renewalData.employee.self-employment-profit
+                    }
+                  },
+
+                  {
+                    "id": "Did you make a profit from self-employment",
+                    "question": "Did you make a profit from your self-employment between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "How much profit from self-employment",
+                      "noNextQuestionId": "Is the self-employed loss estimated",
+                      "modelId": "incomeDetails.Did you make a profit from self-employment"          // NO, then set renewalData.employee.self-employment-profit to 0
+                    }
+                  },
+                  {
+                    "id": "Is the self-employed loss estimated",
+                    "question": "Is your self-employed loss an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did you get any taxable benefits",
+                      "noNextQuestionId": "Did you get any taxable benefits",
+                      "modelId": "incomeDetails.self_employed_loss_is_estimated"
+                    }
+                  },
+
+// *** seProfits - IF NOT SET THEN DEFAULT TO 0 -
+
+                  {
+                    "id": "How much profit from self-employment",
+                    "question": "How much self-employed profit did you make between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "Decimal",
+                      "nextQuestionId": "Is the self-employed profit estimated",
+                      "modelId": "incomeDetails.seProfits"
+                    }
+                  },
+
+
+// *** seProfitsEstimated
+                  {
+                    "id": "Is the self-employed profit estimated",
+                    "question": "Is your self-employed profit amount an estimate?",
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Did you get any taxable benefits",
+                      "noNextQuestionId": "Did you get any taxable benefits",
+                      "modelId": "incomeDetails.self_employed_profit_is_estimated"
+                    }
+                  },
+
+
+                  {
+                    "id": "ROUTING QUESTION DECISION",
+                    "question": "Routing decision",
+
+                    "questionType": {
+                      "type": "RoutingDecision",
+
+                        "JOINT_ROUTE": "Partner benefits & income intro",
+
+                        "OTHER_ROUTE": "Did you get any other household income" // TODO...IS THIS USED!!! CORRECT ROUTING IF PARTNER NOT DEFINED!
+                    }
+                },
+
+// *** 1st applicant taxable benefits - NO ANSWER - route to "Did you get any other household income"
+
+                  {
+                    "id": "Did you get any taxable benefits",
+                    "question": "Did you get any of these benefits between 6 April 2016 and 5 April 2017? Bereavement Allowance...add div section",
+
+                    "questionType": {
+                      "type": "Boolean",
+                      "yesNextQuestionId": "Select taxable benefits and enter amount",
+                      "noNextQuestionId": "ROUTING QUESTION DECISION",
+                      "modelId": "renewalData.Did you get any taxable benefits"
+                    }
+                  },
+
+                  {
+                    "id": "Select taxable benefits and enter amount",
+                    "question": "What benefits did you get between 6 April 2016 and 5 April 2017?",
+                    "questionType": {
+                      "type": "MultipleChoiceWithNumber",
+                      "multipleChoiceOptions": [
+                        {
+                          "option": "Bereavement Allowance",
+                          "modelId": "taxableBenefits.bereavement_allowance",
+                          "questionId": "bereavement_allowance"
+                        },
+                        {
+                          "option": "Carer Allowance",
+                          "modelId": "taxableBenefits.carer_allowance",
+                          "questionId": "carer_allowance"
+                        },
+                        {
+                          "option": "Contribution-based Jobseeker Allowance",
+                          "modelId": "taxableBenefits.contribution_based_jobseeker_allowance",
+                          "questionId": "contribution_based_jobseeker_allowance"
+                        },
+                        {
+                          "option": "Contribution-based Employment and Support Allowance",
+                            "modelId": "taxableBenefits.contribution_based_employment_and_support_allowance",
+                          "questionId": "contribution_based_employment_and_support_allowance"
+                        },
+                        {
+                          "option": "Incapacity Benefit",
+                          "modelId": "taxableBenefits.incapacity_benefit",
+                          "questionId": "incapacity_benefit"
+                        }
+                      ],
+                      "nextQuestionId": "ROUTING QUESTION DECISION", // "Were you employed" // TODO...
+                    }
+                  }
+                ];
+
+        // QUESTIONS END
+        ////////////////////////////////////////////////////////////////////////////////
+
+        var nino = map.get("nino");
+        var type = map.get("renewalType");
+        var hasPartner = map.get("hasPartner");
+
+        // Create journey based on renewal type.
+        if (type == AUTO_RENEWAL) {
+            renewalType = AUTO_RENEWAL;
+        } else if (hasPartner == false || hasPartner == "false") {
+            if (type == "D1") {
+                renewalType = SINGLE_D1;
+            } else {
+                renewalType = SINGLE_D2;
+            }
+        } else {
+            if (type == "D1") {
+                renewalType = JOINT_D1;
+            } else {
+                renewalType = JOINT_D2;
+            }
+        }
+        // Set the renewalType.
+        map.set("renewalType", renewalType);
+
+
+
+        // NOTE: Based on the type of renewal drives how the questions are defined. The renewal type collects either 1
+        // or 2 years worth of data for 1st and 2nd applicant.
+        // The application defines two sets of questions which are SingleApplicant and JointApplicant. By default
+        // SingleApplicant and JointApplicant define the PY (previous year) route. To collect the PY-1 questions, the
+        // same set of SingleApplicant and JointApplicant questions are cloned, and the questions are transformed to collect PY-1 data.
+
+        // The renewal type joint-d2 collects 2 years worth of data for both single and joint applicant. The questions are
+        // generated from the steps below.
+        //  1. Build initial set of questions from combining SingleApplicant and JointApplicant questions.
+        //  2. Cycle through all questions and transform questions to collect PY-1 data. The question id's, routing and modelId attributes are updated to append PY_1.
+        //  3. Append SingleApplicant and JointApplicant questions which represent PY data collection.
+        //  4. The RoutingDecision questions are updated to wire the PY-1 and PY questions.
+
+
+        // Build question journey based on the renewal type.
+        if (renewalType !== undefined && renewalType.toUpperCase() == AUTO_RENEWAL) {
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // AUTO RENEWAL
+            ////////////////////////////////////////////////////////////////////////////////
+
+            var autoRenewalJourney = {
+                "formType":"AutoRenewal",
+                "startQuestion":"a1",
+                "CreationData":"12/12/2017:10:13",
+                "questions": [
+                    {
+                        "id": "a1",
+                        "question": "Do you need to report any changes to the details shown?",
+                        "questionType": {
+                          "type": "Boolean",
+                          "yesNextQuestionId": "1", // Route to single applicant questions.
+                          "noNextQuestionId": "a2", // End of journey.
+                          "modelId": "renewalData.auto-renewal"
+                        }
+                    },
+                    {
+                        "id": "a2",
+                        "question": "Renewal complete",
+                        "questionType": {
+                          "type": "JourneyCompleteAutoRenewal"
+                        }
+                    }
+                ]
+            };
+
+            // Add singleApplicant questions to auto-renewal questions.
+            autoRenewalJourney.questions = autoRenewalJourney.questions.concat(singleApplicant);
+            builtData=autoRenewalJourney;
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D1) {
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // SINGLE D1
+            ////////////////////////////////////////////////////////////////////////////////
+
+            var singleApplicantJourney = {
+                "formType":"SingleApplicant",
+                "startQuestion":"1",                // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+            singleApplicantJourney.questions = singleApplicant;
+            builtData=singleApplicantJourney;
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D1) {
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // Joint D1 - 1st applicant and 2nd applicant.
+            ////////////////////////////////////////////////////////////////////////////////
+
+            var jointApplicantJourney = {
+                "formType":"SingleApplicant",
+                "startQuestion": "1",   // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+            // Add singleApplicant questions to jointApplicantJourney.
+            jointApplicantJourney.questions = jointApplicant.concat(singleApplicant);
+            builtData=jointApplicantJourney;
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == SINGLE_D2) {
+
+            ///////////////////////////////////////////////////////
+            // SINGLE D2 - 2 years PY
+            ///////////////////////////////////////////////////////
+
+            var single2YearsJourney = {
+                "formType":"SingleApplicant2Years",
+                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+            // Build PY-1 questions.
+            single2YearsJourney.questions = JSON.parse(JSON.stringify(singleApplicant));
+            updateQuestionsForPreviousYear(single2YearsJourney.questions);
+
+            // Add PY questions.
+            singleApplicant.forEach((question) => {
+                single2YearsJourney.questions.push(question);
+            });
+
+
+            // Rewire journeys single applicant to route to "Report any changes".
+            builtData=single2YearsJourney;
+            var override = getFromId("ROUTING DECISION COC");   // TODO...MAGIC!
+            // Override the JOINT_D2_ROUTE and route to "Report any changes". 2nd (PY data) time the routing question is invoked will be on the PY path.
+            override.questionType.JOINT_D2_ROUTE = "Report any changes";
+
+        } else if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
+
+            ///////////////////////////////////////////////////////
+            // JOINT D2 - 2 years + partner
+            ///////////////////////////////////////////////////////
+
+            var joint2YearsJourney = {
+                "formType":"Joint D2",
+                "startQuestion": "1"+PREVIOUS_YEAR_MINUS_1, // TODO...fix fix reference to question '1'.
+                "CreationData":"12/12/2017:10:13",
+                "questions": []
+                };
+
+
+            // Add PY-1 1st applicant
+            joint2YearsJourney.questions = JSON.parse(JSON.stringify(singleApplicant));
+            // Add PY-1 2nd applicant
+            var jointClone = JSON.parse(JSON.stringify(jointApplicant));
+            jointClone.forEach((question) => {
+                joint2YearsJourney.questions.push(question);
+            });
+            // Override questions and add PY-1 id's to all question route ids.
+            updateQuestionsForPreviousYear(joint2YearsJourney.questions);
+
+            // Add PY 1st application journey to joint2YearsJourney.
+            singleApplicant.forEach((question) => {
+                joint2YearsJourney.questions.push(question);
+            });
+            // Add PY 2nd applicant journey to joint2YearsJourney.
+            jointApplicant.forEach((question) => {
+                joint2YearsJourney.questions.push(question);
+            });
+
+            builtData=joint2YearsJourney;
+
+            // Override routing. Route to partner benefits for previous year.
+            var overrideA = getFromId("ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1);
+            overrideA.questionType.JOINT_ROUTE = "Benefits & Income - intro";      // Route to 2nd year data collection.
+
+            var override = getFromId("ROUTING DECISION COC");
+            // Override the SINGLE_D2_ROUTE and route to "Report any changes". 2nd time the function is invoked will be on the PY path.
+            override.questionType.JOINT_D2_ROUTE = "Report any changes";
+        } else {
+            // TODO...FAILURE!!!
+            alert(' Failed to resolve journey');
+        }
+
+        // Debug code to dump generated questions!
+//        var tmp="";
+//        var count=0;
+//        builtData.questions.forEach((question) => {
+//            tmp = tmp + " Id:"+count+ ":"+ question.id;
+//            count = count + 1;
+//        });
+//        debugOut(tmp, "dumpText");
+//        alert(" number of questions : " + builtData.questions.length);
+
+        return(builtData);
+}
+
+var PREVIOUS_YEAR_MINUS_1 = "_PY_1";
+
+function updateQuestionsForPreviousYear(questions) {
+
+    questions.forEach((question) => {
+
+        question.id +=  PREVIOUS_YEAR_MINUS_1;
+
+        if (question.previousQuestionOption) {
+            question.previousQuestionOption += PREVIOUS_YEAR_MINUS_1;
+        }
+
+        if (question.questionType.modelId !== undefined) {
+            question.questionType.modelId += PREVIOUS_YEAR_MINUS_1;
+        }
+
+        if (question.questionType.type == "Boolean") {
+              question.questionType.yesNextQuestionId += PREVIOUS_YEAR_MINUS_1;
+              question.questionType.noNextQuestionId += PREVIOUS_YEAR_MINUS_1;
+
+        } else if (question.questionType.type == "MultipleChoiceWithNumber" || question.questionType.type == "MultipleChoice") {
+            var arrayLength = question.questionType.multipleChoiceOptions.length;
+            // Cycle around associated checkbox input fields and check if ticked.
+            for (var i = 0; i < arrayLength; i++) {
+                question.questionType.multipleChoiceOptions[i].modelId += PREVIOUS_YEAR_MINUS_1;
+            }
+
+          question.questionType.nextQuestionId += PREVIOUS_YEAR_MINUS_1;
+
+        } else if (question.questionType.type == "RoutingDecision") {
+             question.questionType.JOINT_ROUTE += PREVIOUS_YEAR_MINUS_1;
+             question.questionType.OTHER_ROUTE += PREVIOUS_YEAR_MINUS_1;
+        } else {
+          question.questionType.nextQuestionId += PREVIOUS_YEAR_MINUS_1;
+        }
+    });
+
+}
+
+</script>
+</html>

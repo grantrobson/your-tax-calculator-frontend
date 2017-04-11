@@ -31,6 +31,10 @@
         return(rtn);
     }
 
+    function isDefined(variable) {
+        return typeof variable !== 'undefined'
+    }
+
     function getMapIntValue(key) {
         var value = map.get(key);
         return typeof value !== 'undefined' ? Math.floor(parseFloat(value)) : 0;
@@ -132,14 +136,19 @@
             var json = {};
 
             var modelIds = otherHouseholdIncomeModelIds;
-            if(typeof previousYear !== 'undefined' && previousYear === PREVIOUS_YEAR_MINUS_1) {
+            if(isDefined(previousYear) && previousYear === PREVIOUS_YEAR_MINUS_1) {
                 modelIds = previousYearModelIds(otherHouseholdIncomeModelIds)
             }
 
             var otherHouseholdIncome = buildTotal(modelIds);
             if(otherHouseholdIncome > 0) {
                 addIfNonZero(json, "otherHouseholdIncome", otherHouseholdIncome);
-                addProperty(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+
+                if(isDefined(previousYear) && previousYear === PREVIOUS_YEAR_MINUS_1) {
+                    addProperty(json, "isOtherHouseholdIncomeEst", false);
+                } else {
+                    addProperty(json, "isOtherHouseholdIncomeEst", estimatedOtherIncome());
+                }
             }
             return json;
         }

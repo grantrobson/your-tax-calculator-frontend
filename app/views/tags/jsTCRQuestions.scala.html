@@ -205,28 +205,15 @@
                 },
 
                 {
-                    "id": "Is partner self-employment profit estimated?",
-                    "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Is partner self-employment profit estimated?",
-                    "questionType": {
-                      "type": "Boolean",
-                      "yesNextQuestionId": "Did partner get any taxable benefits?",
-                      "noNextQuestionId": "Did partner get any taxable benefits?",
-                      "modelId": "partner.incomeDetails.seProfits"
-                    }
-                },
-
-
-                  {
                     "id": "How much profit did partner make from self-employment?",
                     "group": "partner",
                     "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>How much self-employed profit did make between [DATE_A] and [DATE_B]?",
                     "questionType": {
-                      "type": "Decimal",
-                      "nextQuestionId": "Is partner self-employment profit estimated?",
-                      "modelId": "partner.incomeDetails.How much profit did partner make from self-employment"
+                    "type": "Decimal",
+                        "nextQuestionId": "Is partner self-employment profit estimated?",
+                        "modelId": "partner.incomeDetails.seProfits"
                     }
-                  },
+                },
 
                 {
                     "id": "Is partner self-employment profit estimated?",
@@ -239,7 +226,6 @@
                       "modelId": "partner.incomeDetails.self_employed_profit_is_estimated"
                     }
                 },
-
 
                 {
                     "id": "Did partner get any taxable benefits?",

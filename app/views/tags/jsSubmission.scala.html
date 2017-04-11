@@ -44,12 +44,12 @@
         return map.get("renewalType").toUpperCase();
     }
 
-    function buildTotal() {
+    function buildTotal(modelIds) {
         function accumulate(total, num) {
             return total + num;
         }
 
-        return [].slice.call(arguments[0]).map(getMapIntValue).reduce(accumulate);
+        return modelIds.map(getMapIntValue).reduce(accumulate);
     }
 
     function estimatedSeProfits() {
@@ -93,6 +93,14 @@
             return modelId + PREVIOUS_YEAR_MINUS_1;
         }
 
+        function partnerModelIds(modelIds) {
+            return modelIds.map(id => 'partner.' + id);
+        }
+
+        function partnerModelId(modelId) {
+            return 'partner.' + modelId
+        }
+
         function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, benefitsModelIds, areEstimatedModelIds) {
             var json = {};
 
@@ -115,15 +123,15 @@
             return json;
         }
 
-        function getCertainBenefitsJson() {
+        function getCertainBenefitsJson(recievedBenefitsKey, incomeSupportKey, jsaKey, esaKey, pensionCreditKey) {
             var json = {};
-            var receivingBenefits = getMapBooleanValue("certainBenefits.receivedBenefits");
+            var receivingBenefits = getMapBooleanValue(recievedBenefitsKey);
             if (receivingBenefits) {
                 addProperty(json, "receivedBenefits", receivingBenefits);
-                addProperty(json, "incomeSupport", getMapBooleanValue("certainBenefits.incomeSupport"));
-                addProperty(json, "jsa", getMapBooleanValue("certainBenefits.jsa"));
-                addProperty(json, "esa", getMapBooleanValue("certainBenefits.esa"));
-                addProperty(json, "pensionCredit", getMapBooleanValue("certainBenefits.pensionCredit"));
+                addProperty(json, "incomeSupport", getMapBooleanValue(incomeSupportKey));
+                addProperty(json, "jsa", getMapBooleanValue(jsaKey));
+                addProperty(json, "esa", getMapBooleanValue(esaKey));
+                addProperty(json, "pensionCredit", getMapBooleanValue(pensionCreditKey));
             } else {
                 addProperty(json, "receivedBenefits", false);
                 addProperty(json, "incomeSupport", false);
@@ -154,7 +162,13 @@
                         "incomeDetails.seProfits",
                         taxableBenefitsModelIds,
                         incomeDetailsAreEstimatedModelIds),
-                certainBenefits: getCertainBenefitsJson()
+                certainBenefits: getCertainBenefitsJson(
+                        "certainBenefits.receivedBenefits",
+                        "certainBenefits.incomeSupport",
+                        "certainBenefits.jsa",
+                        "certainBenefits.esa",
+                        "certainBenefits.pensionCredit"
+                )
             },
             otherIncome: getOtherIncomeJson(otherHouseholdIncomeModelIds, otherIncomesAreEstimatedModelIds),
             hasChangeOfCircs: getMapBooleanValue("hasChangeOfCircs"),
@@ -171,6 +185,26 @@
             submission.otherIncomePY1 = getOtherIncomeJson(previousYearModelIds(otherHouseholdIncomeModelIds),
                     previousYearModelIds(otherIncomesAreEstimatedModelIds));
         }
+
+        if (getRenewalType() === JOINT_D1) {
+            submission.applicant2Data = {
+                incomeDetails: getIncomeDetailsJson(
+                        partnerModelId("incomeDetails.earnings"),
+                        partnerModelId("incomeDetails.companyBenefits"),
+                        partnerModelId("incomeDetails.seProfits"),
+                        partnerModelIds(taxableBenefitsModelIds),
+                        partnerModelIds(incomeDetailsAreEstimatedModelIds)),
+                certainBenefits: getCertainBenefitsJson(
+                        partnerModelId("certainBenefits.receivedBenefits"),
+                        partnerModelId("certainBenefits.incomeSupport"),
+                        partnerModelId("certainBenefits.jsa"),
+                        partnerModelId("certainBenefits.esa"),
+                        partnerModelId("certainBenefits.pensionCredit")
+                )
+            }
+        }
+
+
 
         // Android callback.
         try {

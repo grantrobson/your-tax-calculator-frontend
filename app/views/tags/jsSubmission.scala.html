@@ -178,6 +178,8 @@
 
         submission.otherIncomePY1 = getOtherIncomeJson(previousYearModelIds(otherHouseholdIncomeModelIds),
                 previousYearModelIds(otherIncomesAreEstimatedModelIds));
+
+        return submission;
     }
 
     function addJointD1Data(submission) {
@@ -196,6 +198,8 @@
                     partnerModelId("certainBenefits.pensionCredit")
             )
         }
+
+        return submission;
     }
 
     function addJointD2Data(submission) {
@@ -206,6 +210,7 @@
                 previousYearModelIds(taxableBenefitsModelIds),
                 previousYearModelIds(incomeDetailsAreEstimatedModelIds))
 
+        return submission;
     }
 
     function buildSubmission() {
@@ -214,7 +219,7 @@
         } else if (getRenewalType() === SINGLE_D2) {
             return addSingleD2Data(buildSingleD1Submission());
         } else if (getRenewalType() === JOINT_D1) {
-            return addJointD1Data(addSingleD2Data(buildSingleD1Submission()));
+            return addJointD1Data(buildSingleD1Submission());
         } else if (getRenewalType() === JOINT_D2) {
             return addJointD2Data(addJointD1Data(addSingleD2Data(buildSingleD1Submission())));
         }

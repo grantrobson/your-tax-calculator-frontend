@@ -1,15 +1,15 @@
 <script>
 
 
-    function startRenewals(renewalType, hasPartner, nino, startDate, endDate, partnername, startDatePY1, endDatePY1) {
+    function startRenewals(renewalType, hasPartner, nino, partnername) {
         map.set("partner-name", partnername);
-        map.set("startDate_PY_1", startDatePY1);
-        map.set("endDate_PY_1", endDatePY1);
+        map.set("startDate_PY_1", "06 April 2015");
+        map.set("endDate_PY_1", "05 April 2016");
 
-        startup(renewalType, hasPartner, nino, endDate, startDate);
+        startup(renewalType, hasPartner, nino, "06 April 2016", "05 April 2017");
     }
 
-    function startup(renewalType, hasPartner, nino, endDate, startDate) {
+    function startup(renewalType, hasPartner, nino, startDate, endDate) {
         // Initialise globals.
         stack = [];
 
@@ -17,8 +17,8 @@
         map.set("renewalType", renewalType);
         map.set("hasPartner", hasPartner);
         map.set("nino", nino);
-        map.set("endDate", endDate);
         map.set("startDate", startDate);
+        map.set("endDate", endDate);
 
         // Obtain start question from journey.
         var journey = data();

@@ -1,6 +1,6 @@
 @mixin font-size($sizeValue: 1.6) {
-	font-size: ($sizeValue * 10) + px;
-	font-size: $sizeValue + rem;
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
 }
 
 @mixin button($background, $text){
@@ -26,17 +26,17 @@ html{
 	font-size: 10px;
 }
 body {
-	background: $bg-body;
-}
+  background: $bg-body;
+  }
 
-header#page-header{
-	// Only shown in debug mode
+  header#page-header{
+  	// Only shown in debug mode
 	background: $bg-header;
 	color: $text-color-header;
-	display:none;
+  	display:none;
 	padding: 1rem 2rem;
 	position: fixed;
-	top: 0;
+  	top: 0;
 	width: 100%;
 
 	h1{
@@ -46,10 +46,10 @@ header#page-header{
 		font-weight: bold;
 		text-align: center;
 	}
-}
+  }
 
-main{
-	@include font-size(1.6);
+  main{
+  	@include font-size(1.6);
 
 	background: $bg-main;
 	font-family: $font-copy;
@@ -72,11 +72,11 @@ main{
 		font-weight: bold;
 		margin-bottom: 1.6rem;
 	}
-	.pre-header{
-		color:$text-color-pre-header;
-		display: block;
-		margin-bottom: 0.5em;
-	}
+	  .pre-header{
+		  color:$text-color-pre-header;
+		  display: block;
+		  margin-bottom: 0.5em;
+	  }
 	p, span, label{
 		@include font-size(1.6);
 
@@ -84,9 +84,9 @@ main{
 		font-weight: normal;
 	}
 
-	p{
-		margin-bottom: 1em;
-	}
+  	p{
+	  	margin-bottom: 1em;
+	  }
 
 	input[type="button"].primary{
 		@include button($button-bg-primary, $button-text-primary);
@@ -109,15 +109,15 @@ main{
 		display: table;
 
 		> .row{
-			display: table-row;
-			.col{
-				display: table-cell;
-				padding: 0 0 1rem 1rem;
-			}
-			input[type="checkbox"], input[type="radio"]{
-				display: table-cell;
-			}
+		display: table-row;
+		.col{
+			display: table-cell;
+			padding: 0 0 1rem 1rem;
 		}
+		input[type="checkbox"], input[type="radio"]{
+			display: table-cell;
+		}
+	}
 	}
 	ul{
 		margin: 8px 0 1.6rem;
@@ -138,21 +138,21 @@ main{
 
 	}
 
-}
+  }
 
 // Show / Hide input after checkbox
 input ~ .col {
 	.showIfChecked{
-		input{
-			height: 0;
-			margin-top: 0;
-			opacity: 0;
-			padding: 0;
-		}
+	input{
+		height: 0;
+		margin-top: 0;
+		opacity: 0;
+		padding: 0;
 	}
 }
+}
 input:checked {
-	~ .col .showIfChecked{
+		~ .col .showIfChecked{
 		height:auto;
 		width: auto;
 
@@ -170,88 +170,88 @@ input:checked {
 
 // summary page
 main.summary{
-	padding: 0;
-	article{
-		border-bottom: 5px solid $bg-body;
-		margin: 0;
-		padding: $main-side-padding;
+		padding: 0;
+		article{
+			border-bottom: 5px solid $bg-body;
+			margin: 0;
+			padding: $main-side-padding;
 
-		header{
-			p{
+			header{
+				p{
+					@include font-size(2.0);
+
+					font-weight: bold;
+				}
+				h1{
+					@include font-size(3.2);
+
+					font-weight: bold;
+					margin: $main-side-padding 0;
+					text-align: center;
+				}
+			}
+			h2{
 				@include font-size(2.0);
 
+				background: $bg-summary-section-header;
+				color: $text-color-header;
+				font-family: $font-heading;
 				font-weight: bold;
+				margin-top: -$main-side-padding;
+				margin-right: -$main-side-padding;
+				margin-bottom: 2rem;
+				margin-left: -$main-side-padding;
+				padding: $main-side-padding;
 			}
-			h1{
-				@include font-size(3.2);
-
+			h3{
+				font-family: $font-heading;
+				@include font-size(2.0);
 				font-weight: bold;
-				margin: $main-side-padding 0;
-				text-align: center;
+				padding-bottom: $main-side-padding;
+				border-bottom: 2px solid $bg-summary-section-header;
+				margin-bottom: 0;
 			}
-		}
-		h2{
-			@include font-size(2.0);
+			h4{
+				@include font-size(2.0);
 
-			background: $bg-summary-section-header;
-			color: $text-color-header;
-			font-family: $font-heading;
-			font-weight: bold;
-			margin-top: -$main-side-padding;
-			margin-right: -$main-side-padding;
-			margin-bottom: 2rem;
-			margin-left: -$main-side-padding;
-			padding: $main-side-padding;
-		}
-		h3{
-			font-family: $font-heading;
-			@include font-size(2.0);
-			font-weight: bold;
-			padding-bottom: $main-side-padding;
-			border-bottom: 2px solid $bg-summary-section-header;
-			margin-bottom: 0;
-		}
-		h4{
-			@include font-size(2.0);
+				font-family: $font-heading;
+				font-weight: bold;
+				padding: 1rem 0;
+			}
+			h5{
+				@include font-size(2.0);
 
-			font-family: $font-heading;
-			font-weight: bold;
-			padding: 1rem 0;
-		}
-		h5{
-			@include font-size(2.0);
-
-			border-top: 1px solid #bfc1c3;
-			border-bottom: 1px solid #bfc1c3;
-			font-family: $font-heading;
-			font-weight: normal;
-			padding: 1rem 0;
-		}
-		table{
-			border-top: 2px solid #005ea5;
-			margin: $main-side-padding 0;
-			width: 100%;
-			tr{
+				border-top: 1px solid #bfc1c3;
 				border-bottom: 1px solid #bfc1c3;
+				font-family: $font-heading;
+				font-weight: normal;
+				padding: 1rem 0;
 			}
-			th, td{
-				@include font-size(1.6);
-
-				padding: $main-side-padding /2 0;
-
-				&:first-child{
-					text-align: left;
+			table{
+				border-top: 2px solid #005ea5;
+				margin: $main-side-padding 0;
+				width: 100%;
+				tr{
+					border-bottom: 1px solid #bfc1c3;
 				}
-				&:last-child{
-					text-align: right;
-				}
-			}
-			th{
-				font-weight: bold;
-			}
+				th, td{
+					@include font-size(1.6);
 
+					padding: $main-side-padding /2 0;
+
+					&:first-child{
+						text-align: left;
+					}
+					&:last-child{
+						text-align: right;
+					}
+				}
+				th{
+					font-weight: bold;
+				}
+
+			}
 		}
-	}
 }
 
 // alerts
@@ -265,7 +265,7 @@ main.summary{
 	&.alert--info{
 		background-color: rgba(43, 139, 195, 0.1);
 		border-left-color: #0068af;
-	}
+		}
 }
 
 // expandable guidance
@@ -289,93 +289,6 @@ details{
 	}
 }
 
-
-
-/* Boolean radio buttons */
-
-#boolean {
-
-	$inputSize: 20px;
-
-	.container{
-		display: block;
-		float: none;
-		clear: left;
-		margin: 25px 0;
-
-		.row{
-			clear: both;
-			position: relative;
-			padding: 0 0 0 38px;
-			display: block;
-			overflow: hidden;
-			margin: 15px 0;
-		}
-
-		input {
-			position: absolute;
-			cursor: pointer;
-			left: 0;
-			top: 0;
-			z-index: 1;
-			margin: 0;
-			zoom: 1;
-			filter: alpha(opacity=0);
-			opacity: 0;
-
-			&:checked + label::after {
-				filter: alpha(opacity=1);
-				opacity: 1;
-			}
-		}
-
-		label{
-			cursor: pointer;
-			padding: 5px 0;
-			display: block;
-			-ms-touch-action: manipulation;
-			touch-action: manipulation;
-			float: left;
-
-			&::before{
-				content: "";
-				border: 2px solid $button-bg-primary;
-				background: transparent;
-				width: $inputSize;
-				height: $inputSize;
-				position: absolute;
-				top: 0;
-				left: 0;
-				-webkit-border-radius: 50%;
-				-moz-border-radius: 50%;
-				border-radius: 50%;
-			}
-			&::after{
-				content: "";
-				border: 7px solid $button-bg-primary;
-				width: 0;
-				height: 0;
-				position: absolute;
-				top: 5px;
-				left:5px;
-				-webkit-border-radius: 50%;
-				-moz-border-radius: 50%;
-				border-radius: 50%;
-				zoom: 1;
-				filter: alpha(opacity=0);
-				opacity: 0;
-			}
-		}
-	}
-}
-
-
-
-
-
-
-
-
 .debug {
 	main{
 		margin-top: 4rem
@@ -385,14 +298,14 @@ details{
 	}
 }
 
-/*
-  POC Stuff
-*/
-p.one {
+  /*
+	POC Stuff
+  */
+	  p.one {
 	border-style: solid;
 	border-width: 5px;
-}
+	}
 
-h1.hidden {
+	h1.hidden {
 	visibility: hidden;
-}
+	}

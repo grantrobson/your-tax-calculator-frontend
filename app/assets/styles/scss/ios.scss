@@ -44,4 +44,13 @@ main input[type="button"].primary {
 		top: 2px;
 		box-shadow: 0 0 0 $button-bg-primary;
 	}
+
+	&.disabled,
+	&[disabled="disabled"],
+	&[disabled] {
+		&:active {
+			top: 0;
+			box-shadow: 0 2px 0 darken($background, 15%);
+		}
+	}
 }

@@ -18,6 +18,17 @@
 	&:focus {
 		background-color: darken($background, 5%);
 	}
+
+	&.disabled,
+	&[disabled="disabled"],
+	&[disabled] {
+		opacity: 0.5;
+
+		&:hover,
+		&:focus {
+			background-color: $colour;
+		}
+	}
 }
 
 @import 'reset';

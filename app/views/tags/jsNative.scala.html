@@ -9,9 +9,8 @@ var      SAVE_AND_COME_BACK_LATER = "SaveAndComeBackLater";
 var              STARTUP_JS_ERROR = "StartingJSError";
 var             INTERNAL_JS_ERROR = "InternalJSError";
 
-
-    function startRenewals(renewalType, hasPartner, nino, partnername) {
-        map.set("partner-name", partnername);
+    // TODO: NOTE: awardStartDate and awardEndDate not used at present.
+    function startRenewals(renewalType, hasPartner, nino, awardStartDate, awardEndDate) {
         map.set("startDate_PY_1", "06 April 2015");
         map.set("endDate_PY_1", "05 April 2016");
 

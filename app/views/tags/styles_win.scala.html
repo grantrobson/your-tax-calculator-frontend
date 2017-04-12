@@ -68,7 +68,8 @@ main {
     font-family: "Segoe UI";
     font-weight: bold;
     margin-bottom: 2rem; }
-  main h3, main #headerDecimal {
+  main h3,
+  main #headerDecimal {
     font-size: 16px;
     font-size: 1.6rem;
     display: block;
@@ -87,30 +88,36 @@ main {
   main p {
     margin-bottom: 1em; }
   main input[type="button"].primary {
-    font-size: 16px;
-    font-size: 1.6rem;
     background-color: #00823b;
     border: 0;
     color: #fff;
-    display: block;
+    display: inline-block;
     margin-bottom: 0.8rem;
-    padding: 1.6rem 1.3rem;
+    padding: .526315em .789473em .363157em;
     text-align: center;
+    position: relative;
     width: 100%;
-    margin-top: 0.8rem;
-    -webkit-appearance: none; }
+    font-size: 18px;
+    font-size: 1.8rem;
+    -webkit-appearance: none;
+    margin-top: 0.8rem; }
+    main input[type="button"].primary:hover, main input[type="button"].primary:focus {
+      background-color: #00692f; }
   main input[type="button"].secondary {
-    font-size: 16px;
-    font-size: 1.6rem;
     background-color: #fff;
     border: 0;
     color: #2b8cc4;
-    display: block;
+    display: inline-block;
     margin-bottom: 0.8rem;
-    padding: 1.6rem 1.3rem;
+    padding: .526315em .789473em .363157em;
     text-align: center;
+    position: relative;
     width: 100%;
+    font-size: 16px;
+    font-size: 1.6rem;
     -webkit-appearance: none; }
+    main input[type="button"].secondary:hover, main input[type="button"].secondary:focus {
+      background-color: #f2f2f2; }
   main input[type="number"] {
     border: 1px solid;
     margin-top: 0.8rem;
@@ -242,6 +249,66 @@ details {
   .panel * + * {
     margin-top: 1.6rem; }
 
+/* Boolean radio buttons */
+#boolean .container {
+  display: block;
+  float: none;
+  clear: left;
+  margin: 25px 0; }
+  #boolean .container .row {
+    clear: both;
+    position: relative;
+    padding: 0 0 0 38px;
+    display: block;
+    overflow: hidden;
+    margin: 15px 0; }
+  #boolean .container input {
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    margin: 0;
+    zoom: 1;
+    filter: alpha(opacity=0);
+    opacity: 0; }
+    #boolean .container input:checked + label::after {
+      filter: alpha(opacity=1);
+      opacity: 1; }
+  #boolean .container label {
+    cursor: pointer;
+    padding: 5px 0;
+    display: block;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    float: left; }
+    #boolean .container label::before {
+      content: "";
+      border: 2px solid #00823b;
+      background: transparent;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%; }
+    #boolean .container label::after {
+      content: "";
+      border: 7px solid #00823b;
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      zoom: 1;
+      filter: alpha(opacity=0);
+      opacity: 0; }
+
 .debug main {
   margin-top: 4rem; }
 
@@ -249,8 +316,8 @@ details {
   display: block; }
 
 /*
-	POC Stuff
-  */
+  POC Stuff
+*/
 p.one {
   border-style: solid;
   border-width: 5px; }

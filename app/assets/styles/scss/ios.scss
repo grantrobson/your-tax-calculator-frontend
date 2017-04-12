@@ -36,7 +36,12 @@ $main-side-padding: 16px;
 	display: block;
 }
 
-main input[type="button"].primary{
+main input[type="button"].primary {
 	border-radius: 4px;
 	box-shadow: 0 2px 0 darken($button-bg-primary, 15%);
+
+	&:active {
+		top: 2px;
+		box-shadow: 0 0 0 $button-bg-primary;
+	}
 }

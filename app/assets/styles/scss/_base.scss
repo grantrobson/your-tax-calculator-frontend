@@ -13,23 +13,30 @@
 	margin-bottom: 0.8rem;
 	padding: .526315em .789473em .363157em;
 	text-align: center;
+	position: relative;
 	width:100%;
+
+	&:hover,
+	&:focus {
+		background-color: darken($background, 5%);
+	}
 }
 
 @import 'reset';
 
-
-*{
+* {
 	box-sizing: border-box;
 }
-html{
+
+html {
 	font-size: 10px;
 }
+
 body {
   background: $bg-body;
-  }
+}
 
-  header#page-header{
+header#page-header {
   	// Only shown in debug mode
 	background: $bg-header;
 	color: $text-color-header;
@@ -46,9 +53,9 @@ body {
 		font-weight: bold;
 		text-align: center;
 	}
-  }
+}
 
-  main{
+main {
   	@include font-size(1.6);
 
 	background: $bg-main;
@@ -56,7 +63,7 @@ body {
 	font-weight: normal;
 	padding: $main-side-padding;
 
-	h2{
+	h2 {
 		@include font-size(2.0);
 
 		font-family: $font-heading;
@@ -64,7 +71,8 @@ body {
 		margin-bottom: 2rem;
 	}
 
-	h3, #headerDecimal{
+	h3,
+	#headerDecimal {
 		@include font-size(1.6);
 
 		display: block;

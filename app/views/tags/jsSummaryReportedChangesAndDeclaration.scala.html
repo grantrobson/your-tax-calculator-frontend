@@ -20,6 +20,11 @@ function displayChangesOrNoChangesWarning() {
     }
 }
 
+function getChangeOfCircumstanceDecision() {
+    var answer = getAnswerForQuestion('Report any changes');
+     return answer === "true";
+}
+
 // Declaration
 function populateDeclarationSection() {
     displayShareDetailsWithPartnerWarning()

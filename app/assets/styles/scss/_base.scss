@@ -4,8 +4,6 @@
 }
 
 @mixin button($background, $text) {
-	@include font-size(1.8);
-
 	background-color: $background;
 	border: 0;
 	color: $text;
@@ -98,12 +96,14 @@ main {
 
 	input[type="button"].primary {
 		@include button($button-bg-primary, $button-text-primary);
+		@include font-size(1.8);
 		-webkit-appearance: none;
 		margin-top: 0.8rem;
 	}
 
 	input[type="button"].secondary {
 		@include button($button-bg-secondary, $button-text-secondary);
+		@include font-size(1.6);
 		-webkit-appearance: none;
 	}
 

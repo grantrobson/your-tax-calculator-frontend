@@ -183,17 +183,22 @@
             } else {
              document.getElementById('boolean_no').checked = false;
              document.getElementById('boolean_yes').checked = false;
+
             }
+
+            booleanPageValidation();
 
         } else if (question.questionType.type == "MultipleChoice") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("radio");
+            radioMultipleChoicePageValidation();
 
         } else if (question.questionType.type == "MultipleChoiceWithNumber") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("checkbox");
+            checkboxMultipleChoicePageValidation();
 
         } else if (question.questionType.type == "Decimal") {
 
@@ -223,6 +228,8 @@
                  document.getElementById('estimatedIncomeValue').checked = false;
                 }
             }
+
+            decimalPageValidation();
         } else if (question.questionType.type == 'Summary'){
             initSummary();
         }

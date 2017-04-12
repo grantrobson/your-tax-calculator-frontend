@@ -215,20 +215,6 @@
                 document.getElementById('DecimalInput').value = decimalStore;
             }
 
-            // TODO...IS THIS FEATURE STILL REQUIRED?
-            // Toggle estimated-income checkbox if modelIdEstimatedIncome element defined in model.
-            hide('estimatedIncomeDiv');
-            if (question.questionType.modelIdEstimatedIncome !== undefined) {
-                var estimatedIncome = map.get(question.questionType.modelIdEstimatedIncome);
-                show('estimatedIncomeDiv');
-                // Set the checked state based on model value.
-                if (estimatedIncome == 'true') {
-                    document.getElementById('estimatedIncomeValue').checked = true;
-                } else {
-                 document.getElementById('estimatedIncomeValue').checked = false;
-                }
-            }
-
             decimalPageValidation();
         } else if (question.questionType.type == 'Summary'){
             initSummary();

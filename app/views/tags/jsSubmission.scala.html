@@ -20,39 +20,6 @@
         "otherIncome.foreign_income", "otherIncome.notional_income",
         "otherIncome.profit_from_property"];
 
-    function isDefined(variable) {
-        return typeof variable !== 'undefined'
-    }
-
-    function getMapBooleanValue(modelId) {
-        var mapValue = map.get(modelId);
-        var rtn = false;
-
-        if (isDefined(mapValue)) {
-            if (mapValue === 'true') {
-                rtn = true;
-            }
-        }
-        return (rtn);
-    }
-
-    function getMapIntValue(key) {
-        var value = map.get(key);
-        return isDefined(value) ? Math.floor(parseFloat(value)) : 0;
-    }
-
-    function getRenewalType() {
-        return map.get("renewalType").toUpperCase();
-    }
-
-    function buildTotal(modelIds) {
-        function accumulate(total, num) {
-            return total + num;
-        }
-
-        return modelIds.map(getMapIntValue).reduce(accumulate);
-    }
-
     function estimatedSeProfits() {
         return incomeDetailsAreEstimatedModelIds.some(getMapBooleanValue);
     }
@@ -65,22 +32,11 @@
         return estimatedOtherIncome() || estimatedSeProfits();
     }
 
-    function addProperty(obj, k, v) {
-        if (isDefined(k)) {
-            obj[k] = v;
-        }
-    }
-
-    function addIfNonZero(obj, k, v) {
-        if (v !== 0) addProperty(obj, k, v);
-    }
-
-
-    function previousYearModelIds(modelIds) {
+    function appendPreviousYearSuffix(modelIds) {
         return modelIds.map(id => id + PREVIOUS_YEAR_MINUS_1);
     }
 
-    function partnerModelIds(modelIds) {
+    function appendPartnerPrefix(modelIds) {
         return modelIds.map(id => 'partner.' + id);
     }
 
@@ -166,11 +122,11 @@
                 "incomeDetails.earnings_PY_1",
                 "incomeDetails.companyBenefits_PY_1",
                 "incomeDetails.seProfits_PY_1",
-                previousYearModelIds(taxableBenefitsModelIds),
-                previousYearModelIds(incomeDetailsAreEstimatedModelIds));
+                appendPreviousYearSuffix(taxableBenefitsModelIds),
+                appendPreviousYearSuffix(incomeDetailsAreEstimatedModelIds));
 
-        submission.otherIncomePY1 = getOtherIncomeJson(previousYearModelIds(otherHouseholdIncomeModelIds),
-                previousYearModelIds(otherIncomesAreEstimatedModelIds));
+        submission.otherIncomePY1 = getOtherIncomeJson(appendPreviousYearSuffix(otherHouseholdIncomeModelIds),
+                appendPreviousYearSuffix(otherIncomesAreEstimatedModelIds));
 
         return submission;
     }
@@ -181,8 +137,8 @@
                     "partner.incomeDetails.earnings",
                     "partner.incomeDetails.companyBenefits",
                     "partner.incomeDetails.seProfits",
-                    partnerModelIds(taxableBenefitsModelIds),
-                    partnerModelIds(incomeDetailsAreEstimatedModelIds)),
+                    appendPartnerPrefix(taxableBenefitsModelIds),
+                    appendPartnerPrefix(incomeDetailsAreEstimatedModelIds)),
             certainBenefits: getCertainBenefitsJson(
                     "partner.certainBenefits.receivedBenefits",
                     "partner.certainBenefits.incomeSupport",
@@ -200,8 +156,8 @@
                 "partner.incomeDetails.earnings_PY_1",
                 "partner.incomeDetails.companyBenefits_PY_1",
                 "partner.incomeDetails.seProfits_PY_1",
-                previousYearModelIds(partnerModelIds(taxableBenefitsModelIds)),
-                previousYearModelIds(partnerModelIds(incomeDetailsAreEstimatedModelIds)));
+                appendPreviousYearSuffix(appendPartnerPrefix(taxableBenefitsModelIds)),
+                appendPreviousYearSuffix(appendPartnerPrefix(incomeDetailsAreEstimatedModelIds)));
 
         return submission;
     }

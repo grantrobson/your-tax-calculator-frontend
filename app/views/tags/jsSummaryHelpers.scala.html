@@ -1,16 +1,7 @@
 <script>
 
-  function getAnswerForQuestion(questionId) {
-      var question = getFromId(questionId);
-      return map.get(question.questionType.modelId);
-  }
-
-  function getAnswerForModelId(modelId) {
-      return map.get(modelId);
-  }
-
   function buildListFromRadioAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getQuestion(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
@@ -24,7 +15,7 @@
   }
 
   function buildTableFromMultipleChoiceWithNumberAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getQuestion(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
@@ -48,7 +39,7 @@
   }
 
   function sumMultipleChoiceWithNumberAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getQuestion(questionId).questionType.multipleChoiceOptions;
 
       var result = options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
@@ -61,10 +52,6 @@
       }, 0);
 
       return Math.max(Math.floor(result), 0);
-  }
-
-  function hasPartner() {
-      return map.get("hasPartner") === "true";
   }
 
   function sumAnswersFromListOfQuestions(questions) {

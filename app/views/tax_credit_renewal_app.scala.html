@@ -61,8 +61,8 @@
         <div>
             <div id="containerDiv" class="container"></div>
         </div>
-        <input type="button" data-se="next" value="Next" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
-        <input type="button" data-se="back" value="Back" onClick="javascript:BACK()" class="back">
+        <input type="button" data-se="next" value="Save and continue" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
 
     <!-- Associated set of input types for containerDiv. -->
@@ -100,19 +100,18 @@
                 <label for="boolean_no" class="col">No</label>
             </div>
         </div>
-        <input type="button" data-se="next" value="Next" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
-        <input type="button" data-se="back" value="Back" onClick="javascript:BACK()" class="back">
-
-
+        <input type="button" data-se="next" value="Save and continue" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
+
     <!-- Continue -->
     <div id="Continue" style="display: none;">
         <div id="dynamicHeader-Continue-header"></div>
         <h3 id="headerContinue"></h3>
         <div id="dynamicHeader-Continue-footer"></div>
 
-        <input type="button" data-se="continue" value="Continue" onClick="javascript:NEXT_CONTINUE()" class="primary">
-        <input type="button" data-se="come_back_later" value="Come back later" onClick="javascript:BACK()" class="secondary">
+        <input type="button" data-se="continue" value="Save and continue" onClick="javascript:NEXT_CONTINUE()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
 
 
@@ -133,13 +132,11 @@
             </div>
         </div>
 
-        <input type="button" data-se="next" value="Next" onClick="javascript:NEXT_DECIMAL()" class="primary">
-        <input type="button" data-se="back" value="Back" onClick="javascript:BACK()" class="back">
-
+        <input type="button" data-se="next" value="Save and continue" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
 
     </div>
 
-        <!-- Decimal Input -->
     <div id="Summary" style="display: none;">
         <main class="summary">
             <header id="page-header">
@@ -540,7 +537,6 @@
         </div>
 
         <div id="Completing review message">
-            <h2>Completing your declaration</h2>
             <p>Your information will be saved as you progress.
                 If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
             </p>
@@ -881,6 +877,8 @@
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
+        <input type="button" value="Back" onClick="javascript:BACK()">
+
 
         <div id="dumpDiv">
             <b><span>Debug</span></b>

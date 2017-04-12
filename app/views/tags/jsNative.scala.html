@@ -1,5 +1,14 @@
 <script>
 
+var              JOURNEY_COMPLETE = "JourneyComplete";
+var JOURNEY_COMPLETE_AUTO_RENEWAL = "JourneyCompleteAutoRenewal";
+var                  ROUTE_TO_COC = "RouteToChangeOfCircumstance";
+var                SUBMIT_RENEWAL = "SubmitRenewal";
+var             SAVE_AND_CONTINUE = "SaveAndContinue";
+var      SAVE_AND_COME_BACK_LATER = "SaveAndComeBackLater";
+var              STARTUP_JS_ERROR = "StartingJSError";
+var             INTERNAL_JS_ERROR = "InternalJSError";
+
 
     function startRenewals(renewalType, hasPartner, nino, partnername) {
         map.set("partner-name", partnername);
@@ -50,6 +59,11 @@
         // Android callback.
         try {
             HMRCAndroid.hook(response);
+        } catch(err) {}
+
+        // Selenium callback.
+        try {
+            window.seleniumCallback(response);
         } catch(err) {}
     }
 </script>

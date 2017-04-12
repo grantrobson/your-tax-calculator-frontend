@@ -3,15 +3,15 @@
   font-size: $sizeValue + rem;
 }
 
-@mixin button($background, $text){
-	@include font-size(1.6);
+@mixin button($background, $text) {
+	@include font-size(1.8);
 
 	background-color: $background;
 	border: 0;
 	color: $text;
-	display: block;
+	display: inline-block;
 	margin-bottom: 0.8rem;
-	padding: 1.6rem 1.3rem;
+	padding: .526315em .789473em .363157em;
 	text-align: center;
 	width:100%;
 }
@@ -88,17 +88,17 @@ body {
 	  	margin-bottom: 1em;
 	  }
 
-	input[type="button"].primary{
+	input[type="button"].primary {
 		@include button($button-bg-primary, $button-text-primary);
-		margin-top:0.8rem;
-
 		-webkit-appearance: none;
+		margin-top: 0.8rem;
 	}
-	input[type="button"].secondary{
+
+	input[type="button"].secondary {
 		@include button($button-bg-secondary, $button-text-secondary);
-
 		-webkit-appearance: none;
 	}
+
 	input[type="number"]{
 		border: 1px solid;
 		margin-top:0.8rem;

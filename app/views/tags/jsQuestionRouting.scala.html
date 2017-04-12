@@ -15,11 +15,18 @@
         displayQuestion();
     }
 
+    function nativeRequestToAutoSave() {
+        hook(SAVE_AND_CONTINUE);
+    }
+
+    function nativeRequestToSaveAndExit() {
+        hook(SAVE_AND_COME_BACK_LATER);
+    }
 
     // TODO..validation and error handling!
     function MultipleChoiceNEXT() {
 
-        var questionData = getFromId(questionPos);
+        var questionData = getQuestion(questionPos);
         var arrayLength = questionData.questionType.multipleChoiceOptions.length;
 
         // Cycle around associated checkbox input fields and check if ticked.
@@ -40,24 +47,26 @@
 
         // Route to next question.
         stack.push(questionPos);
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
         questionPos = question.questionType.nextQuestionId;
+        nativeRequestToAutoSave();
         displayQuestion();
     }
 
     // TODO...Add validation. Define in future ticket.
     function NEXT_DECIMAL() {
         stack.push(questionPos);
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
         questionPos = question.questionType.nextQuestionId;
 
         var decimalInput = document.getElementById("DecimalInput").value;
         map.set(question.questionType.modelId, decimalInput+"");
+        nativeRequestToAutoSave();
         displayQuestion();
     }
 
     function NEXT(nextId) {
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
         var arrayLength = question.questionType.multipleChoiceOptions.length;
 
         // TODO: This is temp code to handle Next button. Do not route to Next if no options selected.
@@ -80,14 +89,16 @@
         } else {
             stack.push(questionPos);
             questionPos = question.questionType.nextQuestionId;
+            nativeRequestToAutoSave();
             displayQuestion();
         }
     }
 
     function NEXT_CONTINUE() {
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
         stack.push(questionPos);
         questionPos = question.questionType.nextQuestionId;
+        nativeRequestToAutoSave();
         displayQuestion();
     }
 
@@ -97,7 +108,7 @@
             var arrayLength = questionDrop.questionIds.length;
             // Cycle around questionIds.
             for (var i = 0; i < arrayLength; i++) {
-                resetQuestionData=getFromId(questionDrop.questionIds[i]);
+                resetQuestionData=getQuestion(questionDrop.questionIds[i]);
                 if (resetQuestionData !== undefined) {
                     if (resetQuestionData.questionType.type == "MultipleChoice" || resetQuestionData.questionType.type == "MultipleChoiceWithNumber") {
                         var length = resetQuestionData.questionType.multipleChoiceOptions.length;
@@ -115,7 +126,7 @@
 
 
     function NEXT_BOOLEAN_CONTINUE() {
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
         if (document.getElementById('boolean_no').checked == true || document.getElementById('boolean_yes').checked == true) {
             stack.push(questionPos);
         }
@@ -132,6 +143,7 @@
         } else alert('Please select one of the options.');
 
         if (route) {
+            nativeRequestToAutoSave();
             displayQuestion();
         }
     }
@@ -149,19 +161,24 @@
     }
 
     function YES() {
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
         if (question.questionType.modelId !== "undefined") {
             map.set(question.questionType.modelId, "true");
         }
     }
 
     function NO() {
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
 
         if (question.questionType.modelId !== "undefined") {
             map.set(question.questionType.modelId, "false");
         }
     }
 
+    // TODO: The summary screen could invoke the hook directly.
+    function SAVE_AND_EXIT() {
+        // Invoke the hook.
+        nativeRequestToSaveAndExit();
+    }
 
 </script>

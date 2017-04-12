@@ -1,0 +1,72 @@
+<script type="text/javascript">
+
+      function isDefined(variable) {
+          return typeof variable !== 'undefined'
+      }
+
+      function getRenewalType() {
+          return map.get("renewalType").toUpperCase();
+      }
+
+      function hasPartner() {
+          return map.get("hasPartner") === "true";
+      }
+
+      function addProperty(obj, k, v) {
+          if (isDefined(k)) {
+              obj[k] = v;
+          }
+      }
+
+      function addIfNonZero(obj, k, v) {
+          if (v !== 0) addProperty(obj, k, v);
+      }
+
+      function getQuestion(id) {
+          var questions = data().questions;
+          var arrayLength = questions.length;
+          for (var i = 0; i < arrayLength; i++) {
+              if (questions[i].id == id) {
+                  return questions[i];
+              }
+          }
+          // TODO...report failure to native app!!! Include GA alert!
+          alert("FAILED TO FIND ID ["+id+"]!!!");
+      }
+
+      function getAnswerForQuestion(questionId) {
+          var question = getQuestion(questionId);
+          return map.get(question.questionType.modelId);
+      }
+
+      function getAnswerForModelId(modelId) {
+          return map.get(modelId);
+      }
+
+      function getMapBooleanValue(modelId) {
+          var mapValue = map.get(modelId);
+          var rtn = false;
+
+          if (isDefined(mapValue)) {
+              if (mapValue === 'true') {
+                  rtn = true;
+              }
+          }
+          return (rtn);
+      }
+
+      function getMapIntValue(key) {
+          var value = map.get(key);
+          return isDefined(value) ? Math.floor(parseFloat(value)) : 0;
+      }
+
+
+      function buildTotal(modelIds) {
+          function accumulate(total, num) {
+              return total + num;
+          }
+
+          return modelIds.map(getMapIntValue).reduce(accumulate);
+      }
+
+</script>

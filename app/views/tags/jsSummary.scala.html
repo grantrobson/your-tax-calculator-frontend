@@ -2,7 +2,7 @@
 
 function initSummary() {
     var renewalType = getAnswerForModelId("renewalType");
-    if(renewalType == SINGLE_D1) {
+    if(renewalType == SINGLE_D1 || renewalType == AUTO_RENEWAL) {
         initSingleD1Summary();
     }
     else if (renewalType == SINGLE_D2) {
@@ -58,37 +58,37 @@ function initJointD2Summary() {
 }
 
 function changeIncome(period) {
-    var question = getFromId("Were you employed" + period);
+    var question = getQuestion("Were you employed" + period);
     routeToQuestion(question)
 }
 
 function changeTaxableBenefits(period) {
-    var question = getFromId("Did you get any taxable benefits", period);
+    var question = getQuestion("Did you get any taxable benefits", period);
     routeToQuestion(question)
 }
 
 function changePartnerIncome(period) {
-    var question = getFromId("Was partner employed?", period);
+    var question = getQuestion("Was partner employed?", period);
     routeToQuestion(question)
 }
 
 function changePartnerBenefits(period) {
-    var question = getFromId("Did partner get any taxable benefits?", period);
+    var question = getQuestion("Did partner get any taxable benefits?", period);
     routeToQuestion(question)
 }
 
 function changeHouseholdIncome(period) {
-    var question = getFromId("Did you get any other household income", period);
+    var question = getQuestion("Did you get any other household income", period);
     routeToQuestion(question)
 }
 
 function changeUnTaxedBenefits() {
-    var question = getFromId("Did you get any untaxed benefits");
+    var question = getQuestion("Did you get any untaxed benefits");
     routeToQuestion(question)
 }
 
 function changePersonalCircumstances() {
-    var question = getFromId("Report any changes");
+    var question = getQuestion("Report any changes");
     routeToQuestion(question)
 }
 

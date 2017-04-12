@@ -10,7 +10,7 @@
     var map = new Map();    // Holds the answers to questions and input values supplied to application on startup.
 
     function dynamicRadioButton(selectionType) {
-        var questionData = getFromId(questionPos);
+        var questionData = getQuestion(questionPos);
         var arrayLength = questionData.questionType.multipleChoiceOptions.length;
 
         // Remove all child nodes.
@@ -72,7 +72,7 @@
 
         // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
         if (question.previousQuestionOption) {
-            var linkQuestion = getFromId(question.previousQuestionOption);
+            var linkQuestion = getQuestion(question.previousQuestionOption);
             var arrayLength = linkQuestion.questionType.multipleChoiceOptions.length;
 
             var optionValue="";
@@ -97,7 +97,7 @@
     function displayQuestion() {
 
         // TODO - Add function map and replace if/else.
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
 
         // Trace for current question Id.
         if (question.group !== undefined) {
@@ -129,28 +129,28 @@
 
             return;
 // START JOURNEY CONTROL QUESTIONS!
-        } else if (question.questionType.type == "JourneyComplete") {
+        } else if (question.questionType.type == JOURNEY_COMPLETE) {
 
             // This indicates end of journey.
             toggleControls("hide");
-            hook("JourneyComplete");
+            hook(JOURNEY_COMPLETE);
             return;
-        } else if (question.questionType.type == "JourneyCompleteAutoRenewal") {
+        } else if (question.questionType.type == JOURNEY_COMPLETE_AUTO_RENEWAL) {
 
             // This indicates end of journey for auto renewals!
             toggleControls("hide");
-            hook("JourneyCompleteAutoRenewal");
+            hook(JOURNEY_COMPLETE_AUTO_RENEWAL);
             return;
-        } else if (question.questionType.type == "SaveAndComeBackLater") {
+        } else if (question.questionType.type == SAVE_AND_COME_BACK_LATER) {
 
             // This indicates end of journey! User has quit.
             toggleControls("hide");
-            hook("SaveAndComeBackLater");
+            hook(SAVE_AND_COME_BACK_LATER);
             return;
-        } else if (question.questionType.type == "RouteToChangeOfCircumstance") {
+        } else if (question.questionType.type == ROUTE_TO_COC) {
             // Route to Change of Circumstance.
             toggleControls("hide");
-            hook("RouteToChangeOfCircumstance");
+            hook(ROUTE_TO_COC);
 
             // Advance the questionPosition to the summary screen.
             questionPos = "summary-screen";
@@ -159,8 +159,8 @@
             map.set("hasChangeOfCircs", "true");
             return;
 
-        } else if (question.questionType.type == "SubmitRenewal") {
-            hook("SubmitRenewal");
+        } else if (question.questionType.type == SUBMIT_RENEWAL) {
+            hook(SUBMIT_RENEWAL);
 
 // END JOURNEY CONTROL QUESTIONS!
         } else if (question.questionType.type == "Continue") {
@@ -201,7 +201,7 @@
             insertDynamicHeader(question, "dynamicHeader-Decimal-header", "dynamicHeader-Decimal-footer");
 
             // Populate Decimal value from model if exists.
-            var question = getFromId(questionPos);
+            var question = getQuestion(questionPos);
             var decimalStore = map.get(question.questionType.modelId);
             if (decimalStore === undefined) {
                 // Clear any previous entry in the field.
@@ -245,7 +245,7 @@
 
     // Toggle estimatedIncome model value.
     function setEstimatedIncomeValue() {
-        var questionData = getFromId(questionPos);
+        var questionData = getQuestion(questionPos);
         var radio = document.getElementById('estimatedIncomeValue');
 
         if (radio.checked == true) {
@@ -253,18 +253,6 @@
         } else {
             map.set(questionData.questionType.modelIdEstimatedIncome, "false");
         }
-    }
-
-    function getFromId(id) {
-        var questions = data().questions;
-        var arrayLength = questions.length;
-        for (var i = 0; i < arrayLength; i++) {
-            if (questions[i].id == id) {
-                return questions[i];
-            }
-        }
-        // TODO...report failure to native app!!! Include GA alert!
-//        alert("FAILED TO FIND ID ["+id+"]!!!");
     }
 
     function toggleRadioButton(id) {

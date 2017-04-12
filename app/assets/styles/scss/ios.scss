@@ -9,7 +9,7 @@ $text-color-pre-header: #6f777b;
 $font-heading: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
 $font-copy: SFUIText-Regular, -apple-system, BlinkMacSystemFont, sans-serif;
 
-$button-bg-primary: rgb(8, 130, 46);
+$button-bg-primary: #08822e;
 $button-bg-secondary: #fff;
 $button-text-primary: #fff;
 $button-text-secondary: #2b8cc4;
@@ -31,10 +31,26 @@ $main-side-padding: 16px;
     text-indent: -999em;
     border: 0;
 }
+
 .debug .back{
 	display: block;
 }
-main input[type="button"].primary{
+
+main input[type="button"].primary {
 	border-radius: 4px;
-	box-shadow: 0 2px 0 #003618;
+	box-shadow: 0 2px 0 darken($button-bg-primary, 15%);
+
+	&:active {
+		top: 2px;
+		box-shadow: 0 0 0 $button-bg-primary;
+	}
+
+	&.disabled,
+	&[disabled="disabled"],
+	&[disabled] {
+		&:active {
+			top: 0;
+			box-shadow: 0 2px 0 darken($background, 15%);
+		}
+	}
 }

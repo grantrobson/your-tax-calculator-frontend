@@ -3,34 +3,50 @@
 	font-size: $sizeValue + rem;
 }
 
-@mixin button($background, $text){
-	@include font-size(1.6);
-
+@mixin button($background, $text) {
 	background-color: $background;
 	border: 0;
 	color: $text;
-	display: block;
+	display: inline-block;
 	margin-bottom: 0.8rem;
-	padding: 1.6rem 1.3rem;
+	padding: .526315em .789473em .363157em;
 	text-align: center;
+	position: relative;
 	width:100%;
+
+	&:hover,
+	&:focus {
+		background-color: darken($background, 5%);
+	} 
+
+	&.disabled,
+	&[disabled="disabled"],
+	&[disabled] {
+		opacity: 0.5;
+
+		&:hover,
+		&:focus {
+			background-color: $colour;
+		}
+	}
 }
 
 @import 'reset';
 
-
-*{
+* {
 	box-sizing: border-box;
 }
-html{
+
+html {
 	font-size: 10px;
 }
+
 body {
-	background: $bg-body;
+  background: $bg-body;
 }
 
-header#page-header{
-	// Only shown in debug mode
+header#page-header {
+ 	// Only shown in debug mode
 	background: $bg-header;
 	color: $text-color-header;
 	display:none;
@@ -50,12 +66,13 @@ header#page-header{
 
 main{
 	@include font-size(1.6);
+
 	background: $bg-main;
 	font-family: $font-copy;
 	font-weight: normal;
 	padding: $main-side-padding;
 
-	h2{
+	h2 {
 		@include font-size(2.0);
 		line-height: 1.2;
 		font-family: $font-heading;
@@ -63,7 +80,8 @@ main{
 		margin-bottom: 2rem;
 	}
 
-	h3, #headerDecimal{
+	h3,
+	#headerDecimal {
 		@include font-size(1.6);
 		line-height: 1.2;
 		display: block;
@@ -87,17 +105,19 @@ main{
 		margin-bottom: 1em;
 	}
 
-	input[type="button"].primary{
+	input[type="button"].primary {
 		@include button($button-bg-primary, $button-text-primary);
-		margin-top:0.8rem;
-
+		@include font-size(1.8);
 		-webkit-appearance: none;
+		margin-top: 0.8rem;
 	}
-	input[type="button"].secondary{
+
+	input[type="button"].secondary {
 		@include button($button-bg-secondary, $button-text-secondary);
-
+		@include font-size(1.6);
 		-webkit-appearance: none;
 	}
+
 	input[type="number"]{
 		border: 1px solid;
 		margin-top:0.8rem;

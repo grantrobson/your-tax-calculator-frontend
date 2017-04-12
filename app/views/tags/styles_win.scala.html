@@ -51,7 +51,7 @@ header#page-header {
   header#page-header h1 {
     font-size: 14px;
     font-size: 1.4rem;
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", sans-serif;
     font-weight: bold;
     text-align: center; }
 
@@ -59,14 +59,14 @@ main {
   font-size: 16px;
   font-size: 1.6rem;
   background: #fff;
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", sans-serif;
   font-weight: normal;
   padding: 20px; }
   main h2 {
     font-size: 20px;
     font-size: 2rem;
     line-height: 1.2;
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", sans-serif;
     font-weight: bold;
     margin-bottom: 2rem; }
   main h3,
@@ -75,7 +75,7 @@ main {
     font-size: 1.6rem;
     line-height: 1.2;
     display: block;
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", sans-serif;
     font-weight: bold;
     margin-bottom: 1.6rem; }
   main .pre-header {
@@ -86,7 +86,7 @@ main {
     font-size: 16px;
     font-size: 1.6rem;
     line-height: 1.2;
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", sans-serif;
     font-weight: normal; }
   main p {
     margin-bottom: 1em; }
@@ -193,7 +193,7 @@ main.summary {
       font-size: 2rem;
       background: #005ea5;
       color: #fff;
-      font-family: "Segoe UI";
+      font-family: "Segoe UI", sans-serif;
       font-weight: bold;
       margin-top: -20px;
       margin-right: -20px;
@@ -201,7 +201,7 @@ main.summary {
       margin-left: -20px;
       padding: 20px; }
     main.summary article h3 {
-      font-family: "Segoe UI";
+      font-family: "Segoe UI", sans-serif;
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold;
@@ -211,7 +211,7 @@ main.summary {
     main.summary article h4 {
       font-size: 20px;
       font-size: 2rem;
-      font-family: "Segoe UI";
+      font-family: "Segoe UI", sans-serif;
       font-weight: bold;
       padding: 1rem 0; }
     main.summary article h5 {
@@ -219,7 +219,7 @@ main.summary {
       font-size: 2rem;
       border-top: 1px solid #bfc1c3;
       border-bottom: 1px solid #bfc1c3;
-      font-family: "Segoe UI";
+      font-family: "Segoe UI", sans-serif;
       font-weight: normal;
       padding: 1rem 0; }
     main.summary article table {
@@ -278,54 +278,104 @@ details {
     margin: 15px 0; }
 
 #Boolean input[type="radio"],
-#MultipleChoice input[type="radio"] {
+#Boolean input[type="checkbox"],
+#MultipleChoice input[type="radio"],
+#MultipleChoice input[type="checkbox"] {
   position: absolute;
-  cursor: pointer;
   left: 0;
   top: 0;
-  z-index: 1;
-  margin: 0;
-  opacity: 0; }
+  z-index: 1; }
   #Boolean input[type="radio"] + label,
-  #MultipleChoice input[type="radio"] + label {
-    cursor: pointer;
+  #Boolean input[type="radio"] + div label,
+  #Boolean input[type="checkbox"] + label,
+  #Boolean input[type="checkbox"] + div label,
+  #MultipleChoice input[type="radio"] + label,
+  #MultipleChoice input[type="radio"] + div label,
+  #MultipleChoice input[type="checkbox"] + label,
+  #MultipleChoice input[type="checkbox"] + div label {
     padding: 5px 0;
     display: block;
+    float: left;
     -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    float: left; }
-    #Boolean input[type="radio"] + label::before,
-    #MultipleChoice input[type="radio"] + label::before {
-      content: "";
-      border: 2px solid #00823b;
-      background: transparent;
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      top: 2px;
-      left: 0;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%; }
-    #Boolean input[type="radio"] + label::after,
-    #MultipleChoice input[type="radio"] + label::after {
-      content: "";
-      border: 7px solid #00823b;
-      width: 0;
-      height: 0;
-      position: absolute;
-      top: 7px;
-      left: 5px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
-      zoom: 1;
-      filter: alpha(opacity=0);
-      opacity: 0; }
+    touch-action: manipulation; }
   #Boolean input[type="radio"]:checked + label::after,
-  #MultipleChoice input[type="radio"]:checked + label::after {
+  #Boolean input[type="radio"]:checked + div label::after,
+  #Boolean input[type="checkbox"]:checked + label::after,
+  #Boolean input[type="checkbox"]:checked + div label::after,
+  #MultipleChoice input[type="radio"]:checked + label::after,
+  #MultipleChoice input[type="radio"]:checked + div label::after,
+  #MultipleChoice input[type="checkbox"]:checked + label::after,
+  #MultipleChoice input[type="checkbox"]:checked + div label::after {
     opacity: 1; }
 
+#Boolean input[type="radio"],
+#MultipleChoice input[type="radio"] {
+  margin: 0;
+  opacity: 0; }
+  #Boolean input[type="radio"] + label::before, #Boolean input[type="radio"] + label::after,
+  #MultipleChoice input[type="radio"] + label::before,
+  #MultipleChoice input[type="radio"] + label::after {
+    content: "";
+    border-style: solid;
+    border-color: #00823b;
+    position: absolute;
+    border-radius: 50%; }
+  #Boolean input[type="radio"] + label::before,
+  #MultipleChoice input[type="radio"] + label::before {
+    border-width: 2px;
+    background: transparent;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0; }
+  #Boolean input[type="radio"] + label::after,
+  #MultipleChoice input[type="radio"] + label::after {
+    border-width: 7px;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    opacity: 0; }
+
+#Boolean input[type="checkbox"],
+#MultipleChoice input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  opacity: 0; }
+  #Boolean input[type="checkbox"] + label::before, #Boolean input[type="checkbox"] + label::after,
+  #Boolean input[type="checkbox"] + div label::before,
+  #Boolean input[type="checkbox"] + div label::after,
+  #MultipleChoice input[type="checkbox"] + label::before,
+  #MultipleChoice input[type="checkbox"] + label::after,
+  #MultipleChoice input[type="checkbox"] + div label::before,
+  #MultipleChoice input[type="checkbox"] + div label::after {
+    content: "";
+    border: 2px solid;
+    background: transparent;
+    position: absolute; }
+  #Boolean input[type="checkbox"] + label::before,
+  #Boolean input[type="checkbox"] + div label::before,
+  #MultipleChoice input[type="checkbox"] + label::before,
+  #MultipleChoice input[type="checkbox"] + div label::before {
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 0; }
+  #Boolean input[type="checkbox"] + label::after,
+  #Boolean input[type="checkbox"] + div label::after,
+  #MultipleChoice input[type="checkbox"] + label::after,
+  #MultipleChoice input[type="checkbox"] + div label::after {
+    border-style: solid;
+    border-width: 0 0 2px 2px;
+    width: 14px;
+    height: 6px;
+    top: 7px;
+    left: 5px;
+    transform: rotate(-45deg);
+    opacity: 0; }
+
+/* Debug */
 .debug main {
   margin-top: 4rem; }
 
@@ -344,3 +394,21 @@ h1.hidden {
 
 .back {
   display: none; }
+
+#MultipleChoice input[type="checkbox"] + label::before,
+#MultipleChoice input[type="checkbox"] + div label::before {
+  border: 2px solid; }
+
+#MultipleChoice input[type="checkbox"]:checked + label::before,
+#MultipleChoice input[type="checkbox"]:checked + div label::before {
+  background: #00823b;
+  border: none;
+  width: 28px;
+  height: 28px; }
+
+#MultipleChoice input[type="checkbox"]:checked + label::after,
+#MultipleChoice input[type="checkbox"]:checked + div label::after {
+  border-color: #fff;
+  top: 8px;
+  left: 6px;
+  opacity: 1; }

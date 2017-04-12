@@ -30,3 +30,38 @@ main input[type="button"].primary {
 	box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31);
 	padding: 0.726315em .789473em;
 }
+
+#MultipleChoice {
+	input[type="checkbox"] {
+		+ label,
+		+ div label {
+			&::before {
+				border: 2px solid;
+				border-radius: 2px;
+			    width: 22px;
+			    height: 22px;
+			}
+		}
+
+		&:checked + label::before,
+		&:checked + div label::before {
+			background: $button-bg-primary;
+		    border: none;
+		    width: 26px;
+		    height: 26px;
+		}
+
+		&:checked + label::after,
+		&:checked + div label::after {
+			border-color: $button-text-primary;
+			top: 7px;
+			left: 5px;
+			opacity: 1;
+		}
+	}
+
+	input[type="number"] {
+		border: none;
+		border-bottom: 1px solid;
+	}
+}

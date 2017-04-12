@@ -7,8 +7,8 @@ $bg-summary-section-header: #005ea5;
 $text-color-header: #fff;
 $text-color-pre-header: #6f777b;
 
-$font-heading: "Segoe UI";
-$font-copy: "Segoe UI";
+$font-heading: "Segoe UI", sans-serif;
+$font-copy: "Segoe UI", sans-serif;
 
 $button-bg-primary: #00823b;
 $button-bg-secondary: #fff;
@@ -21,4 +21,31 @@ $main-side-padding: 20px;
 
 .back{
 	display: none;
+}
+
+#MultipleChoice {
+	input[type="checkbox"] {
+		+ label,
+		+ div label {
+			&::before {
+				border: 2px solid;
+			}
+		}
+
+		&:checked + label::before,
+		&:checked + div label::before {
+			background: $button-bg-primary;
+		    border: none;
+		    width: 28px;
+		    height: 28px;
+		}
+
+		&:checked + label::after,
+		&:checked + div label::after {
+			border-color: $button-text-primary;
+			top: 8px;
+			left: 6px;
+			opacity: 1;
+		}
+	}
 }

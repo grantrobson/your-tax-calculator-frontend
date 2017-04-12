@@ -54,3 +54,20 @@ main input[type="button"].primary {
 		}
 	}
 }
+
+#Boolean,
+#MultipleChoice {
+	input[type="checkbox"] {
+		+ label,
+		+ div label {
+			&::before {
+				border: 1px solid;
+				border-radius: 5px;
+			}
+
+			&::after {
+				border-color: $button-bg-primary;
+			}
+		}
+	}
+}

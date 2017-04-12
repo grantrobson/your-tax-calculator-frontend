@@ -50,7 +50,7 @@ main input[type="button"].primary {
 	&[disabled] {
 		&:active {
 			top: 0;
-			box-shadow: 0 2px 0 darken($background, 15%);
+			box-shadow: 0 2px 0 darken($button-bg-primary, 15%);
 		}
 	}
 }

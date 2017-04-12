@@ -257,40 +257,41 @@ details {
   .panel * + * {
     margin-top: 1.6rem; }
 
-/* Boolean radio buttons */
-#boolean .container {
+/* Radio buttons */
+#Boolean .container,
+#MultipleChoice .container {
   display: block;
   float: none;
   clear: left;
   margin: 25px 0; }
-  #boolean .container .row {
+  #Boolean .container .row,
+  #MultipleChoice .container .row {
     clear: both;
     position: relative;
     padding: 0 0 0 38px;
     display: block;
     overflow: hidden;
     margin: 15px 0; }
-  #boolean .container input {
-    position: absolute;
-    cursor: pointer;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    margin: 0;
-    zoom: 1;
-    filter: alpha(opacity=0);
-    opacity: 0; }
-    #boolean .container input:checked + label::after {
-      filter: alpha(opacity=1);
-      opacity: 1; }
-  #boolean .container label {
+
+#Boolean input[type="radio"],
+#MultipleChoice input[type="radio"] {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  margin: 0;
+  opacity: 0; }
+  #Boolean input[type="radio"] + label,
+  #MultipleChoice input[type="radio"] + label {
     cursor: pointer;
     padding: 5px 0;
     display: block;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     float: left; }
-    #boolean .container label::before {
+    #Boolean input[type="radio"] + label::before,
+    #MultipleChoice input[type="radio"] + label::before {
       content: "";
       border: 2px solid #08822e;
       background: transparent;
@@ -302,7 +303,8 @@ details {
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%; }
-    #boolean .container label::after {
+    #Boolean input[type="radio"] + label::after,
+    #MultipleChoice input[type="radio"] + label::after {
       content: "";
       border: 7px solid #08822e;
       width: 0;
@@ -316,6 +318,9 @@ details {
       zoom: 1;
       filter: alpha(opacity=0);
       opacity: 0; }
+  #Boolean input[type="radio"]:checked + label::after,
+  #MultipleChoice input[type="radio"]:checked + label::after {
+    opacity: 1; }
 
 .debug main {
   margin-top: 4rem; }

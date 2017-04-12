@@ -310,13 +310,11 @@ details{
 
 
 
-/* Boolean radio buttons */
+/* Radio buttons */
 
-#boolean {
-
-	$inputSize: 20px;
-
-	.container{
+#Boolean,
+#MultipleChoice {
+	.container {
 		display: block;
 		float: none;
 		clear: left;
@@ -330,25 +328,20 @@ details{
 			overflow: hidden;
 			margin: 15px 0;
 		}
+	}
 
-		input {
-			position: absolute;
-			cursor: pointer;
-			left: 0;
-			top: 0;
-			z-index: 1;
-			margin: 0;
-			zoom: 1;
-			filter: alpha(opacity=0);
-			opacity: 0;
+	input[type="radio"] {
+		position: absolute;
+		cursor: pointer;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		margin: 0;
+		opacity: 0;
 
-			&:checked + label::after {
-				filter: alpha(opacity=1);
-				opacity: 1;
-			}
-		}
+		& + label {
+			$inputSize: 20px;
 
-		label{
 			cursor: pointer;
 			padding: 5px 0;
 			display: block;
@@ -356,7 +349,7 @@ details{
 			touch-action: manipulation;
 			float: left;
 
-			&::before{
+			&::before {
 				content: "";
 				border: 2px solid $button-bg-primary;
 				background: transparent;
@@ -369,7 +362,8 @@ details{
 				-moz-border-radius: 50%;
 				border-radius: 50%;
 			}
-			&::after{
+
+			&::after {
 				content: "";
 				border: 7px solid $button-bg-primary;
 				width: 0;
@@ -385,10 +379,12 @@ details{
 				opacity: 0;
 			}
 		}
+
+		&:checked + label::after {
+			opacity: 1;
+		}
 	}
 }
-
-
 
 
 

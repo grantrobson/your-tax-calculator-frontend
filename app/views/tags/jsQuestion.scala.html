@@ -255,18 +255,6 @@
         }
     }
 
-    function getFromId(id) {
-        var questions = data().questions;
-        var arrayLength = questions.length;
-        for (var i = 0; i < arrayLength; i++) {
-            if (questions[i].id == id) {
-                return questions[i];
-            }
-        }
-        // TODO...report failure to native app!!! Include GA alert!
-//        alert("FAILED TO FIND ID ["+id+"]!!!");
-    }
-
     function toggleRadioButton(id) {
         var radio = document.getElementById(id);
         if (radio.checked == true) {

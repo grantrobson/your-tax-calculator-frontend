@@ -20,39 +20,6 @@
         "otherIncome.foreign_income", "otherIncome.notional_income",
         "otherIncome.profit_from_property"];
 
-    function isDefined(variable) {
-        return typeof variable !== 'undefined'
-    }
-
-    function getMapBooleanValue(modelId) {
-        var mapValue = map.get(modelId);
-        var rtn = false;
-
-        if (isDefined(mapValue)) {
-            if (mapValue === 'true') {
-                rtn = true;
-            }
-        }
-        return (rtn);
-    }
-
-    function getMapIntValue(key) {
-        var value = map.get(key);
-        return isDefined(value) ? Math.floor(parseFloat(value)) : 0;
-    }
-
-    function getRenewalType() {
-        return map.get("renewalType").toUpperCase();
-    }
-
-    function buildTotal(modelIds) {
-        function accumulate(total, num) {
-            return total + num;
-        }
-
-        return modelIds.map(getMapIntValue).reduce(accumulate);
-    }
-
     function estimatedSeProfits() {
         return incomeDetailsAreEstimatedModelIds.some(getMapBooleanValue);
     }
@@ -64,17 +31,6 @@
     function isEstimatedIncome() {
         return estimatedOtherIncome() || estimatedSeProfits();
     }
-
-    function addProperty(obj, k, v) {
-        if (isDefined(k)) {
-            obj[k] = v;
-        }
-    }
-
-    function addIfNonZero(obj, k, v) {
-        if (v !== 0) addProperty(obj, k, v);
-    }
-
 
     function previousYearModelIds(modelIds) {
         return modelIds.map(id => id + PREVIOUS_YEAR_MINUS_1);

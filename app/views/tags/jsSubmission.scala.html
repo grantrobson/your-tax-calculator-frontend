@@ -207,7 +207,7 @@
     }
 
     function buildSubmission() {
-        if (getRenewalType() === SINGLE_D1) {
+        if (getRenewalType() === SINGLE_D1 || getRenewalType() === AUTO_RENEWAL) {
             return buildSingleD1Submission();
         } else if (getRenewalType() === SINGLE_D2) {
             return addSingleD2Data(buildSingleD1Submission());

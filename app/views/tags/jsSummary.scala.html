@@ -2,7 +2,7 @@
 
 function initSummary() {
     var renewalType = getAnswerForModelId("renewalType");
-    if(renewalType == SINGLE_D1) {
+    if(renewalType == SINGLE_D1 || renewalType == AUTO_RENEWAL) {
         initSingleD1Summary();
     }
     else if (renewalType == SINGLE_D2) {

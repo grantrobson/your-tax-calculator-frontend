@@ -39,7 +39,7 @@
         // Debug code to dump generated questions!
         var tmp="";
         var count=0;
-        data().questions.forEach((question) => {
+        data().questions.forEach(function (question) {
             tmp = tmp + " Id:"+count+ ":"+ question.id;
             count = count + 1;
         });

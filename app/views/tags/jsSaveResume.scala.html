@@ -7,7 +7,7 @@
 
         // Populate the model with the resumed data.
         var tokens = model.split(",");
-            tokens.forEach(token => {
+            tokens.forEach(function (token) {
             var data = token.split(":");    // MAGIC!
             map.set(data[0],data[1]);
         });
@@ -16,7 +16,7 @@
         var stackData = map.get("stackDATA");
         if (stackData !== undefined) {
             var stackTokens = stackData.split("#"); // MAGIC!
-            stackTokens.forEach(position => {
+            stackTokens.forEach(function (position) {
             stack.push(position);
         });
         }
@@ -53,7 +53,7 @@
         map.set("stackDATA", stackData);
 
         // De-serialize the map to a string.
-        map.forEach((value, key) => {
+        map.forEach(function (value, key) {
             if (first) {
                 first=false;
                 append="";

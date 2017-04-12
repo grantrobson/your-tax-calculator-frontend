@@ -33,11 +33,15 @@
     }
 
     function appendPreviousYearSuffix(modelIds) {
-        return modelIds.map(id => id + PREVIOUS_YEAR_MINUS_1);
+        return modelIds.map(function (id) {
+            return id + PREVIOUS_YEAR_MINUS_1
+        });
     }
 
     function appendPartnerPrefix(modelIds) {
-        return modelIds.map(id => 'partner.' + id);
+        return modelIds.map(function (id) {
+            return 'partner.' + id
+        });
     }
 
     function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, benefitsModelIds, areEstimatedModelIds) {

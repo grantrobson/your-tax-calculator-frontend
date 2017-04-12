@@ -81,7 +81,7 @@
     function updateHeaders(posY, headerData, introMap) {
 
         function replaceXCounter(group, xvalue) {
-            data().questions.forEach((question) => {
+            data().questions.forEach(function (question) {
                 if (question.group !== undefined && question.group == group) {
                     question.question = question.question.replace("[REPLACE_X]", xvalue);
                 }
@@ -89,12 +89,12 @@
         }
 
         // Override template values in questions.
-        data().questions.forEach((question) => {
+        data().questions.forEach(function (question) {
             question.question = replaceStringKeysWithValues(question.question, posY);
         });
 
         // Update REPLACE_X header with question Part numbers from headerData groups.
-        headerData.forEach((value, name) => {
+        headerData.forEach(function (value, name) {
             replaceXCounter(name, value);
         });
 
@@ -107,7 +107,7 @@
         var insertDynamicPoint = document.getElementById("dynamicInsertPoint");
         insertDynamicPoint.innerHTML = '';
 
-        introMap.forEach((value, name) => {
+        introMap.forEach(function (value, name) {
             var cln = itm.cloneNode(true);
 
             cln.innerHTML = "<li><h4>Part "+value+"</h4>" +

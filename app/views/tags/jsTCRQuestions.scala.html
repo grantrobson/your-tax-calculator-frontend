@@ -990,7 +990,7 @@
             updateQuestionsForPreviousYear(single2YearsJourney.questions);
 
             // Add PY questions.
-            singleApplicant.forEach((question) => {
+            singleApplicant.forEach(function (question) {
                 single2YearsJourney.questions.push(question);
             });
             // Add start questions.
@@ -1035,18 +1035,18 @@
             joint2YearsJourney.questions = JSON.parse(JSON.stringify(singleApplicant));
             // Add PY-1 2nd applicant
             var jointClone = JSON.parse(JSON.stringify(jointApplicant));
-            jointClone.forEach((question) => {
+            jointClone.forEach(function (question) {
                 joint2YearsJourney.questions.push(question);
             });
             // Override questions and add PY-1 id's to all question route ids.
             updateQuestionsForPreviousYear(joint2YearsJourney.questions);
 
             // Add PY 1st application journey to joint2YearsJourney.
-            singleApplicant.forEach((question) => {
+            singleApplicant.forEach(function (question) {
                 joint2YearsJourney.questions.push(question);
             });
             // Add PY 2nd applicant journey to joint2YearsJourney.
-            jointApplicant.forEach((question) => {
+            jointApplicant.forEach(function (question) {
                 joint2YearsJourney.questions.push(question);
             });
             // Add start questions.
@@ -1171,7 +1171,7 @@
             }
         }
 
-        questions.forEach((question) => {
+        questions.forEach(function (question) {
 
             question.id += PREVIOUS_YEAR_MINUS_1;
 

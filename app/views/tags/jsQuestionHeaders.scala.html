@@ -27,7 +27,7 @@
         headerData.set("household-income", 3);
 
         introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A] and [DATE_B]", posY), 1);
-        introMap.set(replaceStringKeysWithValues("Your partner [PARTNER_NAME]’s income and benefits between [DATE_A] and [DATE_B]",posY), 2);
+        introMap.set(replaceStringKeysWithValues("Your partner’s income and benefits between [DATE_A] and [DATE_B]",posY), 2);
         introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A] and [DATE_B]", posY), 3);
         introMap.set(replaceStringKeysWithValues("Report any changes to circumstances", posY), 4);
 
@@ -68,10 +68,10 @@
         headerData.set("household-income", 6);
 
         introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),1);
-        introMap.set(replaceStringKeysWithValues("Your partner [PARTNER_NAME]’s income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),2);
+        introMap.set(replaceStringKeysWithValues("Your partner’s income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),2);
         introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),3);
         introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A] and [DATE_B]",posY),4);
-        introMap.set(replaceStringKeysWithValues("Your partner [PARTNER_NAME]’s income and benefits between [DATE_A] and [DATE_B]",posY),5);
+        introMap.set(replaceStringKeysWithValues("Your partner’s income and benefits between [DATE_A] and [DATE_B]",posY),5);
         introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A] and [DATE_B]",posY),6);
         introMap.set("Report any changes to circumstances",7);
 
@@ -123,14 +123,12 @@
         var startDate = map.get("startDate");
         var endDate_PY_1 = map.get("endDate_PY_1");
         var startDate_PY_1 = map.get("startDate_PY_1");
-        var partnerName = map.get("partner-name");
 
         var update = inString.replace("[REPLACE_Y]", posY);
         update = update.replace("[DATE_A]", startDate);
         update = update.replace("[DATE_B]", endDate);
         update = update.replace("[DATE_A_PY_1]", startDate_PY_1);
         update = update.replace("[DATE_B_PY_1]", endDate_PY_1);
-        update = update.replace("[PARTNER_NAME]", partnerName);
         return(update);
     }
 

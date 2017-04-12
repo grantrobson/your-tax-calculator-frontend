@@ -242,6 +242,66 @@ details {
   .panel * + * {
     margin-top: 1.6rem; }
 
+/* Boolean radio buttons */
+#boolean .container {
+  display: block;
+  float: none;
+  clear: left;
+  margin: 25px 0; }
+  #boolean .container .row {
+    clear: both;
+    position: relative;
+    padding: 0 0 0 38px;
+    display: block;
+    overflow: hidden;
+    margin: 15px 0; }
+  #boolean .container input {
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    margin: 0;
+    zoom: 1;
+    filter: alpha(opacity=0);
+    opacity: 0; }
+    #boolean .container input:checked + label::after {
+      filter: alpha(opacity=1);
+      opacity: 1; }
+  #boolean .container label {
+    cursor: pointer;
+    padding: 5px 0;
+    display: block;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    float: left; }
+    #boolean .container label::before {
+      content: "";
+      border: 2px solid #00823b;
+      background: transparent;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%; }
+    #boolean .container label::after {
+      content: "";
+      border: 7px solid #00823b;
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      zoom: 1;
+      filter: alpha(opacity=0);
+      opacity: 0; }
+
 .debug main {
   margin-top: 4rem; }
 
@@ -249,8 +309,8 @@ details {
   display: block; }
 
 /*
-	POC Stuff
-  */
+  POC Stuff
+*/
 p.one {
   border-style: solid;
   border-width: 5px; }

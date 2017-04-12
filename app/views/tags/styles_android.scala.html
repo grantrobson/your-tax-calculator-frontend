@@ -68,7 +68,8 @@ main {
     font-family: "Roboto", sans-serif;
     font-weight: bold;
     margin-bottom: 2rem; }
-  main h3, main #headerDecimal {
+  main h3,
+  main #headerDecimal {
     font-size: 16px;
     font-size: 1.6rem;
     display: block;
@@ -87,30 +88,36 @@ main {
   main p {
     margin-bottom: 1em; }
   main input[type="button"].primary {
-    font-size: 16px;
-    font-size: 1.6rem;
     background-color: #00823b;
     border: 0;
     color: #fff;
-    display: block;
+    display: inline-block;
     margin-bottom: 0.8rem;
-    padding: 1.6rem 1.3rem;
+    padding: .526315em .789473em .363157em;
     text-align: center;
+    position: relative;
     width: 100%;
-    margin-top: 0.8rem;
-    -webkit-appearance: none; }
+    font-size: 18px;
+    font-size: 1.8rem;
+    -webkit-appearance: none;
+    margin-top: 0.8rem; }
+    main input[type="button"].primary:hover, main input[type="button"].primary:focus {
+      background-color: #00692f; }
   main input[type="button"].secondary {
-    font-size: 16px;
-    font-size: 1.6rem;
     background-color: #fff;
     border: 0;
     color: #2b8cc4;
-    display: block;
+    display: inline-block;
     margin-bottom: 0.8rem;
-    padding: 1.6rem 1.3rem;
+    padding: .526315em .789473em .363157em;
     text-align: center;
+    position: relative;
     width: 100%;
+    font-size: 16px;
+    font-size: 1.6rem;
     -webkit-appearance: none; }
+    main input[type="button"].secondary:hover, main input[type="button"].secondary:focus {
+      background-color: #f2f2f2; }
   main input[type="number"] {
     border: 1px solid;
     margin-top: 0.8rem;
@@ -326,4 +333,5 @@ h1.hidden {
 
 main input[type="button"].primary {
   border-radius: 2px;
-  box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31); }
+  box-shadow: 0 2px 0 0 #08822e, 0 2px 4px 0 rgba(0, 0, 0, 0.31);
+  padding: 0.726315em .789473em; }

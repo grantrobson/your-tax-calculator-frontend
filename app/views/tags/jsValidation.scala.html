@@ -29,7 +29,7 @@
     function everyCheckboxHasValueForNumber(selector) {
         var checked = [].slice.call(document.querySelectorAll('#MultipleChoice input[type=checkbox]:checked'));
 
-        return checked.every(element => {
+        return checked.every(function (element) {
             var selector = '#' + element.parentNode.id + ' input[type=number]';
 
             return !isEmpty(selector) && hasMaxTwoDecimalPlaces(selector)
@@ -58,7 +58,7 @@
         }
     }
 
-    function radioMultipleChoicePageValidation() {
+    function multipleChoicePageValidation() {
         var nextButton = document.querySelector("#MultipleChoice input[data-se='next']");
 
         if (atLeastOneIsChecked('#MultipleChoice input[type=radio]:checked')) {
@@ -68,7 +68,7 @@
         }
     }
 
-    function checkboxMultipleChoicePageValidation() {
+    function multipleChoiceWithNumberPageValidation() {
         var nextButton = document.querySelector("#MultipleChoice input[data-se='next']");
 
         if (atLeastOneIsChecked('#MultipleChoice input[type=checkbox]:checked') && everyCheckboxHasValueForNumber()) {

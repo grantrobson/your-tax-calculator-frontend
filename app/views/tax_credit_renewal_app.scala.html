@@ -73,17 +73,17 @@
     <div style="display: none;">
 
         <div id="row_ID_checkbox" class="row">
-            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID" onchange="javascript:checkboxMultipleChoicePageValidation();" class="col">
+            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID" onchange="javascript:multipleChoiceWithNumberPageValidation();" class="col">
             <div class="col" id="row_div_checkbox_ID">
                 <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
                 <div id="number_entry_hidden" class="showIfChecked">
-                    <input type="number" id="row_number_checkbox_ID" oninput="javascript:checkboxMultipleChoicePageValidation();" value="">
+                    <input type="number" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
                 </div>
             </div>
         </div>
 
         <div id="row_ID_radio" class="row">
-            <input type="radio" id="row_radio_ID" name="row_radio_ID" onchange="javascript:radioMultipleChoicePageValidation();" class="col">
+            <input type="radio" id="row_radio_ID" name="row_radio_ID" onchange="javascript:multipleChoicePageValidation();" class="col">
             <label id="row_label_radio_ID" for="row_radio_ID" class="col"></label>
         </div>
     </div>

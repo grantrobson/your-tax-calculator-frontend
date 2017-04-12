@@ -192,13 +192,13 @@
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("radio");
-            radioMultipleChoicePageValidation();
+            multipleChoicePageValidation();
 
         } else if (question.questionType.type == "MultipleChoiceWithNumber") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("checkbox");
-            checkboxMultipleChoicePageValidation();
+            multipleChoiceWithNumberPageValidation();
 
         } else if (question.questionType.type == "Decimal") {
 
@@ -231,7 +231,7 @@
     var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue", "Summary"];
 
     function toggleControls(toggle) {
-        dynamicControls.forEach((item) => {
+        dynamicControls.forEach(function (item) {
             if (toggle == "show") show(item); else hide(item);
         });
     }

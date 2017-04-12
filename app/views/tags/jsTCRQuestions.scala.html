@@ -1008,11 +1008,11 @@
             updateRoutingForSelectOtherIncomeSources(SINGLE_D2);
             updateRoutingForDidMakeProfitFromPropertyRental(SINGLE_D2);
 
-            var override = getFromId("ROUTING DECISION COC");
+            var override = getQuestion("ROUTING DECISION COC");
             // Override the JOINT_D2_ROUTE and route to "Report any changes". 2nd (PY data) time the routing question is invoked will be on the PY path.
             override.questionType.JOINT_D2_ROUTE = "Report any changes";
             // re-wire start question to route to PY-1 question.
-            override = getFromId("Completing review message");
+            override = getQuestion("Completing review message");
             override.questionType.nextQuestionId = "Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1;
 
             // Update question headers and update HTML div for 'Completing review message' DIV.
@@ -1064,15 +1064,15 @@
             updateRoutingForDidMakeProfitFromPropertyRental(JOINT_D2);
 
             // Override routing. Route to partner benefits for previous year.
-            var overrideA = getFromId("ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1);
+            var overrideA = getQuestion("ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1);
             overrideA.questionType.JOINT_ROUTE = "Benefits & Income - intro";      // Route to 2nd year.
 
-            var override = getFromId("ROUTING DECISION COC");
+            var override = getQuestion("ROUTING DECISION COC");
             // Override the SINGLE_D2_ROUTE and route to "Report any changes". 2nd time the function is invoked will be on the PY path.
             override.questionType.JOINT_D2_ROUTE = "Report any changes";
 
             // re-wire start question to route to PY-1 question.
-            override = getFromId("Completing review message");
+            override = getQuestion("Completing review message");
             override.questionType.nextQuestionId = "Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1;
 
             // Update question headers and update HTML div for 'Completing review message' DIV.
@@ -1092,11 +1092,11 @@
     function updateRoutingForUntaxedBenefit(renewalType) {
         if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
             // PY override
-            var override = getFromId("Benefits & Income - intro");
+            var override = getQuestion("Benefits & Income - intro");
             override.questionType.nextQuestionId = "Were you employed";
 
             // PY-1 override.
-            var overridePYminusOne = getFromId("Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("Benefits & Income - intro"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "Were you employed"+PREVIOUS_YEAR_MINUS_1;
         }
     }
@@ -1104,7 +1104,7 @@
     function updateRoutingForProfitSelfEmployment(renewalType) {
         if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
             // PY-1 override.
-            var overridePYminusOne = getFromId("Did you make a profit from self-employment"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("Did you make a profit from self-employment"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.noNextQuestionId = "Did you get any taxable benefits"+PREVIOUS_YEAR_MINUS_1;
         }
     }
@@ -1112,7 +1112,7 @@
     function updateRoutingForHowMuchProfitSelfEmployment(renewalType) {
         if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
             // PY-1 override.
-            var overridePYminusOne = getFromId("How much profit from self-employment"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("How much profit from self-employment"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "Did you get any taxable benefits"+PREVIOUS_YEAR_MINUS_1;
         }
     }
@@ -1120,9 +1120,9 @@
     function updateRoutingForPartnerAndBenefits(renewalType) {
         if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
             // PY and PY-1 override.
-            var overridePY = getFromId("Partner benefits & income intro");
+            var overridePY = getQuestion("Partner benefits & income intro");
             overridePY.questionType.nextQuestionId = "Was partner employed?";
-            var overridePYminusOne = getFromId("Partner benefits & income intro"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("Partner benefits & income intro"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "Was partner employed?"+PREVIOUS_YEAR_MINUS_1;
         }
     }
@@ -1130,9 +1130,9 @@
     function updateRoutingForPartnerMakeProfitFromSelfEmployment(renewalType) {
         if (renewalType !== undefined && renewalType.toUpperCase() == JOINT_D2) {
             // PY-1 override.
-            var overridePYminusOne = getFromId("Did partner make profit from self-employment?"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("Did partner make profit from self-employment?"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.noNextQuestionId = "Did partner get any taxable benefits?"+PREVIOUS_YEAR_MINUS_1;
-            overridePYminusOne = getFromId("How much profit did partner make from self-employment?"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne = getQuestion("How much profit did partner make from self-employment?"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "Did partner get any taxable benefits?"+PREVIOUS_YEAR_MINUS_1;
         }
     }
@@ -1140,7 +1140,7 @@
     function updateRoutingForSelectOtherIncomeSources(renewalType) {
         if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
             // PY-1 override.
-            var overridePYminusOne = getFromId("Select other income sources & enter amount"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("Select other income sources & enter amount"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "Did you get any income from property rental"+PREVIOUS_YEAR_MINUS_1;
         }
     }
@@ -1148,10 +1148,10 @@
     function updateRoutingForDidMakeProfitFromPropertyRental(renewalType) {
         if (renewalType !== undefined && (renewalType.toUpperCase() == SINGLE_D2 || renewalType.toUpperCase() == JOINT_D2)) {
             // PY-1 override.
-            var overridePYminusOne = getFromId("Did you make a profit from property rental"+PREVIOUS_YEAR_MINUS_1);
+            var overridePYminusOne = getQuestion("Did you make a profit from property rental"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.noNextQuestionId = "ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1;
 
-            overridePYminusOne = getFromId("Property rental profit - enter amount"+PREVIOUS_YEAR_MINUS_1);
+            overridePYminusOne = getQuestion("Property rental profit - enter amount"+PREVIOUS_YEAR_MINUS_1);
             overridePYminusOne.questionType.nextQuestionId = "ROUTING DECISION COC"+PREVIOUS_YEAR_MINUS_1;
         }
     }

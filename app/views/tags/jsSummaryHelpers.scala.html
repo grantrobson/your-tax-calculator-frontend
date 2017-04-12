@@ -1,7 +1,7 @@
 <script>
 
   function buildListFromRadioAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getQuestion(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
@@ -15,7 +15,7 @@
   }
 
   function buildTableFromMultipleChoiceWithNumberAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getQuestion(questionId).questionType.multipleChoiceOptions;
 
       return options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
@@ -39,7 +39,7 @@
   }
 
   function sumMultipleChoiceWithNumberAnswers(questionId) {
-      var options = getFromId(questionId).questionType.multipleChoiceOptions;
+      var options = getQuestion(questionId).questionType.multipleChoiceOptions;
 
       var result = options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);

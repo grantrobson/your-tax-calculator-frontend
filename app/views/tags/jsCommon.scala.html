@@ -22,7 +22,7 @@
           if (v !== 0) addProperty(obj, k, v);
       }
 
-      function getFromId(id) {
+      function getQuestion(id) {
           var questions = data().questions;
           var arrayLength = questions.length;
           for (var i = 0; i < arrayLength; i++) {
@@ -35,7 +35,7 @@
       }
 
       function getAnswerForQuestion(questionId) {
-          var question = getFromId(questionId);
+          var question = getQuestion(questionId);
           return map.get(question.questionType.modelId);
       }
 

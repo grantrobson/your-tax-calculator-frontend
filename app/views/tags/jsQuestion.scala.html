@@ -10,7 +10,7 @@
     var map = new Map();    // Holds the answers to questions and input values supplied to application on startup.
 
     function dynamicRadioButton(selectionType) {
-        var questionData = getFromId(questionPos);
+        var questionData = getQuestion(questionPos);
         var arrayLength = questionData.questionType.multipleChoiceOptions.length;
 
         // Remove all child nodes.
@@ -72,7 +72,7 @@
 
         // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
         if (question.previousQuestionOption) {
-            var linkQuestion = getFromId(question.previousQuestionOption);
+            var linkQuestion = getQuestion(question.previousQuestionOption);
             var arrayLength = linkQuestion.questionType.multipleChoiceOptions.length;
 
             var optionValue="";
@@ -97,7 +97,7 @@
     function displayQuestion() {
 
         // TODO - Add function map and replace if/else.
-        var question = getFromId(questionPos);
+        var question = getQuestion(questionPos);
 
         // Trace for current question Id.
         if (question.group !== undefined) {
@@ -201,7 +201,7 @@
             insertDynamicHeader(question, "dynamicHeader-Decimal-header", "dynamicHeader-Decimal-footer");
 
             // Populate Decimal value from model if exists.
-            var question = getFromId(questionPos);
+            var question = getQuestion(questionPos);
             var decimalStore = map.get(question.questionType.modelId);
             if (decimalStore === undefined) {
                 // Clear any previous entry in the field.
@@ -245,7 +245,7 @@
 
     // Toggle estimatedIncome model value.
     function setEstimatedIncomeValue() {
-        var questionData = getFromId(questionPos);
+        var questionData = getQuestion(questionPos);
         var radio = document.getElementById('estimatedIncomeValue');
 
         if (radio.checked == true) {

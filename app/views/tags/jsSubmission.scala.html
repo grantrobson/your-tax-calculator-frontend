@@ -32,11 +32,11 @@
         return estimatedOtherIncome() || estimatedSeProfits();
     }
 
-    function previousYearModelIds(modelIds) {
+    function appendPreviousYearSuffix(modelIds) {
         return modelIds.map(id => id + PREVIOUS_YEAR_MINUS_1);
     }
 
-    function partnerModelIds(modelIds) {
+    function appendPartnerPrefix(modelIds) {
         return modelIds.map(id => 'partner.' + id);
     }
 
@@ -122,11 +122,11 @@
                 "incomeDetails.earnings_PY_1",
                 "incomeDetails.companyBenefits_PY_1",
                 "incomeDetails.seProfits_PY_1",
-                previousYearModelIds(taxableBenefitsModelIds),
-                previousYearModelIds(incomeDetailsAreEstimatedModelIds));
+                appendPreviousYearSuffix(taxableBenefitsModelIds),
+                appendPreviousYearSuffix(incomeDetailsAreEstimatedModelIds));
 
-        submission.otherIncomePY1 = getOtherIncomeJson(previousYearModelIds(otherHouseholdIncomeModelIds),
-                previousYearModelIds(otherIncomesAreEstimatedModelIds));
+        submission.otherIncomePY1 = getOtherIncomeJson(appendPreviousYearSuffix(otherHouseholdIncomeModelIds),
+                appendPreviousYearSuffix(otherIncomesAreEstimatedModelIds));
 
         return submission;
     }
@@ -137,8 +137,8 @@
                     "partner.incomeDetails.earnings",
                     "partner.incomeDetails.companyBenefits",
                     "partner.incomeDetails.seProfits",
-                    partnerModelIds(taxableBenefitsModelIds),
-                    partnerModelIds(incomeDetailsAreEstimatedModelIds)),
+                    appendPartnerPrefix(taxableBenefitsModelIds),
+                    appendPartnerPrefix(incomeDetailsAreEstimatedModelIds)),
             certainBenefits: getCertainBenefitsJson(
                     "partner.certainBenefits.receivedBenefits",
                     "partner.certainBenefits.incomeSupport",
@@ -156,8 +156,8 @@
                 "partner.incomeDetails.earnings_PY_1",
                 "partner.incomeDetails.companyBenefits_PY_1",
                 "partner.incomeDetails.seProfits_PY_1",
-                previousYearModelIds(partnerModelIds(taxableBenefitsModelIds)),
-                previousYearModelIds(partnerModelIds(incomeDetailsAreEstimatedModelIds)));
+                appendPreviousYearSuffix(appendPartnerPrefix(taxableBenefitsModelIds)),
+                appendPreviousYearSuffix(appendPartnerPrefix(incomeDetailsAreEstimatedModelIds)));
 
         return submission;
     }

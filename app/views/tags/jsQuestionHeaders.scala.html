@@ -103,6 +103,12 @@
         totalMessages.innerHTML = ''; // clear existing
         totalMessages.appendChild(document.createTextNode(''+posY));
 
+        //Add a warning for D2 renewals
+        if(getRenewalType() === JOINT_D2 || getRenewalType() === SINGLE_D2){
+            var warning = document.getElementById("completingReviewWarningForD2");
+            warning.style.display = "block";
+        }
+
         var itm = document.getElementById("cloneForInsertPoint");
         var insertDynamicPoint = document.getElementById("dynamicInsertPoint");
         insertDynamicPoint.innerHTML = '';

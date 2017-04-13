@@ -57,6 +57,27 @@ main input[type="button"].primary {
 
 #Boolean,
 #MultipleChoice {
+	input[type="radio"] {
+
+		+ label {
+
+			&::before,
+			&::after {
+
+			}
+
+			&::before {
+
+			}
+
+			&::after {
+
+			}
+		}
+	}
+
+	//border-color: $button-bg-primary;
+
 	input[type="checkbox"] {
 		+ label,
 		+ div label {

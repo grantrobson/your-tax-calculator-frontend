@@ -21,13 +21,13 @@
 
 	&.disabled,
 	&[disabled="disabled"],
-	&[disabled] {
+	&[disabled]{
 		opacity: 0.5;
 
-		&:hover,
-		&:focus {
-			background-color: $background;
-		}
+		//&:hover,
+		//&:focus {
+		//	background-color: $background;
+		//}
 	}
 }
 
@@ -378,11 +378,18 @@ details{
 		+ label {
 			$inputSize: 20px;
 
+			&::before{
+				border-color: #ccc;
+			}
+
+			&::after{
+				border-color: $button-bg-primary;
+			}
+
 			&::before,
 			&::after {
 				content: "";
 				border-style: solid;
-				border-color: $button-bg-primary;
 				position: absolute;
 				border-radius: 50%;
 			}
@@ -406,6 +413,11 @@ details{
 				opacity: 0;
 			}
 		}
+
+		&:checked + label::before,
+		&:checked + label::after{
+			border-color: $button-bg-primary;
+		}
 	}
 
 	input[type="checkbox"] {
@@ -420,7 +432,7 @@ details{
 			&::before,
 			&::after {
 				content: "";
-				border: 2px solid;
+				border: 2px solid #ccc;
 				background: transparent;
 				position: absolute;
 			}
@@ -435,6 +447,7 @@ details{
 			&::after {
 				border-style: solid;
 				border-width: 0 0 2px 2px;
+				border-color: #ccc;
 				width: 14px;
 				height: 6px;
 				top: 7px;

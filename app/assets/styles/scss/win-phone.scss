@@ -28,7 +28,7 @@ $main-side-padding: 20px;
 		+ label,
 		+ div label {
 			&::before {
-				border: 2px solid;
+				border: 2px solid #ccc;
 			}
 		}
 
@@ -47,5 +47,17 @@ $main-side-padding: 20px;
 			left: 6px;
 			opacity: 1;
 		}
+	}
+}
+
+//Primary button
+main input[type="button"].primary {
+	padding: 1em .789473em;
+
+	&.disabled,
+	&[disabled="disabled"],
+	&[disabled]{
+		color: #798185;
+		background-color: #dee0e2;
 	}
 }

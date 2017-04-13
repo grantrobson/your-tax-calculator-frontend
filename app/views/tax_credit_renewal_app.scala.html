@@ -94,6 +94,7 @@
         <h3 id="headerBoolean"></h3>
         <div id="dynamicHeader-Boolean-footer"></div>
 
+        <div id="yesInfoDiv" style="display: none"></div>
         <div class="container">
             <div class="row">
                 <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
@@ -525,10 +526,16 @@
         <div id="auto-renewal-header">
             <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
             <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
-            <br>
-            <span>Your renewal pack should arrive by 30 June 2016. </span>
-            <br>
-            <br>
+            <details>
+                <summary><span class="summary">I have not received my pack yet</span></summary>
+                <div class="panel panel-border-narrow">
+                    <p>Your renewal pack should arrive by 30 June 2016. If it does not arrive by then, <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact the Tax Credit Helpline.</a></p>
+                </div>
+            </details>
+        </div>
+
+        <div id="auto-renewal-yes-info">
+            <span class="alert alert--info">Because you need to report changes, we will also need you to review your income over the last year.</span>
         </div>
 
         <div id="Completing review message">

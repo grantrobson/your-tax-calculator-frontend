@@ -31,7 +31,7 @@
               }
           }
           // TODO...report failure to native app!!! Include GA alert!
-          alert("FAILED TO FIND ID ["+id+"]!!!");
+          alert("FAILED TO FIND ID [" + id + "]!!!");
       }
 
       function getAnswerForQuestion(questionId) {
@@ -67,6 +67,26 @@
           }
 
           return modelIds.map(getMapIntValue).reduce(accumulate);
+      }
+
+      function replaceCommonVariablesInElement(element) {
+          // Update the question headers with position info and dates.
+          var endDate = map.get("endDate");
+          var startDate = map.get("startDate");
+          var endDate_PY_1 = map.get("endDate_PY_1");
+          var startDate_PY_1 = map.get("startDate_PY_1");
+
+          var all = element.getElementsByTagName('*');
+
+          for (var i = -1, l = all.length; ++i < l;) {
+              var newText = all[i].innerHTML
+                      .replace("[DATE_A]", startDate)
+                      .replace("[DATE_B]", endDate)
+                      .replace("[DATE_A_PY_1]", startDate_PY_1)
+                      .replace("[DATE_B_PY_1]", endDate_PY_1);
+
+              all[i].innerHTML = newText;
+          }
       }
 
 </script>

@@ -68,7 +68,7 @@
     }
 
     function initQuestion(question, control, header) {
-        var questionOutput = question.question
+        var questionOutput = question.question;
 
         // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
         if (question.previousQuestionOption) {
@@ -167,6 +167,7 @@
             initQuestion(question, 'Continue', 'headerContinue');
             insertDynamicHeader(question, "dynamicHeader-Continue-header", "dynamicHeader-Continue-footer");
 
+            replaceCommonVariablesInElement(document.getElementById('Continue'));
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
             insertDynamicHeader(question, "dynamicHeader-Boolean-header" ,"dynamicHeader-Boolean-footer");
@@ -187,21 +188,20 @@
             }
 
             booleanPageValidation();
-
+            replaceCommonVariablesInElement(document.getElementById('Boolean'));
         } else if (question.questionType.type == "MultipleChoice") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("radio");
             multipleChoicePageValidation();
-
+            replaceCommonVariablesInElement(document.getElementById('MultipleChoice'));
         } else if (question.questionType.type == "MultipleChoiceWithNumber") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("checkbox");
             multipleChoiceWithNumberPageValidation();
-
+            replaceCommonVariablesInElement(document.getElementById('MultipleChoice'));
         } else if (question.questionType.type == "Decimal") {
-
             initQuestion(question, 'Decimal', 'headerDecimal');
             insertDynamicHeader(question, "dynamicHeader-Decimal-header", "dynamicHeader-Decimal-footer");
 
@@ -211,11 +211,13 @@
             if (decimalStore === undefined) {
                 // Clear any previous entry in the field.
                 document.getElementById('DecimalInput').value = ""
-            } else if (decimalStore != "") {
+            } else if (decimalStore !== "") {
                 document.getElementById('DecimalInput').value = decimalStore;
             }
 
             decimalPageValidation();
+
+            replaceCommonVariablesInElement(document.getElementById('Decimal'));
         } else if (question.questionType.type == 'Summary'){
             initSummary();
         }

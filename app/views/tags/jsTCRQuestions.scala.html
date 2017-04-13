@@ -291,7 +291,7 @@
         var startQuestions = [
             {
                 "id": "confirm-pack-receipt",
-                "question": "Your renewal pack for [DATE_A] to [DATE_B]",
+                "question": "Your renewal pack",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "confirm-pack-receipt",
@@ -912,6 +912,8 @@
                         "question": "Do you need to report any changes to the details shown?",
                         "questionType": {
                           "type": "Boolean",
+                          "questionHeaderDiv": "auto-renewal-header",
+                          "yesInfoDiv": "auto-renewal-yes-info",
                           "yesNextQuestionId": "confirm-pack-receipt",
                           "noNextQuestionId": "a2", // End of journey.
                           "modelId": "renewalData.auto-renewal"

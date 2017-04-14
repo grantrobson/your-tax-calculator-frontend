@@ -175,30 +175,12 @@ main{
 // Show / Hide input after checkbox
 input ~ .col {
 	.showIfChecked{
-		input{
-			height: 0;
-			margin-top: 0;
-			opacity: 0;
-			padding: 0;
-		}
-	}
-}
-input:checked {
-	~ .col .showIfChecked{
-		height:auto;
-		width: auto;
-
-		input{
-			height:auto;
-			margin-top:0.8rem;
-			opacity: 1;
-			padding: 0.5rem;
-			transition: all 0.5s linear;
-			width: 100%;
-		}
+		display: none;
 	}
 }
 
+input:checked ~ .col .showIfChecked{
+	display: block;}
 
 // summary page
 

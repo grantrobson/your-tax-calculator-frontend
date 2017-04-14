@@ -69,6 +69,24 @@
           return modelIds.map(getMapIntValue).reduce(accumulate);
       }
 
+      function findTextNodes(element) {
+          var walker = document.createTreeWalker(
+                  element,
+                  NodeFilter.SHOW_TEXT,
+                  null,
+                  false
+          );
+
+          var node;
+          var textNodes = [];
+
+          while(node = walker.nextNode()) {
+              textNodes.push(node);
+          }
+
+          return textNodes;
+      }
+
       function replaceCommonVariablesInElement(element) {
           // Update the question headers with position info and dates.
           var endDate = map.get("endDate");
@@ -76,16 +94,18 @@
           var endDate_PY_1 = map.get("endDate_PY_1");
           var startDate_PY_1 = map.get("startDate_PY_1");
 
-          var all = element.getElementsByTagName('*');
+          var all = findTextNodes(element);
 
           for (var i = -1, l = all.length; ++i < l;) {
-              var newText = all[i].innerHTML
+              var node = all[i];
+              var newText = node.nodeValue
                       .replace("[DATE_A]", startDate)
                       .replace("[DATE_B]", endDate)
                       .replace("[DATE_A_PY_1]", startDate_PY_1)
                       .replace("[DATE_B_PY_1]", endDate_PY_1);
 
-              all[i].innerHTML = newText;
+              node.nodeValue = newText;
+
           }
       }
 

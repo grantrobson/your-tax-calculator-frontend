@@ -1,9 +1,9 @@
 <script>
-    var   AUTO_RENEWAL = "R";
-    var      SINGLE_D1 = "SINGLE_D1";
-    var       JOINT_D1 = "JOINT_D1";
-    var      SINGLE_D2 = "SINGLE_D2";
-    var       JOINT_D2 = "JOINT_D2";
+    var AUTO_RENEWAL = "R";
+    var SINGLE_D1 = "SINGLE_D1";
+    var JOINT_D1 = "JOINT_D1";
+    var SINGLE_D2 = "SINGLE_D2";
+    var JOINT_D2 = "JOINT_D2";
 
     var questionPos = ""    // The current question position.
     var stack = [];         // Store the question Id's based on user selection. Use for routing back through the selected questions.
@@ -20,22 +20,22 @@
         for (var i = 0; i < arrayLength; i++) {
 
             // Clone the associated input row based on type.
-            updateChildren("row_ID_"+selectionType, i);
+            updateChildren("row_ID_" + selectionType, i);
 
             // Obtain handle to the radio button.
-            var radioButton = document.getElementById("row_"+selectionType+"_ID_"+i);
+            var radioButton = document.getElementById("row_" + selectionType + "_ID_" + i);
 
             // Set text label.
-            var label = document.getElementById("row_label_"+selectionType+"_ID_"+i);
+            var label = document.getElementById("row_label_" + selectionType + "_ID_" + i);
             label.innerHTML = questionData.questionType.multipleChoiceOptions[i].option;
 
             // Check if the button (checkbox or radio) was previously selected.
             if (map.get(questionData.questionType.multipleChoiceOptions[i].modelId) == "true") {
-                radioButton.setAttribute("checked","checked");
-            } else if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId) && selectionType=="checkbox") {
+                radioButton.setAttribute("checked", "checked");
+            } else if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId) && selectionType == "checkbox") {
                 // Default the checkbox as checked and display the input number field.
-                radioButton.setAttribute("checked","checked");
-                show('number_entry_hidden_'+i);
+                radioButton.setAttribute("checked", "checked");
+                show('number_entry_hidden_' + i);
             }
 
             // update the controls based on type.
@@ -49,13 +49,13 @@
                 label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
 
                 // Set the id of the number input field.
-                var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
+                var input = document.getElementById("row_number_" + selectionType + "_ID_" + i);
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
                 radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
                 radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
 
                 // Set the number field label
-                var numberInputLabel = document.getElementById("row_number_checkbox_label_ID_"+i);
+                var numberInputLabel = document.getElementById("row_number_checkbox_label_ID_" + i);
                 numberInputLabel.innerHTML = questionData.questionType.multipleChoiceOptions[i].question;
                 numberInputLabel.setAttribute("for", input.id);
 
@@ -68,9 +68,13 @@
 
         // Set the next onClick function based on the type of control.
         if (selectionType == "checkbox") {
-          document.getElementById("MultipleChoiceNEXT").onclick = function() { MultipleChoiceNEXT(); };
+            document.getElementById("MultipleChoiceNEXT").onclick = function () {
+                MultipleChoiceNEXT();
+            };
         } else {
-          document.getElementById("MultipleChoiceNEXT").onclick = function() { NEXT(); };
+            document.getElementById("MultipleChoiceNEXT").onclick = function () {
+                NEXT();
+            };
         }
 
         insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice-header", "dynamicHeader-MultipleChoice-footer");
@@ -84,7 +88,7 @@
             var linkQuestion = getQuestion(question.previousQuestionOption);
             var arrayLength = linkQuestion.questionType.multipleChoiceOptions.length;
 
-            var optionValue="";
+            var optionValue = "";
             // Cycle around associated checkbox input fields and check if ticked.
             for (var i = 0; i < arrayLength; i++) {
                 var mapEntry = map.get(linkQuestion.questionType.multipleChoiceOptions[i].modelId);
@@ -100,6 +104,8 @@
 
         document.getElementById(header).innerHTML = questionOutput;
         toggleControls("hide");
+        toggleButtonVisibility(question);
+        toggleButtonText(question);
         show(control);
     }
 
@@ -177,7 +183,7 @@
             replaceCommonVariablesInElement(document.getElementById('Continue'));
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
-            insertDynamicHeader(question, "dynamicHeader-Boolean-header" ,"dynamicHeader-Boolean-footer");
+            insertDynamicHeader(question, "dynamicHeader-Boolean-header", "dynamicHeader-Boolean-footer");
 
             //  Default the value.
             if (question.questionType.modelId !== undefined) {
@@ -185,12 +191,12 @@
                 if (checked !== undefined) {
                     document.getElementById(checked == "false" ? 'boolean_no' : 'boolean_yes').checked = checked;
                 } else {
-                 document.getElementById('boolean_no').checked = false;
-                 document.getElementById('boolean_yes').checked = false;
+                    document.getElementById('boolean_no').checked = false;
+                    document.getElementById('boolean_yes').checked = false;
                 }
             } else {
-             document.getElementById('boolean_no').checked = false;
-             document.getElementById('boolean_yes').checked = false;
+                document.getElementById('boolean_no').checked = false;
+                document.getElementById('boolean_yes').checked = false;
 
             }
 
@@ -225,7 +231,7 @@
             decimalPageValidation();
 
             replaceCommonVariablesInElement(document.getElementById('Decimal'));
-        } else if (question.questionType.type == 'Summary'){
+        } else if (question.questionType.type == 'Summary') {
             initSummary();
         }
         else {
@@ -237,12 +243,38 @@
     }
 
 
-    var dynamicControls = ["Boolean", "MultipleChoice",  "Decimal", "Continue", "Summary"];
+    var dynamicControls = ["Boolean", "MultipleChoice", "Decimal", "Continue", "Summary"];
 
     function toggleControls(toggle) {
         dynamicControls.forEach(function (item) {
             if (toggle == "show") show(item); else hide(item);
         });
+    }
+
+    function toggleButtonVisibility(question) {
+        var back = document.querySelector('#' + question.questionType.type + " .secondary");
+        var next = document.querySelector('#' + question.questionType.type + " .primary");
+
+        if (back !== null) {
+            if (isDefined(question.questionType.backButtonHidden) && question.questionType.backButtonHidden === true) {
+                back.style.display = 'none';
+            } else {
+                back.style.display = 'block';
+            }
+        }
+    }
+
+    function toggleButtonText(question) {
+        var back = document.querySelector('#' + question.questionType.type + " .secondary");
+        var next = document.querySelector('#' + question.questionType.type + " .primary");
+
+        if (next !== null) {
+            if (isDefined(question.questionType.nextButtonText)) {
+                next.value = question.questionType.nextButtonText;
+            } else {
+                next.value = 'Save and continue';
+            }
+        }
     }
 
     // Toggle estimatedIncome model value.

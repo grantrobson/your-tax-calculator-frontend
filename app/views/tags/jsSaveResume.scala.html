@@ -24,6 +24,20 @@
         // Set the current question.
         questionPos = map.get("currentQuestionPos");
 
+        // The JourneyComplete status is currently only used for the pack-not-received question. If the client resumes the application where the
+        // last question was JourneyComplete, then rewind the question stack to land on question confirm-pack-receipt.
+        var question = getQuestion(questionPos);
+        if (question.questionType.type !== undefined && question.questionType.type == "JourneyComplete") {
+            var stackQuestion = "";
+            for (i = stackData.length; i >= 0; i--) {
+                stackQuestion = stack.pop();
+                if (stackQuestion ==  "confirm-pack-receipt") {
+                    questionPos = stackQuestion;
+                    break;
+                }
+            }
+        }
+
         if (questionPos === undefined) {
             alert("Failed to resume the application since question is missing!");
         } else {

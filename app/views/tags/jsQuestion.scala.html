@@ -24,9 +24,11 @@
 
             // Obtain handle to the radio button.
             var radioButton = document.getElementById("row_"+selectionType+"_ID_"+i);
+
             // Set text label.
             var label = document.getElementById("row_label_"+selectionType+"_ID_"+i);
             label.innerHTML = questionData.questionType.multipleChoiceOptions[i].option;
+
             // Check if the button (checkbox or radio) was previously selected.
             if (map.get(questionData.questionType.multipleChoiceOptions[i].modelId) == "true") {
                 radioButton.setAttribute("checked","checked");
@@ -44,12 +46,19 @@
                 label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
             } else if (selectionType == "checkbox") {
 
+                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+
                 // Set the id of the number input field.
                 var input = document.getElementById("row_number_"+selectionType+"_ID_"+i);
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
                 radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
                 radioButton.setAttribute("name", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
-                label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
+
+                // Set the number field label
+                var numberInputLabel = document.getElementById("row_number_checkbox_label_ID_"+i);
+                numberInputLabel.innerHTML = questionData.questionType.multipleChoiceOptions[i].question;
+                numberInputLabel.setAttribute("for", input.id);
+
                 if (map.has(questionData.questionType.multipleChoiceOptions[i].modelId)) {
                     input.setAttribute("value", map.get(questionData.questionType.multipleChoiceOptions[i].modelId));
                 }

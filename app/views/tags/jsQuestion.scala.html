@@ -184,24 +184,27 @@
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
             insertDynamicHeader(question, "dynamicHeader-Boolean-header", "dynamicHeader-Boolean-footer");
+            replaceCommonVariablesInElement(document.getElementById('Boolean'));
 
-            //  Default the value.
-            if (question.questionType.modelId !== undefined) {
-                var checked = map.get(question.questionType.modelId);
-                if (checked !== undefined) {
-                    document.getElementById(checked == "false" ? 'boolean_no' : 'boolean_yes').checked = checked;
+            var yes = document.getElementById('boolean_yes');
+            var no = document.getElementById('boolean_no');
+
+            var answer = map.get(question.questionType.modelId);
+
+            if (isDefined(answer)) {
+                if (answer === "true") {
+                    yes.checked = true;
+                    no.checked = false;
                 } else {
-                    document.getElementById('boolean_no').checked = false;
-                    document.getElementById('boolean_yes').checked = false;
+                    yes.checked = false;
+                    no.checked = true;
                 }
             } else {
-                document.getElementById('boolean_no').checked = false;
-                document.getElementById('boolean_yes').checked = false;
-
+                no.checked = false;
+                yes.checked = false;
             }
 
             booleanPageValidation();
-            replaceCommonVariablesInElement(document.getElementById('Boolean'));
         } else if (question.questionType.type == "MultipleChoice") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
@@ -217,6 +220,7 @@
         } else if (question.questionType.type == "Decimal") {
             initQuestion(question, 'Decimal', 'headerDecimal');
             insertDynamicHeader(question, "dynamicHeader-Decimal-header", "dynamicHeader-Decimal-footer");
+            replaceCommonVariablesInElement(document.getElementById('Decimal'));
 
             // Populate Decimal value from model if exists.
             var question = getQuestion(questionPos);
@@ -230,7 +234,7 @@
 
             decimalPageValidation();
 
-            replaceCommonVariablesInElement(document.getElementById('Decimal'));
+
         } else if (question.questionType.type == 'Summary') {
             initSummary();
         }

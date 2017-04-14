@@ -54,6 +54,7 @@ header#page-header {
 	position: fixed;
 	top: 0;
 	width: 100%;
+	z-index: 9;
 
 	h1{
 		@include font-size(1.4);
@@ -65,12 +66,20 @@ header#page-header {
 }
 
 main{
-	@include font-size(1.6);
 
+	> div{
+		padding: 16px;
+	}
+	@include font-size(1.6);
+	margin-top: 2em;
 	background: $bg-main;
 	font-family: $font-copy;
 	font-weight: normal;
-	padding: $main-side-padding;
+	//padding: $main-side-padding;
+
+	header h2{
+		border-bottom: 1px solid;
+	}
 
 	h2 {
 		@include font-size(2.0);
@@ -90,7 +99,7 @@ main{
 		margin-bottom: 1.6rem;
 	}
 	.pre-header{
-		color:$text-color-pre-header;
+		//color:$text-color-pre-header;
 		display: block;
 		margin-bottom: 0.5em;
 	}
@@ -116,6 +125,8 @@ main{
 		@include button($button-bg-secondary, $button-text-secondary);
 		@include font-size(1.6);
 		-webkit-appearance: none;
+		padding: 0;
+		text-align: left;
 	}
 
 	input[type="number"]{
@@ -123,6 +134,7 @@ main{
 		margin-top:0.8rem;
 		padding: 0.5rem;
 		width: 100%;
+		border-radius: 3px;
 	}
 	.container {
 		display: table;
@@ -189,13 +201,23 @@ input:checked {
 
 
 // summary page
-main.summary{
-	padding: 0;
-	article{
-		border-bottom: 5px solid $bg-body;
-		margin: 0;
-		padding: $main-side-padding;
 
+#summary {
+	padding: 0;
+}
+main.summary{
+
+  > div{
+    padding: 0;
+  }
+	padding: 0;
+	margin-top: 0;
+
+	article{
+		border-bottom: 8px solid $bg-body;
+		margin: 0;
+		padding: 16px;
+		margin-bottom: 10px;
 		header{
 			p{
 				@include font-size(2.0);
@@ -212,16 +234,12 @@ main.summary{
 		}
 		h2{
 			@include font-size(2.0);
-
-			background: $bg-summary-section-header;
-			color: $text-color-header;
 			font-family: $font-heading;
 			font-weight: bold;
 			margin-top: -$main-side-padding;
-			margin-right: -$main-side-padding;
 			margin-bottom: 2rem;
-			margin-left: -$main-side-padding;
-			padding: $main-side-padding;
+			padding: 16px 0;
+			border-bottom: 1px solid #bfc1c3;
 		}
 		h3{
 			font-family: $font-heading;
@@ -432,7 +450,7 @@ details{
 
 .debug {
 	main{
-		margin-top: 4rem
+		//margin-top: 4rem
 	}
 	header#page-header{
 		display: block;

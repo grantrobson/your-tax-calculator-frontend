@@ -162,22 +162,11 @@ main {
       main ul.list-bullet li + li {
         margin-top: 0.5rem; }
 
-input ~ .col .showIfChecked input {
-  height: 0;
-  margin-top: 0;
-  opacity: 0;
-  padding: 0; }
+input ~ .col .showIfChecked {
+  display: none;}
 
-input:checked ~ .col .showIfChecked {
-  height: auto;
-  width: auto; }
-  input:checked ~ .col .showIfChecked input {
-    height: auto;
-    margin-top: 0.8rem;
-    opacity: 1;
-    padding: 0.5rem;
-    transition: all 0.5s linear;
-    width: 100%; }
+input:checked ~ .col .showIfChecked{
+  display: block;}
 
 #summary {
   padding: 0; }

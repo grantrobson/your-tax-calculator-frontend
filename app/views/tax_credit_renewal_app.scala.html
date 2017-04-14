@@ -79,6 +79,7 @@
             <div class="col" id="row_div_checkbox_ID">
                 <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
                 <div id="number_entry_hidden" class="showIfChecked">
+                    <label id="row_number_checkbox_label_ID" for="row_number_checkbox_ID"></label>
                     <input type="number" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
                 </div>
             </div>
@@ -511,18 +512,14 @@
 
         </div>
 
-        <div class="pack-not-received">
-
+        <div id="pack-not-received">
             <p class="lede">You must check the details in your renewal pack before you complete your declaration online.</p>
             <div class="notice">
                 <i class="icon icon-information"><span class="visuallyhidden">Information</span></i>
-                <strong class="bold-small">Your pack was posted on <nobr>24 April 2017.</nobr><br/>
-                    If you do not receive it by <nobr>8 May 2017,</nobr> <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact us</a>.</strong>
+                <p>If your renewal pack does not arrive by 30 June 2017, <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact the Tax Credit Helpline </a>.</p>
             </div>
             <br />
             <br/>
-            <p><a href="multi_renewals_start">Return to your declarations list</a></p>
-
         </div>
 
         <div id="auto-renewal-header">
@@ -773,7 +770,7 @@
         </div>
 
 
-        <div id="Was partner self-employed?">
+        <div id="renting-does-not-include-rent-a-room-scheme">
             <p class="lede">This does not include renting out property, or a room in their home as part of the Rent a Room Scheme.</p>
         </div>
 
@@ -874,7 +871,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D1,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,confirm-pack-receipt:true,certainBenefits.receivedBenefits:true,certainBenefits.jsa:true,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:false,certainBenefits.Do you still get this benefit:false,incomeDetails.Were you employed:true,incomeDetails.earnings:123123,incomeDetails.Did you get any company benefits:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:true,taxableBenefits.bereavement_allowance:12313,taxableBenefits.carer_allowance:123123,partner.certainBenefits.receivedBenefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,undefined:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Were you employed#How much employed income#Did you get any company benefits#Were you self employed#Did you get any taxable benefits#Select taxable benefits and enter amount#Partner benefits & income intro#Did partner get any untaxed benefits?#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('')">
 
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">

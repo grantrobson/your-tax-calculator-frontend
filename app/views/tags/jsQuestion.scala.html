@@ -175,7 +175,6 @@
         } else if (question.questionType.type == "Continue") {
             initQuestion(question, 'Continue', 'headerContinue');
             insertDynamicHeader(question, "dynamicHeader-Continue-header", "dynamicHeader-Continue-footer");
-
             replaceCommonVariablesInElement(document.getElementById('Continue'));
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');

@@ -15,7 +15,7 @@
             {
                 "id": "Partner benefits & income intro",
                 "group": "partner",
-                "question": "Part [REPLACE_X]: Your partner/'s benefits & income intro",
+                "question": "Part [REPLACE_X]: Your partner's benefits & income intro",
                 "questionType": {
                   "type": "Continue",
                   "questionFooterDiv": "Partner benefits & income intro",
@@ -254,31 +254,35 @@
                     "questionType": {
                     "type": "MultipleChoiceWithNumber",
                         "questionFooterDiv": "Select partner taxable benefits and enter amount",
-
                         "multipleChoiceOptions": [
                             {
                                 "option": "Bereavement Allowance",
-                                "modelId": "partner.taxableBenefits.bereavement_allowance",
+                                "question": "How much Bereavement Allowance did your parter get?",
+                                "modelId": "taxableBenefits.bereavement_allowance",
                                 "questionId": "bereavement_allowance"
                             },
                             {
-                                "option": "Carer Allowance",
-                                "modelId": "partner.taxableBenefits.carer_allowance",
+                                "option": "Carer's Allowance",
+                                "question": "How much Bereavement Allowance did your parter get?",
+                                "modelId": "taxableBenefits.carer_allowance",
                                 "questionId": "carer_allowance"
                             },
                             {
-                                "option": "Contribution-based Jobseeker Allowance",
-                                "modelId": "partner.taxableBenefits.contribution_based_jobseeker_allowance",
+                                "option": "Contribution-based Jobseeker's Allowance",
+                                "question": "How much contribution-based Jobseeker’s Allowance did your parter get?",
+                                "modelId": "taxableBenefits.contribution_based_jobseeker_allowance",
                                 "questionId": "contribution_based_jobseeker_allowance"
                             },
                             {
                                 "option": "Contribution-based Employment and Support Allowance",
-                                "modelId": "partner.taxableBenefits.contribution_based_employment_and_support_allowance",
+                                "question": "How much contribution-based Employment and Support Allowance did your parter get?",
+                                "modelId": "taxableBenefits.contribution_based_employment_and_support_allowance",
                                 "questionId": "contribution_based_employment_and_support_allowance"
                             },
                             {
                                 "option": "Incapacity Benefit",
-                                "modelId": "partner.taxableBenefits.incapacity_benefit",
+                                "question": "How much Incapacity Benefit did your parter get??",
+                                "modelId": "taxableBenefits.incapacity_benefit",
                                 "questionId": "incapacity_benefit"
                             }
                         ],
@@ -464,26 +468,31 @@
                     "multipleChoiceOptions": [
                     {
                         "option": "Savings, investments and dividends",
+                        "question" : "How much income from savings, investments and dividends did you get?",
                         "modelId": "otherIncome.saving_investment_dividend",
                         "questionId": "saving_investment_dividend"
                     },
                     {
                         "option": "Pensions",
+                        "question" : "How much income from pensions did you get?",
                         "modelId": "otherIncome.pensions",
                         "questionId": "pensions"
                     },
                     {
                         "option": "Trusts, settlements or estates",
+                        "question" : "How much income from trusts, settlements or estates did you get?",
                         "modelId": "otherIncome.trusts_settlements_or_estates",
                         "questionId": "trusts_settlements_or_estates"
                     },
                     {
                         "option": "Foreign income",
+                        "question" : "How much foreign income did you get?",
                         "modelId": "otherIncome.foreign_income",
                         "questionId": "foreign_income"
                     },
                     {
                         "option": "Notional income",
+                        "question" : "How much notional income did you get?",
                         "modelId": "otherIncome.notional_income",
                         "questionId": "notional_income"
                     }
@@ -827,13 +836,13 @@
                       "questionId": "bereavement_allowance"
                     },
                     {
-                      "option": "Carer Allowance",
+                      "option": "Carer's Allowance",
                       "question": "How much Bereavement Allowance did you get?",
                       "modelId": "taxableBenefits.carer_allowance",
                       "questionId": "carer_allowance"
                     },
                     {
-                      "option": "Contribution-based Jobseeker Allowance",
+                      "option": "Contribution-based Jobseeker's Allowance",
                       "question": "How much contribution-based Jobseeker’s Allowance did you get?",
                       "modelId": "taxableBenefits.contribution_based_jobseeker_allowance",
                       "questionId": "contribution_based_jobseeker_allowance"

@@ -1,6 +1,5 @@
 <script>
 
-    // TODO...rename to canGoBackToNative
     function canGoBack() {
         return(stack.length == 0 ? "true" : "false");
     }
@@ -23,7 +22,6 @@
         hook(SAVE_AND_COME_BACK_LATER);
     }
 
-    // TODO..validation and error handling!
     function MultipleChoiceNEXT() {
 
         var questionData = getQuestion(questionPos);
@@ -53,7 +51,6 @@
         displayQuestion();
     }
 
-    // TODO...Add validation. Define in future ticket.
     function NEXT_DECIMAL() {
         stack.push(questionPos);
         var question = getQuestion(questionPos);
@@ -69,7 +66,6 @@
         var question = getQuestion(questionPos);
         var arrayLength = question.questionType.multipleChoiceOptions.length;
 
-        // TODO: This is temp code to handle Next button. Do not route to Next if no options selected.
         var enableNext=false;
         // Cycle around associated checkbox input fields and check if ticked.
         for (var i = 0; i < arrayLength; i++) {
@@ -168,7 +164,8 @@
     function YES() {
         var question = getQuestion(questionPos);
         document.getElementById("yesInfoDiv").style.display = "block";
-        if(question.questionType.yesInfoDiv !== "undefined") {
+
+        if (question.questionType.yesInfoDiv !== undefined) {
             document.getElementById("yesInfoDiv").innerHTML = document.getElementById(question.questionType.yesInfoDiv).innerHTML;
         }
         if (question.questionType.modelId !== "undefined") {
@@ -179,12 +176,11 @@
     function NO() {
         var question = getQuestion(questionPos);
         clearYesInfoDiv();
-        if (question.questionType.modelId !== "undefined") {
+        if (question.questionType.modelId !== undefined) {
             map.set(question.questionType.modelId, "false");
         }
     }
 
-    // TODO: The summary screen could invoke the hook directly.
     function SAVE_AND_EXIT() {
         // Invoke the hook.
         nativeRequestToSaveAndExit();

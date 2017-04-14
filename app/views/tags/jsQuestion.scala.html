@@ -131,7 +131,7 @@
 // START JOURNEY CONTROL QUESTIONS!
         } else if (question.questionType.type == JOURNEY_COMPLETE) {
 
-            // This indicates end of journey.
+            // This indicates end of journey. This journey is only used for pack-not-received question.
             toggleControls("hide");
             hook(JOURNEY_COMPLETE);
             return;
@@ -150,11 +150,10 @@
         } else if (question.questionType.type == ROUTE_TO_COC) {
             // Route to Change of Circumstance.
             toggleControls("hide");
-            hook(ROUTE_TO_COC);
-
             // Advance the questionPosition to the summary screen.
             questionPos = "summary-screen";
 
+            hook(ROUTE_TO_COC);
             // Save switch which indicates user routed to CoC.
             map.set("hasChangeOfCircs", "true");
             return;

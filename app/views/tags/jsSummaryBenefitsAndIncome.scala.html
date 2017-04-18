@@ -38,7 +38,13 @@ function displayListOfUntaxedBenefitsOrAlert(period) {
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "block";
 
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
+
+            document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "none";
+            document.getElementById('yourBenefitsAndIncome.whichNoTaxBenefits').style.display = "none";
         } else {
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsListHeader').style.display = "none";
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "none";
+
             document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
             document.getElementById('yourBenefitsAndIncome.whichNoTaxBenefits').style.display = "block";
         }
@@ -51,6 +57,8 @@ function displayNoLongerReceivingBenefitsAlert(period) {
 
         if (answer === "false") {
             document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
+        } else {
+            document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
         }
     }
 }
@@ -88,7 +96,9 @@ function displayTaxableBenefitsInfoOrAlert(period) {
 
     if (answer === "true") {
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";
     } else {
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "none";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
     }
 }

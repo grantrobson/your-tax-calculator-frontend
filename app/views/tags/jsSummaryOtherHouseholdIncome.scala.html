@@ -61,12 +61,20 @@ function appendOtherIncomeAllowanceRow(period) {
 function displayOtherIncomeEstimatesAlerts(period) {
     if (getAnswerForQuestion('Are any of the income amounts estimated' + period) === 'true') {
         document.getElementById('otherHouseholdIncome.anyIncomeEstimatedAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('otherHouseholdIncome.anyIncomeEstimatedAlert' + period).style.display = "none";
     }
+
     if (getAnswerForQuestion('Is property rental loss estimated' +  period) === 'true') {
         document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert' + period).style.display = "none";
     }
+
     if (getAnswerForQuestion('Is property rental profit estimated' + period) === 'true') {
         document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "none";
     }
 }
 

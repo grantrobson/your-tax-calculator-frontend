@@ -34,12 +34,17 @@ function displayListOfPartnersUntaxedBenefitsOrAlert(period) {
     if(period !== "_PY_1") {
         var answer = getAnswerForQuestion('Did partner get any untaxed benefits?');
 
-        if (typeof answer !== "undefined" && answer === "true") {
+        if (isDefined(answer) && answer === "true") {
             document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsListHeader').style.display = "block";
 
             document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').style.display = "block";
             document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefits did partner get');
+
+            document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "none";
         } else {
+            document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsListHeader').style.display = "none";
+            document.getElementById('partnersIncomeAndBenefits.untaxedBenefitsList').style.display = "none";
+
             document.getElementById('partnersIncomeAndBenefits.didNotClaimAlert').style.display = "block";
         }
     }
@@ -49,11 +54,12 @@ function displayPartnerNoLongerReceivingUntaxedBenefitAlert(period) {
     if(period !== "_PY_1") {
         var answer = getAnswerForQuestion('Does partner still get this');
 
-        if (answer === "true") {
-            document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
-        }
-        else {
+        if (answer === "false") {
+            document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
             document.getElementById('partnersIncomeAndBenefits.whichNoTaxBenefits').style.display = "block";
+        } else {
+            document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
+            document.getElementById('partnersIncomeAndBenefits.whichNoTaxBenefits').style.display = "none";
         }
     }
 }
@@ -81,10 +87,14 @@ function populateTableOfPartnerOtherIncomes(period) {
 function displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period) {
     if (getAnswerForQuestion('Is partner self-employment profit estimated?' + period) === 'true') {
         document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "none";
     }
 
     if (getAnswerForQuestion('Is partner self-employment loss estimated?' + period) === 'true') {
         document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert' + period).style.display = "block";
+    } else {
+        document.getElementById('partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert' + period).style.display = "none";
     }
 }
 
@@ -94,7 +104,13 @@ function displayPartnersTotalUntaxedBenefits(period) {
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert' + period).style.display = "block";
+
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";
     } else {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).style.display = "none";
+
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert' + period).style.display = "none";
+
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
     }
 }

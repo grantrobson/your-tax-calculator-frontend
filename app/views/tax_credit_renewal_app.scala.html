@@ -151,14 +151,14 @@
                         <h1 id="yourBenefitsAndIncome.otherIncomeTotal_PY_1"/>
                     </header>
                     <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
-                    <table>
+                    <table id="yourBenefitsAndIncome.otherIncomeTable_PY_1">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount(£)</th>
                             </tr>
                         </thead>
-                        <tbody id="yourBenefitsAndIncome.otherIncomeTable_PY_1"/>
+                        <tbody id="yourBenefitsAndIncome.otherIncomeTableBody_PY_1"/>
                     </table>
                     <input type="button" class="secondary edit" value="Change your income" onClick="javascript:changeIncome('_PY_1')"/>
                 </article>
@@ -166,8 +166,8 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your total benefits</h4>
-                        <h1 id="yourBenefitsAndIncome.taxableBenefits_PY_1"/>
+                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel_PY_1" style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h1 id="yourBenefitsAndIncome.taxableBenefitsTotal_PY_1"/>
                     </header>
                     <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
                         Your income from benefits you pay tax on has been rounded down to the nearest pound (£).
@@ -175,14 +175,14 @@
                     <p id="yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert_PY_1" class="note" style="display: none">
                         You did not have any income from benefits you pay tax on.
                     </p>
-                    <table>
+                    <table id="yourBenefitsAndIncome.taxableBenefitsTable_PY_1">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount(£)</th>
                             </tr>
                         </thead>
-                        <tbody id="yourBenefitsAndIncome.taxableBenefitsTable_PY_1"/>
+                        <tbody id="yourBenefitsAndIncome.taxableBenefitsTableBody_PY_1"/>
                     </table>
                     <input type="button" class="secondary edit" value="Change benefits you pay tax on" onClick="javascript:changeTaxableBenefits('_PY_1')" />
 
@@ -219,7 +219,7 @@
                     <header>
                         <p id="partnersIncomeAndBenefits.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your partners total benefits</h4>
+                        <h4 id="partnersIncomeAndBenefits.taxableBenefitsTotalLabel_PY_1" style="text-align: center; font-weight: normal">Your partners total benefits</h4>
                         <h1 id="partnersIncomeAndBenefits.taxableBenefitsTotal_PY_1"/>
                     </header>
                     <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
@@ -228,14 +228,14 @@
                     <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert_PY_1" class="note" style="display: none">
                         Your partner did not have any income from benefits you pay tax on.
                     </p>
-                    <table>
+                    <table id="partnersIncomeAndBenefits.taxableBenefitsTable_PY_1">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount(£)</th>
                             </tr>
                         </thead>
-                        <tbody id="partnersIncomeAndBenefits.taxableBenefitsTable_PY_1"/>
+                        <tbody id="partnersIncomeAndBenefits.taxableBenefitsTableBody_PY_1"/>
                     </table>
                     <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" onClick="javascript:changePartnerBenefits('_PY_1')"/>
                 </article>
@@ -310,18 +310,18 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your total income</h4>
+                        <h4 id="yourBenefitsAndIncome.otherIncomeTotalLabel" style="text-align: center; font-weight: normal">Your total income</h4>
                         <h1 id="yourBenefitsAndIncome.otherIncomeTotal"/>
                     </header>
                     <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
-                    <table>
+                    <table id="yourBenefitsAndIncome.otherIncomeTable">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount(£)</th>
                             </tr>
                         </thead>
-                        <tbody id="yourBenefitsAndIncome.otherIncomeTable"/>
+                        <tbody id="yourBenefitsAndIncome.otherIncomeTableBody"/>
                     </table>
                     <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
                         You said your profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
@@ -336,8 +336,8 @@
                     <header>
                         <p id="yourBenefitsAndIncome.benefitsPreHeader" class="pre-header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your total benefits</h4>
-                        <h1 id="yourBenefitsAndIncome.taxableBenefits"/>
+                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel" style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h1 id="yourBenefitsAndIncome.taxableBenefitsTotal"/>
                     </header>
                     <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert" class="note" style="display: none">
                         Your income from benefits you pay tax on has been rounded down to the nearest pound (£).
@@ -345,14 +345,14 @@
                     <p id="yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert" class="note" style="display: none">
                         You did not have any income from benefits you pay tax on.
                     </p>
-                    <table>
+                    <table id="yourBenefitsAndIncome.taxableBenefitsTable">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount(£)</th>
                             </tr>
                         </thead>
-                        <tbody id="yourBenefitsAndIncome.taxableBenefitsTable"/>
+                        <tbody id="yourBenefitsAndIncome.taxableBenefitsTableBody"/>
                     </table>
                     <input type="button" class="secondary edit" value="Change benefits you pay tax on" onClick="javascript:changeTaxableBenefits('')" />
 
@@ -419,7 +419,7 @@
                     <header>
                         <p id="partnersIncomeAndBenefits.benefitsPreHeader" class="pre-header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your partner's total benefits</h4>
+                        <h4 id="partnersIncomeAndBenefits.taxableBenefitsTotalLabel" style="text-align: center; font-weight: normal">Your partner's total benefits</h4>
                         <h1 id="partnersIncomeAndBenefits.taxableBenefitsTotal"/>
                     </header>
                     <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert" class="note" style="display: none">
@@ -428,14 +428,14 @@
                     <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert" class="note" style="display: none">
                         Your partner did not have any income from benefits you pay tax on.
                     </p>
-                    <table>
+                    <table id="partnersIncomeAndBenefits.taxableBenefitsTable">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount(£)</th>
                             </tr>
                         </thead>
-                        <tbody id="partnersIncomeAndBenefits.taxableBenefitsTable"/>
+                        <tbody id="partnersIncomeAndBenefits.taxableBenefitsTableBody"/>
                     </table>
                     <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" onClick="javascript:changePartnerBenefits('')"/>
 
@@ -870,7 +870,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:R,hasPartner:false,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,renewalData.auto-renewal:true,confirm-pack-receipt:true,certainBenefits.receivedBenefits:true,certainBenefits.jsa:true,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:false,certainBenefits.Do you still get this benefit:true,otherIncome.Did you get any other household income:true,otherIncome.pensions:324234,otherIncome.foreign_income:324234,otherIncome.isOtherHouseholdIncomeEst:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:save-and-exit,stackDATA:a1#confirm-pack-receipt#Completing review message#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Report any changes')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:false,incomeDetails.Were you self employed_PY_1:false,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#Were you self employed_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes')">
 
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">

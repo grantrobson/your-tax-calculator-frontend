@@ -12,8 +12,7 @@ function populateYourPartnerBenefitsAndIncomeSection(sectionNo, period) {
         populateTableOfPartnerOtherIncomes(period);
         setPreHeader('partnersIncomeAndBenefits.benefitsPreHeader', period, 'Benefits your partner pays tax on between ');
         displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period);
-        displayPartnersTotalUntaxedBenefits(period);
-        populateTableOfPartnersUntaxedBenefits(period);
+        displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period);
     }
 }
 
@@ -98,25 +97,30 @@ function displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period) {
     }
 }
 
-function displayPartnersTotalUntaxedBenefits(period) {
+function displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period) {
     if (getAnswerForQuestion('Did partner get any taxable benefits?' + period) === 'true') {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotalLabel' + period).style.display = "block";
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).style.display = "block";
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert' + period).style.display = "block";
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";
+
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTableBody' + period).style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
     } else {
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotalLabel' + period).style.display = "none";
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).style.display = "none";
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert' + period).style.display = "none";
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
-    }
-}
 
-function populateTableOfPartnersUntaxedBenefits(period) {
-    document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).style.display = "none";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTableBody' + period).style.display = "none";
+    }
 }
 
 </script>

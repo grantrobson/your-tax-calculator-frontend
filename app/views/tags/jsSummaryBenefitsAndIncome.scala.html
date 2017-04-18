@@ -66,7 +66,7 @@ function displayTotalIncomeFromWork(period) {
         'How much company benefit' + period,
         'How much profit from self-employment' + period]);
 
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' + period).innerHTML = '£' + total;
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' + period).innerHTML = '£' + formatWithCommas(total);
 }
 
 function populateTableOfOtherIncomes(period) {
@@ -91,7 +91,7 @@ function displayTaxableBenefitsTableAndTotalOrAlert(period) {
     if (answer === "true") {
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotalLabel' + period).style.display = "block";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).style.display = "block";
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "£" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount'));
 
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";

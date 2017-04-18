@@ -21,7 +21,7 @@
           var answer = map.get(option.modelId);
 
           if (typeof answer !== "undefined") {
-              return acc + '<tr><td>' + option.option + '</td><td>' + Math.floor(parseFloat(answer)) + '</td></tr>'
+              return acc + '<tr><td>' + option.option + '</td><td>' + formatWithCommas(Math.floor(parseFloat(answer))) + '</td></tr>'
           } else {
               return acc
           }
@@ -31,7 +31,7 @@
   function buildTableFromListOfNumericQuestions(questions) {
       return questions.reduce(function (acc, question) {
           if (isDefined(getAnswerForQuestion(question.id))) {
-              return acc + '<tr><td>' + question.label + '</td><td>' + Math.floor(parseFloat(getAnswerForQuestion(question.id))) + '</td></tr>';
+              return acc + '<tr><td>' + question.label + '</td><td>' + formatWithCommas(Math.floor(parseFloat(getAnswerForQuestion(question.id)))) + '</td></tr>';
           } else {
               return acc + '<tr><td>' + question.label + '</td><td>0</td></tr>';
           }

@@ -68,6 +68,10 @@
           return modelIds.map(getMapIntValue).reduce(accumulate);
       }
 
+      function formatWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
       function findTextNodes(element) {
           var walker = document.createTreeWalker(
                   element,

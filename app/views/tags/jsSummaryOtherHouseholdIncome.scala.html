@@ -27,7 +27,7 @@ function displayOtherHouseholdIncomeTotal(period) {
 
         document.getElementById('otherHouseholdIncome.totalLabel' + period).style.display = "block";
         document.getElementById('otherHouseholdIncome.total' + period).style.display = "block";
-        document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "£" + total;
+        document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "£" + formatWithCommas(total);
     } else {
         document.getElementById('otherHouseholdIncome.totalLabel' + period).style.display = "none";
         document.getElementById('otherHouseholdIncome.total' + period).style.display = "none";

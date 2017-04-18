@@ -245,20 +245,20 @@
                     <header>
                         <h2 id="otherHouseholdIncome.header_PY_1"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your total other household income</h4>
+                        <h4 id="otherHouseholdIncome.totalLabel_PY_1" style="text-align: center; font-weight: normal">Your total other household income</h4>
                         <h1 id="otherHouseholdIncome.total_PY_1"/>
                     </header>
 
                     <p id="otherHouseholdIncome.noOtherIncome_PY_1" class="note" style="display: none">You did not have any types of other income.</p>
                     <p id="otherHouseholdIncome.roundDownWarn_PY_1" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
-                    <table>
+                    <table id="otherHouseholdIncome.otherIncomeTable_PY_1">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
-                        <tbody id="otherHouseholdIncome.otherIncomeTable_PY_1"/>
+                        <tbody id="otherHouseholdIncome.otherIncomeTableBody_PY_1"/>
                     </table>
                     <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert_PY_1" style="display: none">
                         You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
@@ -278,7 +278,7 @@
                     <h2 id="yourBenefitsAndIncome.header"/>
                     <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
-                    <span class="alert alert--info" id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
+                    <span id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
                         You told us that you did not claim any of the listed benefits for the whole of this time.
                     </span>
                     <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
@@ -362,7 +362,7 @@
                 <article>
                     <h2 id="partnersIncomeAndBenefits.header"/>
                     <h3>Benefits your partner does not pay tax on between 20 April 2016 and 5 April 2017</h3>
-                    <span class="alert alert--info" id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
+                    <span id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
                         You told us that your partner did not claim any of the listed benefits for the whole of this time.
                     </span>
                     <h4 id="partnersIncomeAndBenefits.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
@@ -446,20 +446,20 @@
                     <header>
                         <h2 id="otherHouseholdIncome.header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your total other household income</h4>
+                        <h4 id="otherHouseholdIncome.totalLabel" style="text-align: center; font-weight: normal">Your total other household income</h4>
                         <h1 id="otherHouseholdIncome.total"/>
                     </header>
 
                     <p id="otherHouseholdIncome.noOtherIncome" class="note" style="display: none">You did not have any types of other income.</p>
                     <p id="otherHouseholdIncome.roundDownWarn" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
-                    <table>
+                    <table id="otherHouseholdIncome.otherIncomeTable">
                         <thead>
                             <tr>
                                 <th>Type Of Income</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
-                        <tbody id="otherHouseholdIncome.otherIncomeTable"/>
+                        <tbody id="otherHouseholdIncome.otherIncomeTableBody"/>
                     </table>
                     <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert" style="display: none">
                         You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
@@ -870,7 +870,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:false,incomeDetails.Were you self employed_PY_1:false,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#Were you self employed_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.Were you self employed_PY_1:true,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes,incomeDetails.earnings_PY_1:123123,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:123132,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:123123')">
 
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">

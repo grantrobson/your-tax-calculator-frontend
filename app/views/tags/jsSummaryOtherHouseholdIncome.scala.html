@@ -3,16 +3,14 @@
 //Other Household Income
 
 function populateOtherHouseholdIncomeSection(sectionNo, period) {
-    showOtherHuoseholdIncomeSection(period)
+    showOtherHouseholdIncomeSection(period)
     setOtherHouseholdIncomeSectionHeader(sectionNo, period);
     displayOtherHouseholdIncomeTotal(period);
     displayOtherHouseholdIncomeInfoOrAlert(period);
-    populateTableOfOtherIncome(period);
-    appendOtherIncomeAllowanceRow(period);
     displayOtherIncomeEstimatesAlerts(period)
 }
 
-function showOtherHuoseholdIncomeSection(period) {
+function showOtherHouseholdIncomeSection(period) {
     document.getElementById('otherHouseholdIncome' + period).style.display = "block";
 }
 
@@ -21,15 +19,19 @@ function setOtherHouseholdIncomeSectionHeader(sectionNo, period) {
 }
 
 function displayOtherHouseholdIncomeTotal(period) {
-    var total = sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
-
     var answer = getAnswerForQuestion('Did you get any other household income' + period);
 
     if (answer === "true") {
-        total = Math.max(total - 300, 0)
-    }
+        var total = sumMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
+        total = Math.max(total - 300, 0);
 
-    document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "£" + total;
+        document.getElementById('otherHouseholdIncome.totalLabel' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.total' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "£" + total;
+    } else {
+        document.getElementById('otherHouseholdIncome.totalLabel' + period).style.display = "none";
+        document.getElementById('otherHouseholdIncome.total' + period).style.display = "none";
+    }
 }
 
 function displayOtherHouseholdIncomeInfoOrAlert(period) {
@@ -38,24 +40,22 @@ function displayOtherHouseholdIncomeInfoOrAlert(period) {
     if (answer === "true") {
         document.getElementById('otherHouseholdIncome.noOtherIncome' + period).style.display = "none";
         document.getElementById('otherHouseholdIncome.roundDownWarn' + period).style.display = "block";
+
+        document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
+        appendOtherIncomeAllowanceRow(period);
     } else {
         document.getElementById('otherHouseholdIncome.noOtherIncome' + period).style.display = "block";
         document.getElementById('otherHouseholdIncome.roundDownWarn' + period).style.display = "none";
-    }
-}
 
-function populateTableOfOtherIncome(period) {
-    document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
+        document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).style.display = "none";
+    }
 }
 
 function appendOtherIncomeAllowanceRow(period) {
-    var answer = getAnswerForQuestion('Did you get any other household income' + period);
+    var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML;
 
-    if (answer === "true") {
-        var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).innerHTML;
-
-        document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
-    }
+    document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
 }
 
 function displayOtherIncomeEstimatesAlerts(period) {

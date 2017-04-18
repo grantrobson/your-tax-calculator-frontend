@@ -30,7 +30,7 @@
 
   function buildTableFromListOfNumericQuestions(questions) {
       return questions.reduce(function (acc, question) {
-          if (typeof getAnswerForQuestion(question.id) !== 'undefined') {
+          if (isDefined(getAnswerForQuestion(question.id))) {
               return acc + '<tr><td>' + question.label + '</td><td>' + Math.floor(parseFloat(getAnswerForQuestion(question.id))) + '</td></tr>';
           } else {
               return acc + '<tr><td>' + question.label + '</td><td>0</td></tr>';
@@ -44,7 +44,7 @@
       var result = options.reduce(function (acc, option) {
           var answer = map.get(option.modelId);
 
-          if (typeof answer !== "undefined") {
+          if (isDefined(answer)) {
               return acc + parseFloat(answer)
           } else {
               return acc
@@ -55,13 +55,15 @@
   }
 
   function sumAnswersFromListOfQuestions(questions) {
-      return questions.reduce(function (acc, question) {
-          if (typeof getAnswerForQuestion(question) !== 'undefined') {
+      var result =  questions.reduce(function (acc, question) {
+          if (isDefined(getAnswerForQuestion(question))) {
               return acc + parseFloat(getAnswerForQuestion(question))
           } else {
               return acc
           }
       }, 0);
+
+      return Math.max(Math.floor(result), 0);
   }
 
 </script>

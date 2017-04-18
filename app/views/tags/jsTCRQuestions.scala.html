@@ -93,7 +93,7 @@
                 {
                     "id": "Was partner employed?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Was employed as an employee at any time between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Was your partner employed as an employee at any time between [DATE_A] and [DATE_B]?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "How much employed income did partner get?",
@@ -114,7 +114,7 @@
                 {
                     "id": "How much employed income did partner get?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>How much did earn from all jobs as an employee between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>How much did your partner earn from all jobs as an employee between [DATE_A] and [DATE_B]?",
                     "questionType": {
                         "type": "Decimal",
                         "questionFooterDiv": "How much employed income did partner get?",
@@ -126,7 +126,7 @@
                 {
                     "id": "Did partner get any company benefits?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Did receive company benefits between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner’s benefits and income</span>Did your partner receive company benefits between [DATE_A] and [DATE_B]?",
                     "questionType": {
                         "type": "Boolean",
                         "questionFooterDiv": "Did partner get any company benefits?",
@@ -182,6 +182,7 @@
                         "type": "Boolean",
                         "yesNextQuestionId": "How much profit did partner make from self-employment?",
                         "noNextQuestionId": "Is partner self-employment loss estimated?",
+                        "modelId": "partner.incomeDetails.Did partner make profit from self-employment?",
                         "answerNo": {
                             "questionIds": [
                                  "How much profit did partner make from self-employment?",
@@ -257,13 +258,13 @@
                         "multipleChoiceOptions": [
                             {
                                 "option": "Bereavement Allowance",
-                                "question": "How much Bereavement Allowance did your parter get?",
+                                "question": "How much Bereavement Allowance did your partner get?",
                                 "modelId": "partner.taxableBenefits.bereavement_allowance",
                                 "questionId": "bereavement_allowance"
                             },
                             {
                                 "option": "Carer's Allowance",
-                                "question": "How much Bereavement Allowance did your parter get?",
+                                "question": "How much Bereavement Allowance did your partner get?",
                                 "modelId": "partner.taxableBenefits.carer_allowance",
                                 "questionId": "carer_allowance"
                             },
@@ -275,13 +276,13 @@
                             },
                             {
                                 "option": "Contribution-based Employment and Support Allowance",
-                                "question": "How much contribution-based Employment and Support Allowance did your parter get?",
+                                "question": "How much contribution-based Employment and Support Allowance did your partner get?",
                                 "modelId": "partner.taxableBenefits.contribution_based_employment_and_support_allowance",
                                 "questionId": "contribution_based_employment_and_support_allowance"
                             },
                             {
                                 "option": "Incapacity Benefit",
-                                "question": "How much Incapacity Benefit did your parter get??",
+                                "question": "How much Incapacity Benefit did your partner get??",
                                 "modelId": "partner.taxableBenefits.incapacity_benefit",
                                 "questionId": "incapacity_benefit"
                             }
@@ -439,7 +440,7 @@
             {
                 "id": "Did you get any other household income",
                 "group": "household-income",
-                "question": "Part [REPLACE_X]: Other household income<br><p>Did you get any of these sources of income between <nobr>[DATE_A]</nobr> and <nobr>[DATE_B]?</nobr></p>",
+                "question": "Part [REPLACE_X]: Other household income<br><p>Did you [PARTNER_DETAILS]get any of these sources of income between <nobr>[DATE_A]</nobr> and <nobr>[DATE_B]?</nobr></p>",
                 "section":"OTHER-INCOME",
                 "questionType": {
                   "type": "Boolean",
@@ -463,7 +464,7 @@
             {
                 "id": "Select other income sources & enter amount",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>What sources of income did you get between between [DATE_A] to [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>What sources of income did you [PARTNER_DETAILS]get between between [DATE_A] to [DATE_B]?",
                 "section":"OTHER-INCOME",
                 "questionType": {
                 "type": "MultipleChoiceWithNumber",
@@ -521,7 +522,7 @@
             {
                 "id": "Did you get any income from property rental",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you get any income between [DATE_A] and [DATE_B] from renting out property?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you get [PARTNER_DETAILS]any income between [DATE_A] and [DATE_B] from renting out property?",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "Did you get any income from property rental",
@@ -545,7 +546,7 @@
             {
                 "id": "Did you make a profit from property rental",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you make a profit from renting out property between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you [PARTNER_DETAILS]make a profit from renting out property between [DATE_A] and [DATE_B]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Property rental profit - enter amount",
@@ -576,7 +577,7 @@
             {
                 "id": "Property rental profit - enter amount",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>How much profit did you make from renting out property between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>How much profit did you [PARTNER_DETAILS]make from renting out property between [DATE_A] and [DATE_B]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Is property rental profit estimated",
@@ -877,7 +878,8 @@
         var headerData = new Map();
         var introMap = new Map();
 
-
+        var partnerHeader = "";
+        var claimType = "";
         // Create journey based on renewal type.
         if (type == AUTO_RENEWAL) {
             renewalType = AUTO_RENEWAL;
@@ -887,13 +889,22 @@
             } else {
                 renewalType = SINGLE_D2;
             }
+            partnerHeader = "";
+            claimType = "single";
         } else {
             if (type == "D") {
                 renewalType = JOINT_D1;
             } else {
                 renewalType = JOINT_D2;
             }
+            partnerHeader = "or your partner ";
+            claimType = "joint";
         }
+
+        // Add content to map.
+        map.set("PARTNER_DETAILS", partnerHeader);
+        map.set("CLAIM_TYPE", claimType);
+
         // Set the renewalType.
         map.set("renewalType", renewalType);
 
@@ -1098,9 +1109,9 @@
             headers_JOINT_D2();
 
         } else {
-            // TODO...FAILURE!!! Add new native error hook!
-            alert(' Failed to resolve journey');
+            throw(" Failed to resolve journey");
         }
+
 
 // Uncomment to debug questions.
 //        questionsDebugDump();

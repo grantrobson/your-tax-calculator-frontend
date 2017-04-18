@@ -33,25 +33,18 @@
 
         containerDiv.appendChild(cln);
 
-/// TODO...generic recursive function.
-         var element = document.getElementById('row_div_checkbox_ID_'+i);
-         if (element != null) {
+        updateChildrenFromId('row_div_checkbox_ID_'+i, i);
+        updateChildrenFromId('number_entry_hidden_'+i, i);
+    }
+
+    function updateChildrenFromId(id, i) {
+        var element = document.getElementById(id);
+        if (element != null) {
             var child = element.children;
             for (c = 0; c < child.length; c++) {
                 cur = child[c];
                 if (cur.nodeType === 1 && cur.id) {
                     cur.id = cur.id + "_" + i;
-                }
-            }
-
-             element = document.getElementById('number_entry_hidden_'+i);
-             if (element != null) {
-                var child = element.children;
-                for (c = 0; c < child.length; c++) {
-                    cur = child[c];
-                    if (cur.nodeType === 1 && cur.id) {
-                        cur.id = cur.id + "_" + i;
-                    }
                 }
             }
         }

@@ -6,7 +6,6 @@ var                  ROUTE_TO_COC = "RouteToChangeOfCircumstance";
 var                SUBMIT_RENEWAL = "SubmitRenewal";
 var             SAVE_AND_CONTINUE = "SaveAndContinue";
 var      SAVE_AND_COME_BACK_LATER = "SaveAndComeBackLater";
-var              STARTUP_JS_ERROR = "StartingJSError";
 var             INTERNAL_JS_ERROR = "InternalJSError";
 
     // TODO: NOTE: awardStartDate and awardEndDate not used at present.
@@ -65,4 +64,10 @@ var             INTERNAL_JS_ERROR = "InternalJSError";
             window.seleniumCallback(response);
         } catch(err) {}
     }
+
+    // Define global error handler.
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+        hook(INTERNAL_JS_ERROR);
+    };
+
 </script>

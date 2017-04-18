@@ -138,7 +138,7 @@
 
     <div id="Summary" style="display: none;">
         <main class="summary">
-            <header id="page-header">
+            <header>
                 <h1>Check and confirm your answers</h1>
             </header>
             <div id="yourBenefitsAndIncome_PY_1" style="display: none">
@@ -637,11 +637,11 @@
 
         <div id="Other household income">
             <ul class="list list-bullet text">
-                <li>Savings, investments or dividends</li>
-                <li>Pensions</li>
-                <li>Trusts, settlement or estates</li>
-                <li>Foreign income</li>
-                <li>Notional income</li>
+                <li>savings, investments or dividends</li>
+                <li>pensions</li>
+                <li>trusts, settlement or estates</li>
+                <li>foreign income</li>
+                <li>notional income</li>
             </ul>
 
             <details>
@@ -815,7 +815,7 @@
         </div>
 
         <div id="report-any-changes">
-            <p class="lede">Check the details in your renewal paper pack for your single claim between <nobr></nobr> and <nobr></nobr>.</p>
+            <p class="lede">Check the details in your renewal paper pack for your [CLAIM_TYPE] claim between <nobr></nobr> [DATE_A] and [DATE_B]<nobr></nobr>.</p>
             <p class="lede">Do you need to report a change to the details shown?</p>
         </div>
 
@@ -876,6 +876,7 @@
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
         <input type="button" value="Back" onClick="javascript:BACK()">
+        <input type="button" value="Test global error handler" onClick="javascript:TEST_ERROR()">
 
         <br><br>
         <div id="dumpDiv">

@@ -10,9 +10,7 @@ function populateYourBenefitsAndIncomeSection(sectionNo, period) {
     displayTotalIncomeFromWork(period);
     populateTableOfOtherIncomes(period);
     setBenefitsPreHeader(period);
-    displayTotalTaxableBenefits(period);
-    displayTaxableBenefitsInfoOrAlert(period);
-    populateTableTaxableBenefits(period);
+    displayTaxableBenefitsTableAndTotalOrAlert(period);
 }
 
 function showYourBenefitsAndIncomeSection(period) {
@@ -20,7 +18,7 @@ function showYourBenefitsAndIncomeSection(period) {
 }
 
 function setNoTaxBenefitPreHeader(period) {
-    if(period !== "_PY_1") {
+    if (period !== "_PY_1") {
         setPreHeader('yourBenefitsAndIncome.noTaxBenefitHeader', period, 'Benefits you do not pay tax on between ')
     }
 }
@@ -30,7 +28,7 @@ function setYourBenefitsAndIncomeSectionHeader(sectionNo, period) {
 }
 
 function displayListOfUntaxedBenefitsOrAlert(period) {
-    if(period !== "_PY_1") {
+    if (period !== "_PY_1") {
         var answer = getAnswerForQuestion('Did you get any untaxed benefits');
 
         if (answer === "true") {
@@ -38,7 +36,13 @@ function displayListOfUntaxedBenefitsOrAlert(period) {
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "block";
 
             document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').innerHTML = buildListFromRadioAnswers('Which untaxed benefit did you get');
+
+            document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "none";
+            document.getElementById('yourBenefitsAndIncome.whichNoTaxBenefits').style.display = "none";
         } else {
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsListHeader').style.display = "none";
+            document.getElementById('yourBenefitsAndIncome.untaxedBenefitsList').style.display = "none";
+
             document.getElementById('yourBenefitsAndIncome.didNotClaimAlert').style.display = "block";
             document.getElementById('yourBenefitsAndIncome.whichNoTaxBenefits').style.display = "block";
         }
@@ -46,11 +50,13 @@ function displayListOfUntaxedBenefitsOrAlert(period) {
 }
 
 function displayNoLongerReceivingBenefitsAlert(period) {
-    if(period !== "_PY_1") {
+    if (period !== "_PY_1") {
         var answer = getAnswerForQuestion('Do you still get this benefit');
 
         if (answer === "false") {
             document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
+        } else {
+            document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
         }
     }
 }
@@ -60,7 +66,7 @@ function displayTotalIncomeFromWork(period) {
         'How much company benefit' + period,
         'How much profit from self-employment' + period]);
 
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' +  period).innerHTML = '£' + total;
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' + period).innerHTML = '£' + total;
 }
 
 function populateTableOfOtherIncomes(period) {
@@ -72,29 +78,35 @@ function populateTableOfOtherIncomes(period) {
         id: 'How much profit from self-employment' + period, label: 'Profit from self-employment'
     }];
 
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTable' + period).innerHTML = buildTableFromListOfNumericQuestions(questions);
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTableBody' + period).innerHTML = buildTableFromListOfNumericQuestions(questions);
 }
 
 function setBenefitsPreHeader(period) {
     document.getElementById('yourBenefitsAndIncome.benefitsPreHeader' + period).innerHTML = "Benefits you pay tax on between " + map.get("startDate" + period) + " and " + map.get("endDate" + period)
 }
 
-function displayTotalTaxableBenefits(period) {
-    document.getElementById('yourBenefitsAndIncome.taxableBenefits' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
-}
-
-function displayTaxableBenefitsInfoOrAlert(period) {
+function displayTaxableBenefitsTableAndTotalOrAlert(period) {
     var answer = getAnswerForQuestion('Did you get any taxable benefits');
 
     if (answer === "true") {
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
-    } else {
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
-    }
-}
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotalLabel' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "£" + sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
 
-function populateTableTaxableBenefits(period) {
-    document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";
+
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable' + period).style.display = "block";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+    } else {
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotalLabel' + period).style.display = "none";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).style.display = "none";
+
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "none";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
+
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable' + period).style.display = "none";
+    }
 }
 
 </script>

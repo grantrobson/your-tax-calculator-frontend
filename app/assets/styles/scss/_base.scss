@@ -23,11 +23,6 @@
 	&[disabled="disabled"],
 	&[disabled]{
 		opacity: 0.5;
-
-		//&:hover,
-		//&:focus {
-		//	background-color: $background;
-		//}
 	}
 }
 
@@ -126,7 +121,6 @@ main{
 		@include font-size(1.6);
 		-webkit-appearance: none;
 		padding: 0;
-		text-align: left;
 	}
 
 	input[type="number"]{
@@ -188,6 +182,10 @@ input:checked ~ .col .showIfChecked{
 	padding: 0;
 }
 main.summary{
+
+	input[type="button"].secondary {
+		text-align: left;
+	}
 
   > div{
     padding: 0;

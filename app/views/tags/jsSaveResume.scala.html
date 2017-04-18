@@ -1,6 +1,14 @@
 
 <script type="text/javascript">
 
+    var STACK_TOKEN = "#";
+    var MODEL_TOKEN = ":";
+
+    function returnToSummary() {
+        // Pop native callback question from stack and init question position to summary screen.
+        questionPos = "summary-screen";
+    }
+
     function resume(model) {
         map = new Map();
         stack = [];
@@ -8,23 +16,41 @@
         // Populate the model with the resumed data.
         var tokens = model.split(",");
             tokens.forEach(function (token) {
-            var data = token.split(":");    // MAGIC!
+            var data = token.split(MODEL_TOKEN);
             map.set(data[0],data[1]);
         });
 
         // Build the question stack.
         var stackData = map.get("stackDATA");
-        if (stackData !== undefined) {
-            var stackTokens = stackData.split("#"); // MAGIC!
+        if (isDefined(stackData)) {
+            var stackTokens = stackData.split(STACK_TOKEN);
             stackTokens.forEach(function (position) {
-            stack.push(position);
-        });
+                stack.push(position);
+            });
         }
 
         // Set the current question.
         questionPos = map.get("currentQuestionPos");
+        var question = getQuestion(questionPos);
 
-        if (questionPos === undefined) {
+        // The JourneyComplete status is currently only used for the pack-not-received question. If the client resumes the application where the
+        // last question was JourneyComplete, then rewind the question stack to land on question confirm-pack-receipt.
+        if (isDefined(question.questionType.type) && question.questionType.type == JOURNEY_COMPLETE) {
+            var stackQuestion = "";
+            for (i = stack.length; i >= 0; i--) {
+                stackQuestion = stack.pop();
+                if (stackQuestion ==  "confirm-pack-receipt") {
+                    questionPos = stackQuestion;
+                    break;
+                }
+            }
+        } else if (isDefined(question.questionType.type) && question.questionType.type == SAVE_AND_COME_BACK_LATER) {
+            returnToSummary();
+        } else if (isDefined(question.questionType.type) && question.questionType.type == SUBMIT_RENEWAL) {
+            returnToSummary();
+        }
+
+        if (!isDefined(questionPos)) {
             alert("Failed to resume the application since question is missing!");
         } else {
             toggleControls("hide");
@@ -46,7 +72,7 @@
         for (i = 0; i < stack.length; i++) {
             stackData = stackData + stack[i];
             if (i != stack.length-1) {
-                stackData = stackData + "#";    // TODO...MAGIC CHARACTER!
+                stackData = stackData + STACK_TOKEN;
             }
         }
         // Save the stack into the map.
@@ -57,10 +83,10 @@
             if (first) {
                 first=false;
                 append="";
-        } else {
-            append=",";
-        }
-        dumpData = dumpData + append + key+":"+value;
+            } else {
+                append=",";
+            }
+        dumpData = dumpData + append + key + MODEL_TOKEN + value;
         });
 
         // Android callback.

@@ -9,8 +9,8 @@
         headerData.set("benefits-and-income", 1);
         headerData.set("household-income", 2);
 
-        introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A] and [DATE_B]", posY), 1);
-        introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A] and [DATE_B]", posY), 2);
+        introMap.set("Your income and benefits between [DATE_A] and [DATE_B]", 1);
+        introMap.set("Other household income, such as income from property between [DATE_A] and [DATE_B]", 2);
         introMap.set("Report any changes to circumstances", 3);
 
         updateHeaders(posY, headerData, introMap);
@@ -26,10 +26,10 @@
         headerData.set("partner", 2);
         headerData.set("household-income", 3);
 
-        introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A] and [DATE_B]", posY), 1);
-        introMap.set(replaceStringKeysWithValues("Your partner’s income and benefits between [DATE_A] and [DATE_B]",posY), 2);
-        introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A] and [DATE_B]", posY), 3);
-        introMap.set(replaceStringKeysWithValues("Report any changes to circumstances", posY), 4);
+        introMap.set("Your income and benefits between [DATE_A] and [DATE_B]", 1);
+        introMap.set("Your partner’s income and benefits between [DATE_A] and [DATE_B]", 2);
+        introMap.set("Other household income, such as income from property between [DATE_A] and [DATE_B]", 3);
+        introMap.set("Report any changes to circumstances", 4);
 
         updateHeaders(posY, headerData, introMap);
     }
@@ -45,12 +45,12 @@
         headerData.set("benefits-and-income", 3);
         headerData.set("household-income", 4);
 
-        introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", posY), 1);
-        introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A_PY_1] and [DATE_B_PY_1]", posY), 2);
+        introMap.set("Your income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", 1);
+        introMap.set("Other household income, such as income from property between [DATE_A_PY_1] and [DATE_B_PY_1]", 2);
         // MULTI OR SINGLE! true/false
-        introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A] and [DATE_B]", posY), 3);
-        introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A] and [DATE_B]", posY), 4);
-        introMap.set(replaceStringKeysWithValues("Report any changes to circumstances", posY), 5);
+        introMap.set("Your income and benefits between [DATE_A] and [DATE_B]", 3);
+        introMap.set("Other household income, such as income from property between [DATE_A] and [DATE_B]", 4);
+        introMap.set("Report any changes to circumstances", 5);
 
         updateHeaders(posY, headerData, introMap);
     }
@@ -67,30 +67,29 @@
         headerData.set("partner", 5);
         headerData.set("household-income", 6);
 
-        introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),1);
-        introMap.set(replaceStringKeysWithValues("Your partner’s income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),2);
-        introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A_PY_1] and [DATE_B_PY_1]", posY),3);
-        introMap.set(replaceStringKeysWithValues("Your income and benefits between [DATE_A] and [DATE_B]",posY),4);
-        introMap.set(replaceStringKeysWithValues("Your partner’s income and benefits between [DATE_A] and [DATE_B]",posY),5);
-        introMap.set(replaceStringKeysWithValues("Other household income, such as income from property between [DATE_A] and [DATE_B]",posY),6);
+        introMap.set("Your income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]",1);
+        introMap.set("Your partner’s income and benefits between [DATE_A_PY_1] and [DATE_B_PY_1]",2);
+        introMap.set("Other household income, such as income from property between [DATE_A_PY_1] and [DATE_B_PY_1]",3);
+        introMap.set("Your income and benefits between [DATE_A] and [DATE_B]",4);
+        introMap.set("Your partner’s income and benefits between [DATE_A] and [DATE_B]",5);
+        introMap.set("Other household income, such as income from property between [DATE_A] and [DATE_B]",6);
         introMap.set("Report any changes to circumstances",7);
 
         updateHeaders(posY, headerData, introMap);
     }
 
     function updateHeaders(posY, headerData, introMap) {
-
         function replaceXCounter(group, xvalue) {
             data().questions.forEach(function (question) {
-                if (question.group !== undefined && question.group == group) {
+                if (isDefined(question.group) && question.group === group) {
                     question.question = question.question.replace("[REPLACE_X]", xvalue);
                 }
             });
         }
 
-        // Override template values in questions.
+        // Update REPLACE_Y with part number.
         data().questions.forEach(function (question) {
-            question.question = replaceStringKeysWithValues(question.question, posY);
+            question.question = question.question.replace("[REPLACE_Y]", posY);
         });
 
         // Update REPLACE_X header with question Part numbers from headerData groups.
@@ -102,6 +101,12 @@
         var totalMessages = document.getElementById("completing-review-message-total");
         totalMessages.innerHTML = ''; // clear existing
         totalMessages.appendChild(document.createTextNode(''+posY));
+
+        //Add a warning to the intro for D2 renewals
+        if(getRenewalType() === JOINT_D2 || getRenewalType() === SINGLE_D2){
+            var warning = document.getElementById("completingReviewWarningForD2");
+            warning.style.display = "block";
+        }
 
         var itm = document.getElementById("cloneForInsertPoint");
         var insertDynamicPoint = document.getElementById("dynamicInsertPoint");
@@ -115,21 +120,9 @@
                             "</li><br/>"
             insertDynamicPoint.appendChild(cln);
         });
-    }
 
-    function replaceStringKeysWithValues(inString, posY) {
-        // Update the question headers with position info and dates.
-        var endDate = map.get("endDate");
-        var startDate = map.get("startDate");
-        var endDate_PY_1 = map.get("endDate_PY_1");
-        var startDate_PY_1 = map.get("startDate_PY_1");
-
-        var update = inString.replace("[REPLACE_Y]", posY);
-        update = update.replace("[DATE_A]", startDate);
-        update = update.replace("[DATE_B]", endDate);
-        update = update.replace("[DATE_A_PY_1]", startDate_PY_1);
-        update = update.replace("[DATE_B_PY_1]", endDate_PY_1);
-        return(update);
+        //Replace all common variables in intro element.
+        replaceCommonVariablesInElement(insertDynamicPoint);
     }
 
 </script>

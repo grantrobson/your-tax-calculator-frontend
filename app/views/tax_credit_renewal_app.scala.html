@@ -79,6 +79,7 @@
             <div class="col" id="row_div_checkbox_ID">
                 <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
                 <div id="number_entry_hidden" class="showIfChecked">
+                    <label id="row_number_checkbox_label_ID" for="row_number_checkbox_ID"></label>
                     <input type="number" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
                 </div>
             </div>
@@ -96,6 +97,7 @@
         <h3 id="headerBoolean"></h3>
         <div id="dynamicHeader-Boolean-footer"></div>
 
+        <div id="yesInfoDiv" style="display: none"></div>
         <div class="container">
             <div class="row">
                 <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
@@ -136,7 +138,7 @@
 
     <div id="Summary" style="display: none;">
         <main class="summary">
-            <header id="page-header">
+            <header>
                 <h1>Check and confirm your answers</h1>
             </header>
             <div id="yourBenefitsAndIncome_PY_1" style="display: none">
@@ -510,33 +512,38 @@
 
         </div>
 
-        <div class="pack-not-received">
-
+        <div id="pack-not-received">
             <p class="lede">You must check the details in your renewal pack before you complete your declaration online.</p>
             <div class="notice">
                 <i class="icon icon-information"><span class="visuallyhidden">Information</span></i>
-                <strong class="bold-small">Your pack was posted on <nobr>24 April 2017.</nobr><br/>
-                    If you do not receive it by <nobr>8 May 2017,</nobr> <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact us</a>.</strong>
+                <p>If your renewal pack does not arrive by 30 June 2017, <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact the Tax Credit Helpline </a>.</p>
             </div>
             <br />
             <br/>
-            <p><a href="multi_renewals_start">Return to your declarations list</a></p>
-
         </div>
 
         <div id="auto-renewal-header">
             <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
             <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
-            <br>
-            <span>Your renewal pack should arrive by 30 June 2016. </span>
-            <br>
-            <br>
+            <details>
+                <summary><span class="summary">I have not received my pack yet</span></summary>
+                <div class="panel panel-border-narrow">
+                    <p>Your renewal pack should arrive by 30 June 2016. If it does not arrive by then, <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact the Tax Credit Helpline.</a></p>
+                </div>
+            </details>
+        </div>
+
+        <div id="auto-renewal-yes-info">
+            <span class="alert alert--info">Because you need to report changes, we will also need you to review your income over the last year.</span>
         </div>
 
         <div id="Completing review message">
             <p>Your information will be saved as you progress.
                 If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
             </p>
+
+            <p id="completingReviewWarningForD2" style="display: none">As you were not able to provide us with actual income figures when applying for tax credits,
+                we will need to ask you questions about the previous 2 tax years.</p>
 
             <p>This review is divided into <span id="completing-review-message-total">3</span> parts.</p>
             <ul class="list-bullet">
@@ -609,12 +616,12 @@
                 If you have not already told us that you no longer receive this benefit, you should report this as a change in this review.
             </div>
         </div>
-        <div id="which-of-these-benefits-did-you-get-at-the-time">
+        <div id="let-us-know-how-much-you-have-earned">
             <p>Let us know how much you earned before anything was taken off. Use the ‘total pay’ or ‘total for year’ amount on your P60.</p>
             <details>
                 <summary>What if I do not have my P60?</summary>
                 <div class="panel">
-                    <p>If your employer has told us about your earned income between {award start date} and {award end date}, it is shown in step B of your renewal pack.
+                    <p>If your employer has told us about your earned income between [DATE_A] and [DATE_B], it is shown in step B of your renewal pack.
                     </p>
                     <div>
                         <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60"></use></svg>
@@ -630,11 +637,11 @@
 
         <div id="Other household income">
             <ul class="list list-bullet text">
-                <li>Savings, investments or dividends</li>
-                <li>Pensions</li>
-                <li>Trusts, settlement or estates</li>
-                <li>Foreign income</li>
-                <li>Notional income</li>
+                <li>savings, investments or dividends</li>
+                <li>pensions</li>
+                <li>trusts, settlement or estates</li>
+                <li>foreign income</li>
+                <li>notional income</li>
             </ul>
 
             <details>
@@ -763,7 +770,7 @@
         </div>
 
 
-        <div id="Was partner self-employed?">
+        <div id="renting-does-not-include-rent-a-room-scheme">
             <p class="lede">This does not include renting out property, or a room in their home as part of the Rent a Room Scheme.</p>
         </div>
 
@@ -808,7 +815,7 @@
         </div>
 
         <div id="report-any-changes">
-            <p class="lede">Check the details in your renewal paper pack for your single claim between <nobr></nobr> and <nobr></nobr>.</p>
+            <p class="lede">Check the details in your renewal paper pack for your [CLAIM_TYPE] claim between <nobr></nobr> [DATE_A] and [DATE_B]<nobr></nobr>.</p>
             <p class="lede">Do you need to report a change to the details shown?</p>
         </div>
 
@@ -837,7 +844,6 @@
             </div>
             <br>
             <input type="button" value="Start Application" onClick="javascript:startDemo()">
-            <input type="button" value="Start Application With Partner" onClick="javascript:startDemo()">
         </div>
 
         <br>
@@ -864,14 +870,15 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D1,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,confirm-pack-receipt:true,certainBenefits.receivedBenefits:true,certainBenefits.jsa:true,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:false,certainBenefits.Do you still get this benefit:false,incomeDetails.Were you employed:true,incomeDetails.earnings:123123,incomeDetails.Did you get any company benefits:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:true,taxableBenefits.bereavement_allowance:12313,taxableBenefits.carer_allowance:123123,partner.certainBenefits.receivedBenefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,undefined:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Were you employed#How much employed income#Did you get any company benefits#Were you self employed#Did you get any taxable benefits#Select taxable benefits and enter amount#Partner benefits & income intro#Did partner get any untaxed benefits?#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:R,hasPartner:false,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,renewalData.auto-renewal:true,confirm-pack-receipt:true,certainBenefits.receivedBenefits:true,certainBenefits.jsa:true,certainBenefits.esa:false,certainBenefits.incomeSupport:false,certainBenefits.pensionCredit:false,certainBenefits.Do you still get this benefit:true,otherIncome.Did you get any other household income:true,otherIncome.pensions:324234,otherIncome.foreign_income:324234,otherIncome.isOtherHouseholdIncomeEst:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:save-and-exit,stackDATA:a1#confirm-pack-receipt#Completing review message#Benefits & Income - intro#Did you get any untaxed benefits#Which untaxed benefit did you get#Do you still get this benefit#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Report any changes')">
 
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">
         <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
         <input type="button" value="Back" onClick="javascript:BACK()">
+        <input type="button" value="Test global error handler" onClick="javascript:TEST_ERROR()">
 
-
+        <br><br>
         <div id="dumpDiv">
             <b><span>Debug</span></b>
             <br><br>

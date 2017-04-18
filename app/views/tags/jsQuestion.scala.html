@@ -42,7 +42,7 @@
             if (selectionType == 'radio') {
                 radioButton.setAttribute("id", questionData.questionType.multipleChoiceOptions[i].modelId);
                 radioButton.setAttribute("data-se", questionData.questionType.multipleChoiceOptions[i].questionId);
-                radioButton.setAttribute("name", "radio");  // TODO...if multiple radio buttons can be selected? If yes then drop name.
+                radioButton.setAttribute("name", "radio");
                 label.setAttribute("for", questionData.questionType.multipleChoiceOptions[i].modelId);
             } else if (selectionType == "checkbox") {
 
@@ -110,8 +110,6 @@
     }
 
     function displayQuestion() {
-
-        // TODO - Add function map and replace if/else.
         var question = getQuestion(questionPos);
 
         // Trace for current question Id.

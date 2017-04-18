@@ -30,8 +30,7 @@
                   return questions[i];
               }
           }
-          // TODO...report failure to native app!!! Include GA alert!
-          alert("FAILED TO FIND ID [" + id + "]!!!");
+          throw "Failed to find question Id " + id;
       }
 
       function getAnswerForQuestion(questionId) {
@@ -93,6 +92,8 @@
           var startDate = map.get("startDate");
           var endDate_PY_1 = map.get("endDate_PY_1");
           var startDate_PY_1 = map.get("startDate_PY_1");
+          var partner_header = map.get("PARTNER_DETAILS");
+          var claim_type = map.get("CLAIM_TYPE");
 
           var all = findTextNodes(element);
 
@@ -102,7 +103,9 @@
                       .replace("[DATE_A]", startDate)
                       .replace("[DATE_B]", endDate)
                       .replace("[DATE_A_PY_1]", startDate_PY_1)
-                      .replace("[DATE_B_PY_1]", endDate_PY_1);
+                      .replace("[DATE_B_PY_1]", endDate_PY_1)
+                      .replace("[CLAIM_TYPE]", claim_type)
+                      .replace("[PARTNER_DETAILS]", partner_header);
 
               node.nodeValue = newText;
 

@@ -97,6 +97,7 @@ main input[type="button"].primary {
 
 			&::after {
 				border-color: #000;
+				border-width: 0 0 2px 2px;
 			}
 		}
 	}

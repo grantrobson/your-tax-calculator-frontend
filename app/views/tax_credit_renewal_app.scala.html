@@ -100,12 +100,16 @@
         <div id="yesInfoDiv" style="display: none"></div>
         <div class="container">
             <div class="row">
-                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
-                <label for="boolean_yes" class="col">Yes</label>
+                <label for="boolean_yes" class="col">
+                    <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
+                    Yes
+                </label>
             </div>
             <div class="row">
-                <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" onchange="javascript:booleanPageValidation();" class="col">
-                <label for="boolean_no" class="col">No</label>
+                <label for="boolean_no" class="col">
+                    <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" onchange="javascript:booleanPageValidation();" class="col">
+                    No
+                </label>
             </div>
         </div>
         <input type="button" data-se="next" value="Save and continue" disabled="true" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
@@ -751,7 +755,7 @@
             <h3>You may need:</h3>
             <ul class="list-bullet">
                 <li><h4>Your partner's benefit letters</h4>
-                    Showing the amounts your partner received</li>
+                    Showing the amounts your partner received for the reward period</li>
 
                 <li><h4>Your partner's P60 </h4>
                     For your partner's total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
@@ -760,7 +764,7 @@
                     For company benefits your partner got. Also known as 'benefits in kind'</li>
 
                 <li><h4>Your partner's P45</h4>
-                    For any job your partner had</li>
+                    For any job your partner had during the reward period</li>
 
                 <li><h4>Your partner's Self Assessment returns</h4>
                     For your partner's self-employment income</li>

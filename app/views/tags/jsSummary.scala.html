@@ -2,16 +2,14 @@
 
 function initSummary() {
     var renewalType = getAnswerForModelId("renewalType");
-    if(renewalType == SINGLE_D1 || renewalType == AUTO_RENEWAL) {
+
+    if (renewalType == SINGLE_D1 || renewalType == AUTO_RENEWAL) {
         initSingleD1Summary();
-    }
-    else if (renewalType == SINGLE_D2) {
+    } else if (renewalType == SINGLE_D2) {
         initSingleD2Summary();
-    }
-    else if (renewalType == JOINT_D1) {
+    } else if (renewalType == JOINT_D1) {
         initJointD1Summary();
-    }
-    else {
+    } else {
         initJointD2Summary();
     }
 }
@@ -24,7 +22,7 @@ function initSingleD1Summary() {
     show("Summary");
 }
 
-function initSingleD2Summary(){
+function initSingleD2Summary() {
     populateYourBenefitsAndIncomeSection(1, "_PY_1")
     populateOtherHouseholdIncomeSection(2, "_PY_1")
     populateYourBenefitsAndIncomeSection(3, "")
@@ -95,7 +93,7 @@ function changePersonalCircumstances() {
 function routeToQuestion(question) {
     questionPos = question.id;
     var questionIndex = stack.indexOf(questionPos)
-    for(var index = stack.length -1; index >= questionIndex; index--) {
+    for (var index = stack.length - 1; index >= questionIndex; index--) {
         stack.pop();
     }
     toggleControls("hide");

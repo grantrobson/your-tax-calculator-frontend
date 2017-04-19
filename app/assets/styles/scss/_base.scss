@@ -331,7 +331,7 @@ details{
 		.row {
 			clear: both;
 			position: relative;
-			padding: 0 0 0 38px;
+			padding: 0 0 0 24px;
 			display: block;
 			overflow: hidden;
 			margin: 15px 0;
@@ -347,7 +347,7 @@ details{
 
 		+ label,
 		+ div label {
-			padding: 5px 0;
+			padding: 5px 0 5px 10px;
 			display: block;
 			float: left;
 			-ms-touch-action: manipulation;

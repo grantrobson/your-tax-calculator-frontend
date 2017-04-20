@@ -102,3 +102,10 @@ main input[type="button"].primary {
 		}
 	}
 }
+
+
+//Icons
+
+.edit-income-btn__icon--ios {display: none;}
+.edit-income-btn__icon--android {display: none;}
+.edit-income-btn__icon--windows {display: table-cell;}

@@ -183,6 +183,10 @@ input:checked ~ .col .showIfChecked{
 }
 main.summary{
 
+	.note{
+		color: #6F777B;
+	}
+
 	input[type="button"].secondary {
 		text-align: left;
 	}

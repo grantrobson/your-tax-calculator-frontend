@@ -15,7 +15,7 @@
             {
                 "id": "Partner benefits & income intro",
                 "group": "partner",
-                "question": "Part [REPLACE_X]: Your partner's benefits & income intro",
+                "question": "Part [REPLACE_X]: Your partner's benefits and income between [START_DATE] and [END_DATE]",
                 "questionType": {
                   "type": "Continue",
                   "questionFooterDiv": "your-partners-benefits-and-income-intro",
@@ -26,7 +26,7 @@
             {
                 "id": "Did partner get any untaxed benefits?",
                 "group": "partner",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Did partner get any untaxed benefits?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Did partner get any untaxed benefits?",
                 "questionType": {
                   "type": "Boolean",
                     "questionFooterDiv": "did-you-get-any-untaxed-benefits",
@@ -47,7 +47,7 @@
                 {
                     "id": "Which untaxed benefits did partner get",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Which untaxed benefits did your partner get?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Which untaxed benefits did your partner get?",
                     "questionType": {
 
                         "type": "MultipleChoice",
@@ -81,7 +81,7 @@
                         "group": "partner",
                         "previousQuestionOption" : "Which untaxed benefits did partner get",
 
-                        "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Does your partner still get this ",
+                        "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Does your partner still get this ",
                         "questionType": {
                           "type": "Boolean",
                           "yesNextQuestionId": "Did you get any other household income",
@@ -93,7 +93,7 @@
                 {
                     "id": "Was partner employed?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Was your partner employed as an employee at any time between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Was your partner employed as an employee at any time between [START_DATE] and [END_DATE]?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "How much employed income did partner get?",
@@ -114,7 +114,7 @@
                 {
                     "id": "How much employed income did partner get?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>How much did your partner earn from all jobs as an employee between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>How much did your partner earn from all jobs as an employee between [START_DATE] and [END_DATE]?",
                     "questionType": {
                         "type": "Decimal",
                         "questionFooterDiv": "let-us-know-how-much-your-partner-earned",
@@ -126,7 +126,7 @@
                 {
                     "id": "Did partner get any company benefits?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Did your partner receive company benefits between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Did your partner receive company benefits between [START_DATE] and [END_DATE]?",
                     "questionType": {
                         "type": "Boolean",
                         "questionFooterDiv": "Did partner get any company benefits?",
@@ -144,7 +144,7 @@
               {
                 "id": "How much company benefit did partner get?",
                 "group": "partner",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>How much did your partner receive in company benefits between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>How much did your partner receive in company benefits between [START_DATE] and [END_DATE]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Was partner self-employed?",
@@ -155,7 +155,7 @@
                 {
                     "id": "Was partner self-employed?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Was your partner self-employed at any time between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Was your partner self-employed at any time between [START_DATE] and [END_DATE]?",
                     "questionType": {
                         "type": "Boolean",
                         "questionFooterDiv": "renting-does-not-include-rent-a-room-scheme",
@@ -177,7 +177,7 @@
                 {
                     "id": "Did partner make profit from self-employment?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Did your partner make a profit from their self-employment between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Did your partner make a profit from their self-employment between [START_DATE] and [END_DATE]?",
                     "questionType": {
                         "type": "Boolean",
                         "yesNextQuestionId": "How much profit did partner make from self-employment?",
@@ -196,7 +196,7 @@
                 {
                     "id": "Is partner self-employment loss estimated?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Is your partner's self-employment loss estimated?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Is your partner's self-employment loss estimated?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "Did partner get any taxable benefits?",
@@ -208,7 +208,7 @@
                 {
                     "id": "How much profit did partner make from self-employment?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>How much self-employed profit did your partner make between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>How much self-employed profit did your partner make between [START_DATE] and [END_DATE]?",
                     "questionType": {
                     "type": "Decimal",
                         "nextQuestionId": "Is partner self-employment profit estimated?",
@@ -219,7 +219,7 @@
                 {
                     "id": "Is partner self-employment profit estimated?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Is your partner's self-employment profit estimated?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Is your partner's self-employment profit estimated?",
                     "questionType": {
                       "type": "Boolean",
                       "yesNextQuestionId": "Did partner get any taxable benefits?",
@@ -231,7 +231,7 @@
                 {
                     "id": "Did partner get any taxable benefits?",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>Did your partner get any of these benefits between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>Did your partner get any of these benefits between [START_DATE] and [END_DATE]?",
                     "questionType": {
                       "type": "Boolean",
                       "questionFooterDiv": "Did partner get any taxable benefits?",
@@ -251,7 +251,7 @@
                 {
                     "id": "Select partner taxable benefits and enter amount",
                     "group": "partner",
-                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income</span>What benefits did your partner get between [DATE_A] and [DATE_B]?",
+                    "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your partner's benefits and income between [START_DATE] and [END_DATE]</span>What benefits did your partner get between [START_DATE] and [END_DATE]?",
                     "questionType": {
                     "type": "MultipleChoiceWithNumber",
                         "questionFooterDiv": "Select partner taxable benefits and enter amount",
@@ -341,7 +341,7 @@
             {
                 "id": "Benefits & Income - intro",
                 "group": "benefits-and-income",
-                "question": "Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>",
+                "question": "Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]",
                 "questionType": {
                   "type": "Continue",
                   "questionFooterDiv": "your-benefits-and-income-intro",
@@ -353,7 +353,7 @@
             {
                 "id": "Did you get any untaxed benefits",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span> Did you get any of these benefits for the whole time between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span> Did you get any of these benefits for the whole time between [START_DATE] and [END_DATE]?",
                 "section": "CERTAIN-BENEFITS",
                 "questionType": {
                     "type": "Boolean",
@@ -373,7 +373,7 @@
             {
                 "id": "Which untaxed benefit did you get",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Which did you get for the whole time between [DATE_A] to [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Which did you get for the whole time between [START_DATE] to [END_DATE]?",
                 "section": "CERTAIN-BENEFITS",
                 "questionType": {
                 "type": "MultipleChoice",
@@ -406,7 +406,7 @@
             {
                 "id": "Do you still get this benefit",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Do you still get ",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Do you still get ",
                 "section": "CERTAIN-BENEFITS",
                 "previousQuestionOption" : "Which untaxed benefit did you get",
                 "questionType": {
@@ -440,7 +440,7 @@
             {
                 "id": "Did you get any other household income",
                 "group": "household-income",
-                "question": "Part [REPLACE_X]: Other household income<br><p>Did you [PARTNER_DETAILS]get any of these sources of income between <nobr>[DATE_A]</nobr> and <nobr>[DATE_B]?</nobr></p>",
+                "question": "<span class='pre-header'>Part [REPLACE_X]: Other household income between [START_DATE] and [END_DATE]</span>Did you [PARTNER_DETAILS]get any of these sources of income between [START_DATE] to [END_DATE]?",
                 "section":"OTHER-INCOME",
                 "questionType": {
                   "type": "Boolean",
@@ -464,7 +464,7 @@
             {
                 "id": "Select other income sources & enter amount",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>What sources of income did you [PARTNER_DETAILS]get between between [DATE_A] to [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>What sources of income did you [PARTNER_DETAILS]get between between [START_DATE] to [END_DATE]?",
                 "section":"OTHER-INCOME",
                 "questionType": {
                 "type": "MultipleChoiceWithNumber",
@@ -508,7 +508,7 @@
             {
                 "id": "Are any of the income amounts estimated",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Are any of your sources of income amounts estimated?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>Are any of your sources of income amounts estimated?",
                 "section":"OTHER-INCOME",
                 "questionType": {
                     "type": "Boolean",
@@ -522,7 +522,7 @@
             {
                 "id": "Did you get any income from property rental",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you get [PARTNER_DETAILS]any income between [DATE_A] and [DATE_B] from renting out property?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>Did you get [PARTNER_DETAILS]any income between [START_DATE] and [END_DATE] from renting out property?",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "Did you get any income from property rental",
@@ -546,7 +546,7 @@
             {
                 "id": "Did you make a profit from property rental",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Did you [PARTNER_DETAILS]make a profit from renting out property between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>Did you [PARTNER_DETAILS]make a profit from renting out property between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Property rental profit - enter amount",
@@ -565,7 +565,7 @@
             {
                 "id": "Is property rental loss estimated",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Is the loss from renting out property an estimate?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>Is the loss from renting out property an estimate?",
                 "questionType": {
                   "type": "Boolean",
                   "yesNextQuestionId": "ROUTING DECISION COC",
@@ -577,7 +577,7 @@
             {
                 "id": "Property rental profit - enter amount",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>How much profit did you [PARTNER_DETAILS]make from renting out property between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>How much profit did you [PARTNER_DETAILS]make from renting out property between [START_DATE] and [END_DATE]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Is property rental profit estimated",
@@ -588,7 +588,7 @@
             {
                 "id": "Is property rental profit estimated",
                 "group": "household-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income</span>Is the profit from renting out property an estimate?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Other household income between [START_DATE] and [END_DATE]</span>Is the profit from renting out property an estimate?",
                 "questionType": {
                   "type": "Boolean",
                   "yesNextQuestionId": "ROUTING DECISION COC",
@@ -660,7 +660,7 @@
             {
                 "id": "Were you employed",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Were you employed as an employee at any time between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Were you employed as an employee at any time between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "How much employed income",
@@ -681,7 +681,7 @@
             {
                 "id": "How much employed income",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>How much did you earn from all of your jobs as an employee between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>How much did you earn from all of your jobs as an employee between [START_DATE] and [END_DATE]?",
                 "questionType": {
                   "type": "Decimal",
                   "questionFooterDiv": "let-us-know-how-much-you-have-earned",
@@ -692,7 +692,7 @@
                 {
                 "id": "Did you get any company benefits",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Did you receive company benefits between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Did you receive company benefits between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "How much company benefit",
@@ -711,7 +711,7 @@
             {
                 "id": "How much company benefit",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>How much did you receive in company benefits between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>How much did you receive in company benefits between [START_DATE] and [END_DATE]?",
                 "questionType": {
                   "type": "Decimal",
                   "nextQuestionId": "Were you self employed",
@@ -721,7 +721,7 @@
             {
                 "id": "Were you self employed",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Were you self-employed at any time between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Were you self-employed at any time between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "renting-does-not-include-rent-a-room-scheme",
@@ -741,7 +741,7 @@
             {
                 "id": "Did you make a profit from self-employment",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Did you make a profit from your self-employment between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE] </span>Did you make a profit from your self-employment between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "How much profit from self-employment",
@@ -758,7 +758,7 @@
             {
                 "id": "Is the self-employed loss estimated",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Is your self-employed loss an estimate?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Is your self-employed loss an estimate?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Did you get any taxable benefits",
@@ -770,7 +770,7 @@
             {
                 "id": "How much profit from self-employment",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>How much self-employed profit did you make between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>How much self-employed profit did you make between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Decimal",
                     "nextQuestionId": "Is the self-employed profit estimated",
@@ -786,7 +786,7 @@
             {
                 "id": "Is the self-employed profit estimated",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Is your self-employed profit amount an estimate?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Is your self-employed profit amount an estimate?",
                 "questionType": {
                     "type": "Boolean",
                     "yesNextQuestionId": "Did you get any taxable benefits",
@@ -810,7 +810,7 @@
             {
                 "id": "Did you get any taxable benefits",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>Did you get any of these benefits between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>Did you get any of these benefits between [START_DATE] and [END_DATE]?",
                 "questionType": {
                     "type": "Boolean",
                     "questionFooterDiv": "Did you get any taxable benefits",
@@ -828,7 +828,7 @@
             {
                 "id": "Select taxable benefits and enter amount",
                 "group": "benefits-and-income",
-                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income</span>What benefits did you get between [DATE_A] and [DATE_B]?",
+                "question": "<span class='pre-header'>Part [REPLACE_X] of [REPLACE_Y]: Your benefits and income between [START_DATE] and [END_DATE]</span>What benefits did you get between [START_DATE] and [END_DATE]?",
                 "questionType": {
                   "type": "MultipleChoiceWithNumber",
                   "multipleChoiceOptions": [
@@ -1204,11 +1204,6 @@
         questions.forEach(function (question) {
 
             question.id += PREVIOUS_YEAR_MINUS_1;
-
-            if (question.question !== undefined) {
-                question.question = question.question.replace("[DATE_A]","[DATE_A"+PREVIOUS_YEAR_MINUS_1+"]");
-                question.question = question.question.replace("[DATE_B]","[DATE_B"+PREVIOUS_YEAR_MINUS_1+"]");
-            }
 
             if (question.group !== undefined) {
                 question.group += PREVIOUS_YEAR_MINUS_1;

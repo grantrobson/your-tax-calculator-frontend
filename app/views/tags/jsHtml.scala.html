@@ -52,18 +52,10 @@
 
     function insertDynamicHeader(questionData, dynamicHeaderDiv, dynamicFooterDiv) {
 
-       function getTemplate(templateId){
-           if(questionData.id.endsWith(PREVIOUS_YEAR_MINUS_1) && document.getElementById(templateId + '-py-1')) {
-               return document.getElementById(templateId + '-py-1');
-           } else {
-               return document.getElementById(templateId);
-           }
-       }
-
         // Check if dynamic header should be added to question.
         if (questionData.questionType.questionHeaderDiv !== undefined) {
             removeChildren(dynamicHeaderDiv);
-            var itm = getTemplate(questionData.questionType.questionHeaderDiv);
+            var itm = document.getElementById(questionData.questionType.questionHeaderDiv);
             var cln = itm.cloneNode(true);
             var insertPoint = document.getElementById(dynamicHeaderDiv);
             insertPoint.appendChild(cln);
@@ -74,7 +66,7 @@
         // Check if dynamic header should be added to question.
         if (questionData.questionType.questionFooterDiv !== undefined) {
             removeChildren(dynamicFooterDiv);
-            var itm = getTemplate(questionData.questionType.questionFooterDiv);
+            var itm = document.getElementById(questionData.questionType.questionFooterDiv);
             var cln = itm.cloneNode(true);
             var insertPoint = document.getElementById(dynamicFooterDiv);
             insertPoint.appendChild(cln);

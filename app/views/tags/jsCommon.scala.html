@@ -83,35 +83,57 @@
           var node;
           var textNodes = [];
 
-          while(node = walker.nextNode()) {
+          while (node = walker.nextNode()) {
               textNodes.push(node);
           }
 
           return textNodes;
       }
 
-      function replaceCommonVariablesInElement(element) {
-          // Update the question headers with position info and dates.
-          var endDate = map.get("endDate");
-          var startDate = map.get("startDate");
-          var endDate_PY_1 = map.get("endDate_PY_1");
-          var startDate_PY_1 = map.get("startDate_PY_1");
-          var partner_header = map.get("PARTNER_DETAILS");
-          var claim_type = map.get("CLAIM_TYPE");
+      function replacePlaceholdersInIntroPage(element) {
+          var placeholders = new Map();
 
-          var all = findTextNodes(element);
+          placeholders.set('[DATE_A]', map.get("startDate"));
+          placeholders.set('[DATE_B]', map.get("endDate"));
+          placeholders.set('[DATE_A_PY_1]', map.get("startDate_PY_1"));
+          placeholders.set('[DATE_B_PY_1]', map.get("endDate_PY_1"));
+          placeholders.set('[CLAIM_TYPE]', map.get("CLAIM_TYPE"));
+          placeholders.set('[PARTNER_DETAILS]', map.get("PARTNER_DETAILS"));
 
-          for (var i = -1, l = all.length; ++i < l;) {
-              var node = all[i];
+          replacePlaceholdersInElement(element, placeholders);
+      }
 
-              node.nodeValue = node.nodeValue
-                      .replace("[DATE_A]", startDate)
-                      .replace("[DATE_B]", endDate)
-                      .replace("[DATE_A_PY_1]", startDate_PY_1)
-                      .replace("[DATE_B_PY_1]", endDate_PY_1)
-                      .replace("[CLAIM_TYPE]", claim_type)
-                      .replace("[PARTNER_DETAILS]", partner_header);
+      function replacePlaceholdersInQuestionPage(question, page) {
+          var placeholders = new Map();
+
+          placeholders.set('[CLAIM_TYPE]', map.get("CLAIM_TYPE"));
+          placeholders.set('[PARTNER_DETAILS]', map.get("PARTNER_DETAILS"));
+
+          if (question.id.endsWith(PREVIOUS_YEAR_MINUS_1)) {
+              placeholders.set('[START_DATE]', map.get("startDate_PY_1"));
+              placeholders.set('[END_DATE]', map.get("endDate_PY_1"));
+          } else {
+              placeholders.set('[START_DATE]', map.get("startDate"));
+              placeholders.set('[END_DATE]', map.get("endDate"));
           }
+
+          replacePlaceholdersInElement(page, placeholders);
+      }
+
+      /**
+       * Replaces placeholders in a element with dynamic values.
+       * {Element} element
+       * {Map} placeholders - placeholder -> value
+       */
+      function replacePlaceholdersInElement(element, placeholders) {
+          var textNodes = findTextNodes(element);
+          var placeholdersArray = Array.from(placeholders.entries());
+
+          textNodes.forEach(function (node) {
+              node.nodeValue = placeholdersArray.reduce(function (acc, placeholder) {
+                  return acc.replace(placeholder[0], placeholder[1]);
+              }, node.nodeValue);
+          });
       }
 
 </script>

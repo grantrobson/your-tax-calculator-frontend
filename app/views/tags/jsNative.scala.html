@@ -10,22 +10,22 @@ var             INTERNAL_JS_ERROR = "InternalJSError";
 
     // TODO: NOTE: awardStartDate and awardEndDate not used at present.
     function startRenewals(renewalType, hasPartner, nino, awardStartDate, awardEndDate) {
-        map.set("startDate_PY_1", "06 April 2015");
-        map.set("endDate_PY_1", "05 April 2016");
-
-        startup(renewalType, hasPartner, nino, "06 April 2016", "05 April 2017");
-    }
-
-    function startup(renewalType, hasPartner, nino, startDate, endDate) {
-        // Initialise globals.
+        // Initialise stack.
         stack = [];
 
         // Add all parameters to map.
+        map.set("startDate_PY_1", "06 April 2015");
+        map.set("endDate_PY_1", "05 April 2016");
+        map.set("startDate", "06 April 2016");
+        map.set("endDate", "05 April 2017");
         map.set("renewalType", renewalType);
         map.set("hasPartner", hasPartner);
         map.set("nino", nino);
-        map.set("startDate", startDate);
-        map.set("endDate", endDate);
+
+        if (isDefined(awardStartDate) && isDefined(awardEndDate)) {
+            map.set("awardStartDate", awardStartDate);
+            map.set("awardEndDate", awardEndDate);
+        }
 
         // Obtain start question from journey.
         var journey = data();

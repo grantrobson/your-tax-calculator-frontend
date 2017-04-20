@@ -178,11 +178,11 @@
         } else if (question.questionType.type == "Continue") {
             initQuestion(question, 'Continue', 'headerContinue');
             insertDynamicHeader(question, "dynamicHeader-Continue-header", "dynamicHeader-Continue-footer");
-            replaceCommonVariablesInElement(document.getElementById('Continue'));
+            replacePlaceholdersInQuestionPage(question, document.getElementById('Continue'));
         } else if (question.questionType.type == "Boolean") {
             initQuestion(question, 'Boolean', 'headerBoolean');
             insertDynamicHeader(question, "dynamicHeader-Boolean-header", "dynamicHeader-Boolean-footer");
-            replaceCommonVariablesInElement(document.getElementById('Boolean'));
+            replacePlaceholdersInQuestionPage(question, document.getElementById('Boolean'));
 
             var yes = document.getElementById('boolean_yes');
             var no = document.getElementById('boolean_no');
@@ -208,17 +208,17 @@
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("radio");
             multipleChoicePageValidation();
-            replaceCommonVariablesInElement(document.getElementById('MultipleChoice'));
+            replacePlaceholdersInQuestionPage(question, document.getElementById('MultipleChoice'));
         } else if (question.questionType.type == "MultipleChoiceWithNumber") {
 
             initQuestion(question, 'MultipleChoice', 'headerMultipleChoice');
             dynamicRadioButton("checkbox");
             multipleChoiceWithNumberPageValidation();
-            replaceCommonVariablesInElement(document.getElementById('MultipleChoice'));
+            replacePlaceholdersInQuestionPage(question, document.getElementById('MultipleChoice'));
         } else if (question.questionType.type == "Decimal") {
             initQuestion(question, 'Decimal', 'headerDecimal');
             insertDynamicHeader(question, "dynamicHeader-Decimal-header", "dynamicHeader-Decimal-footer");
-            replaceCommonVariablesInElement(document.getElementById('Decimal'));
+            replacePlaceholdersInQuestionPage(question,document.getElementById('Decimal'));
 
             // Populate Decimal value from model if exists.
             var question = getQuestion(questionPos);

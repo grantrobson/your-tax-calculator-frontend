@@ -9,6 +9,7 @@ function populateYourBenefitsAndIncomeSection(sectionNo, period) {
     displayNoLongerReceivingBenefitsAlert(period);
     displayTotalIncomeFromWork(period);
     populateTableOfOtherIncomes(period);
+    toggleSelfEmploymentProfitOrLossEstimateAlert(period);
     setBenefitsPreHeader(period);
     displayTaxableBenefitsTableAndTotalOrAlert(period);
 }
@@ -79,6 +80,24 @@ function populateTableOfOtherIncomes(period) {
     }];
 
     document.getElementById('yourBenefitsAndIncome.otherIncomeTableBody' + period).innerHTML = buildTableFromListOfNumericQuestions(questions);
+}
+
+function toggleSelfEmploymentProfitOrLossEstimateAlert(period) {
+    if (period !== "_PY_1") {
+        var profitEstimated = getAnswerForQuestion('Is the self-employed profit estimated');
+        var lossEstimated = getAnswerForQuestion('Is the self-employed loss estimated');
+
+        document.getElementById('yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert').style.display = "none";
+        document.getElementById('yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert').style.display = "none";
+
+        if(profitEstimated === 'true'){
+            document.getElementById('yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert').style.display = "block";
+        }
+
+        if(lossEstimated === 'true'){
+            document.getElementById('yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert').style.display = "block";
+        }
+    }
 }
 
 function setBenefitsPreHeader(period) {

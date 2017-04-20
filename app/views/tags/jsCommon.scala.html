@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 
       function isDefined(variable) {
@@ -99,8 +100,11 @@
           placeholders.set('[DATE_B_PY_1]', map.get("endDate_PY_1"));
           placeholders.set('[CLAIM_TYPE]', map.get("CLAIM_TYPE"));
           placeholders.set('[PARTNER_DETAILS]', map.get("PARTNER_DETAILS"));
-
           replacePlaceholdersInElement(element, placeholders);
+      }
+
+      function replaceAwardDate(header, awardStartDate, awardEndDate) {
+          return(header.replace("[awardStartDate]", awardStartDate).replace("[awardEndDate]",awardEndDate));
       }
 
       function replacePlaceholdersInQuestionPage(question, page) {
@@ -115,6 +119,22 @@
           } else {
               placeholders.set('[START_DATE]', map.get("startDate"));
               placeholders.set('[END_DATE]', map.get("endDate"));
+          }
+
+          // Award start/end date headers
+          var awardStartDate = map.get("awardStartDate");
+          var awardEndDate = map.get("awardEndDate");
+
+          if (isDefined(awardStartDate) && isDefined(awardEndDate)) {
+              var benefitHeader = "Did you get any of these benefits for the whole time between [awardStartDate] and [awardEndDate]?"
+              var commonHeader = "Which did you get for the whole time between [awardStartDate] to [awardEndDate]?";
+
+              placeholders.set('[BENEFIT_AWARD_DATE_HEADER]', replaceAwardDate(benefitHeader, awardStartDate, awardEndDate));
+              placeholders.set('[COMMON_AWARD_DATE_HEADER]', replaceAwardDate(commonHeader, awardStartDate, awardEndDate));
+          } else {
+              var commonHeader = "Did you get any of these benefits for the whole of your award period?";
+              placeholders.set('[BENEFIT_AWARD_DATE_HEADER]', commonHeader);
+              placeholders.set('[COMMON_AWARD_DATE_HEADER]', commonHeader);
           }
 
           replacePlaceholdersInElement(page, placeholders);

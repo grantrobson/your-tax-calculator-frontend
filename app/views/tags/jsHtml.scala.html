@@ -11,7 +11,7 @@
    }
 
     function removeChildren(div) {
-        var node = document.getElementById(div)
+        var node = document.getElementById(div);
         while (node.hasChildNodes()) {
             node.removeChild(node.lastChild);
         }
@@ -51,6 +51,7 @@
     }
 
     function insertDynamicHeader(questionData, dynamicHeaderDiv, dynamicFooterDiv) {
+
         // Check if dynamic header should be added to question.
         if (questionData.questionType.questionHeaderDiv !== undefined) {
             removeChildren(dynamicHeaderDiv);

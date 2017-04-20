@@ -6,8 +6,7 @@
 
 <head>
     <title>Tax credit renewal application</title>
-    <meta name="viewport"
-          content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no"/>
+    <meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
 
     @tags.nativeOSStyles(nativeOS.os)
 
@@ -49,14 +48,15 @@
 
 
 @if(debug == true) {
-<body class="debug">
-} else {
-<body>
-}
+        <body class="debug">
+    } else {
+        <body>
+    }
 <header id="page-header">
     <h1>Tax Credit Renewal</h1>
 </header>
 <main>
+
     @images()
 
     <!-- MultipleChoice -->
@@ -67,31 +67,26 @@
         <div>
             <div id="containerDiv" class="container"></div>
         </div>
-        <input type="button" data-se="next" value="Save and continue" id="MultipleChoiceNEXT"
-               onClick="javascript:NEXT()" class="primary">
-        <input type="button" data-se="come_back_later" value="Save and come back later"
-               onClick="javascript:SAVE_AND_EXIT()" class="secondary">
+        <input type="button" data-se="next" value="Save and continue" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
 
     <!-- Associated set of input types for containerDiv. -->
     <div style="display: none;">
 
         <div id="row_ID_checkbox" class="row">
-            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID"
-                   onchange="javascript:multipleChoiceWithNumberPageValidation();" class="col">
+            <input type="checkbox" id="row_checkbox_ID" name="row_checkbox_ID" onchange="javascript:multipleChoiceWithNumberPageValidation();" class="col">
             <div class="col" id="row_div_checkbox_ID">
                 <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
                 <div id="number_entry_hidden" class="showIfChecked">
                     <label id="row_number_checkbox_label_ID" for="row_number_checkbox_ID"></label>
-                    <input type="number" id="row_number_checkbox_ID"
-                           oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
+                    <input type="number" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
                 </div>
             </div>
         </div>
 
         <div id="row_ID_radio" class="row">
-            <input type="radio" id="row_radio_ID" name="row_radio_ID"
-                   onchange="javascript:multipleChoicePageValidation();" class="col">
+            <input type="radio" id="row_radio_ID" name="row_radio_ID" onchange="javascript:multipleChoicePageValidation();" class="col">
             <label id="row_label_radio_ID" for="row_radio_ID" class="col"></label>
         </div>
     </div>
@@ -105,20 +100,16 @@
         <div id="yesInfoDiv" style="display: none"></div>
         <div class="container">
             <div class="row">
-                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()"
-                       onchange="javascript:booleanPageValidation();" class="col">
+                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
                 <label for="boolean_yes" class="col">Yes</label>
             </div>
             <div class="row">
-                <input type="radio" id="boolean_no" name="boolean_option" onClick="javascript:NO()"
-                       onchange="javascript:booleanPageValidation();" class="col">
+                <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" onchange="javascript:booleanPageValidation();" class="col">
                 <label for="boolean_no" class="col">No</label>
             </div>
         </div>
-        <input type="button" data-se="next" value="Save and continue" disabled="true"
-               onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
-        <input type="button" data-se="come_back_later" value="Save and come back later"
-               onClick="javascript:SAVE_AND_EXIT()" class="secondary">
+        <input type="button" data-se="next" value="Save and continue" disabled="true" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
 
     <!-- Continue -->
@@ -127,10 +118,8 @@
         <h3 id="headerContinue"></h3>
         <div id="dynamicHeader-Continue-footer"></div>
 
-        <input type="button" data-se="continue" value="Save and continue" onClick="javascript:NEXT_CONTINUE()"
-               class="primary">
-        <input type="button" data-se="come_back_later" value="Save and come back later"
-               onClick="javascript:SAVE_AND_EXIT()" class="secondary">
+        <input type="button" data-se="continue" value="Save and continue" onClick="javascript:NEXT_CONTINUE()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
 
 
@@ -142,10 +131,8 @@
 
         <input type="number" id="DecimalInput" oninput="javascript:decimalPageValidation();">
 
-        <input type="button" data-se="next" value="Save and continue" onClick="javascript:NEXT_DECIMAL()"
-               class="primary">
-        <input type="button" data-se="come_back_later" value="Save and come back later"
-               onClick="javascript:SAVE_AND_EXIT()" class="secondary">
+        <input type="button" data-se="next" value="Save and continue" onClick="javascript:NEXT_DECIMAL()" class="primary">
+        <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
 
     </div>
 
@@ -166,10 +153,10 @@
                     <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
                     <table id="yourBenefitsAndIncome.otherIncomeTable_PY_1">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="yourBenefitsAndIncome.otherIncomeTableBody_PY_1"/>
                     </table>
@@ -190,23 +177,21 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
-                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel_PY_1"
-                            style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel_PY_1" style="text-align: center; font-weight: normal">Your total benefits</h4>
                         <h1 id="yourBenefitsAndIncome.taxableBenefitsTotal_PY_1"/>
                     </header>
                     <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
                         Your income from benefits you pay tax on has been rounded down to the nearest pound (£).
                     </p>
-                    <p id="yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert_PY_1" class="note"
-                       style="display: none">
+                    <p id="yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert_PY_1" class="note" style="display: none">
                         You did not have any income from benefits you pay tax on.
                     </p>
                     <table id="yourBenefitsAndIncome.taxableBenefitsTable_PY_1">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="yourBenefitsAndIncome.taxableBenefitsTableBody_PY_1"/>
                     </table>
@@ -236,20 +221,17 @@
                     <p class="note">Your partner's income from work has been rounded down to the nearest pound (£).</p>
                     <table>
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.otherIncomeTable_PY_1"/>
                     </table>
-                    <span class="alert alert--info"
-                          id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert_PY_1"
-                          style="display: none">
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
                         You said your partner's profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit your partner actually made.
                     </span>
-                    <span class="alert alert--info"
-                          id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
                         You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
                     </span>
                     <div class="edit-income-btn" onClick="javascript:changePartnerIncome('_PY_1')">
@@ -269,25 +251,21 @@
                     <header>
                         <p id="partnersIncomeAndBenefits.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
-                        <h4 id="partnersIncomeAndBenefits.taxableBenefitsTotalLabel_PY_1"
-                            style="text-align: center; font-weight: normal">Your partners total benefits</h4>
+                        <h4 id="partnersIncomeAndBenefits.taxableBenefitsTotalLabel_PY_1" style="text-align: center; font-weight: normal">Your partners total benefits</h4>
                         <h1 id="partnersIncomeAndBenefits.taxableBenefitsTotal_PY_1"/>
                     </header>
-                    <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert_PY_1" class="note"
-                       style="display: none">
-                        Your partner's income from benefits you pay tax on has been rounded down to the nearest pound
-                        (£).
+                    <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
+                        Your partner's income from benefits you pay tax on has been rounded down to the nearest pound (£).
                     </p>
-                    <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert_PY_1" class="note"
-                       style="display: none">
+                    <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert_PY_1" class="note" style="display: none">
                         Your partner did not have any income from benefits you pay tax on.
                     </p>
                     <table id="partnersIncomeAndBenefits.taxableBenefitsTable_PY_1">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.taxableBenefitsTableBody_PY_1"/>
                     </table>
@@ -310,34 +288,28 @@
                     <header>
                         <h2 id="otherHouseholdIncome.header_PY_1"/>
                         <br/>
-                        <h4 id="otherHouseholdIncome.totalLabel_PY_1" style="text-align: center; font-weight: normal">
-                            Your total other household income</h4>
+                        <h4 id="otherHouseholdIncome.totalLabel_PY_1" style="text-align: center; font-weight: normal">Your total other household income</h4>
                         <h1 id="otherHouseholdIncome.total_PY_1"/>
                     </header>
 
-                    <p id="otherHouseholdIncome.noOtherIncome_PY_1" class="note" style="display: none">You did not have
-                        any types of other income.</p>
-                    <p id="otherHouseholdIncome.roundDownWarn_PY_1" class="note" style="display: none">Your other
-                        household income has been rounded down to the nearest pound (£).</p>
+                    <p id="otherHouseholdIncome.noOtherIncome_PY_1" class="note" style="display: none">You did not have any types of other income.</p>
+                    <p id="otherHouseholdIncome.roundDownWarn_PY_1" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
                     <table id="otherHouseholdIncome.otherIncomeTable_PY_1">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount</th>
+                            </tr>
                         </thead>
                         <tbody id="otherHouseholdIncome.otherIncomeTableBody_PY_1"/>
                     </table>
-                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert_PY_1"
-                          style="display: none">
+                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert_PY_1" style="display: none">
                         You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
                     </span>
-                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert_PY_1"
-                          style="display: none">
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
                         You said your loss from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert_PY_1"
-                          style="display: none">
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
                         You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
                     <div class="edit-income-btn"  onClick="javascript:changeHouseholdIncome('_PY_1')">
@@ -357,16 +329,15 @@
             <div id="yourBenefitsAndIncome" style="display: none">
                 <article>
                     <header>
-                        <h2 id="yourBenefitsAndIncome.header"/>
-                        <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
+                    <h2 id="yourBenefitsAndIncome.header"/>
+                    <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
                     <span id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
                         You told us that you did not claim any of the listed benefits for the whole of this time.
                     </span>
                     <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
                     <div id="yourBenefitsAndIncome.untaxedBenefitsList"></div>
-                    <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said you no longer get this benefit.
                     </span>
                     <div id="yourBenefitsAndIncome.whichNoTaxBenefits" style="display: none;">
@@ -374,27 +345,21 @@
                             <summary><span class="summary">What benefits do you not pay tax on?</span></summary>
                             <div class="panel panel-border-narrow">
                                 <h3 class="heading-small">Income-based Jobseeker's Allowance</h3>
-                                <p>An unemployment benefit you can claim while looking for work. You must work less than
-                                    16 hours a week on average, your partner works less than 24 hours a week on average
-                                    and you have £16,000 or less in savings.</p>
+                                <p>An unemployment benefit you can claim while looking for work. You must work less than 16 hours a week on average, your partner works less than 24 hours a week on average and you have £16,000 or less in savings.</p>
 
                                 <h3 class="heading-small">Income-related Employment and Support Allowance</h3>
-                                <p>A benefit you can claim if your ability to work is limited by ill health or
-                                    disability.</p>
+                                <p>A benefit you can claim if your ability to work is limited by ill health or disability.</p>
 
                                 <h3 class="heading-small">Income Support</h3>
-                                <p>A benefit you can claim if you are on a low income and not working (or only working
-                                    part-time). It is for people who do not sign on as unemployed.</p>
+                                <p>A benefit you can claim if you are on a low income and not working (or only working part-time). It is for people who do not sign on as unemployed.</p>
 
                                 <h3 class="heading-small">Pension Credit</h3>
-                                <p>An income-related benefit made up of Guarantee Credit and Savings Credit. Guarantee
-                                    Credit tops up your weekly income if it is below a certain amount (depending on if
-                                    you are single or not). Savings Credit is an extra payment if you have saved some
-                                    money towards your retirement, such as a pension.</p>
+                                <p>An income-related benefit made up of Guarantee Credit and Savings Credit. Guarantee Credit tops up your weekly income if it is below a certain amount (depending on if you are single or not). Savings Credit is an extra payment if you have saved some money towards your retirement, such as a pension.</p>
                             </div>
                         </details>
+
                     </div>
-                    <div class="edit-income-btn" onClick="javascript:changeUnTaxedBenefits()">
+                    <div class="edit-income-btn"  onClick="javascript:changeUnTaxedBenefits()">
                         <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
                             <use xlink:href="#edit-icon-ios"></use>
                         </svg>
@@ -409,26 +374,23 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
                         <br/>
-                        <h4 id="yourBenefitsAndIncome.otherIncomeTotalLabel"
-                            style="text-align: center; font-weight: normal">Your total income</h4>
+                        <h4 id="yourBenefitsAndIncome.otherIncomeTotalLabel" style="text-align: center; font-weight: normal">Your total income</h4>
                         <h1 id="yourBenefitsAndIncome.otherIncomeTotal"/>
                     </header>
                     <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
                     <table id="yourBenefitsAndIncome.otherIncomeTable">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="yourBenefitsAndIncome.otherIncomeTableBody"/>
                     </table>
-                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
                         You said your profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if you actually made a profit.
                     </span>
                     <div class="edit-income-btn" onclick="javascript:changeIncome('')">
@@ -449,8 +411,7 @@
                     <header>
                         <p id="yourBenefitsAndIncome.benefitsPreHeader" class="pre-header"/>
                         <br/>
-                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel"
-                            style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel" style="text-align: center; font-weight: normal">Your total benefits</h4>
                         <h1 id="yourBenefitsAndIncome.taxableBenefitsTotal"/>
                     </header>
                     <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert" class="note" style="display: none">
@@ -461,10 +422,10 @@
                     </p>
                     <table id="yourBenefitsAndIncome.taxableBenefitsTable">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="yourBenefitsAndIncome.taxableBenefitsTableBody"/>
                     </table>
@@ -489,11 +450,9 @@
                     <span id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
                         You told us that your partner did not claim any of the listed benefits for the whole of this time.
                     </span>
-                    <h4 id="partnersIncomeAndBenefits.untaxedBenefitsListHeader" style="display: none">Type of
-                        benefit</h4>
+                    <h4 id="partnersIncomeAndBenefits.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
                     <div id="partnersIncomeAndBenefits.untaxedBenefitsList" style="display: none"></div>
-                    <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said your partner no longer gets this benefit.
                     </span>
                     <div id="partnersIncomeAndBenefits.whichNoTaxBenefits" style="display: none;">
@@ -501,23 +460,16 @@
                             <summary><span class="summary">What benefits do you not pay tax on?</span></summary>
                             <div class="panel panel-border-narrow">
                                 <h3 class="heading-small">Income-based Jobseeker's Allowance</h3>
-                                <p>An unemployment benefit you can claim while looking for work. You must work less than
-                                    16 hours a week on average, your partner works less than 24 hours a week on average
-                                    and you have £16,000 or less in savings.</p>
+                                <p>An unemployment benefit you can claim while looking for work. You must work less than 16 hours a week on average, your partner works less than 24 hours a week on average and you have £16,000 or less in savings.</p>
 
                                 <h3 class="heading-small">Income-related Employment and Support Allowance</h3>
-                                <p>A benefit you can claim if your ability to work is limited by ill health or
-                                    disability.</p>
+                                <p>A benefit you can claim if your ability to work is limited by ill health or disability.</p>
 
                                 <h3 class="heading-small">Income Support</h3>
-                                <p>A benefit you can claim if you are on a low income and not working (or only working
-                                    part-time). It is for people who do not sign on as unemployed.</p>
+                                <p>A benefit you can claim if you are on a low income and not working (or only working part-time). It is for people who do not sign on as unemployed.</p>
 
                                 <h3 class="heading-small">Pension Credit</h3>
-                                <p>An income-related benefit made up of Guarantee Credit and Savings Credit. Guarantee
-                                    Credit tops up your weekly income if it is below a certain amount (depending on if
-                                    you are single or not). Savings Credit is an extra payment if you have saved some
-                                    money towards your retirement, such as a pension.</p>
+                                <p>An income-related benefit made up of Guarantee Credit and Savings Credit. Guarantee Credit tops up your weekly income if it is below a certain amount (depending on if you are single or not). Savings Credit is an extra payment if you have saved some money towards your retirement, such as a pension.</p>
                             </div>
                         </details>
                     </div>
@@ -544,19 +496,17 @@
                     <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
                     <table>
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.otherIncomeTable"/>
                     </table>
-                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentProfitEstimatedAlert" style="display: none">
                         You said your partner's profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit your partner actually made.
                     </span>
-                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
                     </span>
                     <div class="edit-income-btn" onClick="javascript:changePartnerIncome('')">
@@ -576,23 +526,21 @@
                     <header>
                         <p id="partnersIncomeAndBenefits.benefitsPreHeader" class="pre-header"/>
                         <br/>
-                        <h4 id="partnersIncomeAndBenefits.taxableBenefitsTotalLabel"
-                            style="text-align: center; font-weight: normal">Your partner's total benefits</h4>
+                        <h4 id="partnersIncomeAndBenefits.taxableBenefitsTotalLabel" style="text-align: center; font-weight: normal">Your partner's total benefits</h4>
                         <h1 id="partnersIncomeAndBenefits.taxableBenefitsTotal"/>
                     </header>
                     <p id="partnersIncomeAndBenefits.taxableBenefitsRoundingAlert" class="note" style="display: none">
-                        Your partner's income from benefits you pay tax on has been rounded down to the nearest pound
-                        (£).
+                        Your partner's income from benefits you pay tax on has been rounded down to the nearest pound (£).
                     </p>
                     <p id="partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert" class="note" style="display: none">
                         Your partner did not have any income from benefits you pay tax on.
                     </p>
                     <table id="partnersIncomeAndBenefits.taxableBenefitsTable">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount(£)</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount(£)</th>
+                            </tr>
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.taxableBenefitsTableBody"/>
                     </table>
@@ -615,34 +563,28 @@
                     <header>
                         <h2 id="otherHouseholdIncome.header"/>
                         <br/>
-                        <h4 id="otherHouseholdIncome.totalLabel" style="text-align: center; font-weight: normal">Your
-                            total other household income</h4>
+                        <h4 id="otherHouseholdIncome.totalLabel" style="text-align: center; font-weight: normal">Your total other household income</h4>
                         <h1 id="otherHouseholdIncome.total"/>
                     </header>
 
-                    <p id="otherHouseholdIncome.noOtherIncome" class="note" style="display: none">You did not have any
-                        types of other income.</p>
-                    <p id="otherHouseholdIncome.roundDownWarn" class="note" style="display: none">Your other household
-                        income has been rounded down to the nearest pound (£).</p>
+                    <p id="otherHouseholdIncome.noOtherIncome" class="note" style="display: none">You did not have any types of other income.</p>
+                    <p id="otherHouseholdIncome.roundDownWarn" class="note" style="display: none">Your other household income has been rounded down to the nearest pound (£).</p>
                     <table id="otherHouseholdIncome.otherIncomeTable">
                         <thead>
-                        <tr>
-                            <th>Type Of Income</th>
-                            <th>Amount</th>
-                        </tr>
+                            <tr>
+                                <th>Type Of Income</th>
+                                <th>Amount</th>
+                            </tr>
                         </thead>
                         <tbody id="otherHouseholdIncome.otherIncomeTableBody"/>
                     </table>
-                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="otherHouseholdIncome.anyIncomeEstimatedAlert" style="display: none">
                         You said your other income amounts are estimated. You must contact us before 31 January 2018 to tell us the actual amounts.
                     </span>
-                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your loss from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert"
-                          style="display: none">
+                    <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
                         You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
                     <div class="edit-income-btn" onClick="javascript:changeHouseholdIncome('')">
@@ -687,18 +629,13 @@
                     <header>
                         <h2>Declaration</h2>
                     </header>
-                    <p style="font-weight: bold">By sending your review and renewing your claim, you confirm that the
-                        information you have provided is correct and complete.</p>
+                    <p style="font-weight: bold">By sending your review and renewing your claim, you confirm that the information you have provided is correct and complete.</p>
                     <br/>
-                    <p>If you gave false details on purpose you will have to pay back money you should not have got. We
-                        may take you to court, fine you, or both.</p>
+                    <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
                     <br/>
-                    <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint
-                        claim, we will share the details with your partner.</p>
-                    <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim"
-                           onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
-                    <input id="summarySaveAndExit" type="button" value="Save and come back later"
-                           onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
+                    <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
+                    <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+                    <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
                 </article>
             </div>
         </main>
@@ -710,36 +647,26 @@
 
         <div id="confirm-pack-receipt">
 
-            <p class="lede">You must check the details in your renewal pack before you complete your declaration
-                online.</p>
+            <p class="lede">You must check the details in your renewal pack before you complete your declaration online.</p>
             <p>You need to make sure you have correctly advised us of any changes.</p>
-            <p class="bold-small">Have you received and checked your renewal pack for
-                <nobr>6 April 2016 to 5 April 2017?</nobr>
-            </p>
+            <p class="bold-small">Have you received and checked your renewal pack for <nobr>6 April 2016 to 5 April 2017?</nobr></p>
 
         </div>
 
         <div id="pack-not-received">
-            <p class="lede">You must check the details in your renewal pack before you complete your declaration
-                online.</p>
+            <p class="lede">You must check the details in your renewal pack before you complete your declaration online.</p>
             <div class="notice">
-                <p>If your renewal pack does not arrive by 30 June 2017, <a
-                        href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries"
-                        target="_blank">contact the Tax Credit Helpline </a>.</p>
+                <p>If your renewal pack does not arrive by 30 June 2017, <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact the Tax Credit Helpline </a>.</p>
             </div>
         </div>
 
         <div id="auto-renewal-header">
             <h2><span>Your claim will be automatically renewed unless you need to report any changes</span></h2>
-            <h3>
-                <span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span>
-            </h3>
+            <h3><span>Check the details in your renewal pack for your claim between 6 April 2016 and 5 April 2017.</span></h3>
             <details>
                 <summary><span class="summary">I have not received my pack yet</span></summary>
                 <div class="panel panel-border-narrow">
-                    <p>Your renewal pack should arrive by 30 June 2016. If it does not arrive by then, <a
-                            href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries"
-                            target="_blank">contact the Tax Credit Helpline.</a></p>
+                    <p>Your renewal pack should arrive by 30 June 2016. If it does not arrive by then, <a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries" target="_blank">contact the Tax Credit Helpline.</a></p>
                 </div>
             </details>
         </div>
@@ -750,12 +677,10 @@
 
         <div id="Completing review message">
             <p>Your information will be saved as you progress.
-                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the
-                beginning.
+                If you sign out, your changes will be saved for 28 days. After that time you will need to start from the beginning.
             </p>
 
-            <p id="completingReviewWarningForD2" style="display: none">As you were not able to provide us with actual
-                income figures when applying for tax credits,
+            <p id="completingReviewWarningForD2" style="display: none">As you were not able to provide us with actual income figures when applying for tax credits,
                 we will need to ask you questions about the previous 2 tax years.</p>
 
             <p>This review is divided into <span id="completing-review-message-total">3</span> parts.</p>
@@ -778,24 +703,19 @@
             <h3>You may need:</h3>
             <ul class="list-bullet">
                 <li><h4>Your benefit letters</h4>
-                    Showing the amounts you received
-                </li>
+                    Showing the amounts you received</li>
 
                 <li><h4>Your P60</h4>
-                    For your total earnings, which may include things like private pensions or Statutory Maternity Pay
-                </li>
+                    For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
 
                 <li><h4>Your P11D or P9D</h4>
-                    For company benefits you got. Also known as 'benefits in kind'
-                </li>
+                    For company benefits you got. Also known as 'benefits in kind'</li>
 
                 <li><h4>Your P45</h4>
-                    For any job you had that ended
-                </li>
+                    For any job you had that ended</li>
 
                 <li><h4>Your Self Assessment returns</h4>
-                    For your self-employment income
-                </li>
+                    For your self-employment income</li>
             </ul>
 
         </div>
@@ -814,22 +734,16 @@
                 <summary><span class="summary">What are these benefits?</span></summary>
                 <div class="panel panel-border-narrow">
                     <h3 class="heading-small">Income-based Jobseeker's Allowance</h3>
-                    <p>An unemployment benefit you can claim while looking for work. You must work less than 16 hours a
-                        week on average, your partner works less than 24 hours a week on average and you have £16,000 or
-                        less in savings.</p>
+                    <p>An unemployment benefit you can claim while looking for work. You must work less than 16 hours a week on average, your partner works less than 24 hours a week on average and you have £16,000 or less in savings.</p>
 
                     <h3 class="heading-small">Income-related Employment and Support Allowance</h3>
                     <p>A benefit you can claim if your ability to work is limited by ill health or disability.</p>
 
                     <h3 class="heading-small">Income Support</h3>
-                    <p>A benefit you can claim if you are on a low income and not working (or only working part-time).
-                        It is for people who do not sign on as unemployed.</p>
+                    <p>A benefit you can claim if you are on a low income and not working (or only working part-time). It is for people who do not sign on as unemployed.</p>
 
                     <h3 class="heading-small">Pension Credit</h3>
-                    <p>An income-related benefit made up of Guarantee Credit and Savings Credit. Guarantee Credit tops
-                        up your weekly income if it is below a certain amount (depending on if you are single or not).
-                        Savings Credit is an extra payment if you have saved some money towards your retirement, such as
-                        a pension.</p>
+                    <p>An income-related benefit made up of Guarantee Credit and Savings Credit. Guarantee Credit tops up your weekly income if it is below a certain amount (depending on if you are single or not). Savings Credit is an extra payment if you have saved some money towards your retirement, such as a pension.</p>
                 </div>
             </details>
 
@@ -837,42 +751,33 @@
 
         <div id="do-you-still-get-this-benefit">
             <div class="panel panel-border-narrow">
-                If you have not already told us that you no longer receive this benefit, you should report this as a
-                change in this review.
+                If you have not already told us that you no longer receive this benefit, you should report this as a change in this review.
             </div>
         </div>
 
         <div id="let-us-know-how-much-you-have-earned">
-            <p>Let us know how much you earned before anything was taken off. Use the 'total pay' or 'total for year'
-                amount on your P60.</p>
+            <p>Let us know how much you earned before anything was taken off. Use the 'total pay' or 'total for year' amount on your P60.</p>
             <details>
                 <summary>What if I do not have my P60?</summary>
                 <div class="panel">
-                    <p>If your employer has told us about your earned income between [DATE_A] and [DATE_B], it is shown
-                        in step B of your renewal pack.
+                    <p>If your employer has told us about your earned income between [DATE_A] and [DATE_B], it is shown in step B of your renewal pack.
                     </p>
                     <div>
-                        <svg viewbox="0 0 283.28 218.35">
-                            <use xlink:href="#p60"></use>
-                        </svg>
+                        <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60"></use></svg>
                     </div>
                 </div>
             </details>
         </div>
 
         <div id="let-us-know-how-much-your-partner-earned">
-            <p>Let us know how much your partner earned before anything was taken off. Use the 'total pay' or 'total for
-                year' amount on their P60.</p>
+            <p>Let us know how much your partner earned before anything was taken off. Use the 'total pay' or 'total for year' amount on their P60.</p>
             <details>
                 <summary>What if I do not have my partner's P60?</summary>
                 <div class="panel">
-                    <p>If your partner's employer has told us about their earned income between [DATE_A] and [DATE_B],
-                        it is shown in step B of your renewal pack.
+                    <p>If your partner's employer has told us about their earned income between [DATE_A] and [DATE_B], it is shown in step B of your renewal pack.
                     </p>
                     <div>
-                        <svg viewbox="0 0 283.28 218.35">
-                            <use xlink:href="#p60"></use>
-                        </svg>
+                        <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60"></use></svg>
                     </div>
                 </div>
             </details>
@@ -920,12 +825,10 @@
                     <p>It does not include the Christmas bonus, winter fuel payment, or war pensions.</p>
 
                     <h3 class="heading-small">Trusts, settlements or estates</h3>
-                    <p>You will receive an R185 form with all the necessary information from the trustees or
-                        administrators.</p>
+                    <p>You will receive an R185 form with all the necessary information from the trustees or administrators.</p>
 
                     <h3 class="heading-small">Foreign income</h3>
-                    <p>Any income you get from outside of England, Scotland, Wales and Northern Ireland (including the
-                        Channel Islands and the Isle of Man) such as:</p>
+                    <p>Any income you get from outside of England, Scotland, Wales and Northern Ireland (including the Channel Islands and the Isle of Man) such as:</p>
                     <ul class="list list-bullet text">
                         <li>wages from working abroad</li>
                         <li>foreign investments and savings interest</li>
@@ -939,12 +842,11 @@
                         <li>employment income where you worked for free or for less than the going rate</li>
                         <li>income that you could get but did not apply for such as Jobseeker's Allowance</li>
                         <li>income you did not take, so you could get tax credits or more tax credits</li>
-                        <li>investment income of a child where you have provided trust funds of more than &pound;100
-                        </li>
+                        <li>investment income of a child where you have provided trust funds of more than &pound;100</li>
                     </ul>
                 </div>
             </details>
-            <br/>
+            <br />
         </div>
 
 
@@ -961,25 +863,19 @@
                 <summary><span class="summary">What are these benefits?</span></summary>
                 <div class="panel panel-border-narrow">
                     <h3 class="heading-small">Bereavement Allowance</h3>
-                    <p>A benefit you can claim if you are widowed between 45 and State Pension age (previously known as
-                        Widow's Pension).</p>
+                    <p>A benefit you can claim if you are widowed between 45 and State Pension age (previously known as Widow's Pension).</p>
 
                     <h3 class="heading-small">Carer's Allowance</h3>
-                    <p>A benefit you can claim if you care for someone at least 35 hours a week and they are claiming a
-                        benefit.</p>
+                    <p>A benefit you can claim if you care for someone at least 35 hours a week and they are claiming a benefit.</p>
 
                     <h3 class="heading-small">Contribution-based Jobseeker's Allowance</h3>
-                    <p>An unemployment benefit you can claim if you have paid enough National Insurance contributions
-                        through an employer in the last 2 tax years and are looking for work.</p>
+                    <p>An unemployment benefit you can claim if you have paid enough National Insurance contributions through an employer in the last 2 tax years and are looking for work.</p>
 
                     <h3 class="heading-small">Contribution-based Employment and Support Allowance</h3>
-                    <p>A benefit you can claim if your ability to work is limited by ill health or disability and you
-                        have paid enough National Insurance contributions through an employer in the last 2 tax
-                        years.</p>
+                    <p>A benefit you can claim if your ability to work is limited by ill health or disability and you have paid enough National Insurance contributions through an employer in the last 2 tax years.</p>
 
                     <h3 class="heading-small">Incapacity Benefit</h3>
-                    <p>A benefit you can claim if your ability to work is limited by ill health or disability. It is
-                        being replaced with Employment and Support Allowance (ESA).</p>
+                    <p>A benefit you can claim if your ability to work is limited by ill health or disability. It is being replaced with Employment and Support Allowance (ESA).</p>
                 </div>
             </details>
 
@@ -996,43 +892,33 @@
             <h3>You may need:</h3>
             <ul class="list-bullet">
                 <li><h4>Your partner's benefit letters</h4>
-                    Showing the amounts your partner received for the reward period
-                </li>
+                    Showing the amounts your partner received for the reward period</li>
 
                 <li><h4>Your partner's P60 </h4>
-                    For your partner's total earnings, which may include things like private pensions or Statutory
-                    Maternity Pay
-                </li>
+                    For your partner's total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
 
                 <li><h4>Your partner's P11D </h4>
-                    For company benefits your partner got. Also known as 'benefits in kind'
-                </li>
+                    For company benefits your partner got. Also known as 'benefits in kind'</li>
 
                 <li><h4>Your partner's P45</h4>
-                    For any job your partner had during the reward period
-                </li>
+                    For any job your partner had during the reward period</li>
 
                 <li><h4>Your partner's Self Assessment returns</h4>
-                    For your partner's self-employment income
-                </li>
+                    For your partner's self-employment income</li>
 
                 <li><h4>Your partner's benefit letters</h4>
-                    Showing the amounts your partner received
-                </li>
+                    Showing the amounts your partner received</li>
             </ul>
         </div>
 
         <div id="Did partner get any company benefits?">
-            <p>Company benefits are things you get from your employer, like a company car and fuel, gifts of food or
-                clothing, taxable vouchers or bills paid for you.</p>
-            <p>If your partner receives a P11D or P9D from their employer, this will show any company benefits they
-                receive and the amount. The P11D or P9D will refer these as 'benefits in kind'.</p>
+            <p>Company benefits are things you get from your employer, like a company car and fuel, gifts of food or clothing, taxable vouchers or bills paid for you.</p>
+            <p>If your partner receives a P11D or P9D from their employer, this will show any company benefits they receive and the amount. The P11D or P9D will refer these as 'benefits in kind'.</p>
         </div>
 
 
         <div id="renting-does-not-include-rent-a-room-scheme">
-            <p class="lede">This does not include renting out property, or a room in their home as part of the Rent a
-                Room Scheme.</p>
+            <p class="lede">This does not include renting out property, or a room in their home as part of the Rent a Room Scheme.</p>
         </div>
 
         <div id="Did you get any income from property rental">
@@ -1053,28 +939,22 @@
                 <div class="panel panel-border-narrow">
 
                     <h3 class="heading-small">Bereavement Allowance</h3>
-                    <p>A benefit you can claim if you are widowed between 45 and State Pension age (previously known as
-                        Widow's Pension).</p>
+                    <p>A benefit you can claim if you are widowed between 45 and State Pension age (previously known as Widow's Pension).</p>
 
                     <h3 class="heading-small">Carer's Allowance</h3>
-                    <p>A benefit you can claim if you care for someone at least 35 hours a week and they are claiming a
-                        benefit.</p>
+                    <p>A benefit you can claim if you care for someone at least 35 hours a week and they are claiming a benefit.</p>
 
                     <h3 class="heading-small">Contribution-based Jobseeker's Allowance</h3>
-                    <p>An unemployment benefit you can claim if you have paid enough National Insurance contributions
-                        through an employer in the last 2 tax years and are looking for work.</p>
+                    <p>An unemployment benefit you can claim if you have paid enough National Insurance contributions through an employer in the last 2 tax years and are looking for work.</p>
 
                     <h3 class="heading-small">Contribution-based Employment and Support Allowance</h3>
-                    <p>A benefit you can claim if your ability to work is limited by ill health or disability and you
-                        have paid enough National Insurance contributions through an employer in the last 2 tax
-                        years.</p>
+                    <p>A benefit you can claim if your ability to work is limited by ill health or disability and you have paid enough National Insurance contributions through an employer in the last 2 tax years.</p>
 
                     <h3 class="heading-small">Incapacity Benefit</h3>
-                    <p>A benefit you can claim if your ability to work is limited by ill health or disability. It is
-                        being replaced with Employment and Support Allowance (ESA).</p>
+                    <p>A benefit you can claim if your ability to work is limited by ill health or disability. It is being replaced with Employment and Support Allowance (ESA).</p>
                 </div>
             </details>
-            <br/>
+            <br />
         </div>
 
         <div id="Select partner taxable benefits and enter amount">
@@ -1082,81 +962,76 @@
         </div>
 
         <div id="report-any-changes">
-            <p class="lede">Check the details in your renewal paper pack for your [CLAIM_TYPE] claim between
-                <nobr></nobr>
-                [DATE_A] and [DATE_B]
-                <nobr></nobr>
-                .
-            </p>
+            <p class="lede">Check the details in your renewal paper pack for your [CLAIM_TYPE] claim between <nobr></nobr> [DATE_A] and [DATE_B]<nobr></nobr>.</p>
             <p class="lede">Do you need to report a change to the details shown?</p>
         </div>
 
     </div>
 
 
-    @if(debug == true) {
+
+@if(debug == true) {
     <div id="debugShow">
-        } else {
-        <div id="debugHidden" style="display: none;">
-            }
-            <div id="demo">
-                <div>
-                    <label>Renewal Type</label>
-                    <select id="RenewalType">
-                        <option value="R">Auto Renewal</option>
-                        <option value="D">D1</option>
-                        <option value="D2">D2</option>
-                    </select>
-                    <label>Has Partner</label>
-                    <select id="HasPartner">
-                        <option value="false">false</option>
-                        <option value="true">true</option>
-                    </select>
-                </div>
-                <br>
-                <input type="button" value="Start Application" onClick="javascript:startDemo()">
+} else {
+    <div id="debugHidden" style="display: none;">
+}
+        <div id="demo">
+            <div>
+                <label>Renewal Type</label>
+                <select id="RenewalType">
+                    <option value="R">Auto Renewal</option>
+                    <option value="D">D1</option>
+                    <option value="D2">D2</option>
+                </select>
+                <label>Has Partner</label>
+                <select id="HasPartner">
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
             </div>
-
             <br>
-            <br>
+            <input type="button" value="Start Application" onClick="javascript:startDemo()">
+        </div>
+
+        <br>
+        <br>
 
 
-            <h3>Question Trace</h3>
+        <h3>Question Trace</h3>
+        <br>
+        <div>
+            <b>Current Question:</b>
             <br>
             <div>
-                <b>Current Question:</b>
-                <br>
-                <div>
-                    <b><label>Question Id:</label></b>
-                    <span id="QuestionId"></span>
-                </div>
-                <div>
-                    <label>Question Type:</label>
-                    <span id="QuestionType"></span>
-                </div>
-                <div>
-                    <label>Question Group:</label>
-                    <span id="QuestionGroup"></span>
-                </div>
+                <b><label>Question Id:</label></b>
+                <span id="QuestionId"></span>
             </div>
-            <br>
-
-            <input type="button" value="Initialise model"
-                   onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.Were you self employed_PY_1:true,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes,incomeDetails.earnings_PY_1:123123,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:123132,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:123123')">
-
-            <input type="button" value="Extract Model" onClick="javascript:getModelData()">
-            <input type="button" value="API" onClick="javascript:extractAPI()">
-            <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
-            <input type="button" value="Back" onClick="javascript:BACK()">
-            <input type="button" value="Test global error handler" onClick="javascript:TEST_ERROR()">
-
-            <br><br>
-            <div id="dumpDiv">
-                <b><span>Debug</span></b>
-                <br><br>
-                <span id="dumpText"></span>
+            <div>
+                <label>Question Type:</label>
+                <span id="QuestionType"></span>
+            </div>
+            <div>
+                <label>Question Group:</label>
+                <span id="QuestionGroup"></span>
             </div>
         </div>
+        <br>
+
+        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.Were you self employed_PY_1:true,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes,incomeDetails.earnings_PY_1:123123,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:123132,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:123123')">
+
+        <input type="button" value="Extract Model" onClick="javascript:getModelData()">
+        <input type="button" value="API" onClick="javascript:extractAPI()">
+        <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
+        <input type="button" value="Back" onClick="javascript:BACK()">
+        <input type="button" value="Test global error handler" onClick="javascript:TEST_ERROR()">
+
+        <br><br>
+        <div id="dumpDiv">
+            <b><span>Debug</span></b>
+            <br><br>
+            <span id="dumpText"></span>
+        </div>
+    </div>
 </main>
 </body>
 

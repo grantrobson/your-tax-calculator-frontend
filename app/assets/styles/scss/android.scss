@@ -65,3 +65,10 @@ main input[type="button"].primary {
 		border-bottom: 1px solid;
 	}
 }
+
+
+//Icons
+
+.edit-income-btn__icon--ios {display: none;}
+.edit-income-btn__icon--android {display: table-cell;}
+.edit-income-btn__icon--windows {display: none;}

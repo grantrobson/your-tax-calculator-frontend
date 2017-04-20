@@ -171,8 +171,6 @@ main.summary {
   margin-top: 0; }
   main.summary .note {
     color: #6F777B; }
-  main.summary input[type="button"].secondary {
-    text-align: left; }
   main.summary > header {
     padding: 16px 16px 0; }
     main.summary > header h1 {
@@ -212,7 +210,7 @@ main.summary {
       font-weight: bold;
       padding-bottom: 16px;
       border-bottom: 2px solid #005ea5;
-      margin-bottom: 0; }
+      margin-bottom: 1em; }
     main.summary article h4 {
       font-size: 20px;
       font-size: 2rem;
@@ -405,6 +403,35 @@ p.one {
 h1.hidden {
   visibility: hidden; }
 
+.edit-income-btn {
+  display: table; }
+  .edit-income-btn .edit-income-btn__icon {
+    width: 24px;
+    height: 24px;
+    text-align: left;
+    margin-right: 5px; }
+  .edit-income-btn .edit-income-btn__text {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px 0;
+    text-align: left;
+    color: #2b8cc4; }
+  .edit-income-btn input[type="button"].secondary {
+    text-align: left;
+    font-weight: bold;
+    width: auto;
+    padding: 0;
+    margin: 0; }
+
+.edit-income-btn__icon--ios {
+  display: none; }
+
+.edit-income-btn__icon--android {
+  display: none; }
+
+.edit-income-btn__icon--windows {
+  display: none; }
+
 .back {
   display: none;
   position: fixed;
@@ -443,3 +470,12 @@ main input[type="button"].primary {
 #MultipleChoice input[type="checkbox"] + label::after,
 #MultipleChoice input[type="checkbox"] + div label::after {
   border-color: #08822e; }
+
+.edit-income-btn__icon--ios {
+  display: table-cell; }
+
+.edit-income-btn__icon--android {
+  display: none; }
+
+.edit-income-btn__icon--windows {
+  display: none; }

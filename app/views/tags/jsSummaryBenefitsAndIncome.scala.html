@@ -86,18 +86,18 @@ function setBenefitsPreHeader(period) {
 }
 
 function displayTaxableBenefitsTableAndTotalOrAlert(period) {
-    var answer = getAnswerForQuestion('Did you get any taxable benefits');
+    var answer = getAnswerForQuestion('Did you get any taxable benefits' + period);
 
     if (answer === "true") {
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotalLabel' + period).style.display = "block";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).style.display = "block";
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "£" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount'));
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "£" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount' + period));
 
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";
 
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable' + period).style.display = "block";
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount');
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTable' + period).style.display = "";
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount' + period);
     } else {
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotalLabel' + period).style.display = "none";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).style.display = "none";

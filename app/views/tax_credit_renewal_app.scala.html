@@ -147,7 +147,8 @@
                         <h2 id="yourBenefitsAndIncome.header_PY_1"/>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader_PY_1" class="pre-header"/>
                         <br/>
-                        <h4 style="text-align: center; font-weight: normal">Your total income</h4>
+                        <h4 id="yourBenefitsAndIncome.otherIncomeTotalLabel_PY_1" style="text-align: center;
+                            font-weight: normal">Your total income</h4>
                         <h1 id="yourBenefitsAndIncome.otherIncomeTotal_PY_1"/>
                     </header>
                     <p class="note">Your income from work has been rounded down to the nearest pound (£).</p>
@@ -160,13 +161,20 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.otherIncomeTableBody_PY_1"/>
                     </table>
+                     <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
+                        You said your profit from self-employment is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
+                    </span>
+                    <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
+                        You said your loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if you actually made a profit.
+                    </span>
                     <input type="button" class="secondary edit" value="Change your income" onClick="javascript:changeIncome('_PY_1')"/>
                 </article>
                 <article>
                     <header>
                         <h3 id="yourBenefitsAndIncome.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
-                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel_PY_1" style="text-align: center; font-weight: normal">Your total benefits</h4>
+                        <h4 id="yourBenefitsAndIncome.taxableBenefitsTotalLabel_PY_1" style="text-align: center;
+                            font-weight: normal">Your total benefits</h4>
                         <h1 id="yourBenefitsAndIncome.taxableBenefitsTotal_PY_1"/>
                     </header>
                     <p id="yourBenefitsAndIncome.taxableBenefitsRoundingAlert_PY_1" class="note" style="display: none">
@@ -305,8 +313,10 @@
                         </details>
 
                     </div>
-
                     <input type="button" class="secondary edit" value="Change benefits" onClick="javascript:changeUnTaxedBenefits()" />
+                </article>
+
+                <article>
                     <header>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
                         <br/>
@@ -552,7 +562,7 @@
 
         <div id="cloneForInsertPoint"></div>
 
-        <div id="part-1-your-benefits-and-income">
+        <div id="your-benefits-and-income-intro">
             <h3>You will be asked about:</h3>
             <ul class="list-bullet">
                 <li>benefits you claimed</li>
@@ -562,21 +572,98 @@
             <h3>You may need:</h3>
             <ul class="list-bullet">
                 <li><h4>Your benefit letters</h4>
-                    Showing the amounts you received</li>
+                    Showing the amounts you received between [DATE_A] and [DATE_B]</li>
 
-                <li><h4>Your P60</h4>
+                <li><h4>Your P60 for [DATE_A] to [DATE_B]</h4>
                     For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
 
-                <li><h4>Your P11D or P9D</h4>
+                <li><h4>Your P11D for [DATE_A] to [DATE_B]</h4>
                     For company benefits you got. Also known as 'benefits in kind'</li>
 
                 <li><h4>Your P45</h4>
-                    For any job you had that ended</li>
+                    For any job you had that ended between [DATE_A] and [DATE_B]</li>
 
                 <li><h4>Your Self Assessment returns</h4>
-                    For your self-employment income</li>
+                    For your self-employment income between [DATE_A] and [DATE_B]</li>
+            </ul>
+        </div>
+
+        <div id="your-benefits-and-income-intro-py-1">
+            <h3>You will be asked about:</h3>
+            <ul class="list-bullet">
+                <li>benefits you claimed</li>
+                <li>income from your employment and self-employment</li>
             </ul>
 
+            <h3>You may need:</h3>
+            <ul class="list-bullet">
+                <li><h4>Your benefit letters</h4>
+                    Showing the amounts you received between [DATE_A_PY_1] and [DATE_B_PY_1]</li>
+
+                <li><h4>Your P60 for [DATE_A_PY_1] to [DATE_B_PY_1]</h4>
+                    For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
+
+                <li><h4>Your P11D for [DATE_A_PY_1] to [DATE_B_PY_1]</h4>
+                    For company benefits you got. Also known as 'benefits in kind'</li>
+
+                <li><h4>Your P45</h4>
+                    For any job you had that ended between [DATE_A_PY_1] and [DATE_B_PY_1]</li>
+
+                <li><h4>Your Self Assessment returns</h4>
+                    For your self-employment income between [DATE_A_PY_1] and [DATE_B_PY_1]</li>
+            </ul>
+        </div>
+
+        <div id="your-partners-benefits-and-income-intro">
+            <h3>You will be asked about:</h3>
+            <ul class="list-bullet">
+                <li>benefits your partner claimed</li>
+                <li>income from your partner's employment and self-employment</li>
+            </ul>
+
+            <h3>You may need:</h3>
+            <ul class="list-bullet">
+                <li><h4>Your partner's benefit letters</h4>
+                    Showing the amounts your partner received between [DATE_A] and [DATE_B]</li>
+
+                <li><h4>Your partner's P60 for [DATE_A] to [DATE_B]</h4>
+                    For your total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
+
+                <li><h4>Your partner's P11D for [DATE_A] to [DATE_B]</h4>
+                    For company benefits your partner got. Also known as 'benefits in kind'</li>
+
+                <li><h4>Your partner's P45</h4>
+                    For any job your partner had that ended between [DATE_A] and [DATE_B]</li>
+
+                <li><h4>Your partner's Self Assessment returns</h4>
+                    For your partner's self-employment income between [DATE_A] and [DATE_B]</li>
+            </ul>
+        </div>
+
+        <div id="your-partners-benefits-and-income-intro-py-1">
+            <h3>You will be asked about:</h3>
+            <ul class="list-bullet">
+                <li>benefits your partner claimed</li>
+                <li>income from your partner employment and self-employment</li>
+            </ul>
+
+            <h3>You may need:</h3>
+            <ul class="list-bullet">
+                <li><h4>Your partner's benefit letters</h4>
+                    Showing the amounts your partner received between [DATE_A_PY_1] and [DATE_B_PY_1]</li>
+
+                <li><h4>Your partner's P60 for [DATE_A_PY_1] to [DATE_B_PY_1]</h4>
+                    For your partner's total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
+
+                <li><h4>Your partner's P11D for [DATE_A_PY_1] to [DATE_B_PY_1]</h4>
+                    For company benefits your partner got. Also known as 'benefits in kind'</li>
+
+                <li><h4>Your partner's P45</h4>
+                    For any job you had that ended between [DATE_A_PY_1] and [DATE_B_PY_1]</li>
+
+                <li><h4>Your partner's Self Assessment returns</h4>
+                    For your self-employment income between [DATE_A_PY_1] and [DATE_B_PY_1]</li>
+            </ul>
         </div>
 
         <div id="did-you-get-any-untaxed-benefits">
@@ -740,36 +827,6 @@
 
         </div>
 
-        <div id="Partner benefits & income intro">
-            <h3>You will be asked about:</h3>
-            <ul class="list-bullet">
-                <li>benefits your partner claimed</li>
-                <li>income from your your partner's employment and self-employment</li>
-                <li>benefits your partner claimed</li>
-            </ul>
-
-            <h3>You may need:</h3>
-            <ul class="list-bullet">
-                <li><h4>Your partner's benefit letters</h4>
-                    Showing the amounts your partner received for the reward period</li>
-
-                <li><h4>Your partner's P60 </h4>
-                    For your partner's total earnings, which may include things like private pensions or Statutory Maternity Pay</li>
-
-                <li><h4>Your partner's P11D </h4>
-                    For company benefits your partner got. Also known as 'benefits in kind'</li>
-
-                <li><h4>Your partner's P45</h4>
-                    For any job your partner had during the reward period</li>
-
-                <li><h4>Your partner's Self Assessment returns</h4>
-                    For your partner's self-employment income</li>
-
-                <li><h4>Your partner's benefit letters</h4>
-                    Showing the amounts your partner received</li>
-            </ul>
-        </div>
-
         <div id="Did partner get any company benefits?">
             <p>Company benefits are things you get from your employer, like a company car and fuel, gifts of food or clothing, taxable vouchers or bills paid for you.</p>
             <p>If your partner receives a P11D or P9D from their employer, this will show any company benefits they receive and the amount. The P11D or P9D will refer these as 'benefits in kind'.</p>
@@ -876,7 +933,7 @@
         </div>
         <br>
 
-        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.Were you self employed_PY_1:true,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes,incomeDetails.earnings_PY_1:123123,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:123132,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:123123')">
+        <input type="button" value="Initialise model" onClick="javascript:resume('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,startDate:06 April 2016,endDate:05 April 2017,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.earnings_PY_1:1,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:2,incomeDetails.Were you self employed_PY_1:true,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:3,renewalData.Did you get any taxable benefits_PY_1:true,taxableBenefits.bereavement_allowance_PY_1:5,taxableBenefits.carer_allowance_PY_1:6,partner.incomeDetails.Was partner employed_PY_1:true,partner.incomeDetails.earnings_PY_1:7,partner.incomeDetails.Did partner get any company benefits_PY_1:true,partner.incomeDetails.companyBenefits_PY_1:8,partner.incomeDetails.Was partner self-employed_PY_1:true,partner.incomeDetails.Did partner make profit from self-employment?_PY_1:true,partner.incomeDetails.seProfits_PY_1:9,partner.Did partner get any taxable benefits_PY_1:true,partner.taxableBenefits.bereavement_allowance_PY_1:10,otherIncome.Did you get any other household income_PY_1:true,otherIncome.saving_investment_dividend_PY_1:11,otherIncome.Did you get any income from property rental_PY_1:true,otherIncome.Did you make a profit from property rental_PY_1:true,otherIncome.profit_from_property_PY_1:12,incomeDetails.Were you employed:true,incomeDetails.earnings:13,incomeDetails.Did you get any company benefits:true,incomeDetails.companyBenefits:14,incomeDetails.Were you self employed:true,incomeDetails.Did you make a profit from self-employment:true,incomeDetails.seProfits:15,incomeDetails.self_employed_profit_is_estimated:true,renewalData.Did you get any taxable benefits:true,taxableBenefits.bereavement_allowance:17,partner.incomeDetails.Was partner employed:true,partner.incomeDetails.earnings:18,partner.incomeDetails.Did partner get any company benefits:true,partner.incomeDetails.companyBenefits:19,partner.incomeDetails.Was partner self-employed:true,partner.incomeDetails.Did partner make profit from self-employment?:true,partner.incomeDetails.seProfits:20,partner.incomeDetails.self_employed_profit_is_estimated:true,partner.Did partner get any taxable benefits:true,partner.taxableBenefits.bereavement_allowance:22,otherIncome.Did you get any other household income:true,otherIncome.saving_investment_dividend:24,otherIncome.isOtherHouseholdIncomeEst:true,otherIncome.Did you get any income from property rental:true,otherIncome.Did you make a profit from property rental:true,otherIncome.profit_from_property:25,otherIncome.rental_profit_is_estimated:true,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Select taxable benefits and enter amount_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#How much employed income did partner get?_PY_1#Did partner get any company benefits?_PY_1#How much company benefit did partner get?_PY_1#Was partner self-employed?_PY_1#Did partner make profit from self-employment?_PY_1#How much profit did partner make from self-employment?_PY_1#Did partner get any taxable benefits?_PY_1#Select partner taxable benefits and enter amount_PY_1#Did you get any other household income_PY_1#Select other income sources & enter amount_PY_1#Did you get any income from property rental_PY_1#Did you make a profit from property rental_PY_1#Property rental profit - enter amount_PY_1#Benefits & Income - intro#Were you employed#How much employed income#Did you get any company benefits#How much company benefit#Were you self employed#Did you make a profit from self-employment#How much profit from self-employment#Is the self-employed profit estimated#Did you get any taxable benefits#Select taxable benefits and enter amount#Partner benefits & income intro#Was partner employed?#How much employed income did partner get?#Did partner get any company benefits?#How much company benefit did partner get?#Was partner self-employed?#Did partner make profit from self-employment?#How much profit did partner make from self-employment?#Is partner self-employment profit estimated?#Did partner get any taxable benefits?#Select partner taxable benefits and enter amount#Did you get any other household income#Select other income sources & enter amount#Are any of the income amounts estimated#Did you get any income from property rental#Did you make a profit from property rental#Property rental profit - enter amount#Is property rental profit estimated#Report any changes')">
 
         <input type="button" value="Extract Model" onClick="javascript:getModelData()">
         <input type="button" value="API" onClick="javascript:extractAPI()">

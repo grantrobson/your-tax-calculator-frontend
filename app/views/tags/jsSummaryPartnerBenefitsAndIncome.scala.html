@@ -107,8 +107,7 @@ function displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period) {
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";
 
-        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).style.display = "block";
-        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTableBody' + period).style.display = "block";
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).style.display = "";
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period);
     } else {
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotalLabel' + period).style.display = "none";
@@ -119,7 +118,6 @@ function displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period) {
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsNoBenefitsAlert' + period).style.display = "block";
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTable' + period).style.display = "none";
-        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTableBody' + period).style.display = "none";
     }
 }
 

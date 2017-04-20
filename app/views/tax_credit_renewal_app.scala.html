@@ -100,16 +100,12 @@
         <div id="yesInfoDiv" style="display: none"></div>
         <div class="container">
             <div class="row">
-                <label for="boolean_yes" class="col">
-                    <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
-                    Yes
-                </label>
+                <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
+                <label for="boolean_yes" class="col">Yes</label>
             </div>
             <div class="row">
-                <label for="boolean_no" class="col">
-                    <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" onchange="javascript:booleanPageValidation();" class="col">
-                    No
-                </label>
+                <input type="radio" id="boolean_no" name="boolean_option"  onClick="javascript:NO()" onchange="javascript:booleanPageValidation();" class="col">
+                <label for="boolean_no" class="col">No</label>
             </div>
         </div>
         <input type="button" data-se="next" value="Save and continue" disabled="true" onClick="javascript:NEXT_BOOLEAN_CONTINUE()" class="primary">

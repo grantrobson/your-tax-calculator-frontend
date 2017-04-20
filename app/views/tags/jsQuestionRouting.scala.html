@@ -1,7 +1,15 @@
 <script>
 
     function canGoBack() {
-        return(stack.length == 0 ? "true" : "false");
+        var outcome = stack.length == 0 ? "true" : "false";
+
+        // Android callback.
+        try {
+            HMRCAndroid.canAppGoBack(outcome);
+            return;
+        } catch(err) {}
+
+        return(outcome);
     }
 
     function BACK() {

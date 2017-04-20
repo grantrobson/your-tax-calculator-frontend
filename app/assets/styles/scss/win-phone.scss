@@ -61,3 +61,44 @@ main input[type="button"].primary {
 		background-color: #dee0e2;
 	}
 }
+
+/* Radio buttons */
+
+#Boolean,
+#MultipleChoice {
+
+	input[type="radio"] {
+
+		+ label {
+
+			&::before{
+				border-color: #000;
+			}
+
+			&::after{
+				border-color: $button-bg-primary;
+			}
+
+		}
+
+		&:checked + label::after{
+			border-color: #000;
+		}
+	}
+
+	input[type="checkbox"] {
+
+		+ label,
+		+ div label {
+			&::before,
+			&::after {
+				border: 2px solid #000;
+			}
+
+			&::after {
+				border-color: #000;
+				border-width: 0 0 2px 2px;
+			}
+		}
+	}
+}

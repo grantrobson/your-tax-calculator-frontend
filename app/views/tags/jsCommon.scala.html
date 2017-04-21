@@ -110,7 +110,8 @@
       function replacePlaceholdersInQuestionPage(question, page) {
           var placeholders = new Map();
 
-          placeholders.set('[CLAIM_TYPE]', map.get("CLAIM_TYPE"));
+          var claimType = map.get("CLAIM_TYPE");
+          placeholders.set('[CLAIM_TYPE]', claimType);
           placeholders.set('[PARTNER_DETAILS]', map.get("PARTNER_DETAILS"));
 
           if (question.id.endsWith(PREVIOUS_YEAR_MINUS_1)) {
@@ -128,13 +129,18 @@
           if (isDefined(awardStartDate) && isDefined(awardEndDate)) {
               var benefitHeader = "Did you get any of these benefits for the whole time between [awardStartDate] and [awardEndDate]?"
               var commonHeader = "Which did you get for the whole time between [awardStartDate] to [awardEndDate]?";
+              var packReceiptHeader = "Have you received and checked your renewal pack for [awardStartDate] to [awardEndDate]?";
+              var reportChanges = "Check the details in your renewal paper pack for your [CLAIM_TYPE] claim between [awardStartDate] and [awardEndDate]?".replace("[CLAIM_TYPE]", claimType);
 
               placeholders.set('[BENEFIT_AWARD_DATE_HEADER]', replaceAwardDate(benefitHeader, awardStartDate, awardEndDate));
               placeholders.set('[COMMON_AWARD_DATE_HEADER]', replaceAwardDate(commonHeader, awardStartDate, awardEndDate));
+              placeholders.set('[PACK_RECEIPT_AWARD_DATE_HEADER]', replaceAwardDate(packReceiptHeader, awardStartDate, awardEndDate));
+              placeholders.set('[REPORT_CHANGE_AWARD_DATE_HEADER]', replaceAwardDate(reportChanges, awardStartDate, awardEndDate));
           } else {
-              var commonHeader = "Did you get any of these benefits for the whole of your award period?";
-              placeholders.set('[BENEFIT_AWARD_DATE_HEADER]', commonHeader);
-              placeholders.set('[COMMON_AWARD_DATE_HEADER]', commonHeader);
+              placeholders.set('[BENEFIT_AWARD_DATE_HEADER]', "Did you get any of these benefits for the whole of your award period?");
+              placeholders.set('[COMMON_AWARD_DATE_HEADER]', "Which did you get for the whole of your award period?");
+              placeholders.set('[PACK_RECEIPT_AWARD_DATE_HEADER]', "Have you received and checked your renewal pack for the whole of your award period?");
+              placeholders.set('[REPORT_CHANGE_AWARD_DATE_HEADER]', "Check the details in your renewal paper pack for your [CLAIM_TYPE] claim?".replace("[CLAIM_TYPE]", claimType));
           }
 
           replacePlaceholdersInElement(page, placeholders);

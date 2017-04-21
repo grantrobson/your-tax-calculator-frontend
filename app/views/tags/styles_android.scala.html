@@ -1,4 +1,4 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, section, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -7,7 +7,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
-section, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block; }
 
 body {
@@ -169,6 +169,8 @@ input:checked ~ .col .showIfChecked {
 main.summary {
   padding: 0;
   margin-top: 0; }
+  main.summary input[type="button"].secondary {
+    margin: 5px 0; }
   main.summary .note {
     color: #6F777B; }
   main.summary > header {
@@ -179,22 +181,24 @@ main.summary {
       font-weight: bold; }
   main.summary > div {
     padding: 0; }
-  main.summary section {
+  main.summary > section {
     border-bottom: 8px solid #DEE0E2;
     margin: 0;
     padding: 16px;
     margin-bottom: 10px; }
-    main.summary section header p {
+    main.summary > section > span {
+      margin: 10px 0; }
+    main.summary > section header p {
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold; }
-    main.summary section header h1 {
+    main.summary > section header h1 {
       font-size: 32px;
       font-size: 3.2rem;
       font-weight: bold;
       margin: 16px 0;
       text-align: center; }
-    main.summary section h2 {
+    main.summary > section h2 {
       font-size: 20px;
       font-size: 2rem;
       font-family: "Roboto", sans-serif;
@@ -203,21 +207,21 @@ main.summary {
       margin-bottom: 2rem;
       padding: 16px 0;
       border-bottom: 1px solid #bfc1c3; }
-    main.summary section h3 {
+    main.summary > section h3 {
       font-family: "Roboto", sans-serif;
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold;
       padding-bottom: 16px;
       border-bottom: 2px solid #005ea5;
-      margin-bottom: 1em; }
-    main.summary section h4 {
+      margin-bottom: 0.5em; }
+    main.summary > section h4 {
       font-size: 20px;
       font-size: 2rem;
       font-family: "Roboto", sans-serif;
       font-weight: bold;
       padding: 1rem 0; }
-    main.summary section h5 {
+    main.summary > section h5 {
       font-size: 20px;
       font-size: 2rem;
       border-top: 1px solid #bfc1c3;
@@ -225,22 +229,36 @@ main.summary {
       font-family: "Roboto", sans-serif;
       font-weight: normal;
       padding: 1rem 0; }
-    main.summary section table {
+    main.summary > section table {
       border-top: 2px solid #005ea5;
       margin: 16px 0;
       width: 100%; }
-      main.summary section table tr {
+      main.summary > section table tr {
         border-bottom: 1px solid #bfc1c3; }
-      main.summary section table th, main.summary section table td {
+      main.summary > section table th, main.summary > section table td {
         font-size: 16px;
         font-size: 1.6rem;
         padding: 8px 0; }
-        main.summary section table th:first-child, main.summary section table td:first-child {
+        main.summary > section table th:first-child, main.summary > section table td:first-child {
           text-align: left; }
-        main.summary section table th:last-child, main.summary section table td:last-child {
+        main.summary > section table th:last-child, main.summary > section table td:last-child {
           text-align: right; }
-      main.summary section table th {
+      main.summary > section table th {
         font-weight: bold; }
+  main.summary #declaration header {
+    display: table;
+    margin-bottom: 16px; }
+    main.summary #declaration header h2 {
+      display: table-cell;
+      padding: 0;
+      vertical-align: middle;
+      border: none;
+      padding: 2px 0; }
+    main.summary #declaration header .important-icon {
+      margin-right: 10px;
+      width: 24px;
+      height: 24px;
+      display: table-cell; }
 
 .alert {
   border-left: 4px solid;
@@ -423,13 +441,7 @@ h1.hidden {
     padding: 0;
     margin: 0; }
 
-.edit-income-btn__icon--ios {
-  display: none; }
-
-.edit-income-btn__icon--android {
-  display: none; }
-
-.edit-income-btn__icon--windows {
+.edit-income-btn__icon use {
   display: none; }
 
 .back {
@@ -468,11 +480,5 @@ main input[type="button"].primary {
   border: none;
   border-bottom: 1px solid; }
 
-.edit-income-btn__icon--ios {
-  display: none; }
-
-.edit-income-btn__icon--android {
+.edit-income-btn__icon .android {
   display: table-cell; }
-
-.edit-income-btn__icon--windows {
-  display: none; }

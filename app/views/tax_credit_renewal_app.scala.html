@@ -163,7 +163,18 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.otherIncomeTableBody_PY_1"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change your income" onClick="javascript:changeIncome('_PY_1')"/>
+                    <div class="edit-income-btn" onClick="javascript:changeIncome('_PY_1')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change your income</span>
+                    </div>
                 </article>
                 <article>
                     <header>
@@ -188,8 +199,18 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.taxableBenefitsTableBody_PY_1"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" onClick="javascript:changeTaxableBenefits('_PY_1')" />
-
+                    <div class="edit-income-btn"  onClick="javascript:changeTaxableBenefits('_PY_1')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change benefits you pay tax on</span>
+                    </div>
                 </article>
             </div>
             <div id="partnersIncomeAndBenefits_PY_1" style="display: none">
@@ -217,7 +238,18 @@
                     <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert_PY_1" style="display: none">
                         You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change your partner's income" onClick="javascript:changePartnerIncome('_PY_1')" />
+                    <div class="edit-income-btn" onClick="javascript:changePartnerIncome('_PY_1')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change your income</span>
+                    </div>
                 </article>
                 <article>
                     <header>
@@ -241,7 +273,18 @@
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.taxableBenefitsTableBody_PY_1"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" onClick="javascript:changePartnerBenefits('_PY_1')"/>
+                    <div class="edit-income-btn" onClick="javascript:changePartnerBenefits('_PY_1')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change benefits your partner pays tax on</span>
+                    </div>
                 </article>
             </div>
             <div id="otherHouseholdIncome_PY_1" style="display: none">
@@ -273,7 +316,18 @@
                     <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert_PY_1" style="display: none">
                         You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <input type="button" class="secondary edit" value="Change other household income" onClick="javascript:changeHouseholdIncome('_PY_1')"/>
+                    <div class="edit-income-btn"  onClick="javascript:changeHouseholdIncome('_PY_1')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change other household income</span>
+                    </div>
                 </article>
             </div>
             <div id="yourBenefitsAndIncome" style="display: none">
@@ -313,6 +367,18 @@
                 </article>
 
                 <article>
+                    <div class="edit-income-btn" onClick="javascript:changeUnTaxedBenefits()">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change benefits</span>
+                    </div>
                     <header>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
                         <br/>
@@ -335,7 +401,18 @@
                     <span class="alert alert--info" id="yourBenefitsAndIncome.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if you actually made a profit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change your income" onclick="javascript:changeIncome('')" />
+                    <div class="edit-income-btn" onclick="javascript:changeIncome('')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change your income</span>
+                    </div>
                 </article>
 
                 <article>
@@ -360,8 +437,18 @@
                         </thead>
                         <tbody id="yourBenefitsAndIncome.taxableBenefitsTableBody"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits you pay tax on" onClick="javascript:changeTaxableBenefits('')" />
-
+                    <div class="edit-income-btn" onClick="javascript:changeTaxableBenefits('')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change benefits you pay tax on</span>
+                    </div>
                 </article>
             </div>
             <div id="partnersIncomeAndBenefits" style="display: none;">
@@ -394,7 +481,18 @@
                             </div>
                         </details>
                     </div>
-                    <input type="button" class="secondary edit" value="Change benefits" onclick="javascript:changeTaxableBenefits('')"/>
+                    <div class="edit-income-btn" onclick="javascript:changeTaxableBenefits('')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change benefits</span>
+                    </div>
                 </article>
                 <article>
                     <header>
@@ -419,7 +517,18 @@
                     <span class="alert alert--info" id="partnersIncomeAndBenefits.isSelfEmploymentLossEstimatedAlert" style="display: none">
                         You said your partner's loss from self-employment is an estimate. You must contact us before 31 January 2018 and tell us if your partner actually made a profit.
                     </span>
-                    <input type="button" class="secondary edit" value="Change your partner's income" onClick="javascript:changePartnerIncome('')" />
+                    <div class="edit-income-btn" onClick="javascript:changePartnerIncome('')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change your income</span>
+                    </div>
                 </article>
                 <article>
                     <header>
@@ -443,8 +552,18 @@
                         </thead>
                         <tbody id="partnersIncomeAndBenefits.taxableBenefitsTableBody"/>
                     </table>
-                    <input type="button" class="secondary edit" value="Change benefits your partner pays tax on" onClick="javascript:changePartnerBenefits('')"/>
-
+                    <div class="edit-income-btn" onClick="javascript:changePartnerBenefits('')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change benefits your partner pays tax on</span>
+                    </div>
                 </article>
             </div>
             <div id="otherHouseholdIncome" style="display: none;">
@@ -476,7 +595,18 @@
                     <span class="alert alert--info" id="otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert" style="display: none">
                         You said your profit from renting out property is an estimate. You must contact us before 31 January 2018 and tell us how much profit you actually made.
                     </span>
-                    <input type="button" class="secondary edit" value="Change other household income" onClick="javascript:changeHouseholdIncome('')"/>
+                    <div class="edit-income-btn" onClick="javascript:changeHouseholdIncome('')">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Change other household income</span>
+                    </div>
                 </article>
             </div>
             <div id="reportedChanges">
@@ -484,9 +614,22 @@
                     <header>
                         <h2 id="reportedChanges.header"/>
                     </header>
-                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a change to any of your personal circumstances.</p>
-                    <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or more of your personal circumstances..</p>
-                    <input type="button" class="secondary edit" value="Report a change to your personal circumstances" onclick="javascript:changePersonalCircumstances()"/>
+                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
+                        change to any of your personal circumstances.</p>
+                    <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
+                        more of your personal circumstances..</p>
+                    <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                            <use xlink:href="#edit-icon-ios"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                            <use xlink:href="#edit-icon-windows"></use>
+                        </svg>
+                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                            <use xlink:href="#edit-icon-android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
+                    </div>
                 </article>
             </div>
             <div id="declaration">

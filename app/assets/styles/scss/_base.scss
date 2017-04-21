@@ -208,7 +208,7 @@ main.summary {
   padding: 0;
   margin-top: 0;
 
-  article {
+  > section {
     border-bottom: 8px solid $bg-body;
     margin: 0;
     padding: 16px;

@@ -20,6 +20,8 @@
         }
         toggleControls("hide");
         displayQuestion();
+        // Force the saving of the app.
+        nativeRequestToAutoSave();
     }
 
     function nativeRequestToAutoSave() {

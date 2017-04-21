@@ -143,10 +143,12 @@
             <header>
                 <h1>Check and confirm your answers</h1>
             </header>
-            <div id="yourBenefitsAndIncome_PY_1" style="display: none">
-                <article>
+            <section id="yourBenefitsAndIncome_PY_1" style="display: none">
+                <header>
+                    <h2 id="yourBenefitsAndIncome.header_PY_1"/>
+                </header>
+                <section>
                     <header>
-                        <h2 id="yourBenefitsAndIncome.header_PY_1"/>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader_PY_1" class="pre-header"/>
                         <br/>
                         <h4 id="yourBenefitsAndIncome.otherIncomeTotalLabel_PY_1" style="text-align: center;
@@ -175,8 +177,8 @@
                         </svg>
                         <span class="edit-income-btn__text">Change your income</span>
                     </div>
-                </article>
-                <article>
+                </section>
+                <section>
                     <header>
                         <h3 id="yourBenefitsAndIncome.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
@@ -211,12 +213,14 @@
                         </svg>
                         <span class="edit-income-btn__text">Change benefits you pay tax on</span>
                     </div>
-                </article>
-            </div>
-            <div id="partnersIncomeAndBenefits_PY_1" style="display: none">
-                <article>
+                </section>
+            </section>
+            <section id="partnersIncomeAndBenefits_PY_1" style="display: none">
+                <header>
+                    <h2 id="partnersIncomeAndBenefits.header_PY_1"/>
+                </header>
+                <section>
                     <header>
-                        <h2 id="partnersIncomeAndBenefits.header_PY_1"/>
                         <h3 id="partnersIncomeAndBenefits.otherIncomePreHeader_PY_1" class="pre-header"/>
                         <br/>
                         <h4 style="text-align: center; font-weight: normal">Your partner's total income</h4>
@@ -250,8 +254,8 @@
                         </svg>
                         <span class="edit-income-btn__text">Change your income</span>
                     </div>
-                </article>
-                <article>
+                </section>
+                <section>
                     <header>
                         <p id="partnersIncomeAndBenefits.benefitsPreHeader_PY_1" class="pre-header"/>
                         <br/>
@@ -285,13 +289,14 @@
                         </svg>
                         <span class="edit-income-btn__text">Change benefits your partner pays tax on</span>
                     </div>
-                </article>
-            </div>
-            <div id="otherHouseholdIncome_PY_1" style="display: none">
-                <article>
+                </section>
+            </section>
+            <section id="otherHouseholdIncome_PY_1" style="display: none">
+                <header>
+                    <h2 id="otherHouseholdIncome.header_PY_1"/>
+                </header>
+                <section>
                     <header>
-                        <h2 id="otherHouseholdIncome.header_PY_1"/>
-                        <br/>
                         <h4 id="otherHouseholdIncome.totalLabel_PY_1" style="text-align: center; font-weight: normal">Your total other household income</h4>
                         <h1 id="otherHouseholdIncome.total_PY_1"/>
                     </header>
@@ -328,13 +333,15 @@
                         </svg>
                         <span class="edit-income-btn__text">Change other household income</span>
                     </div>
-                </article>
-            </div>
-            <div id="yourBenefitsAndIncome" style="display: none">
-                <article>
-                    <header>
+                </section>
+            </section>
+            <section id="yourBenefitsAndIncome" style="display: none">
+                <header>
                     <h2 id="yourBenefitsAndIncome.header"/>
-                    <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
+                </header>
+                <section>
+                    <header>
+                        <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
                     <span id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
                         You told us that you did not claim any of the listed benefits for the whole of this time.
@@ -364,9 +371,9 @@
 
                     </div>
                     <input type="button" class="secondary edit" value="Change benefits" onClick="javascript:changeUnTaxedBenefits()" />
-                </article>
+                </section>
 
-                <article>
+                <section>
                     <div class="edit-income-btn" onClick="javascript:changeUnTaxedBenefits()">
                         <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
                             <use xlink:href="#edit-icon-ios"></use>
@@ -413,9 +420,9 @@
                         </svg>
                         <span class="edit-income-btn__text">Change your income</span>
                     </div>
-                </article>
+                </section>
 
-                <article>
+                <section>
                     <header>
                         <p id="yourBenefitsAndIncome.benefitsPreHeader" class="pre-header"/>
                         <br/>
@@ -449,11 +456,13 @@
                         </svg>
                         <span class="edit-income-btn__text">Change benefits you pay tax on</span>
                     </div>
-                </article>
-            </div>
-            <div id="partnersIncomeAndBenefits" style="display: none;">
-                <article>
-                    <h2 id="partnersIncomeAndBenefits.header"/>
+                </section>
+            </section>
+            <section id="partnersIncomeAndBenefits" style="display: none;">
+                <header>
+                      <h2 id="partnersIncomeAndBenefits.header"/>
+                </header>
+                <section>
                     <h3>Benefits your partner does not pay tax on between 20 April 2016 and 5 April 2017</h3>
                     <span id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
                         You told us that your partner did not claim any of the listed benefits for the whole of this time.
@@ -493,8 +502,8 @@
                         </svg>
                         <span class="edit-income-btn__text">Change benefits</span>
                     </div>
-                </article>
-                <article>
+                </section>
+                <section>
                     <header>
                         <p id="partnersIncomeAndBenefits.otherIncomePreHeader" class="pre-header"/>
                         <br/>
@@ -529,8 +538,8 @@
                         </svg>
                         <span class="edit-income-btn__text">Change your income</span>
                     </div>
-                </article>
-                <article>
+                </section>
+                <section>
                     <header>
                         <p id="partnersIncomeAndBenefits.benefitsPreHeader" class="pre-header"/>
                         <br/>
@@ -564,13 +573,14 @@
                         </svg>
                         <span class="edit-income-btn__text">Change benefits your partner pays tax on</span>
                     </div>
-                </article>
-            </div>
-            <div id="otherHouseholdIncome" style="display: none;">
-                <article>
+                </section>
+            </section>
+            <section id="otherHouseholdIncome" style="display: none;">
+                <header>
+                    <h2 id="otherHouseholdIncome.header"/>
+                </header>
+                <section>
                     <header>
-                        <h2 id="otherHouseholdIncome.header"/>
-                        <br/>
                         <h4 id="otherHouseholdIncome.totalLabel" style="text-align: center; font-weight: normal">Your total other household income</h4>
                         <h1 id="otherHouseholdIncome.total"/>
                     </header>
@@ -607,45 +617,41 @@
                         </svg>
                         <span class="edit-income-btn__text">Change other household income</span>
                     </div>
-                </article>
-            </div>
-            <div id="reportedChanges">
-                <article>
-                    <header>
-                        <h2 id="reportedChanges.header"/>
-                    </header>
-                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
-                        change to any of your personal circumstances.</p>
-                    <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
-                        more of your personal circumstances..</p>
-                    <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
-                        <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
-                            <use xlink:href="#edit-icon-ios"></use>
-                        </svg>
-                        <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
-                            <use xlink:href="#edit-icon-windows"></use>
-                        </svg>
-                        <svg class="edit-income-btn__icon edit-income-btn__icon--android">
-                            <use xlink:href="#edit-icon-android"></use>
-                        </svg>
-                        <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
-                    </div>
-                </article>
-            </div>
-            <div id="declaration">
-                <article>
-                    <header>
-                        <h2>Declaration</h2>
-                    </header>
-                    <p style="font-weight: bold">By sending your review and renewing your claim, you confirm that the information you have provided is correct and complete.</p>
-                    <br/>
-                    <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
-                    <br/>
-                    <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
-                    <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
-                    <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
-                </article>
-            </div>
+                </section>
+            </section>
+            <section id="reportedChanges">
+                <header>
+                    <h2 id="reportedChanges.header"/>
+                </header>
+                <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
+                    change to any of your personal circumstances.</p>
+                <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
+                    more of your personal circumstances..</p>
+                <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
+                    <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
+                        <use xlink:href="#edit-icon-ios"></use>
+                    </svg>
+                    <svg class="edit-income-btn__icon edit-income-btn__icon--windows">
+                        <use xlink:href="#edit-icon-windows"></use>
+                    </svg>
+                    <svg class="edit-income-btn__icon edit-income-btn__icon--android">
+                        <use xlink:href="#edit-icon-android"></use>
+                    </svg>
+                    <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
+                </div>
+            </section>
+            <section id="declaration">
+                <header>
+                    <h2>Declaration</h2>
+                </header>
+                <p style="font-weight: bold">By sending your review and renewing your claim, you confirm that the information you have provided is correct and complete.</p>
+                <br/>
+                <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
+                <br/>
+                <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
+                <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and renew claim" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+                <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
+            </section>
         </main>
     </div>
 
@@ -1027,7 +1033,7 @@
         <div>
             <label>Resume</label>
             <input type="text" id="resumeData">
-            <input type="button" value="Initialise model" onClick="javascript:resumeApp()">
+            <input type="button" value="Initialise model" onClick="javascript:resumeApp('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,startDate:06 April 2016,endDate:05 April 2017,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:false,incomeDetails.Were you self employed_PY_1:false,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#Were you self employed_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes')">
             <input type="button" value="Extract Model" onClick="javascript:getModelData()">
             <div>
 

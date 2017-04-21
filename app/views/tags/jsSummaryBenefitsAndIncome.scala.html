@@ -2,6 +2,7 @@
 //Your Benefits And Income
 function populateYourBenefitsAndIncomeSection(sectionNo, period) {
     showYourBenefitsAndIncomeSection(period);
+    toggleYourUntaxedBenefitsSection (period);
     setYourBenefitsAndIncomeSectionHeader(sectionNo, period);
     setNoTaxBenefitPreHeader(period);
     setPreHeader('yourBenefitsAndIncome.otherIncomePreHeader', period, 'Your income from work between between ');
@@ -16,6 +17,14 @@ function populateYourBenefitsAndIncomeSection(sectionNo, period) {
 
 function showYourBenefitsAndIncomeSection(period) {
     document.getElementById('yourBenefitsAndIncome' + period).style.display = "block";
+}
+
+function toggleYourUntaxedBenefitsSection (period) {
+    if (period !== "_PY_1" && (getRenewalType() === SINGLE_D1 || getRenewalType() === JOINT_D1 || getRenewalType() === AUTO_RENEWAL)) {
+        document.getElementById('yourBenefitsAndIncome.unTaxedBenefitsSection').style.display = "block";
+    } else {
+        document.getElementById('yourBenefitsAndIncome.unTaxedBenefitsSection').style.display = "none";
+    }
 }
 
 function setNoTaxBenefitPreHeader(period) {

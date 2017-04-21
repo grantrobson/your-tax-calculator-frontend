@@ -339,7 +339,7 @@
                 <header>
                     <h2 id="yourBenefitsAndIncome.header"/>
                 </header>
-                <section>
+                <section id="yourBenefitsAndIncome.unTaxedBenefitsSection">
                     <header>
                         <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
@@ -370,10 +370,6 @@
                         </details>
 
                     </div>
-                    <input type="button" class="secondary edit" value="Change benefits" onClick="javascript:changeUnTaxedBenefits()" />
-                </section>
-
-                <section>
                     <div class="edit-income-btn" onClick="javascript:changeUnTaxedBenefits()">
                         <svg class="edit-income-btn__icon edit-income-btn__icon--ios">
                             <use xlink:href="#edit-icon-ios"></use>
@@ -386,6 +382,9 @@
                         </svg>
                         <span class="edit-income-btn__text">Change benefits</span>
                     </div>
+                </section>
+
+                <section>
                     <header>
                         <h3 id="yourBenefitsAndIncome.otherIncomePreHeader" class="pre-header"/>
                         <br/>
@@ -462,8 +461,10 @@
                 <header>
                       <h2 id="partnersIncomeAndBenefits.header"/>
                 </header>
-                <section>
-                    <h3>Benefits your partner does not pay tax on between 20 April 2016 and 5 April 2017</h3>
+                <section id="partnersIncomeAndBenefits.unTaxedBenefitsSection">
+                    <header>
+                        <h3 id="partnersIncomeAndBenefits.noTaxBenefitHeader" class="pre-header"/>
+                    </header>
                     <span id="partnersIncomeAndBenefits.didNotClaimAlert" style="display: none">
                         You told us that your partner did not claim any of the listed benefits for the whole of this time.
                     </span>
@@ -505,7 +506,7 @@
                 </section>
                 <section>
                     <header>
-                        <p id="partnersIncomeAndBenefits.otherIncomePreHeader" class="pre-header"/>
+                        <h3 id="partnersIncomeAndBenefits.otherIncomePreHeader" class="pre-header"/>
                         <br/>
                         <h4 style="text-align: center; font-weight: normal">Your partner's total income</h4>
                         <h1 id="partnersIncomeAndBenefits.otherIncomeTotal"/>
@@ -1033,7 +1034,7 @@
         <div>
             <label>Resume</label>
             <input type="text" id="resumeData">
-            <input type="button" value="Initialise model" onClick="javascript:resumeApp('startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,startDate:06 April 2016,endDate:05 April 2017,renewalType:JOINT_D2,hasPartner:true,nino:CS700100AD,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:false,incomeDetails.Were you self employed_PY_1:false,renewalData.Did you get any taxable benefits_PY_1:false,partner.incomeDetails.Was partner employed_PY_1:false,partner.incomeDetails.Was partner self-employed_PY_1:false,partner.Did partner get any taxable benefits_PY_1:false,otherIncome.Did you get any other household income_PY_1:false,otherIncome.Did you get any income from property rental_PY_1:false,incomeDetails.Were you employed:false,incomeDetails.Were you self employed:false,renewalData.Did you get any taxable benefits:false,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#Were you self employed_PY_1#Did you get any taxable benefits_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#Was partner self-employed?_PY_1#Did partner get any taxable benefits?_PY_1#Did you get any other household income_PY_1#Did you get any income from property rental_PY_1#Benefits & Income - intro#Were you employed#Were you self employed#Did you get any taxable benefits#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes')">
+            <input type="button" value="Initialise model" onClick="javascript:resumeApp('')">
             <input type="button" value="Extract Model" onClick="javascript:getModelData()">
             <div>
 

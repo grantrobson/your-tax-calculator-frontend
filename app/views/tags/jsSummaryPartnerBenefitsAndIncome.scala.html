@@ -2,23 +2,36 @@
 
 //Your partner benefits and income
 function populateYourPartnerBenefitsAndIncomeSection(sectionNo, period) {
-    if(hasPartner()){
-        showPartnerBenefitsAndIncomeSection(period);
-        setSectionHeader("partnersIncomeAndBenefits.header" + period, sectionNo, "Your partner's benefits and income");
-        setPreHeader('partnersIncomeAndBenefits.otherIncomePreHeader', period, 'Your partners income from work between between ');
-        displayListOfPartnersUntaxedBenefitsOrAlert(period);
-        displayPartnerNoLongerReceivingUntaxedBenefitAlert(period);
-        displayPartnersTotalIncomeFromWork(period);
-        populateTableOfPartnerOtherIncomes(period);
-        setPreHeader('partnersIncomeAndBenefits.benefitsPreHeader', period, 'Benefits your partner pays tax on between ');
-        displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period);
-        displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period);
-    }
+    showPartnerBenefitsAndIncomeSection(period);
+    toggleYourPartnersUntaxedBenefitsSection(period);
+    setNoTaxBenefitPreHeader(period);
+    setSectionHeader("partnersIncomeAndBenefits.header" + period, sectionNo, "Your partner's benefits and income");
+    setPreHeader('partnersIncomeAndBenefits.otherIncomePreHeader', period, 'Your partners income from work between between ');
+    displayListOfPartnersUntaxedBenefitsOrAlert(period);
+    displayPartnerNoLongerReceivingUntaxedBenefitAlert(period);
+    displayPartnersTotalIncomeFromWork(period);
+    populateTableOfPartnerOtherIncomes(period);
+    setPreHeader('partnersIncomeAndBenefits.benefitsPreHeader', period, 'Benefits your partner pays tax on between ');
+    displayPartnersSelfEmploymentProfitLossEstimatedAlerts(period);
+    displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period);
 }
-
 
 function showPartnerBenefitsAndIncomeSection(period) {
     document.getElementById('partnersIncomeAndBenefits' + period).style.display = "block";
+}
+
+function toggleYourPartnersUntaxedBenefitsSection (period) {
+    if (period !== "_PY_1" && (getRenewalType() === SINGLE_D1 || getRenewalType() === JOINT_D1 || getRenewalType() === AUTO_RENEWAL)) {
+        document.getElementById('partnersIncomeAndBenefits.unTaxedBenefitsSection').style.display = "block";
+    } else {
+        document.getElementById('partnersIncomeAndBenefits.unTaxedBenefitsSection').style.display = "none";
+    }
+}
+
+function setNoTaxBenefitPreHeader(period) {
+    if (period !== "_PY_1") {
+        setPreHeader('partnersIncomeAndBenefits.noTaxBenefitHeader', period, 'Benefits your partner does not pay tax on between ')
+    }
 }
 
 function setSectionHeader(elementId, sectionNo, sectionName) {

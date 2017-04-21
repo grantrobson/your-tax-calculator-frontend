@@ -8,7 +8,16 @@ var             SAVE_AND_CONTINUE = "SaveAndContinue";
 var      SAVE_AND_COME_BACK_LATER = "SaveAndComeBackLater";
 var             INTERNAL_JS_ERROR = "InternalJSError";
 
-    // TODO: NOTE: awardStartDate and awardEndDate not used at present.
+
+    // Format of shortDate created server side is dd/mm/yyyy
+    function buildLongDate(shortDate) {
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+        var dateParts = shortDate.split("/");
+        return(dateParts[0] + " " + monthNames[parseInt(dateParts[1]-1)] + " " + dateParts[2]);
+    }
+
     function startRenewals(renewalType, hasPartner, nino, awardStartDate, awardEndDate) {
         // Initialise stack.
         stack = [];
@@ -23,8 +32,8 @@ var             INTERNAL_JS_ERROR = "InternalJSError";
         map.set("nino", nino);
 
         if (isDefined(awardStartDate) && isDefined(awardEndDate)) {
-            map.set("awardStartDate", awardStartDate);
-            map.set("awardEndDate", awardEndDate);
+            map.set("awardStartDate", buildLongDate(awardStartDate));
+            map.set("awardEndDate", buildLongDate(awardEndDate));
         }
 
         // Obtain start question from journey.

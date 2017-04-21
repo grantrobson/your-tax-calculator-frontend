@@ -1,5 +1,9 @@
 <script>
 
+    function resumeApp() {
+        resume(document.getElementById("resumeData").value);
+    }
+
     function debugOut(dumpData, element) {
         var span = document.getElementById(element);
         text = document.createTextNode(dumpData);

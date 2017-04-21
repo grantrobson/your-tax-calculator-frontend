@@ -14,7 +14,7 @@
         stack = [];
 
         // Populate the model with the resumed data.
-        var tokens = model.split(",");
+        var tokens = model.replace(/["']/g, "").split(",");
             tokens.forEach(function (token) {
             var data = token.split(MODEL_TOKEN);
             map.set(data[0],data[1]);

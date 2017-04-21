@@ -537,6 +537,7 @@ h1.hidden {
 //Currency input, input with pound sign
 .currency-input {
   position: relative;
+  clear: both;
   .pound-icon {
     position: absolute;
     left: 5px;

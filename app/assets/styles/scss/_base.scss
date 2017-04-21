@@ -1,39 +1,39 @@
 @mixin font-size($sizeValue: 1.6) {
-	font-size: ($sizeValue * 10) + px;
-	font-size: $sizeValue + rem;
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
 }
 
 @mixin button($background, $text) {
-	background-color: $background;
-	border: 0;
-	color: $text;
-	display: inline-block;
-	margin-bottom: 0.8rem;
-	padding: .526315em .789473em .363157em;
-	text-align: center;
-	position: relative;
-	width:100%;
+  background-color: $background;
+  border: 0;
+  color: $text;
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  padding: .526315em .789473em .363157em;
+  text-align: center;
+  position: relative;
+  width: 100%;
 
-	&:hover,
-	&:focus {
-		background-color: darken($background, 5%);
-	}
+  &:hover,
+  &:focus {
+    background-color: darken($background, 5%);
+  }
 
-	&.disabled,
-	&[disabled="disabled"],
-	&[disabled]{
-		opacity: 0.5;
-	}
+  &.disabled,
+  &[disabled="disabled"],
+  &[disabled] {
+    opacity: 0.5;
+  }
 }
 
 @import 'reset';
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-	font-size: 10px;
+  font-size: 10px;
 }
 
 body {
@@ -41,467 +41,488 @@ body {
 }
 
 header#page-header {
- 	// Only shown in debug mode
-	background: $bg-header;
-	color: $text-color-header;
-	display:none;
-	padding: 1rem 2rem;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 9;
+  // Only shown in debug mode
+  background: $bg-header;
+  color: $text-color-header;
+  display: none;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9;
 
-	h1{
-		@include font-size(1.4);
+  h1 {
+    @include font-size(1.4);
 
-		font-family: $font-heading;
-		font-weight: bold;
-		text-align: center;
-	}
+    font-family: $font-heading;
+    font-weight: bold;
+    text-align: center;
+  }
 }
 
-main{
+main {
 
-	> div{
-		padding: 16px;
-	}
-	@include font-size(1.6);
-	margin-top: 2em;
-	background: $bg-main;
-	font-family: $font-copy;
-	font-weight: normal;
-	//padding: $main-side-padding;
+  > div {
+    padding: 16px;
+  }
+  @include font-size(1.6);
+  margin-top: 2em;
+  background: $bg-main;
+  font-family: $font-copy;
+  font-weight: normal;
+  //padding: $main-side-padding;
 
-	header h2{
-		border-bottom: 1px solid;
-	}
+  header h2 {
+    border-bottom: 1px solid;
+  }
 
-	h2 {
-		@include font-size(2.0);
-		line-height: 1.2;
-		font-family: $font-heading;
-		font-weight: bold;
-		margin-bottom: 2rem;
-	}
+  h2 {
+    @include font-size(2.0);
+    line-height: 1.2;
+    font-family: $font-heading;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
 
-	h3,
-	#headerDecimal {
-		@include font-size(1.6);
-		line-height: 1.2;
-		display: block;
-		font-family: $font-heading;
-		font-weight: bold;
-		margin-bottom: 1.6rem;
-	}
-	.pre-header{
-		//color:$text-color-pre-header;
-		display: block;
-		margin-bottom: 0.5em;
-	}
-	p, span, label{
-		@include font-size(1.6);
+  h3,
+  #headerDecimal {
+    @include font-size(1.6);
+    line-height: 1.2;
+    display: block;
+    font-family: $font-heading;
+    font-weight: bold;
+    margin-bottom: 1.6rem;
+  }
+  .pre-header {
+    //color:$text-color-pre-header;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  p, span, label {
+    @include font-size(1.6);
+    line-height: 1.2;
+    font-family: $font-copy;
+    font-weight: normal;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  input[type="button"].primary {
+    @include button($button-bg-primary, $button-text-primary);
+    @include font-size(1.8);
+    -webkit-appearance: none;
+    margin-top: 0.8rem;
+  }
+
+  input[type="button"].secondary {
+    @include button($button-bg-secondary, $button-text-secondary);
+    @include font-size(1.6);
+    -webkit-appearance: none;
+    padding: 0;
+  }
+
+  input[type="number"] {
+    border: 1px solid;
+    margin-top: 0.8rem;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 3px;
+  }
+  .container {
+    display: table;
+
+    > .row {
+      display: table-row;
+      .col {
+        display: table-cell;
+        padding: 0 0 1rem 1rem;
+      }
+      input[type="checkbox"], input[type="radio"] {
+        display: table-cell;
+      }
+    }
+  }
+  ul {
+    margin: 8px 0 1.6rem;
+    padding-left: 3rem;
+
+    &.list-bullet {
+      li {
+        display: list-item;
+        list-style: disc outside;
         line-height: 1.2;
-		font-family: $font-copy;
-		font-weight: normal;
-	}
+        h4 {
+          font-weight: bold;
+        }
+        + li {
+          margin-top: 0.5rem;
+        }
+      }
+    }
 
-	p{
-		margin-bottom: 1em;
-	}
-
-	input[type="button"].primary {
-		@include button($button-bg-primary, $button-text-primary);
-		@include font-size(1.8);
-		-webkit-appearance: none;
-		margin-top: 0.8rem;
-	}
-
-	input[type="button"].secondary {
-		@include button($button-bg-secondary, $button-text-secondary);
-		@include font-size(1.6);
-		-webkit-appearance: none;
-		padding: 0;
-	}
-
-	input[type="number"]{
-		border: 1px solid;
-		margin-top:0.8rem;
-		padding: 0.5rem;
-		width: 100%;
-		border-radius: 3px;
-	}
-	.container {
-		display: table;
-
-		> .row{
-			display: table-row;
-			.col{
-				display: table-cell;
-				padding: 0 0 1rem 1rem;
-			}
-			input[type="checkbox"], input[type="radio"]{
-				display: table-cell;
-			}
-		}
-	}
-	ul{
-		margin: 8px 0 1.6rem;
-		padding-left: 3rem;
-
-		&.list-bullet{
-			li{
-				display: list-item;
-				list-style: disc outside;
-				line-height: 1.2;
-				h4{
-					font-weight: bold;
-				}
-				+ li {
-					margin-top: 0.5rem;
-				}
-			}
-		}
-
-	}
+  }
 
 }
 
 // Show / Hide input after checkbox
 input ~ .col {
-	.showIfChecked{
-		display: none;
-	}
+  .showIfChecked {
+    display: none;
+  }
 }
 
-input:checked ~ .col .showIfChecked{
-	display: block;}
+input:checked ~ .col .showIfChecked {
+  display: block;
+}
 
 // summary page
 
 #summary {
-	padding: 0;
+  padding: 0;
 }
-main.summary{
 
-	.note{
-		color: #6F777B;
-	}
+main.summary {
 
-	> header{
-		padding: 16px 16px 0;
+  .note {
+    color: #6F777B;
+  }
 
-		h1{
-			@include font-size(2);
-			font-weight: bold;
-		}
-	}
+  > header {
+    padding: 16px 16px 0;
 
-  > div{
+    h1 {
+      @include font-size(2);
+      font-weight: bold;
+    }
+  }
+
+  > div {
     padding: 0;
   }
-	padding: 0;
-	margin-top: 0;
+  padding: 0;
+  margin-top: 0;
 
-	article{
-		border-bottom: 8px solid $bg-body;
-		margin: 0;
-		padding: 16px;
-		margin-bottom: 10px;
-		header{
-			p{
-				@include font-size(2.0);
+  article {
+    border-bottom: 8px solid $bg-body;
+    margin: 0;
+    padding: 16px;
+    margin-bottom: 10px;
+    header {
+      p {
+        @include font-size(2.0);
 
-				font-weight: bold;
-			}
-			h1{
-				@include font-size(3.2);
+        font-weight: bold;
+      }
+      h1 {
+        @include font-size(3.2);
 
-				font-weight: bold;
-				margin: $main-side-padding 0;
-				text-align: center;
-			}
-		}
-		h2{
-			@include font-size(2.0);
-			font-family: $font-heading;
-			font-weight: bold;
-			margin-top: -$main-side-padding;
-			margin-bottom: 2rem;
-			padding: 16px 0;
-			border-bottom: 1px solid #bfc1c3;
-		}
-		h3{
-			font-family: $font-heading;
-			@include font-size(2.0);
-			font-weight: bold;
-			padding-bottom: $main-side-padding;
-			border-bottom: 2px solid $bg-summary-section-header;
-			margin-bottom: 1em;
-		}
-		h4{
-			@include font-size(2.0);
+        font-weight: bold;
+        margin: $main-side-padding 0;
+        text-align: center;
+      }
+    }
+    h2 {
+      @include font-size(2.0);
+      font-family: $font-heading;
+      font-weight: bold;
+      margin-top: -$main-side-padding;
+      margin-bottom: 2rem;
+      padding: 16px 0;
+      border-bottom: 1px solid #bfc1c3;
+    }
+    h3 {
+      font-family: $font-heading;
+      @include font-size(2.0);
+      font-weight: bold;
+      padding-bottom: $main-side-padding;
+      border-bottom: 2px solid $bg-summary-section-header;
+      margin-bottom: 1em;
+    }
+    h4 {
+      @include font-size(2.0);
 
-			font-family: $font-heading;
-			font-weight: bold;
-			padding: 1rem 0;
-		}
-		h5{
-			@include font-size(2.0);
+      font-family: $font-heading;
+      font-weight: bold;
+      padding: 1rem 0;
+    }
+    h5 {
+      @include font-size(2.0);
 
-			border-top: 1px solid #bfc1c3;
-			border-bottom: 1px solid #bfc1c3;
-			font-family: $font-heading;
-			font-weight: normal;
-			padding: 1rem 0;
-		}
-		table{
-			border-top: 2px solid #005ea5;
-			margin: $main-side-padding 0;
-			width: 100%;
-			tr{
-				border-bottom: 1px solid #bfc1c3;
-			}
-			th, td{
-				@include font-size(1.6);
+      border-top: 1px solid #bfc1c3;
+      border-bottom: 1px solid #bfc1c3;
+      font-family: $font-heading;
+      font-weight: normal;
+      padding: 1rem 0;
+    }
+    table {
+      border-top: 2px solid #005ea5;
+      margin: $main-side-padding 0;
+      width: 100%;
+      tr {
+        border-bottom: 1px solid #bfc1c3;
+      }
+      th, td {
+        @include font-size(1.6);
 
-				padding: $main-side-padding /2 0;
+        padding: $main-side-padding /2 0;
 
-				&:first-child{
-					text-align: left;
-				}
-				&:last-child{
-					text-align: right;
-				}
-			}
-			th{
-				font-weight: bold;
-			}
+        &:first-child {
+          text-align: left;
+        }
+        &:last-child {
+          text-align: right;
+        }
+      }
+      th {
+        font-weight: bold;
+      }
 
-		}
-	}
+    }
+  }
+
+  #declaration {
+    header {
+      display: table;
+      margin-bottom: 16px;
+      h2 {
+        display: table-cell;
+        padding: 0;
+        vertical-align: middle;
+        border:none;
+        padding: 2px 0;
+      }
+      .important-icon {
+        margin-right: 10px;
+        width: 24px;
+        height: 24px;
+        display: table-cell;
+      }
+    }
+  }
 }
 
 // alerts
 
-.alert{
-	border-left: 4px solid;
-	display: block;
-	padding: 1rem 1.6rem;
-	margin: 1.6rem 0;
+.alert {
+  border-left: 4px solid;
+  display: block;
+  padding: 1rem 1.6rem;
+  margin: 1.6rem 0;
 
-	&.alert--info{
-		background-color: rgba(43, 139, 195, 0.1);
-		border-left-color: #0068af;
-	}
+  &.alert--info {
+    background-color: rgba(43, 139, 195, 0.1);
+    border-left-color: #0068af;
+  }
 }
 
 // expandable guidance
 
-details{
-	margin-bottom: 1.6rem;
+details {
+  margin-bottom: 1.6rem;
 
-	summary{
-		color: $button-text-secondary;
-	}
+  summary {
+    color: $button-text-secondary;
+  }
 }
 
 .panel {
-	clear: both;
-	border-left: 3px #bfc1c3 solid;
-	margin-bottom: 1.6rem;
-	padding: 0.8rem;
+  clear: both;
+  border-left: 3px #bfc1c3 solid;
+  margin-bottom: 1.6rem;
+  padding: 0.8rem;
 
-	* + *{
-		margin-top: 1.6rem;
-	}
+  * + * {
+    margin-top: 1.6rem;
+  }
 }
-
-
 
 /* Radio buttons */
 
 #Boolean,
 #MultipleChoice {
-	.container {
-		display: block;
-		float: none;
-		clear: left;
-		margin: 25px 0;
+  .container {
+    display: block;
+    float: none;
+    clear: left;
+    margin: 25px 0;
 
-		.row {
-			clear: both;
-			position: relative;
-			padding: 0 0 0 24px;
-			display: block;
-			overflow: hidden;
-			margin: 15px 0;
-		}
-	}
+    .row {
+      clear: both;
+      position: relative;
+      padding: 0 0 0 24px;
+      display: block;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+  }
 
-	input[type="radio"],
-	input[type="checkbox"] {
-		position: absolute;
-		left: 0;
-		top: 0;
-		z-index: 1;
+  input[type="radio"],
+  input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
 
-		+ label,
-		+ div label {
-			padding: 5px 0 5px 10px;
-			display: block;
-			float: left;
-			-ms-touch-action: manipulation;
-			touch-action: manipulation;
-		}
+    + label,
+    + div label {
+      padding: 5px 0 5px 10px;
+      display: block;
+      float: left;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+    }
 
-		&:checked + label::after,
-		&:checked + div label::after {
-			opacity: 1;
-		}
-	}
+    &:checked + label::after,
+    &:checked + div label::after {
+      opacity: 1;
+    }
+  }
 
-	input[type="radio"] {
-		margin: 0;
-		opacity: 0;
+  input[type="radio"] {
+    margin: 0;
+    opacity: 0;
 
-		+ label {
-			$inputSize: 20px;
+    + label {
+      $inputSize: 20px;
 
-			&::before{
-				border-color: #ccc;
-			}
+      &::before {
+        border-color: #ccc;
+      }
 
-			&::after{
-				border-color: $button-bg-primary;
-			}
+      &::after {
+        border-color: $button-bg-primary;
+      }
 
-			&::before,
-			&::after {
-				content: "";
-				border-style: solid;
-				position: absolute;
-				border-radius: 50%;
-			}
+      &::before,
+      &::after {
+        content: "";
+        border-style: solid;
+        position: absolute;
+        border-radius: 50%;
+      }
 
-			&::before {
-				border-width: 2px;
-				background: transparent;
-				width: $inputSize;
-				height: $inputSize;
-				top: 0;
-				left: 0;
-			}
+      &::before {
+        border-width: 2px;
+        background: transparent;
+        width: $inputSize;
+        height: $inputSize;
+        top: 0;
+        left: 0;
+      }
 
-			&::after {
-				border-width: 7px;
-				width: 0;
-				height: 0;
-				position: absolute;
-				top: 5px;
-				left: 5px;
-				opacity: 0;
-			}
-		}
+      &::after {
+        border-width: 7px;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        opacity: 0;
+      }
+    }
 
-		&:checked + label::before,
-		&:checked + label::after{
-			border-color: $button-bg-primary;
-		}
-	}
+    &:checked + label::before,
+    &:checked + label::after {
+      border-color: $button-bg-primary;
+    }
+  }
 
-	input[type="checkbox"] {
-		$inputSize: 24px;
+  input[type="checkbox"] {
+    $inputSize: 24px;
 
-		width: $inputSize;
-		height: $inputSize;
-		opacity: 0;
+    width: $inputSize;
+    height: $inputSize;
+    opacity: 0;
 
-		+ label,
-		+ div label {
-			&::before,
-			&::after {
-				content: "";
-				border: 2px solid #ccc;
-				background: transparent;
-				position: absolute;
-			}
+    + label,
+    + div label {
+      &::before,
+      &::after {
+        content: "";
+        border: 2px solid #ccc;
+        background: transparent;
+        position: absolute;
+      }
 
-			&::before {
-				width: $inputSize;
-				height: $inputSize;
-				top: 0;
-				left: 0;
-			}
+      &::before {
+        width: $inputSize;
+        height: $inputSize;
+        top: 0;
+        left: 0;
+      }
 
-			&::after {
-				border-style: solid;
-				border-width: 0 0 2px 2px;
-				border-color: #ccc;
-				width: 14px;
-				height: 6px;
-				top: 7px;
-				left: 5px;
-			    transform: rotate(-45deg);
-			    opacity: 0;
-			}
-		}
-	}
+      &::after {
+        border-style: solid;
+        border-width: 0 0 2px 2px;
+        border-color: #ccc;
+        width: 14px;
+        height: 6px;
+        top: 7px;
+        left: 5px;
+        transform: rotate(-45deg);
+        opacity: 0;
+      }
+    }
+  }
 }
 
 /* Debug */
 
 .debug {
-	main{
-		//margin-top: 4rem
-	}
-	header#page-header{
-		display: block;
-	}
+  main {
+    //margin-top: 4rem
+  }
+  header#page-header {
+    display: block;
+  }
 }
 
 /*
   POC Stuff
 */
 p.one {
-	border-style: solid;
-	border-width: 5px;
+  border-style: solid;
+  border-width: 5px;
 }
 
 h1.hidden {
-	visibility: hidden;
+  visibility: hidden;
 }
-
 
 //Icons
 .edit-income-btn {
-	display: table;
-	
-	.edit-income-btn__icon {
-		width: 24px;
-		height: 24px;
-		text-align: left;
-		margin-right: 5px;
-	}
+  display: table;
 
-	.edit-income-btn__text{
-		display: table-cell;
-		vertical-align: middle;
-		padding: 5px 0;
-		text-align: left;
-		color: #2b8cc4;
-	}
+  .edit-income-btn__icon {
+    width: 24px;
+    height: 24px;
+    text-align: left;
+    margin-right: 5px;
+  }
 
-	input[type="button"].secondary {
-		text-align: left;
-		font-weight: bold;
-		width: auto;
-		padding: 0;
-		margin: 0;
-	}
+  .edit-income-btn__text {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px 0;
+    text-align: left;
+    color: #2b8cc4;
+  }
 
+  input[type="button"].secondary {
+    text-align: left;
+    font-weight: bold;
+    width: auto;
+    padding: 0;
+    margin: 0;
+  }
 
 }
 
-.edit-income-btn__icon--ios {display: none;}
-.edit-income-btn__icon--android {display: none;}
-.edit-income-btn__icon--windows {display: none;}
+.edit-income-btn__icon use {
+  display: none;
+}
+
+
+

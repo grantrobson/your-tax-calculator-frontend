@@ -81,7 +81,7 @@ function displayPartnersTotalIncomeFromWork(period) {
         'How much company benefit did partner get?' + period,
         'How much profit did partner make from self-employment?' + period]);
 
-    document.getElementById('partnersIncomeAndBenefits.otherIncomeTotal' + period).innerHTML = '£' + formatWithCommas(total);
+    document.getElementById('partnersIncomeAndBenefits.otherIncomeTotal' + period).innerHTML = '&pound;' + formatWithCommas(total);
 }
 
 function populateTableOfPartnerOtherIncomes(period) {
@@ -114,7 +114,7 @@ function displayPartnersUntaxedBenefitsTotalAndTableOrAlert(period) {
     if (getAnswerForQuestion('Did partner get any taxable benefits?' + period) === 'true') {
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotalLabel' + period).style.display = "block";
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).style.display = "block";
-        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).innerHTML = "£" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period));
+        document.getElementById('partnersIncomeAndBenefits.taxableBenefitsTotal' + period).innerHTML = "&pound;" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select partner taxable benefits and enter amount' + period));
 
         document.getElementById('partnersIncomeAndBenefits.taxableBenefitsRoundingAlert' + period).style.display = "block";
 

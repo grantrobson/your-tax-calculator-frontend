@@ -27,7 +27,7 @@ function displayOtherHouseholdIncomeTotal(period) {
 
         document.getElementById('otherHouseholdIncome.totalLabel' + period).style.display = "block";
         document.getElementById('otherHouseholdIncome.total' + period).style.display = "block";
-        document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "£" + formatWithCommas(total);
+        document.getElementById('otherHouseholdIncome.total' + period).innerHTML = "&pound;" + formatWithCommas(total);
     } else {
         document.getElementById('otherHouseholdIncome.totalLabel' + period).style.display = "none";
         document.getElementById('otherHouseholdIncome.total' + period).style.display = "none";
@@ -55,7 +55,7 @@ function displayOtherHouseholdIncomeInfoOrAlert(period) {
 function appendOtherIncomeAllowanceRow(period) {
     var innerHtml = document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML;
 
-    document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML = innerHtml + '<tr><td>We deduct £300 as other income allowance</td><td>-300</td></tr>';
+    document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML = innerHtml + '<tr><td>We deduct &pound;300 as other income allowance</td><td>-300</td></tr>';
 }
 
 function displayOtherIncomeEstimatesAlerts(period) {

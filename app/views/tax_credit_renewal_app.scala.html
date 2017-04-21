@@ -58,7 +58,6 @@
     <h1>Tax Credit Renewal</h1>
 </header>
 <main>
-
     @images()
 
     <!-- MultipleChoice -->
@@ -82,7 +81,10 @@
                 <label id="row_label_checkbox_ID" for="row_checkbox_ID"></label>
                 <div id="number_entry_hidden" class="showIfChecked">
                     <label id="row_number_checkbox_label_ID" for="row_number_checkbox_ID"></label>
+                    <div class="currency-input">
+                        <span class="pound-icon">&pound;</span>
                     <input type="number" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,9 +132,10 @@
         <div id="dynamicHeader-Decimal-header"></div>
         <label id="headerDecimal" for="DecimalInput"></label>
         <div id="dynamicHeader-Decimal-footer"></div>
-
+        <div class="currency-input">
+            <span class="pound-icon">&pound;</span>
         <input type="number" id="DecimalInput" oninput="javascript:decimalPageValidation();">
-
+        </div>
         <input type="button" data-se="next" value="Save and continue" onClick="javascript:NEXT_DECIMAL()" class="primary">
         <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
 

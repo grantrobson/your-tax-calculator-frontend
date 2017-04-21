@@ -534,4 +534,20 @@ h1.hidden {
 }
 
 
+//Currency input, input with pound sign
+.currency-input {
+  position: relative;
+  .pound-icon {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  input[type="number"]{
+    margin-top: 0;
+    padding-left: 15px;
+    @include font-size(1.4);
+  }
+}
+
 

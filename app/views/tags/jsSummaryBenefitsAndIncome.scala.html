@@ -2,6 +2,7 @@
 //Your Benefits And Income
 function populateYourBenefitsAndIncomeSection(sectionNo, period) {
     showYourBenefitsAndIncomeSection(period);
+    toggleYourUntaxedBenefitsSection (period);
     setYourBenefitsAndIncomeSectionHeader(sectionNo, period);
     setNoTaxBenefitPreHeader(period);
     setPreHeader('yourBenefitsAndIncome.otherIncomePreHeader', period, 'Your income from work between between ');
@@ -16,6 +17,14 @@ function populateYourBenefitsAndIncomeSection(sectionNo, period) {
 
 function showYourBenefitsAndIncomeSection(period) {
     document.getElementById('yourBenefitsAndIncome' + period).style.display = "block";
+}
+
+function toggleYourUntaxedBenefitsSection (period) {
+    if (period !== "_PY_1" && (getRenewalType() === SINGLE_D1 || getRenewalType() === JOINT_D1 || getRenewalType() === AUTO_RENEWAL)) {
+        document.getElementById('yourBenefitsAndIncome.unTaxedBenefitsSection').style.display = "block";
+    } else {
+        document.getElementById('yourBenefitsAndIncome.unTaxedBenefitsSection').style.display = "none";
+    }
 }
 
 function setNoTaxBenefitPreHeader(period) {
@@ -67,7 +76,7 @@ function displayTotalIncomeFromWork(period) {
         'How much company benefit' + period,
         'How much profit from self-employment' + period]);
 
-    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' + period).innerHTML = '£' + formatWithCommas(total);
+    document.getElementById('yourBenefitsAndIncome.otherIncomeTotal' + period).innerHTML = '&pound;' + formatWithCommas(total);
 }
 
 function populateTableOfOtherIncomes(period) {
@@ -110,7 +119,7 @@ function displayTaxableBenefitsTableAndTotalOrAlert(period) {
     if (answer === "true") {
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotalLabel' + period).style.display = "block";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).style.display = "block";
-        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "£" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount' + period));
+        document.getElementById('yourBenefitsAndIncome.taxableBenefitsTotal' + period).innerHTML = "&pound;" + formatWithCommas(sumMultipleChoiceWithNumberAnswers('Select taxable benefits and enter amount' + period));
 
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsRoundingAlert' + period).style.display = "block";
         document.getElementById('yourBenefitsAndIncome.taxableBenefitsNoBenefitsAlert' + period).style.display = "none";

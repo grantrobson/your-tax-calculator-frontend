@@ -185,6 +185,10 @@ input:checked ~ .col .showIfChecked {
 
 main.summary {
 
+  input[type="button"].secondary {
+    margin: 5px 0;
+  }
+
   .note {
     color: #6F777B;
   }
@@ -209,6 +213,11 @@ main.summary {
     margin: 0;
     padding: 16px;
     margin-bottom: 10px;
+
+    > span {
+      margin: 10px 0;
+    }
+
     header {
       p {
         @include font-size(2.0);
@@ -238,7 +247,7 @@ main.summary {
       font-weight: bold;
       padding-bottom: $main-side-padding;
       border-bottom: 2px solid $bg-summary-section-header;
-      margin-bottom: 1em;
+      margin-bottom: 0.5em;
     }
     h4 {
       @include font-size(2.0);
@@ -290,7 +299,7 @@ main.summary {
         display: table-cell;
         padding: 0;
         vertical-align: middle;
-        border:none;
+        border: none;
         padding: 2px 0;
       }
       .important-icon {

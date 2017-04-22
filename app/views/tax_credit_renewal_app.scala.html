@@ -966,6 +966,16 @@
 
 
         <h3>Question Trace</h3>
+
+        <div><label>Various API test functions</label></div>
+        <div>
+            <input type="button" value="Submission API" onClick="javascript:extractAPI()">
+            <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
+            <input type="button" value="Back to previous question" onClick="javascript:BACK()">
+            <input type="button" value="Test global error handler" onClick="javascript:TEST_ERROR()">
+            <input type="button" value="Retrieve Questions" onClick="javascript:questionsDebugDump()">
+        </div>
+
         <br>
         <div>
             <b>Current Question:</b>
@@ -985,37 +995,30 @@
         </div>
         <br>
 
+        <div><label>Resume Application from previous saved state.</label></div>
         <div>
-            <div>
-                <label>Resume</label>
-                <input type="text" id="resumeData">
-                <input type="button" value="Initialise model" onClick="javascript:resumeApp('')">
-                <input type="button" value="Extract Model" onClick="javascript:getModelData()">
-                <div>
-
-                    <div>
-                        <input type="button" value="Submission API" onClick="javascript:extractAPI()">
-                        <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
-                        <input type="button" value="Back to previous question" onClick="javascript:BACK()">
-                        <input type="button" value="Test global error handler" onClick="javascript:TEST_ERROR()">
-                    </div>
-
-        <br><br>
-        <div id="dumpDiv">
-            <b><span>Debug</span></b>
-            <br><br>
-            <span id="dumpText"></span>
+            <form><textarea id="resumeData" cols="40" rows="5"></textarea></form>
+            <br/>
+            <input type="button" value="Initialise model" onClick="javascript:resumeApp()">
         </div>
-    </div>
+        <br/>
+        <div><label>Extract application model</label></div>
+        <div>
+            <input type="button" value="Extract Model" onClick="javascript:getModelData()">
+        </div>
+
+        <br/>
+        <div>
+
+            <br><br>
+            <div id="dumpDiv">
+                <b><span>Debug</span></b>
+                <br><br>
+                <span id="dumpText"></span>
+            </div>
+        </div>
 </main>
 </body>
 
 
 </html>
-
-<!--
-Test to verify outside of debug flag at build time.
-<script>
-    startup("D2", true, "Date1", "Date2");
-</script>
--->

@@ -44,6 +44,31 @@
         });
     }
 
+    function keyDefined(key, func) {
+        if (isDefined(map.get(key))) func();
+    }
+
+    function keysDefined(keys, func) {
+        var defined = false;
+        var arrayLength = keys.length;
+        for (var i = 0; i < arrayLength; i++) {
+            if (isDefined(map.get(keys[i]))) {
+                defined = true;
+                break;
+             }
+        }
+
+        if (defined) func();
+    }
+
+    function partial(func /*, 0..n args */) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return function() {
+            var allArguments = args.concat(Array.prototype.slice.call(arguments));
+            return func.apply(this, allArguments);
+        };
+    }
+
     function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, benefitsModelIds, areEstimatedModelIds) {
         var json = {};
 
@@ -52,16 +77,11 @@
         var companyBenefits = getMapIntValue(companyBenefitsKey);
         var seProfits = getMapIntValue(seProfitsKey);
 
-        if (benefits + earnings + companyBenefits > 0) {
-            addIfNonZero(json, "taxableBenefits", benefits);
-            addIfNonZero(json, "earnings", earnings);
-            addIfNonZero(json, "companyBenefits", companyBenefits);
-        }
-
-        if (seProfits > 0) {
-            addProperty(json, "seProfits", seProfits);
-            addProperty(json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue));
-        }
+        keysDefined(benefitsModelIds, partial(addProperty, json, "taxableBenefits", benefits));
+        keyDefined(earningsKey, partial(addProperty, json, "earnings", earnings));
+        keyDefined(companyBenefitsKey, partial(addProperty, json, "companyBenefits", companyBenefits));
+        keyDefined(seProfitsKey , partial(addProperty, json, "seProfits", seProfits));
+        addProperty(json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue));
 
         return json;
     }
@@ -89,19 +109,17 @@
 
     function getOtherIncomeJson(otherIncomeIds, otherIncomeEstimatedIds) {
         var otherIncomeTotal = buildTotal(otherIncomeIds);
-        if (otherIncomeTotal > 0) {
-            return {
-                otherHouseholdIncome: buildTotal(otherIncomeIds),
-                isOtherHouseholdIncomeEst: otherIncomeEstimatedIds.some(getMapBooleanValue)
-            };
-        } else {
-            return {};
-        }
+        var json = {};
+
+        keysDefined(otherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", otherIncomeTotal));
+        keysDefined(otherIncomeEstimatedIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
+        return(json);
     }
 
     function buildSingleD1Submission() {
         return {
             renewalData: {
+
                 incomeDetails: getIncomeDetailsJson(
                         "incomeDetails.earnings",
                         "incomeDetails.companyBenefits",

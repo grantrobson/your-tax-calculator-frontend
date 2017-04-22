@@ -13,7 +13,7 @@
         map = new Map();
         stack = [];
 
-alert(' Resume data: ' + model);
+        debugOut("Resume model: " + model, "dumpText");
 
         // Populate the model with the resumed data.
         var tokens = model.replace(/["']/g, "").split(",");
@@ -91,13 +91,14 @@ alert(' Resume data: ' + model);
         dumpData = dumpData + append + key + MODEL_TOKEN + value;
         });
 
+        debugOut(dumpData, "dumpText");
+
         // Android callback.
         try {
             HMRCAndroid.modelDataResult(JSON.stringify(dumpData));
             return;
         } catch(err) {}
 
-        debugOut(dumpData, "dumpText");
         return(dumpData);
     }
 </script>

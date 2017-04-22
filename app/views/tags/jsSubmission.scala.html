@@ -81,7 +81,7 @@
         keyDefined(earningsKey, partial(addProperty, json, "earnings", earnings));
         keyDefined(companyBenefitsKey, partial(addProperty, json, "companyBenefits", companyBenefits));
         keyDefined(seProfitsKey , partial(addProperty, json, "seProfits", seProfits));
-        addProperty(json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue));
+        keysDefined(areEstimatedModelIds, partial(addProperty,json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
 
         return json;
     }

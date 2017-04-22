@@ -2,9 +2,14 @@
 
     // Resolve associated questions for renewal flow and initialize HTML based on supplied renewal type.
     var builtData="";
+
+    function resetData() {
+        builtData="";
+    }
+
     function data() {
 
-        if (builtData) {
+        if (builtData != "") {
             return(builtData);
         }
 
@@ -879,7 +884,7 @@
         var renewalType = map.get("renewalType");
 
         // Create journey based on renewal type.
-        if (type != AUTO_RENEWAL && type != SINGLE && type != JOINT) {
+        if (!isDefined(type) || (type != AUTO_RENEWAL && type != SINGLE && type != JOINT)) {
             throw "Invalid renewal type " + type + "!";
         }
         if (type == AUTO_RENEWAL || (isDefined(renewalType) && renewalType == AUTO_RENEWAL)) {

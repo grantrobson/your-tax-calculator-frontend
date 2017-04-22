@@ -80,8 +80,9 @@
         keysDefined(benefitsModelIds, partial(addProperty, json, "taxableBenefits", benefits));
         keyDefined(earningsKey, partial(addProperty, json, "earnings", earnings));
         keyDefined(companyBenefitsKey, partial(addProperty, json, "companyBenefits", companyBenefits));
+
         keyDefined(seProfitsKey , partial(addProperty, json, "seProfits", seProfits));
-        keysDefined(areEstimatedModelIds, partial(addProperty,json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
+        keyDefined(seProfitsKey , partial(addProperty, json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
 
         return json;
     }
@@ -112,7 +113,7 @@
         var json = {};
 
         keysDefined(otherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", otherIncomeTotal));
-        keysDefined(otherIncomeEstimatedIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
+        keysDefined(otherIncomeIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
         return(json);
     }
 

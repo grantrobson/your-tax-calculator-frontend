@@ -239,7 +239,7 @@
             initSummary();
         }
         else {
-            alert('Failed to resolve the question type ' + question.questionType.type);
+            throw('Failed to resolve the question type ' + question.questionType.type);
         }
 
         // Reset the scroll position when a new question is displayed.

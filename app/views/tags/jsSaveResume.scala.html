@@ -12,6 +12,7 @@
     function resume(model) {
         map = new Map();
         stack = [];
+        resetData();
 
         debugOut("Resume model: " + model, "dumpText");
 
@@ -53,7 +54,7 @@
         }
 
         if (!isDefined(questionPos)) {
-            alert("Failed to resume the application since question is missing!");
+            throw("Failed to resume the application since question is missing!");
         } else {
             toggleControls("hide");
             displayQuestion();

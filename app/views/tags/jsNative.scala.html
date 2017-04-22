@@ -21,6 +21,7 @@ var             INTERNAL_JS_ERROR = "InternalJSError";
     function startRenewals(renewalType, hasPartner, nino, awardStartDate, awardEndDate) {
         // Initialise stack.
         stack = [];
+        resetData();
 
         // Add all parameters to map.
         map.set("startDate_PY_1", "06 April 2015");

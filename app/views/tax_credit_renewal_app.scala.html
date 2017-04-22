@@ -939,6 +939,7 @@
 
 @if(debug == true) {
     <div id="debugShow">
+        <h2>Debug</h2>
 } else {
     <div id="debugHidden" style="display: none;">
 }
@@ -957,7 +958,7 @@
                 </select>
             </div>
             <br>
-            <input type="button" value="Start Application" onClick="javascript:startDemo()">
+            <input type="button" value="Start Application without award dates" onClick="javascript:startDemo()">
             <input type="button" value="Start Application with award dates" onClick="javascript:startDemo('03/08/2016','31/12/2016')">
         </div>
 
@@ -965,9 +966,7 @@
         <br>
 
 
-        <h3>Question Trace</h3>
-
-        <div><label>Various API test functions</label></div>
+        <h2>Various API test functions</h2>
         <div>
             <input type="button" value="Submission API" onClick="javascript:extractAPI()">
             <input type="button" value="Test Back API" onClick="javascript:testCanGoBack()">
@@ -977,6 +976,7 @@
         </div>
 
         <br>
+        <h2>Question Trace</h2>
         <div>
             <b>Current Question:</b>
             <br>
@@ -995,7 +995,7 @@
         </div>
         <br>
 
-        <div><label>Resume Application from previous saved state.</label></div>
+        <div><h2>Resume Application from previous saved state.</h2></div>
         <div>
             <form><textarea id="resumeData" cols="40" rows="5"></textarea></form>
             <br/>

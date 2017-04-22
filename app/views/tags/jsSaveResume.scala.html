@@ -12,8 +12,9 @@
     function resume(model) {
         map = new Map();
         stack = [];
+        resetData();
 
-alert(' Resume data: ' + model);
+        debugOut("Resume model: " + model, "dumpText");
 
         // Populate the model with the resumed data.
         var tokens = model.replace(/["']/g, "").split(",");
@@ -53,7 +54,7 @@ alert(' Resume data: ' + model);
         }
 
         if (!isDefined(questionPos)) {
-            alert("Failed to resume the application since question is missing!");
+            throw("Failed to resume the application since question is missing!");
         } else {
             toggleControls("hide");
             displayQuestion();
@@ -91,13 +92,14 @@ alert(' Resume data: ' + model);
         dumpData = dumpData + append + key + MODEL_TOKEN + value;
         });
 
+        debugOut(dumpData, "dumpText");
+
         // Android callback.
         try {
             HMRCAndroid.modelDataResult(JSON.stringify(dumpData));
             return;
         } catch(err) {}
 
-        debugOut(dumpData, "dumpText");
         return(dumpData);
     }
 </script>

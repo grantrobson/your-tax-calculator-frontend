@@ -1,4 +1,6 @@
 <script>
+    var SINGLE = "D";
+    var JOINT = "D2";
     var AUTO_RENEWAL = "R";
     var SINGLE_D1 = "SINGLE_D1";
     var JOINT_D1 = "JOINT_D1";
@@ -237,7 +239,7 @@
             initSummary();
         }
         else {
-            alert('Failed to resolve the question type ' + question.questionType.type);
+            throw('Failed to resolve the question type ' + question.questionType.type);
         }
 
         // Reset the scroll position when a new question is displayed.

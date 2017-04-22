@@ -2,9 +2,14 @@
 
     // Resolve associated questions for renewal flow and initialize HTML based on supplied renewal type.
     var builtData="";
+
+    function resetData() {
+        builtData="";
+    }
+
     function data() {
 
-        if (builtData) {
+        if (builtData != "") {
             return(builtData);
         }
 
@@ -871,17 +876,18 @@
         // QUESTIONS END
         ////////////////////////////////////////////////////////////////////////////////
 
-        var nino = map.get("nino");
-        var type = map.get("renewalType");
+        var type = map.get("renewalTypeInput");
         var hasPartner = map.get("hasPartner");
         var posY = 0;
-        var headerData = new Map();
-        var introMap = new Map();
-
         var partnerHeader = "";
         var claimType = "";
+        var renewalType = map.get("renewalType");
+
         // Create journey based on renewal type.
-        if (type == AUTO_RENEWAL) {
+        if (!isDefined(type) || (type != AUTO_RENEWAL && type != SINGLE && type != JOINT)) {
+            throw "Invalid renewal type " + type + "!";
+        }
+        if (type == AUTO_RENEWAL || (isDefined(renewalType) && renewalType == AUTO_RENEWAL)) {
             renewalType = AUTO_RENEWAL;
         } else if (hasPartner == false || hasPartner == "false") {
             if (type == "D") {
@@ -1112,9 +1118,8 @@
             throw(" Failed to resolve journey");
         }
 
-
-// Uncomment to debug questions.
-//        questionsDebugDump();
+        // List the questions for journey.
+        questionsDebugDump();
 
         return(builtData);
     }

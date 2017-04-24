@@ -5,6 +5,10 @@
           return typeof variable !== 'undefined'
       }
 
+      function isMainApplicant() {
+          return map.get("isMainApplicant");
+      }
+
       function getRenewalType() {
           return map.get("renewalType").toUpperCase();
       }

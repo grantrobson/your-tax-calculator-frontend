@@ -1,8 +1,22 @@
 <script>
+
+var loaded = false;
+
 function onLoad() {
     document.getElementById("pageloaded").value = "YES";
+    loaded = true;
 }
 
 window.onload = onLoad;
+
+function isPageLoaded() {
+    // Android callback.
+    try {
+        HMRCAndroid.pageIsLoaded(loaded);
+        return;
+    } catch(err) {}
+
+    return(loaded);
+}
 
 </script>

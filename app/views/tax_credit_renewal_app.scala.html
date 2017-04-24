@@ -10,6 +10,8 @@
 
     @tags.nativeOSStyles(nativeOS.os)
 
+    @tags.jsPolyfils()
+
     @tags.jsCommon()
 
     @tags.jsDebug()
@@ -83,7 +85,7 @@
                     <label id="row_number_checkbox_label_ID" for="row_number_checkbox_ID"></label>
                     <div id="row_number_currency_div_ID" class="currency-input">
                         <span class="pound-icon">&pound;</span>
-                        <input type="number" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
+                        <input type="number" min="0.01" max="9999999" step="0.01" id="row_number_checkbox_ID" oninput="javascript:multipleChoiceWithNumberPageValidation();" value="">
                     </div>
                 </div>
             </div>
@@ -134,7 +136,7 @@
         <div id="dynamicHeader-Decimal-footer"></div>
         <div class="currency-input">
             <span class="pound-icon">&pound;</span>
-        <input type="number" id="DecimalInput" oninput="javascript:decimalPageValidation();">
+        <input type="number" min="0.01" max="9999999" step="0.01" id="DecimalInput" oninput="javascript:decimalPageValidation();">
         </div>
         <input type="button" data-se="next" value="Save and continue" onClick="javascript:NEXT_DECIMAL()" class="primary">
         <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
@@ -757,7 +759,7 @@
                     <p>If your employer has told us about your earned income between [START_DATE] and [END_DATE], it is shown in step B of your renewal pack.
                     </p>
                     <div>
-                        <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60"></use></svg>
+                        <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60-your-income"></use></svg>
                     </div>
                 </div>
             </details>
@@ -771,7 +773,7 @@
                     <p>If your partner's employer has told us about their earned income between [START_DATE] and [END_DATE], it is shown in step B of your renewal pack.
                     </p>
                     <div>
-                        <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60"></use></svg>
+                        <svg viewbox="0 0 283.28 218.35"><use xlink:href="#p60-your-partners-income"></use></svg>
                     </div>
                 </div>
             </details>

@@ -115,7 +115,7 @@
         var copyOtherIncomeIds = otherIncomeIds.slice();
         copyOtherIncomeIds.push(additionalCheck);
 
-        keysDefined(copyOtherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", otherIncomeTotal));
+        keysDefined(copyOtherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", Math.max(otherIncomeTotal - 300, 0)));
         keysDefined(copyOtherIncomeIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
         return(json);
     }

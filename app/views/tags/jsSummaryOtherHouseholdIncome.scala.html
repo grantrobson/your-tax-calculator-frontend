@@ -6,7 +6,7 @@ function populateOtherHouseholdIncomeSection(sectionNo, period) {
     showOtherHouseholdIncomeSection(period);
     setOtherHouseholdIncomeSectionHeader(sectionNo, period);
     displayOtherHouseholdIncomeTotal(period);
-    displayOtherHouseholdIncomeInfoOrAlert(period);
+    displayOtherHouseholdIncomeTableOrAlert(period);
     displayOtherIncomeEstimatesAlerts(period)
 }
 
@@ -37,7 +37,7 @@ function displayOtherHouseholdIncomeTotal(period) {
     }
 }
 
-function displayOtherHouseholdIncomeInfoOrAlert(period) {
+function displayOtherHouseholdIncomeTableOrAlert(period) {
     var gotOtherHouseholdIncome = getAnswerForQuestion('Did you get any other household income' + period);
     var gotRentalIncome = getAnswerForQuestion('Did you get any income from property rental' + period);
 
@@ -45,7 +45,7 @@ function displayOtherHouseholdIncomeInfoOrAlert(period) {
         document.getElementById('otherHouseholdIncome.noOtherIncome' + period).style.display = "none";
         document.getElementById('otherHouseholdIncome.roundDownWarn' + period).style.display = "block";
 
-        document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.otherIncomeTable' + period).style.display = "";
         document.getElementById('otherHouseholdIncome.otherIncomeTableBody' + period).innerHTML = buildTableFromMultipleChoiceWithNumberAnswers('Select other income sources & enter amount' + period);
         appendRentalIncomeRow(period);
         appendOtherIncomeAllowanceRow(period);

@@ -43,7 +43,7 @@
             var inputField = document.getElementById(questionData.questionType.multipleChoiceOptions[i].modelId + "_INPUT");
             // Check if input field is checked.
             if (inputField.checked == true) {
-                var element = document.getElementById("row_number_checkbox_ID_"+i)
+                var element = document.getElementById("row_number_checkbox_ID_"+i);
                 // Obtain the input value for the associated field and update map.
                 var input = element.value;
                 map.set(questionData.questionType.multipleChoiceOptions[i].modelId, input);

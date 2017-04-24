@@ -69,7 +69,7 @@
         };
     }
 
-    function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, benefitsModelIds, areEstimatedModelIds) {
+    function getIncomeDetailsJson(earningsKey, companyBenefitsKey, seProfitsKey, seProfitsCheck, benefitsModelIds, areEstimatedModelIds) {
         var json = {};
 
         var benefits = buildTotal(benefitsModelIds);
@@ -81,8 +81,8 @@
         keyDefined(earningsKey, partial(addProperty, json, "earnings", earnings));
         keyDefined(companyBenefitsKey, partial(addProperty, json, "companyBenefits", companyBenefits));
 
-        keyDefined(seProfitsKey , partial(addProperty, json, "seProfits", seProfits));
-        keyDefined(seProfitsKey , partial(addProperty, json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
+        keyDefined(seProfitsCheck , partial(addProperty, json, "seProfits", seProfits));
+        keyDefined(seProfitsCheck , partial(addProperty, json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
 
         return json;
     }
@@ -108,12 +108,15 @@
         return json;
     }
 
-    function getOtherIncomeJson(otherIncomeIds, otherIncomeEstimatedIds) {
+    function getOtherIncomeJson(otherIncomeIds, otherIncomeEstimatedIds, additionalCheck) {
         var otherIncomeTotal = buildTotal(otherIncomeIds);
         var json = {};
 
-        keysDefined(otherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", otherIncomeTotal));
-        keysDefined(otherIncomeIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
+        var copyOtherIncomeIds = otherIncomeIds.slice();
+        copyOtherIncomeIds.push(additionalCheck);
+
+        keysDefined(copyOtherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", otherIncomeTotal));
+        keysDefined(copyOtherIncomeIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
         return(json);
     }
 
@@ -125,6 +128,7 @@
                         "incomeDetails.earnings",
                         "incomeDetails.companyBenefits",
                         "incomeDetails.seProfits",
+                        "incomeDetails.Did you make a profit from self-employment",
                         taxableBenefitsModelIds,
                         incomeDetailsAreEstimatedModelIds),
                 certainBenefits: getCertainBenefitsJson(
@@ -135,7 +139,8 @@
                         "certainBenefits.pensionCredit"
                 )
             },
-            otherIncome: getOtherIncomeJson(otherHouseholdIncomeModelIds, otherIncomesAreEstimatedModelIds),
+            otherIncome: getOtherIncomeJson(otherHouseholdIncomeModelIds, otherIncomesAreEstimatedModelIds,
+            "otherIncome.Did you make a profit from property rental"),
             hasChangeOfCircs: getMapBooleanValue("hasChangeOfCircs"),
         };
     }
@@ -145,11 +150,13 @@
                 "incomeDetails.earnings_PY_1",
                 "incomeDetails.companyBenefits_PY_1",
                 "incomeDetails.seProfits_PY_1",
+                "incomeDetails.Did you make a profit from self-employment" + PREVIOUS_YEAR_MINUS_1,
                 appendPreviousYearSuffix(taxableBenefitsModelIds),
                 appendPreviousYearSuffix(incomeDetailsAreEstimatedModelIds));
 
         submission.otherIncomePY1 = getOtherIncomeJson(appendPreviousYearSuffix(otherHouseholdIncomeModelIds),
-                appendPreviousYearSuffix(otherIncomesAreEstimatedModelIds));
+                appendPreviousYearSuffix(otherIncomesAreEstimatedModelIds),
+                "otherIncome.Did you make a profit from property rental" + PREVIOUS_YEAR_MINUS_1);
 
         return submission;
     }
@@ -160,6 +167,7 @@
                     "partner.incomeDetails.earnings",
                     "partner.incomeDetails.companyBenefits",
                     "partner.incomeDetails.seProfits",
+                    "partner.incomeDetails.Did partner make profit from self-employment?",
                     appendPartnerPrefix(taxableBenefitsModelIds),
                     appendPartnerPrefix(incomeDetailsAreEstimatedModelIds)),
             certainBenefits: getCertainBenefitsJson(
@@ -179,6 +187,7 @@
                 "partner.incomeDetails.earnings_PY_1",
                 "partner.incomeDetails.companyBenefits_PY_1",
                 "partner.incomeDetails.seProfits_PY_1",
+                "partner.incomeDetails.Did partner make profit from self-employment?" + PREVIOUS_YEAR_MINUS_1,
                 appendPreviousYearSuffix(appendPartnerPrefix(taxableBenefitsModelIds)),
                 appendPreviousYearSuffix(appendPartnerPrefix(incomeDetailsAreEstimatedModelIds)));
 

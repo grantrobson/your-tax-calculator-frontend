@@ -120,7 +120,7 @@ main {
     @include button($button-bg-secondary, $button-text-secondary);
     @include font-size(1.6);
     -webkit-appearance: none;
-    padding: 0;
+    margin-top: 0.8rem;
   }
 
   input[type="number"] {

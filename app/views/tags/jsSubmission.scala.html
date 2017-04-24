@@ -55,7 +55,7 @@
             if (isDefined(map.get(keys[i]))) {
                 defined = true;
                 break;
-             }
+            }
         }
 
         if (defined) func();
@@ -63,7 +63,7 @@
 
     function partial(func /*, 0..n args */) {
         var args = Array.prototype.slice.call(arguments, 1);
-        return function() {
+        return function () {
             var allArguments = args.concat(Array.prototype.slice.call(arguments));
             return func.apply(this, allArguments);
         };
@@ -81,8 +81,8 @@
         keyDefined(earningsKey, partial(addProperty, json, "earnings", earnings));
         keyDefined(companyBenefitsKey, partial(addProperty, json, "companyBenefits", companyBenefits));
 
-        keyDefined(seProfitsCheck , partial(addProperty, json, "seProfits", seProfits));
-        keyDefined(seProfitsCheck , partial(addProperty, json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
+        keyDefined(seProfitsCheck, partial(addProperty, json, "seProfits", seProfits));
+        keyDefined(seProfitsCheck, partial(addProperty, json, "seProfitsEstimated", areEstimatedModelIds.some(getMapBooleanValue)));
 
         return json;
     }
@@ -117,13 +117,12 @@
 
         keysDefined(copyOtherIncomeIds, partial(addProperty, json, "otherHouseholdIncome", Math.max(otherIncomeTotal - 300, 0)));
         keysDefined(copyOtherIncomeIds, partial(addProperty, json, "isOtherHouseholdIncomeEst", otherIncomeEstimatedIds.some(getMapBooleanValue)));
-        return(json);
+        return (json);
     }
 
     function buildSingleD1Submission() {
         return {
             renewalData: {
-
                 incomeDetails: getIncomeDetailsJson(
                         "incomeDetails.earnings",
                         "incomeDetails.companyBenefits",
@@ -140,9 +139,20 @@
                 )
             },
             otherIncome: getOtherIncomeJson(otherHouseholdIncomeModelIds, otherIncomesAreEstimatedModelIds,
-            "otherIncome.Did you make a profit from property rental"),
+                    "otherIncome.Did you make a profit from property rental"),
             hasChangeOfCircs: getMapBooleanValue("hasChangeOfCircs"),
         };
+    }
+
+    function switchApplicantKeys(submission) {
+        if (!isMainApplicant()) {
+            var primaryApplicantData = submission.applicant2Data;
+
+            submission.applicant2Data = submission.renewalData;
+            submission.renewalData = primaryApplicantData;
+        }
+
+        return submission;
     }
 
     function addSingleD2Data(submission) {
@@ -200,9 +210,9 @@
         } else if (getRenewalType() === SINGLE_D2) {
             return addSingleD2Data(buildSingleD1Submission());
         } else if (getRenewalType() === JOINT_D1) {
-            return addJointD1Data(buildSingleD1Submission());
+            return switchApplicantKeys(addJointD1Data(buildSingleD1Submission()));
         } else if (getRenewalType() === JOINT_D2) {
-            return addJointD2Data(addJointD1Data(addSingleD2Data(buildSingleD1Submission())));
+            return switchApplicantKeys(addJointD2Data(addJointD1Data(addSingleD2Data(buildSingleD1Submission()))));
         }
     }
 

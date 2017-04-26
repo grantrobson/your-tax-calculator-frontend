@@ -167,6 +167,7 @@ input:checked ~ .col .showIfChecked {
   padding: 0; }
 
 main.summary {
+  background-color: #F2F2F2;
   padding: 0;
   margin-top: 0; }
   main.summary input[type="button"].secondary {
@@ -174,7 +175,8 @@ main.summary {
   main.summary .note {
     color: #6F777B; }
   main.summary > header {
-    padding: 16px 16px 0; }
+    padding: 16px 16px 0;
+    background-color: #ffffff; }
     main.summary > header h1 {
       font-size: 20px;
       font-size: 2rem;
@@ -182,21 +184,28 @@ main.summary {
   main.summary > div {
     padding: 0; }
   main.summary > section {
-    border-bottom: 8px solid #F2F2F2;
+    border-bottom: 1px solid #d2d2d2;
     margin: 0;
     padding: 16px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    background-color: #ffffff; }
+    main.summary > section:last-of-type {
+      border-bottom: none; }
+    main.summary > section > section {
+      margin-bottom: 16px; }
+      main.summary > section > section:last-of-type {
+        margin-bottom: 0; }
     main.summary > section > span {
       margin: 10px 0; }
     main.summary > section header p {
-      font-size: 20px;
-      font-size: 2rem;
+      font-size: 16px;
+      font-size: 1.6rem;
       font-weight: bold; }
     main.summary > section header h1 {
       font-size: 32px;
       font-size: 3.2rem;
       font-weight: bold;
-      margin: 16px 0;
+      margin: 5px 0 16px 0;
       text-align: center; }
     main.summary > section h2 {
       font-size: 20px;
@@ -216,8 +225,8 @@ main.summary {
       border-bottom: 2px solid #005ea5;
       margin-bottom: 0.5em; }
     main.summary > section h4 {
-      font-size: 20px;
-      font-size: 2rem;
+      font-size: 16px;
+      font-size: 1.6rem;
       font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-weight: bold;
       padding: 1rem 0; }

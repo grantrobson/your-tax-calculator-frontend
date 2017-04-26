@@ -316,9 +316,16 @@ main.summary {
 
   #reportedChanges,
   #declaration{
-    padding:16px;
-    margin: 0;
-    background-color: #fff;
+    padding: 0 16px;
+    border-bottom: 1px solid #d2d2d2;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    header{
+      h2{
+        padding: 16px 0;
+        border-bottom: 1px solid #bfc1c3;
+      }
+    }
   }
 
   #declaration {

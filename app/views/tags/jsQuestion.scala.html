@@ -154,6 +154,7 @@
 
             // This indicates end of journey for auto renewals!
             toggleControls("hide");
+            questionPos = "a1";
             hook(JOURNEY_COMPLETE_AUTO_RENEWAL);
             return;
         } else if (question.questionType.type == SAVE_AND_COME_BACK_LATER) {

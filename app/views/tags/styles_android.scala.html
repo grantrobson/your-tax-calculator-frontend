@@ -185,12 +185,29 @@ main.summary {
     padding: 0; }
   main.summary > section {
     border-bottom: 1px solid #d2d2d2;
-    margin: 0;
-    padding: 16px;
     margin-bottom: 10px;
+    padding: 16px;
     background-color: #ffffff; }
     main.summary > section:last-of-type {
       border-bottom: none; }
+    main.summary > section#yourBenefitsAndIncome_PY_1, main.summary > section#partnersIncomeAndBenefits_PY_1, main.summary > section#otherHouseholdIncome_PY_1, main.summary > section#yourBenefitsAndIncome, main.summary > section#partnersIncomeAndBenefits {
+      background-color: #DEE0E2;
+      padding: 16px 0;
+      margin: 0; }
+      main.summary > section#yourBenefitsAndIncome_PY_1 header, main.summary > section#partnersIncomeAndBenefits_PY_1 header, main.summary > section#otherHouseholdIncome_PY_1 header, main.summary > section#yourBenefitsAndIncome header, main.summary > section#partnersIncomeAndBenefits header {
+        padding: 0 16px;
+        background-color: #ffffff; }
+        main.summary > section#yourBenefitsAndIncome_PY_1 header h2, main.summary > section#partnersIncomeAndBenefits_PY_1 header h2, main.summary > section#otherHouseholdIncome_PY_1 header h2, main.summary > section#yourBenefitsAndIncome header h2, main.summary > section#partnersIncomeAndBenefits header h2 {
+          margin-bottom: 0; }
+      main.summary > section#yourBenefitsAndIncome_PY_1 > section, main.summary > section#partnersIncomeAndBenefits_PY_1 > section, main.summary > section#otherHouseholdIncome_PY_1 > section, main.summary > section#yourBenefitsAndIncome > section, main.summary > section#partnersIncomeAndBenefits > section {
+        padding: 16px;
+        border-bottom: 1px solid #d2d2d2;
+        margin-bottom: 10px;
+        background-color: #ffffff; }
+        main.summary > section#yourBenefitsAndIncome_PY_1 > section header, main.summary > section#partnersIncomeAndBenefits_PY_1 > section header, main.summary > section#otherHouseholdIncome_PY_1 > section header, main.summary > section#yourBenefitsAndIncome > section header, main.summary > section#partnersIncomeAndBenefits > section header {
+          padding: 0; }
+        main.summary > section#yourBenefitsAndIncome_PY_1 > section:last-of-type, main.summary > section#partnersIncomeAndBenefits_PY_1 > section:last-of-type, main.summary > section#otherHouseholdIncome_PY_1 > section:last-of-type, main.summary > section#yourBenefitsAndIncome > section:last-of-type, main.summary > section#partnersIncomeAndBenefits > section:last-of-type {
+          margin-bottom: 0; }
     main.summary > section > section {
       margin-bottom: 16px; }
       main.summary > section > section:last-of-type {
@@ -443,7 +460,8 @@ h1.hidden {
     vertical-align: middle;
     padding: 5px 0;
     text-align: left;
-    color: #2b8cc4; }
+    color: #2b8cc4;
+    font-weight: bold; }
   .edit-income-btn input[type="button"].secondary {
     text-align: left;
     font-weight: bold;

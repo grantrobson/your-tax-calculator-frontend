@@ -210,26 +210,17 @@ main.summary {
   padding: 0;
   margin-top: 0;
 
-  > section {
-    border-bottom: 1px solid #d2d2d2;
-    margin-bottom: 10px;
-    padding: 16px;
-    background-color: #ffffff;
-    &:last-of-type {
-      border-bottom: none;
-    }
-
-    &#yourBenefitsAndIncome_PY_1,
-    &#partnersIncomeAndBenefits_PY_1,
-    &#otherHouseholdIncome_PY_1,
-    &#yourBenefitsAndIncome,
-    &#partnersIncomeAndBenefits{
+    #yourBenefitsAndIncome_PY_1,
+    #partnersIncomeAndBenefits_PY_1,
+    #otherHouseholdIncome_PY_1,
+    #yourBenefitsAndIncome,
+    #partnersIncomeAndBenefits,
+    #otherHouseholdIncome{
       background-color: $bg-body;
-      padding: 16px 0;
-      margin: 0;
+      margin: 0 0 10px 0;
 
       header {
-        padding: 0 16px;
+        padding: 16px 16px 0;
         background-color: #ffffff;
         h2{
           margin-bottom: 0;
@@ -237,26 +228,14 @@ main.summary {
       }
 
       > section {
-
+        padding: 16px;
+        border-bottom: 1px solid #d2d2d2;
+        background-color: #ffffff;
+        margin-bottom: 10px;
         header{
           padding: 0;
         }
-        padding: 16px;
-        border-bottom: 1px solid #d2d2d2;
-        margin-bottom: 10px;
-        background-color: #ffffff;
-        &:last-of-type {
-          margin-bottom: 0;
-        }
       }
-    }
-
-    > section {
-      margin-bottom: 16px;
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-    }
 
     > span {
       margin: 10px 0;
@@ -335,6 +314,13 @@ main.summary {
     }
   }
 
+  #reportedChanges,
+  #declaration{
+    padding:16px;
+    margin: 0;
+    background-color: #fff;
+  }
+
   #declaration {
     header {
       display: table;
@@ -353,6 +339,9 @@ main.summary {
         display: table-cell;
       }
     }
+  }
+  br {
+    display: none;
   }
 }
 

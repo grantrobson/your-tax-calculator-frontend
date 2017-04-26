@@ -314,9 +314,8 @@ main.summary {
     }
   }
 
-  #reportedChanges,
-  #declaration{
-    padding: 0 16px;
+  #reportedChanges{
+    padding: 0 16px 16px;
     border-bottom: 1px solid #d2d2d2;
     background-color: #ffffff;
     margin-bottom: 10px;
@@ -329,12 +328,13 @@ main.summary {
   }
 
   #declaration {
+    padding: 16px;
+    background-color: #ffffff;
     header {
       display: table;
       margin-bottom: 16px;
       h2 {
         display: table-cell;
-        padding: 0;
         vertical-align: middle;
         border: none;
         padding: 2px 0;

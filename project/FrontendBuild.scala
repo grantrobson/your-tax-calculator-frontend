@@ -14,7 +14,7 @@ private object AppDependencies {
   import play.core.PlayVersion
 
 
-  private val frontendBootstrapVersion = "7.19.0"
+  private val frontendBootstrapVersion = "7.23.0"
   private val govukTemplateVersion = "5.2.0"
   private val playAuthorisedFrontendVersion = "6.3.0"
 

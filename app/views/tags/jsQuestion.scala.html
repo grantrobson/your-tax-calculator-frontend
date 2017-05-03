@@ -82,6 +82,10 @@
         insertDynamicHeader(questionData, "dynamicHeader-MultipleChoice-header", "dynamicHeader-MultipleChoice-footer");
     }
 
+    function getCurrentPosition() {
+        return questionPos;
+    }
+
     function initQuestion(question, control, header) {
         var questionOutput = question.question;
 

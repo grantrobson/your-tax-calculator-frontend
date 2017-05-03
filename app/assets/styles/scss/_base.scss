@@ -184,6 +184,7 @@ input:checked ~ .col .showIfChecked {
 }
 
 main.summary {
+  background-color: $bg-body;
 
   input[type="button"].secondary {
     margin: 5px 0;
@@ -195,6 +196,7 @@ main.summary {
 
   > header {
     padding: 16px 16px 0;
+    background-color: #ffffff;
 
     h1 {
       @include font-size(2);
@@ -208,11 +210,32 @@ main.summary {
   padding: 0;
   margin-top: 0;
 
-  > section {
-    border-bottom: 8px solid $bg-body;
-    margin: 0;
-    padding: 16px;
-    margin-bottom: 10px;
+    #yourBenefitsAndIncome_PY_1,
+    #partnersIncomeAndBenefits_PY_1,
+    #otherHouseholdIncome_PY_1,
+    #yourBenefitsAndIncome,
+    #partnersIncomeAndBenefits,
+    #otherHouseholdIncome{
+      background-color: $bg-body;
+      margin: 0 0 10px 0;
+
+      header {
+        padding: 16px 16px 0;
+        background-color: #ffffff;
+        h2{
+          margin-bottom: 0;
+        }
+      }
+
+      > section {
+        padding: 16px;
+        border-bottom: 1px solid #d2d2d2;
+        background-color: #ffffff;
+        margin-bottom: 10px;
+        header{
+          padding: 0;
+        }
+      }
 
     > span {
       margin: 10px 0;
@@ -220,15 +243,14 @@ main.summary {
 
     header {
       p {
-        @include font-size(2.0);
+        @include font-size(1.6);
 
         font-weight: bold;
       }
       h1 {
         @include font-size(3.2);
-
         font-weight: bold;
-        margin: $main-side-padding 0;
+        margin: 5px 0 16px 0;
         text-align: center;
       }
     }
@@ -250,7 +272,7 @@ main.summary {
       margin-bottom: 0.5em;
     }
     h4 {
-      @include font-size(2.0);
+      @include font-size(1.6);
 
       font-family: $font-heading;
       font-weight: bold;
@@ -286,18 +308,33 @@ main.summary {
       }
       th {
         font-weight: bold;
+        padding: 12px 0 8px;
       }
 
     }
   }
 
+  #reportedChanges{
+    padding: 0 16px 16px;
+    border-bottom: 1px solid #d2d2d2;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    header{
+      h2{
+        padding: 16px 0;
+        border-bottom: 1px solid #bfc1c3;
+      }
+    }
+  }
+
   #declaration {
+    padding: 16px;
+    background-color: #ffffff;
     header {
       display: table;
       margin-bottom: 16px;
       h2 {
         display: table-cell;
-        padding: 0;
         vertical-align: middle;
         border: none;
         padding: 2px 0;
@@ -309,6 +346,9 @@ main.summary {
         display: table-cell;
       }
     }
+  }
+  br {
+    display: none;
   }
 }
 
@@ -366,7 +406,6 @@ details {
 }
 
 /* Radio buttons */
-
 #Boolean,
 #MultipleChoice {
   .container {
@@ -535,6 +574,7 @@ h1.hidden {
     padding: 5px 0;
     text-align: left;
     color: #2b8cc4;
+    font-weight: bold;
   }
 
   input[type="button"].secondary {

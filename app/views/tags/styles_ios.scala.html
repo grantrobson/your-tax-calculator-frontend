@@ -167,6 +167,7 @@ input:checked ~ .col .showIfChecked {
   padding: 0; }
 
 main.summary {
+  background-color: #F2F2F2;
   padding: 0;
   margin-top: 0; }
   main.summary input[type="button"].secondary {
@@ -174,31 +175,87 @@ main.summary {
   main.summary .note {
     color: #6F777B; }
   main.summary > header {
-    padding: 16px 16px 0; }
+    padding: 16px 16px 0;
+    background-color: #ffffff; }
     main.summary > header h1 {
       font-size: 20px;
       font-size: 2rem;
       font-weight: bold; }
   main.summary > div {
     padding: 0; }
-  main.summary > section {
-    border-bottom: 8px solid #F2F2F2;
-    margin: 0;
-    padding: 16px;
-    margin-bottom: 10px; }
-    main.summary > section > span {
+  main.summary #yourBenefitsAndIncome_PY_1,
+  main.summary #partnersIncomeAndBenefits_PY_1,
+  main.summary #otherHouseholdIncome_PY_1,
+  main.summary #yourBenefitsAndIncome,
+  main.summary #partnersIncomeAndBenefits,
+  main.summary #otherHouseholdIncome {
+    background-color: #F2F2F2;
+    margin: 0 0 10px 0; }
+    main.summary #yourBenefitsAndIncome_PY_1 header,
+    main.summary #partnersIncomeAndBenefits_PY_1 header,
+    main.summary #otherHouseholdIncome_PY_1 header,
+    main.summary #yourBenefitsAndIncome header,
+    main.summary #partnersIncomeAndBenefits header,
+    main.summary #otherHouseholdIncome header {
+      padding: 16px 16px 0;
+      background-color: #ffffff; }
+      main.summary #yourBenefitsAndIncome_PY_1 header h2,
+      main.summary #partnersIncomeAndBenefits_PY_1 header h2,
+      main.summary #otherHouseholdIncome_PY_1 header h2,
+      main.summary #yourBenefitsAndIncome header h2,
+      main.summary #partnersIncomeAndBenefits header h2,
+      main.summary #otherHouseholdIncome header h2 {
+        margin-bottom: 0; }
+    main.summary #yourBenefitsAndIncome_PY_1 > section,
+    main.summary #partnersIncomeAndBenefits_PY_1 > section,
+    main.summary #otherHouseholdIncome_PY_1 > section,
+    main.summary #yourBenefitsAndIncome > section,
+    main.summary #partnersIncomeAndBenefits > section,
+    main.summary #otherHouseholdIncome > section {
+      padding: 16px;
+      border-bottom: 1px solid #d2d2d2;
+      background-color: #ffffff;
+      margin-bottom: 10px; }
+      main.summary #yourBenefitsAndIncome_PY_1 > section header,
+      main.summary #partnersIncomeAndBenefits_PY_1 > section header,
+      main.summary #otherHouseholdIncome_PY_1 > section header,
+      main.summary #yourBenefitsAndIncome > section header,
+      main.summary #partnersIncomeAndBenefits > section header,
+      main.summary #otherHouseholdIncome > section header {
+        padding: 0; }
+    main.summary #yourBenefitsAndIncome_PY_1 > span,
+    main.summary #partnersIncomeAndBenefits_PY_1 > span,
+    main.summary #otherHouseholdIncome_PY_1 > span,
+    main.summary #yourBenefitsAndIncome > span,
+    main.summary #partnersIncomeAndBenefits > span,
+    main.summary #otherHouseholdIncome > span {
       margin: 10px 0; }
-    main.summary > section header p {
-      font-size: 20px;
-      font-size: 2rem;
+    main.summary #yourBenefitsAndIncome_PY_1 header p,
+    main.summary #partnersIncomeAndBenefits_PY_1 header p,
+    main.summary #otherHouseholdIncome_PY_1 header p,
+    main.summary #yourBenefitsAndIncome header p,
+    main.summary #partnersIncomeAndBenefits header p,
+    main.summary #otherHouseholdIncome header p {
+      font-size: 16px;
+      font-size: 1.6rem;
       font-weight: bold; }
-    main.summary > section header h1 {
+    main.summary #yourBenefitsAndIncome_PY_1 header h1,
+    main.summary #partnersIncomeAndBenefits_PY_1 header h1,
+    main.summary #otherHouseholdIncome_PY_1 header h1,
+    main.summary #yourBenefitsAndIncome header h1,
+    main.summary #partnersIncomeAndBenefits header h1,
+    main.summary #otherHouseholdIncome header h1 {
       font-size: 32px;
       font-size: 3.2rem;
       font-weight: bold;
-      margin: 16px 0;
+      margin: 5px 0 16px 0;
       text-align: center; }
-    main.summary > section h2 {
+    main.summary #yourBenefitsAndIncome_PY_1 h2,
+    main.summary #partnersIncomeAndBenefits_PY_1 h2,
+    main.summary #otherHouseholdIncome_PY_1 h2,
+    main.summary #yourBenefitsAndIncome h2,
+    main.summary #partnersIncomeAndBenefits h2,
+    main.summary #otherHouseholdIncome h2 {
       font-size: 20px;
       font-size: 2rem;
       font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -207,7 +264,12 @@ main.summary {
       margin-bottom: 2rem;
       padding: 16px 0;
       border-bottom: 1px solid #bfc1c3; }
-    main.summary > section h3 {
+    main.summary #yourBenefitsAndIncome_PY_1 h3,
+    main.summary #partnersIncomeAndBenefits_PY_1 h3,
+    main.summary #otherHouseholdIncome_PY_1 h3,
+    main.summary #yourBenefitsAndIncome h3,
+    main.summary #partnersIncomeAndBenefits h3,
+    main.summary #otherHouseholdIncome h3 {
       font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 20px;
       font-size: 2rem;
@@ -215,13 +277,23 @@ main.summary {
       padding-bottom: 16px;
       border-bottom: 2px solid #005ea5;
       margin-bottom: 0.5em; }
-    main.summary > section h4 {
-      font-size: 20px;
-      font-size: 2rem;
+    main.summary #yourBenefitsAndIncome_PY_1 h4,
+    main.summary #partnersIncomeAndBenefits_PY_1 h4,
+    main.summary #otherHouseholdIncome_PY_1 h4,
+    main.summary #yourBenefitsAndIncome h4,
+    main.summary #partnersIncomeAndBenefits h4,
+    main.summary #otherHouseholdIncome h4 {
+      font-size: 16px;
+      font-size: 1.6rem;
       font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-weight: bold;
       padding: 1rem 0; }
-    main.summary > section h5 {
+    main.summary #yourBenefitsAndIncome_PY_1 h5,
+    main.summary #partnersIncomeAndBenefits_PY_1 h5,
+    main.summary #otherHouseholdIncome_PY_1 h5,
+    main.summary #yourBenefitsAndIncome h5,
+    main.summary #partnersIncomeAndBenefits h5,
+    main.summary #otherHouseholdIncome h5 {
       font-size: 20px;
       font-size: 2rem;
       border-top: 1px solid #bfc1c3;
@@ -229,36 +301,94 @@ main.summary {
       font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
       font-weight: normal;
       padding: 1rem 0; }
-    main.summary > section table {
+    main.summary #yourBenefitsAndIncome_PY_1 table,
+    main.summary #partnersIncomeAndBenefits_PY_1 table,
+    main.summary #otherHouseholdIncome_PY_1 table,
+    main.summary #yourBenefitsAndIncome table,
+    main.summary #partnersIncomeAndBenefits table,
+    main.summary #otherHouseholdIncome table {
       border-top: 2px solid #005ea5;
       margin: 16px 0;
       width: 100%; }
-      main.summary > section table tr {
+      main.summary #yourBenefitsAndIncome_PY_1 table tr,
+      main.summary #partnersIncomeAndBenefits_PY_1 table tr,
+      main.summary #otherHouseholdIncome_PY_1 table tr,
+      main.summary #yourBenefitsAndIncome table tr,
+      main.summary #partnersIncomeAndBenefits table tr,
+      main.summary #otherHouseholdIncome table tr {
         border-bottom: 1px solid #bfc1c3; }
-      main.summary > section table th, main.summary > section table td {
+      main.summary #yourBenefitsAndIncome_PY_1 table th, main.summary #yourBenefitsAndIncome_PY_1 table td,
+      main.summary #partnersIncomeAndBenefits_PY_1 table th,
+      main.summary #partnersIncomeAndBenefits_PY_1 table td,
+      main.summary #otherHouseholdIncome_PY_1 table th,
+      main.summary #otherHouseholdIncome_PY_1 table td,
+      main.summary #yourBenefitsAndIncome table th,
+      main.summary #yourBenefitsAndIncome table td,
+      main.summary #partnersIncomeAndBenefits table th,
+      main.summary #partnersIncomeAndBenefits table td,
+      main.summary #otherHouseholdIncome table th,
+      main.summary #otherHouseholdIncome table td {
         font-size: 16px;
         font-size: 1.6rem;
         padding: 8px 0; }
-        main.summary > section table th:first-child, main.summary > section table td:first-child {
+        main.summary #yourBenefitsAndIncome_PY_1 table th:first-child, main.summary #yourBenefitsAndIncome_PY_1 table td:first-child,
+        main.summary #partnersIncomeAndBenefits_PY_1 table th:first-child,
+        main.summary #partnersIncomeAndBenefits_PY_1 table td:first-child,
+        main.summary #otherHouseholdIncome_PY_1 table th:first-child,
+        main.summary #otherHouseholdIncome_PY_1 table td:first-child,
+        main.summary #yourBenefitsAndIncome table th:first-child,
+        main.summary #yourBenefitsAndIncome table td:first-child,
+        main.summary #partnersIncomeAndBenefits table th:first-child,
+        main.summary #partnersIncomeAndBenefits table td:first-child,
+        main.summary #otherHouseholdIncome table th:first-child,
+        main.summary #otherHouseholdIncome table td:first-child {
           text-align: left; }
-        main.summary > section table th:last-child, main.summary > section table td:last-child {
+        main.summary #yourBenefitsAndIncome_PY_1 table th:last-child, main.summary #yourBenefitsAndIncome_PY_1 table td:last-child,
+        main.summary #partnersIncomeAndBenefits_PY_1 table th:last-child,
+        main.summary #partnersIncomeAndBenefits_PY_1 table td:last-child,
+        main.summary #otherHouseholdIncome_PY_1 table th:last-child,
+        main.summary #otherHouseholdIncome_PY_1 table td:last-child,
+        main.summary #yourBenefitsAndIncome table th:last-child,
+        main.summary #yourBenefitsAndIncome table td:last-child,
+        main.summary #partnersIncomeAndBenefits table th:last-child,
+        main.summary #partnersIncomeAndBenefits table td:last-child,
+        main.summary #otherHouseholdIncome table th:last-child,
+        main.summary #otherHouseholdIncome table td:last-child {
           text-align: right; }
-      main.summary > section table th {
-        font-weight: bold; }
-  main.summary #declaration header {
-    display: table;
-    margin-bottom: 16px; }
-    main.summary #declaration header h2 {
-      display: table-cell;
-      padding: 0;
-      vertical-align: middle;
-      border: none;
-      padding: 2px 0; }
-    main.summary #declaration header .important-icon {
-      margin-right: 10px;
-      width: 24px;
-      height: 24px;
-      display: table-cell; }
+      main.summary #yourBenefitsAndIncome_PY_1 table th,
+      main.summary #partnersIncomeAndBenefits_PY_1 table th,
+      main.summary #otherHouseholdIncome_PY_1 table th,
+      main.summary #yourBenefitsAndIncome table th,
+      main.summary #partnersIncomeAndBenefits table th,
+      main.summary #otherHouseholdIncome table th {
+        font-weight: bold;
+        padding: 12px 0 8px; }
+  main.summary #reportedChanges {
+    padding: 0 16px 16px;
+    border-bottom: 1px solid #d2d2d2;
+    background-color: #ffffff;
+    margin-bottom: 10px; }
+    main.summary #reportedChanges header h2 {
+      padding: 16px 0;
+      border-bottom: 1px solid #bfc1c3; }
+  main.summary #declaration {
+    padding: 16px;
+    background-color: #ffffff; }
+    main.summary #declaration header {
+      display: table;
+      margin-bottom: 16px; }
+      main.summary #declaration header h2 {
+        display: table-cell;
+        vertical-align: middle;
+        border: none;
+        padding: 2px 0; }
+      main.summary #declaration header .important-icon {
+        margin-right: 10px;
+        width: 24px;
+        height: 24px;
+        display: table-cell; }
+  main.summary br {
+    display: none; }
 
 .alert {
   border-left: 4px solid;
@@ -445,7 +575,8 @@ h1.hidden {
     vertical-align: middle;
     padding: 5px 0;
     text-align: left;
-    color: #2b8cc4; }
+    color: #2b8cc4;
+    font-weight: bold; }
   .edit-income-btn input[type="button"].secondary {
     text-align: left;
     font-weight: bold;

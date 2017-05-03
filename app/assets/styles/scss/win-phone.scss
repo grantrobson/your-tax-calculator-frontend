@@ -23,6 +23,10 @@ $main-side-padding: 20px;
 	display: none;
 }
 
+main.summary {
+	background-color: #F2F2F2;
+}
+
 #MultipleChoice {
 	input[type="checkbox"] {
 		+ label,

@@ -333,13 +333,31 @@ details {
 
   summary {
     color: $button-text-secondary;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+    
+    .question-mark {
+      display: table;
+      .question-mark-icon {
+        display: table-cell;
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+      }
+      .summary {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
   }
 }
 
 .panel {
   clear: both;
   border-left: 3px #bfc1c3 solid;
-  margin-bottom: 1.6rem;
+  margin: 1.6rem 0;
   padding: 0.8rem;
 
   * + * {

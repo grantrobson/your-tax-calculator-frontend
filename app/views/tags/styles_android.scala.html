@@ -273,11 +273,23 @@ details {
   margin-bottom: 1.6rem; }
   details summary {
     color: #2b8cc4; }
+    details summary::-webkit-details-marker {
+      display: none; }
+    details summary .question-mark {
+      display: table; }
+      details summary .question-mark .question-mark-icon {
+        display: table-cell;
+        width: 25px;
+        height: 25px;
+        margin-right: 5px; }
+      details summary .question-mark .summary {
+        display: table-cell;
+        vertical-align: middle; }
 
 .panel {
   clear: both;
   border-left: 3px #bfc1c3 solid;
-  margin-bottom: 1.6rem;
+  margin: 1.6rem 0;
   padding: 0.8rem; }
   .panel * + * {
     margin-top: 1.6rem; }

@@ -11,9 +11,9 @@ function setReportedChangesSectionHeader(sectionNo) {
 }
 
 function displayChangesOrNoChangesWarning() {
-    var answer = getAnswerForQuestion('Report any changes');
+    var answer = getChangeOfCircumstanceDecision();
 
-    if (answer === "true") {
+    if (answer) {
         document.getElementById('reportedChanges.noChangesWarning').style.display = "none";
         document.getElementById('reportedChanges.someChangesWarning').style.display = "block";
     } else {
@@ -23,7 +23,7 @@ function displayChangesOrNoChangesWarning() {
 }
 
 function getChangeOfCircumstanceDecision() {
-    var answer = getAnswerForQuestion('Report any changes');
+    var answer = getAnswerForModelId('hasChangeOfCircs');
      return answer === "true";
 }
 

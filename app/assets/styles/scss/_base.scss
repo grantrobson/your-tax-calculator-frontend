@@ -184,7 +184,6 @@ input:checked ~ .col .showIfChecked {
 }
 
 main.summary {
-  background-color: $bg-body;
 
   input[type="button"].secondary {
     margin: 5px 0;
@@ -196,7 +195,6 @@ main.summary {
 
   > header {
     padding: 16px 16px 0;
-    background-color: #ffffff;
 
     h1 {
       @include font-size(2);
@@ -210,32 +208,10 @@ main.summary {
   padding: 0;
   margin-top: 0;
 
-    #yourBenefitsAndIncome_PY_1,
-    #partnersIncomeAndBenefits_PY_1,
-    #otherHouseholdIncome_PY_1,
-    #yourBenefitsAndIncome,
-    #partnersIncomeAndBenefits,
-    #otherHouseholdIncome{
-      background-color: $bg-body;
-      margin: 0 0 10px 0;
-
-      header {
-        padding: 16px 16px 0;
-        background-color: #ffffff;
-        h2{
-          margin-bottom: 0;
-        }
-      }
-
-      > section {
-        padding: 16px;
-        border-bottom: 1px solid #d2d2d2;
-        background-color: #ffffff;
-        margin-bottom: 10px;
-        header{
-          padding: 0;
-        }
-      }
+  > section {
+    border-bottom: 8px solid $bg-body;
+    margin: 0;
+    padding: 16px;
 
     > span {
       margin: 10px 0;
@@ -243,14 +219,15 @@ main.summary {
 
     header {
       p {
-        @include font-size(1.6);
+        @include font-size(2.0);
 
         font-weight: bold;
       }
       h1 {
         @include font-size(3.2);
+
         font-weight: bold;
-        margin: 5px 0 16px 0;
+        margin: $main-side-padding 0;
         text-align: center;
       }
     }
@@ -258,9 +235,6 @@ main.summary {
       @include font-size(2.0);
       font-family: $font-heading;
       font-weight: bold;
-      margin-top: -$main-side-padding;
-      margin-bottom: 2rem;
-      padding: 16px 0;
       border-bottom: 1px solid #bfc1c3;
     }
     h3 {
@@ -272,7 +246,7 @@ main.summary {
       margin-bottom: 0.5em;
     }
     h4 {
-      @include font-size(1.6);
+      @include font-size(2.0);
 
       font-family: $font-heading;
       font-weight: bold;
@@ -308,33 +282,18 @@ main.summary {
       }
       th {
         font-weight: bold;
-        padding: 12px 0 8px;
       }
 
-    }
-  }
-
-  #reportedChanges{
-    padding: 0 16px 16px;
-    border-bottom: 1px solid #d2d2d2;
-    background-color: #ffffff;
-    margin-bottom: 10px;
-    header{
-      h2{
-        padding: 16px 0;
-        border-bottom: 1px solid #bfc1c3;
-      }
     }
   }
 
   #declaration {
-    padding: 16px;
-    background-color: #ffffff;
     header {
       display: table;
       margin-bottom: 16px;
       h2 {
         display: table-cell;
+        padding: 0;
         vertical-align: middle;
         border: none;
         padding: 2px 0;
@@ -346,9 +305,6 @@ main.summary {
         display: table-cell;
       }
     }
-  }
-  br {
-    display: none;
   }
 }
 
@@ -373,31 +329,13 @@ details {
 
   summary {
     color: $button-text-secondary;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-    
-    .question-mark {
-      display: table;
-      .question-mark-icon {
-        display: table-cell;
-        width: 25px;
-        height: 25px;
-        margin-right: 5px;
-      }
-      .summary {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    }
   }
 }
 
 .panel {
   clear: both;
   border-left: 3px #bfc1c3 solid;
-  margin: 1.6rem 0;
+  margin-bottom: 1.6rem;
   padding: 0.8rem;
 
   * + * {
@@ -406,6 +344,7 @@ details {
 }
 
 /* Radio buttons */
+
 #Boolean,
 #MultipleChoice {
   .container {
@@ -574,7 +513,6 @@ h1.hidden {
     padding: 5px 0;
     text-align: left;
     color: #2b8cc4;
-    font-weight: bold;
   }
 
   input[type="button"].secondary {
@@ -606,6 +544,23 @@ h1.hidden {
     margin-top: 0;
     padding-left: 15px;
     @include font-size(1.4);
+  }
+}
+
+.sticky-header{
+  &.sticky {
+    background-color: white;
+    position: fixed;
+    top: 34px;
+    left: 0;
+    width: 100%;
+    padding: 10px 16px;
+    border-bottom: 1px solid #bfc1c3;
+
+    h2{
+      margin: 0;
+      border: none;
+    }
   }
 }
 

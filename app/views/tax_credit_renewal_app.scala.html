@@ -59,7 +59,7 @@
 <header id="page-header">
     <h1>Tax Credit Renewal</h1>
 </header>
-<main>
+<main id="mainCont">
 
     @images()
 
@@ -599,18 +599,21 @@
                 <header class="sticky-header">
                     <h2 id="reportedChanges.header"/>
                 </header>
-                <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
-                    change to any of your personal circumstances.</p>
-                <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
-                    more of your personal circumstances..</p>
-                <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
-                    <svg class="edit-income-btn__icon">
-                        <use xlink:href="#edit-icon-ios" class="ios"></use>
-                        <use xlink:href="#edit-icon-windows" class="windows"></use>
-                        <use xlink:href="#edit-icon-android" class="android"></use>
-                    </svg>
-                    <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
-                </div>
+                <section>
+                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
+                        change to any of your personal circumstances.</p>
+                    <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
+                        more of your personal circumstances..</p>
+
+                    <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
+                        <svg class="edit-income-btn__icon">
+                            <use xlink:href="#edit-icon-ios" class="ios"></use>
+                            <use xlink:href="#edit-icon-windows" class="windows"></use>
+                            <use xlink:href="#edit-icon-android" class="android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
+                    </div>
+                </section>
             </section>
             <section id="declaration">
                         <header>

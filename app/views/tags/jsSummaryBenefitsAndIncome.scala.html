@@ -65,8 +65,10 @@ function displayNoLongerReceivingBenefitsAlert(period) {
 
         if (answer === "false") {
             document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
+            document.getElementById('yourBenefitsAndIncome.changeUnTaxedBenefitsSpacer').style.display = 'none';
         } else {
             document.getElementById('yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
+            document.getElementById('yourBenefitsAndIncome.changeUnTaxedBenefitsSpacer').style.display = 'block';
         }
     }
 }

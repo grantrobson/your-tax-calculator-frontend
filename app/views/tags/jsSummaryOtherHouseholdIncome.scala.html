@@ -15,7 +15,7 @@ function showOtherHouseholdIncomeSection(period) {
 }
 
 function setOtherHouseholdIncomeSectionHeader(sectionNo, period) {
-    document.getElementById('otherHouseholdIncome.header' + period).innerHTML = "Part " + sectionNo + ": Other household income";
+    document.getElementById('otherHouseholdIncome.header' + period).innerHTML = "Part " + sectionNo + ": Other household income between " + map.get("startDate" + period) +' and ' + map.get("endDate" + period);
 }
 
 function displayOtherHouseholdIncomeTotal(period) {

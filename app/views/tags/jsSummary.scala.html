@@ -61,22 +61,22 @@ function changeIncome(period) {
 }
 
 function changeTaxableBenefits(period) {
-    var question = getQuestion("Did you get any taxable benefits", period);
+    var question = getQuestion("Did you get any taxable benefits" + period);
     routeToQuestion(question)
 }
 
 function changePartnerIncome(period) {
-    var question = getQuestion("Was partner employed?", period);
+    var question = getQuestion("Was partner employed?" + period);
     routeToQuestion(question)
 }
 
 function changePartnerBenefits(period) {
-    var question = getQuestion("Did partner get any taxable benefits?", period);
+    var question = getQuestion("Did partner get any taxable benefits?" + period);
     routeToQuestion(question)
 }
 
 function changeHouseholdIncome(period) {
-    var question = getQuestion("Did you get any other household income", period);
+    var question = getQuestion("Did you get any other household income" + period);
     routeToQuestion(question)
 }
 

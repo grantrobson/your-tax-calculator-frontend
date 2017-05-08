@@ -4,7 +4,7 @@
 function populateYourPartnerBenefitsAndIncomeSection(sectionNo, period) {
     showPartnerBenefitsAndIncomeSection(period);
     toggleYourPartnersUntaxedBenefitsSection(period);
-    setNoTaxBenefitPreHeader(period);
+    setPartnerNoTaxBenefitPreHeader(period);
     setSectionHeader("partnersIncomeAndBenefits.header" + period, sectionNo, "Your partner's benefits and income");
     setPreHeader('partnersIncomeAndBenefits.otherIncomePreHeader', period, 'Your partners income from work between ');
     displayListOfPartnersUntaxedBenefitsOrAlert(period);
@@ -28,7 +28,7 @@ function toggleYourPartnersUntaxedBenefitsSection (period) {
     }
 }
 
-function setNoTaxBenefitPreHeader(period) {
+function setPartnerNoTaxBenefitPreHeader(period) {
     if (period !== "_PY_1") {
         setPreHeader('partnersIncomeAndBenefits.noTaxBenefitHeader', period, 'Benefits your partner does not pay tax on between ')
     }
@@ -69,9 +69,11 @@ function displayPartnerNoLongerReceivingUntaxedBenefitAlert(period) {
         if (answer === "false") {
             document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "block";
             document.getElementById('partnersIncomeAndBenefits.whichNoTaxBenefits').style.display = "block";
+            document.getElementById('partnersIncomeAndBenefits.changeUnTaxedBenefitsSpacer').style.display = "none";
         } else {
             document.getElementById('partnersIncomeAndBenefits.noLongerReceivingUntaxedBenefitsAlert').style.display = "none";
             document.getElementById('partnersIncomeAndBenefits.whichNoTaxBenefits').style.display = "none";
+            document.getElementById('partnersIncomeAndBenefits.changeUnTaxedBenefitsSpacer').style.display = "block";
         }
     }
 }

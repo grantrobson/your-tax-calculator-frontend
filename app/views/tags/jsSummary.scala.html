@@ -19,6 +19,9 @@ function initSummary() {
 
         //Calling the function with the array of headers
         stickyHeaders(headerList);
+        window.addEventListener('deviceorientation', function() {
+            stickyHeaders(headerList)
+        });
 
     }
 
@@ -108,15 +111,16 @@ function routeToQuestion(question) {
     displayQuestion();
 }
 
-
+//Runs sticky headers functionality on summary page only
     function stickyHeaders(headerArray) {
 
         var offsets = [];
         var headerSpacing = document.getElementById('page-header').offsetHeight;
         var mainElement = document.getElementById('mainCont');
-        var heightOfDocument = document.documentElement.offsetHeight
+
         for (var i = 0; i <= headerArray.length - 1; i++) {
             offsets[i] = headerArray[i].offsetTop - headerSpacing;
+            //console.log('Header' + headerArray[i].innerText + ' y offset is ' + offsets[i])
         }
 
         window.onscroll = function () {
@@ -128,37 +132,19 @@ function routeToQuestion(question) {
             }
 
             for (var i = 0; i <= headerArray.length - 1; i++) {
-                if (winOffset >= offsets[i] && winOffset <= (offsets[i + 1] || heightOfDocument)) {
+                if (winOffset >= offsets[i] && winOffset <= offsets[i+1]) {
                     headerArray[i].classList.add('sticky');
-                    mainElement.style.paddingTop = headerArray[i].offsetHeight * 1.5;
+                    mainElement.style.paddingTop = headerArray[i].offsetHeight;
                 } else {
                     headerArray[i].classList.remove('sticky');
                 }
             }
         }
+
     }
 
 
+
+
+
 </script>
-
-
-<!--window.onscroll = function () {-->
-
-<!--var winOffset = window.pageYOffset;-->
-
-<!--for (var i = 0; i <= headerArray.length - 1; i++) {-->
-
-<!--if (winOffset >= offsets[i] && winOffset <= (offsets[i + 1] || document.documentElement.offsetHeight)) {-->
-
-<!--headerArray[i].classList.add('sticky');-->
-<!--//headerArray[i].parentNode.style.paddingTop = headerArray[i].offsetHeight;-->
-<!--mainElement.style.paddingTop = headerArray[i].offsetHeight * 1.5;-->
-<!--} else{-->
-<!--headerArray[i].classList.remove('sticky');-->
-<!--////                    headerArray[i].parentNode.style.paddingTop -= headerArray[i].offsetHeight;-->
-<!--//                    headerArray[i].parentNode.style.paddingTop - 0;-->
-<!--//mainElement.style.paddingTop = 0;-->
-<!--}-->
-
-<!--}-->
-<!--}-->

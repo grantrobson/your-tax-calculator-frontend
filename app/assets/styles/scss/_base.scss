@@ -220,10 +220,10 @@ main.summary {
       background-color: $bg-body;
       margin: 0 0 10px 0;
 
-
       header {
         padding: 16px 16px 0;
         background-color: #ffffff;
+        z-index: 999;
 
         h2{
           margin-bottom: 0;

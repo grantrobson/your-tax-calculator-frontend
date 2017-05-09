@@ -24,7 +24,11 @@ function displayChangesOrNoChangesWarning() {
 
 function getChangeOfCircumstanceDecision() {
     var answer = getAnswerForModelId('hasChangeOfCircs');
-     return answer === "true";
+    var isChangeOfCircs = false;
+    if (answer !== undefined) {
+        isChangeOfCircs = answer.trim() === "true";
+    }
+    return isChangeOfCircs;
 }
 
 // Declaration

@@ -130,14 +130,20 @@
         }
     }
 
-    function clearYesInfoDiv() {
-        document.getElementById("yesInfoDiv").style.display = "none";
-        document.getElementById("yesInfoDiv").innerHTML = "";
+    function clearYesClickDiv() {
+        document.getElementById("yesClickDiv").style.display = "none";
+        document.getElementById("yesClickDiv").innerHTML = "";
+    }
+
+    function clearNoClickDiv() {
+        document.getElementById("noClickDiv").style.display = "none";
+        document.getElementById("noClickDiv").innerHTML = "";
     }
 
     function NEXT_BOOLEAN_CONTINUE() {
         var question = getQuestion(questionPos);
-        clearYesInfoDiv();
+        clearYesClickDiv();
+        clearNoClickDiv();
         if (document.getElementById('boolean_no').checked == true || document.getElementById('boolean_yes').checked == true) {
             stack.push(questionPos);
         }
@@ -173,10 +179,11 @@
 
     function YES() {
         var question = getQuestion(questionPos);
-        document.getElementById("yesInfoDiv").style.display = "block";
+        clearNoClickDiv();
 
-        if(isDefined(question.questionType.yesInfoDiv)) {
-            document.getElementById("yesInfoDiv").innerHTML = document.getElementById(question.questionType.yesInfoDiv).innerHTML;
+        document.getElementById("yesClickDiv").style.display = "block";
+        if(isDefined(question.questionType.yesClickDiv)) {
+            document.getElementById("yesClickDiv").innerHTML = document.getElementById(question.questionType.yesClickDiv).innerHTML;
         }
         if (isDefined(question.questionType.modelId)) {
             map.set(question.questionType.modelId, "true");
@@ -185,7 +192,12 @@
 
     function NO() {
         var question = getQuestion(questionPos);
-        clearYesInfoDiv();
+        clearYesClickDiv();
+
+        if(isDefined(question.questionType.noClickDiv)) {
+            document.getElementById("noClickDiv").style.display = "block";
+            document.getElementById("noClickDiv").innerHTML = document.getElementById(question.questionType.noClickDiv).innerHTML;
+        }
 
         if (isDefined(question.questionType.modelId)) {
             map.set(question.questionType.modelId, "false");

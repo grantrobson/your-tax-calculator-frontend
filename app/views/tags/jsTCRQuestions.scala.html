@@ -91,6 +91,7 @@
                           "type": "Boolean",
                           "yesNextQuestionId": "Did you get any other household income",
                           "noNextQuestionId": "Was partner employed?",
+                          "noClickDiv": "partner-do-you-still-get-this-benefit",
                           "modelId": "partner.certainBenefits.Does partner still get this benefit"
                         }
                     },
@@ -418,6 +419,7 @@
                     "type": "Boolean",
                     "yesNextQuestionId": "ROUTING QUESTION DECISION",
                     "noNextQuestionId": "Were you employed",
+                    "noClickDiv": "do-you-still-get-this-benefit",
                     "modelId": "certainBenefits.Do you still get this benefit",
                     "answerYes": {
                         "questionIds": [
@@ -563,7 +565,13 @@
                              "Property rental profit - enter amount",
                              "Is property rental profit estimated"
                         ]
-                        }
+                    },
+                    "answerYes": {
+                        "questionIds": [
+                            "Is property rental loss estimated"
+                        ]
+                    }
+
                 }
             },
 
@@ -946,7 +954,7 @@
                         "questionType": {
                           "type": "Boolean",
                           "questionHeaderDiv": "auto-renewal-header",
-                          "yesInfoDiv": "auto-renewal-yes-info",
+                          "yesClickDiv": "auto-renewal-yes-info",
                           "yesNextQuestionId": "confirm-pack-receipt",
                           "noNextQuestionId": "a2", // End of journey.
                           "modelId": "renewalData.auto-renewal"

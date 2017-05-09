@@ -87,12 +87,14 @@ function displayOtherIncomeEstimatesAlerts(period) {
 
     if (getAnswerForQuestion('Is property rental loss estimated' + period) === 'true') {
         document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "none";
     } else {
         document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert' + period).style.display = "none";
     }
 
     if (getAnswerForQuestion('Is property rental profit estimated' + period) === 'true') {
         document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "block";
+        document.getElementById('otherHouseholdIncome.isSelfEmploymentLossEstimatedAlert' + period).style.display = "none";
     } else {
         document.getElementById('otherHouseholdIncome.isSelfEmploymentProfitEstimatedAlert' + period).style.display = "none";
     }

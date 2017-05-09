@@ -104,7 +104,8 @@
         <h3 id="headerBoolean"></h3>
         <div id="dynamicHeader-Boolean-footer"></div>
 
-        <div id="yesInfoDiv" style="display: none"></div>
+        <div id="yesClickDiv" style="display: none"></div>
+        <div id="noClickDiv" style="display: none"></div>
         <div class="container">
             <div class="row">
                 <input type="radio" id="boolean_yes" name="boolean_option" onClick="javascript:YES()" onchange="javascript:booleanPageValidation();" class="col">
@@ -678,7 +679,7 @@
             <p id="completingReviewWarningForD2" style="display: none">As you were not able to provide us with actual income figures when applying for tax credits,
                 we will need to ask you questions about the previous 2 tax years.</p>
 
-            <p>This review is divided into <span id="completing-review-message-total">3</span> parts.</p>
+            <p>This declaration is divided into <span id="completing-review-message-total">3</span> parts.</p>
             <ul class="list-bullet">
 
                 <div id="dynamicInsertPoint"></div>
@@ -777,9 +778,14 @@
         </div>
 
         <div id="do-you-still-get-this-benefit">
-            <div class="panel panel-border-narrow">
-                If you have not already told us that you no longer receive this benefit, you should report this as a change in this review.
-            </div>
+            <span class="alert alert--info">
+                If you have not already told us that you no longer receive this benefit, you should report this as a change in this declaration.
+            </span>
+        </div>
+        <div id="partner-do-you-still-get-this-benefit">
+            <span class="alert alert--info">
+                If you have not already told us that your partner no longer receives this benefit, you should report this as a change in this declaration.
+            </span>
         </div>
 
         <div id="let-us-know-how-much-you-have-earned">

@@ -111,37 +111,35 @@ function routeToQuestion(question) {
     displayQuestion();
 }
 
-//Runs sticky headers functionality on summary page only
-    function stickyHeaders(headerArray) {
+function stickyHeaders(headerArray) {
 
-        var offsets = [];
-        var headerSpacing = document.getElementById('page-header').offsetHeight;
-        var mainElement = document.getElementById('mainCont');
+    var offsets = [];
+    var headerSpacing = document.getElementById('page-header').offsetHeight;
+    var mainElement = document.getElementById('mainCont');
+
+    for (var i = 0; i <= headerArray.length - 1; i++) {
+        offsets[i] = headerArray[i].offsetTop - headerSpacing;
+    }
+
+    window.onscroll = function () {
+
+        var winOffset = window.pageYOffset;
+
+        if (winOffset <= 87) {
+            mainElement.style.paddingTop = 0;
+        }
 
         for (var i = 0; i <= headerArray.length - 1; i++) {
-            offsets[i] = headerArray[i].offsetTop - headerSpacing;
-            //console.log('Header' + headerArray[i].innerText + ' y offset is ' + offsets[i])
-        }
-
-        window.onscroll = function () {
-
-            var winOffset = window.pageYOffset;
-
-            if (winOffset <= 87) {
-                mainElement.style.paddingTop = 0;
-            }
-
-            for (var i = 0; i <= headerArray.length - 1; i++) {
-                if (winOffset >= offsets[i] && winOffset <= offsets[i+1]) {
-                    headerArray[i].classList.add('sticky');
-                    mainElement.style.paddingTop = headerArray[i].offsetHeight;
-                } else {
-                    headerArray[i].classList.remove('sticky');
-                }
+            if (winOffset >= offsets[i] && winOffset <= offsets[i+1]) {
+                headerArray[i].classList.add('sticky');
+                mainElement.style.paddingTop = headerArray[i].offsetHeight;
+            } else {
+                headerArray[i].classList.remove('sticky');
             }
         }
-
     }
+
+}
 
 
 

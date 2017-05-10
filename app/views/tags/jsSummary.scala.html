@@ -3,16 +3,27 @@
 function initSummary() {
     var renewalType = getAnswerForModelId("renewalType");
 
-    if (renewalType == SINGLE_D1 || renewalType == AUTO_RENEWAL) {
-        initSingleD1Summary();
-    } else if (renewalType == SINGLE_D2) {
-        initSingleD2Summary();
-    } else if (renewalType == JOINT_D1) {
-        initJointD1Summary();
-    } else {
-        initJointD2Summary();
+        if (renewalType == SINGLE_D1 || renewalType == AUTO_RENEWAL) {
+            initSingleD1Summary();
+        } else if (renewalType == SINGLE_D2) {
+            initSingleD2Summary();
+        } else if (renewalType == JOINT_D1) {
+            initJointD1Summary();
+        } else {
+            initJointD2Summary();
+        }
+
+
+        //Get all headers that need to be sticky
+        var headerList = document.getElementsByClassName('sticky-header');
+
+        //Calling the function with the array of headers
+        stickyHeaders(headerList);
+        window.addEventListener('deviceorientation', function() {
+            stickyHeaders(headerList)
+        });
+
     }
-}
 
 function initSingleD1Summary() {
     populateYourBenefitsAndIncomeSection(1, "");
@@ -99,5 +110,39 @@ function routeToQuestion(question) {
     toggleControls("hide");
     displayQuestion();
 }
+
+function stickyHeaders(headerArray) {
+
+    var offsets = [];
+    var headerSpacing = document.getElementById('page-header').offsetHeight;
+    var mainElement = document.getElementById('mainCont');
+
+    for (var i = 0; i <= headerArray.length - 1; i++) {
+        offsets[i] = headerArray[i].offsetTop - headerSpacing;
+    }
+
+    window.onscroll = function () {
+
+        var winOffset = window.pageYOffset;
+
+        if (winOffset <= 87) {
+            mainElement.style.paddingTop = 0;
+        }
+
+        for (var i = 0; i <= headerArray.length - 1; i++) {
+            if (winOffset >= offsets[i] && winOffset <= offsets[i+1]) {
+                headerArray[i].classList.add('sticky');
+                mainElement.style.paddingTop = headerArray[i].offsetHeight;
+            } else {
+                headerArray[i].classList.remove('sticky');
+            }
+        }
+    }
+
+}
+
+
+
+
 
 </script>

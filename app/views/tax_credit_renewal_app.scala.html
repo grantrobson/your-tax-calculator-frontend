@@ -59,7 +59,7 @@
 <header id="page-header">
     <h1>Tax Credit Renewal</h1>
 </header>
-<main>
+<main id="mainCont">
 
     @images()
 
@@ -150,8 +150,8 @@
             <header>
                 <h1>Check and confirm your answers</h1>
             </header>
-            <section id="yourBenefitsAndIncome_PY_1" style="display: none">
-                <header>
+            <section id="yourBenefitsAndIncome_PY_1" style="display: none" >
+                <header class="sticky-header">
                     <h2 id="yourBenefitsAndIncome.header_PY_1"/>
                 </header>
                 <section>
@@ -215,7 +215,7 @@
                 </section>
             </section>
             <section id="partnersIncomeAndBenefits_PY_1" style="display: none">
-                <header>
+                <header class="sticky-header">
                     <h2 id="partnersIncomeAndBenefits.header_PY_1"/>
                 </header>
                 <section>
@@ -283,7 +283,7 @@
                 </section>
             </section>
             <section id="otherHouseholdIncome_PY_1" style="display: none">
-                <header>
+                <header class="sticky-header">
                     <h2 id="otherHouseholdIncome.header_PY_1"/>
                 </header>
                 <section>
@@ -323,7 +323,7 @@
                 </section>
             </section>
             <section id="yourBenefitsAndIncome" style="display: none">
-                <header>
+                <header class="sticky-header">
                     <h2 id="yourBenefitsAndIncome.header"/>
                 </header>
                 <section id="yourBenefitsAndIncome.unTaxedBenefitsSection">
@@ -441,7 +441,7 @@
                 </section>
             </section>
             <section id="partnersIncomeAndBenefits" style="display: none;">
-                <header>
+                <header class="sticky-header">
                       <h2 id="partnersIncomeAndBenefits.header"/>
                 </header>
                 <section id="partnersIncomeAndBenefits.unTaxedBenefitsSection">
@@ -556,7 +556,7 @@
                 </section>
             </section>
             <section id="otherHouseholdIncome" style="display: none;">
-                <header>
+                <header class="sticky-header">
                     <h2 id="otherHouseholdIncome.header"/>
                 </header>
                 <section>
@@ -596,21 +596,24 @@
                 </section>
             </section>
             <section id="reportedChanges">
-                <header>
+                <header class="sticky-header">
                     <h2 id="reportedChanges.header"/>
                 </header>
-                <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
-                    change to any of your personal circumstances.</p>
-                <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
-                    more of your personal circumstances..</p>
-                <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
-                    <svg class="edit-income-btn__icon">
-                        <use xlink:href="#edit-icon-ios" class="ios"></use>
-                        <use xlink:href="#edit-icon-windows" class="windows"></use>
-                        <use xlink:href="#edit-icon-android" class="android"></use>
-                    </svg>
-                    <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
-                </div>
+                <section>
+                    <p id="reportedChanges.noChangesWarning" class="note" style="display: none">You did not report a
+                        change to any of your personal circumstances.</p>
+                    <p id="reportedChanges.someChangesWarning" class="note" style="display: none">You changed one or
+                        more of your personal circumstances..</p>
+
+                    <div class="edit-income-btn" onClick="javascript:changePersonalCircumstances()">
+                        <svg class="edit-income-btn__icon">
+                            <use xlink:href="#edit-icon-ios" class="ios"></use>
+                            <use xlink:href="#edit-icon-windows" class="windows"></use>
+                            <use xlink:href="#edit-icon-android" class="android"></use>
+                        </svg>
+                        <span class="edit-income-btn__text">Report a change to your personal circumstances</span>
+                    </div>
+                </section>
             </section>
             <section id="declaration">
                         <header>

@@ -67,7 +67,7 @@ function initJointD2Summary() {
 }
 
 function changeIncome(period) {
-    var question = getQuestion("Were you employed" + period);
+    var question = getQuestion("Did you get any untaxed benefits" + period);
     routeToQuestion(question)
 }
 
@@ -77,7 +77,7 @@ function changeTaxableBenefits(period) {
 }
 
 function changePartnerIncome(period) {
-    var question = getQuestion("Was partner employed?" + period);
+    var question = getQuestion("Did partner get any untaxed benefits?" + period);
     routeToQuestion(question)
 }
 

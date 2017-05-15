@@ -56,12 +56,16 @@
     } else {
         <body>
     }
-<header id="page-header">
-    <h1>Tax Credit Renewal</h1>
-</header>
-<main id="mainCont">
+    <header id="page-header">
+        <h1>Tax Credit Renewal</h1>
+    </header>
+    <main id="mainCont">
 
-    @images()
+        @images()
+
+    <div id="awardPeriodBanner" style="display: none">
+        <span class="alert alert--info" id="awardPeriodBannerInfoText"/>
+    </div>
 
     <!-- MultipleChoice -->
     <div id="MultipleChoice" style="display: none;">
@@ -74,6 +78,7 @@
         <input type="button" data-se="next" value="Save and continue" id="MultipleChoiceNEXT" onClick="javascript:NEXT()" class="primary">
         <input type="button" data-se="come_back_later" value="Save and come back later" onClick="javascript:SAVE_AND_EXIT()" class="secondary">
     </div>
+
 
     <!-- Associated set of input types for containerDiv. -->
     <div style="display: none;">

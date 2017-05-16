@@ -21,6 +21,7 @@ import play.api.http.HeaderNames
 import play.api.libs.json.Json
 import play.api.mvc.{Action, BodyParsers, Result}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
+import uk.gov.hmrc.yourtaxcalculator.domain.PreFlightCheckResponse
 import uk.gov.hmrc.yourtaxcalculator.services.{LiveVersionCheckService, VersionCheckService}
 
 trait VersionCheckController extends FrontendController with ErrorHandling {
@@ -31,8 +32,10 @@ trait VersionCheckController extends FrontendController with ErrorHandling {
   def preFlightCheck(journeyId: Option[String] = None) = Action.async(BodyParsers.parse.json) {
     implicit request => {
       errorWrapper {
+        def buildResponse(response:PreFlightCheckResponse) = Ok(Json.toJson(response))
+
         service.preFlightCheck(request.body, journeyId).map {
-          response => addCacheHeader(maxAgeForVersionCheck, Ok(Json.toJson(response)))
+          response => if (!response.upgradeRequired) addCacheHeader(maxAgeForVersionCheck, buildResponse(response)) else buildResponse(response)
         }
       }
     }

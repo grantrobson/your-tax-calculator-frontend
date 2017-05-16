@@ -29,6 +29,7 @@ class VersionCheckControllerSpec extends UnitSpec with WithFakeApplication with 
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.parse(s"""{"upgradeRequired":false,"journeyId":"$expectedJourneyId"}""")
+      result.header.headers.get("Cache-Control") shouldBe Some("max-age=900")
     }
 
     "return the journeyId provided given a version that does not require an upgrade" in new VersionCheckControllerNoUpgradeRequired {
@@ -44,6 +45,7 @@ class VersionCheckControllerSpec extends UnitSpec with WithFakeApplication with 
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.parse("""{"upgradeRequired":true}""")
+      result.header.headers.get("Cache-Control") shouldBe None
     }
 
     "return a BadRequest given problem processing a bad request" in new VersionCheckBadRequest {

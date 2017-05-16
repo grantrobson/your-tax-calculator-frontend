@@ -88,7 +88,7 @@
 
     function initQuestion(question, control, header) {
         var questionOutput = question.question;
-
+        toggleAwardPeriodBanner(question.questionType.modelId);
         // If previousQuestionOption defined then the question text is appended with the question multi-option name of the associated question.
         if (question.previousQuestionOption) {
             var linkQuestion = getQuestion(question.previousQuestionOption);
@@ -306,4 +306,39 @@
             map.set(id, "false");
         }
     }
+
+
+    function toggleAwardPeriodBanner(screen) {
+
+        var period = "";
+        if(map.get("renewalTypeInput") == "D2"){
+            period = "_PY_1";
+        }
+        var hasAwardDates = map.get("awardStartDate") !== undefined
+        var msg = "You are currently completing your tax credits annual declaration for ";
+        var isAllowed = screen !== "summary-screen" && screen !== "renewalData.auto-renewal" && screen !== "confirm-pack-receipt" && screen !== "pack-not-received"
+
+        if(isAllowed) {
+            document.getElementById("awardPeriodBanner").style.display = "block";
+            if (hasAwardDates) {
+                var aStartDate = map.get("awardStartDate");
+                var aEndDate = map.get("awardEndDate");
+                if (getDateParam("startDate") !== new Date(aStartDate) | getDateParam("endDate"+period) !== new Date(aEndDate)) {
+                    msg = msg + "<b>" + aStartDate + " to " + aEndDate + "</b>";
+                }
+            }
+            else {
+                msg = msg + "the period shown on your renewal pack";
+            }
+            document.getElementById("awardPeriodBannerInfoText").innerHTML = msg
+        }
+        else {
+            document.getElementById("awardPeriodBanner").style.display = "none";
+        }
+    }
+
+    function getDateParam(dateString){
+        return new Date(map.get(dateString));
+    }
+
 </script>

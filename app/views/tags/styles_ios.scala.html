@@ -55,6 +55,11 @@ header#page-header {
     font-family: SFUIText-Bold, -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: bold;
     text-align: center; }
+  header#page-header + main#mainCont {
+    padding-top: 3.4rem; }
+
+header#page-header[style*="none"] + main#mainCont {
+  padding-top: 0; }
 
 main {
   font-size: 16px;

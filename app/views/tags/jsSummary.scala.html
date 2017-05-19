@@ -14,7 +14,6 @@ function initSummary() {
             initJointD2Summary();
         }
 
-
         //Get all headers that need to be sticky
         var headerList = document.getElementsByClassName('sticky-header');
 
@@ -118,14 +117,20 @@ function stickyHeaders(headerArray) {
     var header = document.getElementById('page-header');
     var headerHeight = header ? header.offsetHeight : 0;
 
+
+    headerArray = Array.prototype.slice.call(headerArray)
+
+    headerArray = headerArray.filter(function (header) {
+        return header.parentNode.style.display !== 'none'
+    })
+
     for (var i = 0; i <= headerArray.length - 1; i++) {
         offsets[i] = headerArray[i].offsetTop - headerHeight;
-
     }
 
     window.onscroll = function () {
 
-        var winTop = window.scrollY;
+        var winTop = window.pageYOffset;
 
         for (var i = 0; i <= headerArray.length - 1; i++) {
             if (winTop >= offsets[i] && winTop + headerArray[i].offsetHeight <= offsets[i+1]) {
@@ -141,9 +146,6 @@ function stickyHeaders(headerArray) {
     }
 
 }
-
-
-
 
 
 </script>

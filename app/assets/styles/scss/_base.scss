@@ -58,6 +58,17 @@ header#page-header {
     font-weight: bold;
     text-align: center;
   }
+
+  + main#mainCont {
+    padding-top: 3.4rem;
+  }
+
+}
+
+header#page-header[style*="none"] {
+  + main#mainCont {
+    padding-top: 0;
+  }
 }
 
 main {
@@ -206,6 +217,7 @@ main.summary {
   > div {
     padding: 0;
   }
+
   padding: 0;
   margin-top: 0;
 

@@ -67,8 +67,12 @@ function initJointD2Summary() {
 }
 
 function changeIncome(period) {
-    var question = getQuestion("Did you get any untaxed benefits" + period);
-    routeToQuestion(question)
+    if(getRenewalType() == "SINGLE_D1" && getAnswerForQuestion("Do you still get this benefit" + period) == "true") {
+        routeToQuestion(getQuestion("Did you get any untaxed benefits" + period));
+    }
+    else {
+        routeToQuestion(getQuestion("Were you employed" + period));
+    }
 }
 
 function changeTaxableBenefits(period) {
@@ -77,8 +81,12 @@ function changeTaxableBenefits(period) {
 }
 
 function changePartnerIncome(period) {
-    var question = getQuestion("Did partner get any untaxed benefits?" + period);
-    routeToQuestion(question)
+    if (getRenewalType() == "JOINT_D1" && getAnswerForQuestion("Does partner still get this") == "true") {
+        routeToQuestion(getQuestion("Did partner get any untaxed benefits?" + period));
+    }
+    else {
+        routeToQuestion(getQuestion("Was partner employed?" + period))
+    }
 }
 
 function changePartnerBenefits(period) {

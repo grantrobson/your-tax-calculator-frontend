@@ -14,14 +14,8 @@ decompressTgz := {
       override val destinationDir: File = Keys.baseDirectory.value / "public" / "javascripts" / artefactVersion
   }
 
-  val v1_2_0 = new PayeEstimator("1.2.0")
-  val v1_3_0 = new PayeEstimator("1.3.0")
-  val v1_5_0 = new PayeEstimator("1.5.0")
   val v1_6_0 = new PayeEstimator("1.6.0")
 
-  v1_2_0.downloadExtractAndMove()
-  v1_3_0.downloadExtractAndMove()
-  v1_5_0.downloadExtractAndMove()
   v1_6_0.downloadExtractAndMove()
 
 }

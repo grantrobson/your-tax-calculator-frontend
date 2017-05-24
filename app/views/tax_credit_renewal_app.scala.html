@@ -335,11 +335,13 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
-                    <span id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
-                        You told us that you did not claim any of the listed benefits for the whole of this time.
+                    <div id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
+                        <span>
+                            You told us that you did not claim any of the listed benefits for the whole of this time.
+                        </span>
                         <p/>
-                    </span>
-                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
+                    </div>
+                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: block">Type of benefit</h4>
                     <div id="yourBenefitsAndIncome.untaxedBenefitsList"></div>
                     <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said you no longer get this benefit.
@@ -488,7 +490,7 @@
                         </details>
                     </div>
                     <div id="partnersIncomeAndBenefits.changeUnTaxedBenefitsSpacer" style="display: none;"><p/></div>
-                    <div class="edit-income-btn" data-se="change-partners-untaxed-benefits" onclick="javascript:changeTaxableBenefits('')">
+                    <div class="edit-income-btn" data-se="change-partners-untaxed-benefits" onclick="javascript:changePartnerTaxableBenefits('')">
                         <svg class="edit-income-btn__icon">
                             <use xlink:href="#edit-icon-ios" class="ios"></use>
                             <use xlink:href="#edit-icon-windows" class="windows"></use>

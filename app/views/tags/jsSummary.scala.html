@@ -124,41 +124,45 @@ function routeToQuestion(question) {
     displayQuestion();
 }
 
-function stickyHeaders(headerArray) {
+    function stickyHeaders(headerArray) {
 
-    var offsets = [];
-    var header = document.getElementById('page-header');
-    var headerHeight = header ? header.offsetHeight : 0;
+        var offsets = [];
+        var header = document.getElementById('page-header');
+        var headerHeight = header ? header.offsetHeight : 0;
 
-
-    headerArray = Array.prototype.slice.call(headerArray)
-
-    headerArray = headerArray.filter(function (header) {
-        return header.parentNode.style.display !== 'none'
-    })
-
-    for (var i = 0; i <= headerArray.length - 1; i++) {
-        offsets[i] = headerArray[i].offsetTop - headerHeight;
-    }
-
-    window.onscroll = function () {
-
-        var winTop = window.pageYOffset;
+        headerArray = Array.prototype.slice.call(headerArray)
+        headerArray = headerArray.filter(function (header) {
+            return header.parentNode.style.display !== 'none'
+        })
 
         for (var i = 0; i <= headerArray.length - 1; i++) {
-            if (winTop >= offsets[i] && winTop + headerArray[i].offsetHeight <= offsets[i+1]) {
-                headerArray[i].classList.add('sticky');
-                headerArray[i].style.top = headerHeight;
-                headerArray[i].parentNode.style.paddingTop = headerArray[i].offsetHeight;
-            } else {
-                headerArray[i].style.top = 0;
-                headerArray[i].classList.remove('sticky');
-                headerArray[i].parentNode.style.paddingTop = 0;
+            headerArray[i].style.top = 0;
+            headerArray[i].classList.remove('sticky');
+            headerArray[i].parentNode.style.paddingTop = 0;
+            offsets[i] = headerArray[i].offsetTop - headerHeight;
+        }
+
+        function toggleStickyClasses() {
+
+            var winTop = window.pageYOffset;
+
+            for (var i = 0; i <= headerArray.length - 1; i++) {
+                if (winTop >= offsets[i] && winTop + headerArray[i].offsetHeight <= offsets[i + 1]) {
+                    headerArray[i].classList.add('sticky');
+                    headerArray[i].style.top = headerHeight;
+                    headerArray[i].parentNode.style.paddingTop = headerArray[i].offsetHeight;
+                } else {
+                    headerArray[i].style.top = 0;
+                    headerArray[i].classList.remove('sticky');
+                    headerArray[i].parentNode.style.paddingTop = 0;
+                }
             }
         }
-    }
 
-}
+        window.addEventListener('scroll', toggleStickyClasses);
+        toggleStickyClasses();
+
+    }
 
 
 </script>

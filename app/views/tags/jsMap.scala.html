@@ -6,7 +6,7 @@ function buildMap() {
 
     var map = {
         keys: [],
-        values: [],
+        values: []
     };
 
     map.set = function(key, val) {
@@ -24,7 +24,7 @@ function buildMap() {
         for (var i = 0; i < this.keys.length; i++) {
             callback(this.keys[i], this.values[i]);
         }
-    }
+    };
     return(map);
 }
 

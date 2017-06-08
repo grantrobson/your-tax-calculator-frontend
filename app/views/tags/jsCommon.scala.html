@@ -157,7 +157,7 @@
        */
       function replacePlaceholdersInElement(element, placeholders) {
           var textNodes = findTextNodes(element);
-          var placeholdersArray = Array.from(placeholders.values);
+          var placeholdersArray = Array.from(placeholders.entries());
 
           textNodes.forEach(function (node) {
               node.nodeValue = placeholdersArray.reduce(function (acc, placeholder) {

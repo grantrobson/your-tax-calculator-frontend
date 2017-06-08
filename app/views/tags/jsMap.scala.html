@@ -25,6 +25,15 @@ function buildMap() {
             callback(this.keys[i], this.values[i]);
         }
     };
+
+    map.entries = function() {
+        var elements = [];
+        for (var i = 0; i < this.keys.length; i++) {
+            elements[i] = [this.keys[i], this.values[i]];
+        }
+        return elements;
+    };
+
     return(map);
 }
 

@@ -96,7 +96,7 @@
       }
 
       function replacePlaceholdersInIntroPage(element) {
-          var placeholders = new Map();
+          var placeholders = buildMap();
 
           placeholders.set('[DATE_A]', map.get("startDate"));
           placeholders.set('[DATE_B]', map.get("endDate"));
@@ -112,7 +112,7 @@
       }
 
       function replacePlaceholdersInQuestionPage(question, page) {
-          var placeholders = new Map();
+          var placeholders = buildMap();
 
           var claimType = map.get("CLAIM_TYPE");
           placeholders.set('[CLAIM_TYPE]', claimType);

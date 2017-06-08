@@ -8,6 +8,8 @@
     <title>Tax credit renewal application</title>
     <meta name="viewport" content="width=100%, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
 
+    @tags.jsMap()
+
     @tags.nativeOSStyles(nativeOS.os)
 
     @tags.jsPolyfils()
@@ -252,7 +254,7 @@
                             <use xlink:href="#edit-icon-windows" class="windows"></use>
                             <use xlink:href="#edit-icon-android" class="android"></use>
                         </svg>
-                        <span class="edit-income-btn__text">Change your partners income</span>
+                        <span class="edit-income-btn__text">Change your income</span>
                     </div>
                 </section>
                 <section>
@@ -335,13 +337,10 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
-                    <div id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
-                        <span>
-                            You told us that you did not claim any of the listed benefits for the whole of this time.
-                        </span>
-                        <p/>
-                    </div>
-                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: block">Type of benefit</h4>
+                    <span id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
+                        You told us that you did not claim any of the listed benefits for the whole of this time.
+                    </span>
+                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
                     <div id="yourBenefitsAndIncome.untaxedBenefitsList"></div>
                     <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said you no longer get this benefit.
@@ -490,7 +489,7 @@
                         </details>
                     </div>
                     <div id="partnersIncomeAndBenefits.changeUnTaxedBenefitsSpacer" style="display: none;"><p/></div>
-                    <div class="edit-income-btn" data-se="change-partners-untaxed-benefits" onclick="javascript:changePartnerTaxableBenefits('')">
+                    <div class="edit-income-btn" data-se="change-partners-untaxed-benefits" onclick="javascript:changeTaxableBenefits('')">
                         <svg class="edit-income-btn__icon">
                             <use xlink:href="#edit-icon-ios" class="ios"></use>
                             <use xlink:href="#edit-icon-windows" class="windows"></use>
@@ -528,7 +527,7 @@
                             <use xlink:href="#edit-icon-windows" class="windows"></use>
                             <use xlink:href="#edit-icon-android" class="android"></use>
                         </svg>
-                        <span class="edit-income-btn__text">Change your partners income</span>
+                        <span class="edit-income-btn__text">Change your income</span>
                     </div>
                 </section>
                 <section>
@@ -632,10 +631,10 @@
                         </header>
                 <p style="font-weight: bold">By sending this declaration, you confirm that the information you have provided is correct and complete.</p>
                 <br/>
-                <p style="font-weight: bold">If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
+                <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
                 <br/>
-                <p id="declaration.shareDetailsWithPartnerWarning" style="display: none; font-weight: bold">Because this is a joint claim, we will share the details with your partner.</p>
-                <input id="summaryConfirmAndRenew" type="button" value="Send declaration" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+                <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
+                <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and send declaration" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
                 <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
             </section>
         </main>
@@ -1084,7 +1083,7 @@
 
         <div><h2>Resume Application from previous saved state.</h2></div>
         <div>
-            <form><textarea id="resumeData" cols="40" rows="5">startDate_PY_1:06 April 2015,endDate_PY_1:05 April 2016,startDate:06 April 2016,endDate:05 April 2017,renewalTypeInput:D2,hasPartner:true,isMainApplicant:true,PARTNER_DETAILS:or your partner ,CLAIM_TYPE:joint,renewalType:JOINT_D2,confirm-pack-receipt:true,incomeDetails.Were you employed_PY_1:true,incomeDetails.earnings_PY_1:123213,incomeDetails.Did you get any company benefits_PY_1:true,incomeDetails.companyBenefits_PY_1:1233,incomeDetails.Were you self employed_PY_1:true,incomeDetails.Did you make a profit from self-employment_PY_1:true,incomeDetails.seProfits_PY_1:22,renewalData.Did you get any taxable benefits_PY_1:true,taxableBenefits.bereavement_allowance_PY_1:2113,partner.incomeDetails.Was partner employed_PY_1:true,partner.incomeDetails.earnings_PY_1:213,partner.incomeDetails.Did partner get any company benefits_PY_1:true,partner.incomeDetails.companyBenefits_PY_1:2333,partner.incomeDetails.Was partner self-employed_PY_1:true,partner.incomeDetails.Did partner make profit from self-employment?_PY_1:true,partner.incomeDetails.seProfits_PY_1:333,partner.Did partner get any taxable benefits_PY_1:true,partner.taxableBenefits.contribution_based_jobseeker_allowance_PY_1:12313,partner.taxableBenefits.contribution_based_employment_and_support_allowance_PY_1:222,otherIncome.Did you get any other household income_PY_1:true,otherIncome.pensions_PY_1:222,otherIncome.Did you get any income from property rental_PY_1:true,otherIncome.Did you make a profit from property rental_PY_1:true,otherIncome.profit_from_property_PY_1:2333,incomeDetails.Were you employed:true,incomeDetails.earnings:12313,incomeDetails.Did you get any company benefits:true,incomeDetails.companyBenefits:123123,incomeDetails.Were you self employed:true,incomeDetails.Did you make a profit from self-employment:true,incomeDetails.seProfits:123123,incomeDetails.self_employed_profit_is_estimated:true,renewalData.Did you get any taxable benefits:true,taxableBenefits.contribution_based_employment_and_support_allowance:1313,taxableBenefits.incapacity_benefit:2333,partner.incomeDetails.Was partner employed:false,partner.incomeDetails.Was partner self-employed:false,partner.Did partner get any taxable benefits:false,otherIncome.Did you get any other household income:false,otherIncome.Did you get any income from property rental:false,currentQuestionPos:summary-screen,stackDATA:confirm-pack-receipt#Completing review message#Benefits & Income - intro_PY_1#Were you employed_PY_1#How much employed income_PY_1#Did you get any company benefits_PY_1#How much company benefit_PY_1#Were you self employed_PY_1#Did you make a profit from self-employment_PY_1#How much profit from self-employment_PY_1#Did you get any taxable benefits_PY_1#Select taxable benefits and enter amount_PY_1#Partner benefits & income intro_PY_1#Was partner employed?_PY_1#How much employed income did partner get?_PY_1#Did partner get any company benefits?_PY_1#How much company benefit did partner get?_PY_1#Was partner self-employed?_PY_1#Did partner make profit from self-employment?_PY_1#How much profit did partner make from self-employment?_PY_1#Did partner get any taxable benefits?_PY_1#Select partner taxable benefits and enter amount_PY_1#Did you get any other household income_PY_1#Select other income sources & enter amount_PY_1#Did you get any income from property rental_PY_1#Did you make a profit from property rental_PY_1#Property rental profit - enter amount_PY_1#Benefits & Income - intro#Were you employed#How much employed income#Did you get any company benefits#How much company benefit#Were you self employed#Did you make a profit from self-employment#How much profit from self-employment#Is the self-employed profit estimated#Did you get any taxable benefits#Select taxable benefits and enter amount#Partner benefits & income intro#Was partner employed?#Was partner self-employed?#Did partner get any taxable benefits?#Did you get any other household income#Did you get any income from property rental#Report any changes</textarea></form>
+            <form><textarea id="resumeData" cols="40" rows="5"></textarea></form>
             <br/>
             <input type="button" value="Initialise model" onClick="javascript:resumeApp()">
         </div>

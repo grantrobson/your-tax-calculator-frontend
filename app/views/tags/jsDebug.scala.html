@@ -1,7 +1,9 @@
 <script>
 
     function resumeApp() {
-        resume(document.getElementById("resumeData").value);
+        var resumeData = document.getElementById("resumeData").value
+        var hasCoC = resumeData.indexOf("hasChangeOfCircs") !== -1;
+        resume(resumeData, hasCoC);
     }
 
     function debugOut(dumpData, element) {

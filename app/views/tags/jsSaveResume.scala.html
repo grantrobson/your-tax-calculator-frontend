@@ -9,7 +9,7 @@
         questionPos = "summary-screen";
     }
 
-    function resume(model) {
+    function resume(model, hasCoC) {
         map = buildMap();
         stack = [];
         resetData();
@@ -35,6 +35,14 @@
         // Set the current question.
         questionPos = map.get("currentQuestionPos");
         var question = getQuestion(questionPos);
+
+        // Setting of Change of Circs flag on resume.
+        if(hasCoC) {
+            map.set("hasChangeOfCircs", hasCoC.toString());
+        }
+        else {
+            map.delete("hasChangeOfCircs");
+        }
 
         // The JourneyComplete status is currently only used for the pack-not-received question. If the client resumes the application where the
         // last question was JourneyComplete, then rewind the question stack to land on question confirm-pack-receipt.

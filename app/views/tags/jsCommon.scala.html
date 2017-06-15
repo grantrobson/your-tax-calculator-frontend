@@ -66,11 +66,12 @@
 
 
       function buildTotal(modelIds) {
-          function accumulate(total, num) {
-              return total + num;
+          var total = 0.00;
+          var values = modelIds.map(getMapIntValue)
+          for(var index = 0; index < values.length; index++) {
+              total += values[index];
           }
-
-          return modelIds.map(getMapIntValue).reduce(accumulate);
+          return total;
       }
 
       function formatWithCommas(x) {
@@ -96,7 +97,7 @@
       }
 
       function replacePlaceholdersInIntroPage(element) {
-          var placeholders = buildMap();
+          var placeholders = new buildMap();
 
           placeholders.set('[DATE_A]', map.get("startDate"));
           placeholders.set('[DATE_B]', map.get("endDate"));
@@ -157,12 +158,12 @@
        */
       function replacePlaceholdersInElement(element, placeholders) {
           var textNodes = findTextNodes(element);
-          var placeholdersArray = Array.from(placeholders.entries());
-
           textNodes.forEach(function (node) {
-              node.nodeValue = placeholdersArray.reduce(function (acc, placeholder) {
-                  return acc.replace(placeholder[0], placeholder[1]);
-              }, node.nodeValue);
+              for(var i = 0; i < placeholders.keys.length; i++){
+                  if(node.nodeValue.indexOf(placeholders.keys[i]) !== -1){
+                      node.nodeValue = node.nodeValue.replace(placeholders.keys[i], placeholders.values[i])
+                  }
+              }
           });
       }
 

@@ -2,67 +2,59 @@
 
   function buildListFromRadioAnswers(questionId) {
       var options = getQuestion(questionId).questionType.multipleChoiceOptions;
-
-      return options.reduce(function (acc, option) {
-          var answer = map.get(option.modelId);
-
-          if (answer === "true") {
-              return acc + '<h5>' + option.option + '</h5>'
-          } else {
-              return acc
+      var value = "";
+      for (var index = 0; index < options.length; index++) {
+          if(map.get(options[index].modelId) === "true"){
+              value += '<h5>' + options[index].option + '</h5>';
           }
-      }, "");
+      }
+      return value;
   }
 
   function buildTableFromMultipleChoiceWithNumberAnswers(questionId) {
       var options = getQuestion(questionId).questionType.multipleChoiceOptions;
-
-      return options.reduce(function (acc, option) {
-          var answer = map.get(option.modelId);
-
-          if (typeof answer !== "undefined") {
-              return acc + '<tr><td>' + option.option + '</td><td>' + formatWithCommas(Math.floor(parseFloat(answer))) + '</td></tr>'
-          } else {
-              return acc
+      var value = "";
+      for (var index = 0; index < options.length; index++) {
+          if(isDefined(map.get(options[index].modelId))){
+              value += '<tr><td>' + options[index].option + '</td><td>' + formatWithCommas(Math.floor(parseFloat(map.get(options[index].modelId)))) + '</td></tr>';
           }
-      }, "");
+      }
+      return value;
   }
 
   function buildTableFromListOfNumericQuestions(questions) {
-      return questions.reduce(function (acc, question) {
-          if (isDefined(getAnswerForQuestion(question.id))) {
-              return acc + '<tr><td>' + question.label + '</td><td>' + formatWithCommas(Math.floor(parseFloat(getAnswerForQuestion(question.id)))) + '</td></tr>';
+      var value = "";
+      for(var index = 0; index < questions.length; index++) {
+          var q = questions[index]
+          if (isDefined(getAnswerForQuestion(q.id))) {
+            value += '<tr><td>' + q.label + '</td><td>' + formatWithCommas(Math.floor(parseFloat(getAnswerForQuestion(q.id)))) + '</td></tr>';
           } else {
-              return acc + '<tr><td>' + question.label + '</td><td>0</td></tr>';
+              value += '<tr><td>' + q.label + '</td><td>0</td></tr>';
           }
-      }, '');
+      }
+      return value;
   }
 
   function sumMultipleChoiceWithNumberAnswers(questionId) {
       var options = getQuestion(questionId).questionType.multipleChoiceOptions;
-
-      var result = options.reduce(function (acc, option) {
-          var answer = map.get(option.modelId);
-
+      var result = 0;
+      for(var index = 0; index < options.length; index++) {
+          var answer = map.get(options[index].modelId);
           if (isDefined(answer)) {
-              return acc + parseFloat(answer)
-          } else {
-              return acc
+              result += parseFloat(answer)
           }
-      }, 0);
-
+      }
       return Math.max(Math.floor(result), 0);
   }
 
   function sumAnswersFromListOfQuestions(questions) {
-      var result =  questions.reduce(function (acc, question) {
-          if (isDefined(getAnswerForQuestion(question))) {
-              return acc + parseFloat(getAnswerForQuestion(question))
-          } else {
-              return acc
+      var result = 0;
+      for(var index = 0; index < questions.length; index++) {
+          var q = questions[index]
+          if(isDefined(getAnswerForQuestion(q))){
+              result += parseFloat(getAnswerForQuestion(q))
           }
-      }, 0);
-
+      }
       return Math.max(Math.floor(result), 0);
   }
 

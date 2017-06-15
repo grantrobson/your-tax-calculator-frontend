@@ -2,7 +2,7 @@
 
     function resumeApp() {
         var resumeData = document.getElementById("resumeData").value
-        var hasCoC = resumeData.indexOf("hasChangeOfCircs") !== -1;
+        var hasCoC = document.getElementById("hasCoC").checked
         resume(resumeData, hasCoC);
     }
 

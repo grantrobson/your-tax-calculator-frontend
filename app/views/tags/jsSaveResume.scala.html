@@ -9,6 +9,10 @@
         questionPos = "summary-screen";
     }
 
+    function resume(model){
+        resume(model, undefined)
+    }
+
     function resume(model, hasCoC) {
         map = buildMap();
         stack = [];
@@ -37,11 +41,13 @@
         var question = getQuestion(questionPos);
 
         // Setting of Change of Circs flag on resume.
-        if(hasCoC) {
-            map.set("hasChangeOfCircs", hasCoC.toString());
-        }
-        else {
-            map.delete("hasChangeOfCircs");
+        if(isDefined(hasCoC)) {
+            if (hasCoC) {
+                map.set("hasChangeOfCircs", hasCoC.toString());
+            }
+            else {
+                map.delete("hasChangeOfCircs");
+            }
         }
 
         // The JourneyComplete status is currently only used for the pack-not-received question. If the client resumes the application where the

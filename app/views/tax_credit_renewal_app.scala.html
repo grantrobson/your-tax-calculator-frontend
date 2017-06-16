@@ -1085,7 +1085,11 @@
 
         <div><h2>Resume Application from previous saved state.</h2></div>
         <div>
-            <form><textarea id="resumeData" cols="40" rows="5"></textarea></form>
+            <form>
+                <textarea id="resumeData" cols="40" rows="5"></textarea>
+                <br/>
+                <label for="hasCoC">Has Change of Circs</label><input id="hasCoC" type="checkbox"/>
+            </form>
             <br/>
             <input type="button" value="Initialise model" onClick="javascript:resumeApp()">
         </div>

@@ -12,8 +12,6 @@
 
     @tags.nativeOSStyles(nativeOS.os)
 
-    @tags.jsMap()
-
     @tags.jsPolyfils()
 
     @tags.jsCommon()
@@ -256,7 +254,7 @@
                             <use xlink:href="#edit-icon-windows" class="windows"></use>
                             <use xlink:href="#edit-icon-android" class="android"></use>
                         </svg>
-                        <span class="edit-income-btn__text">Change your income</span>
+                        <span class="edit-income-btn__text">Change your partners income</span>
                     </div>
                 </section>
                 <section>
@@ -339,10 +337,13 @@
                     <header>
                         <h3 id="yourBenefitsAndIncome.noTaxBenefitHeader" class="pre-header"/>
                     </header>
-                    <span id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
-                        You told us that you did not claim any of the listed benefits for the whole of this time.
-                    </span>
-                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: none">Type of benefit</h4>
+                    <div id="yourBenefitsAndIncome.didNotClaimAlert" style="display: none">
+                        <span>
+                            You told us that you did not claim any of the listed benefits for the whole of this time.
+                        </span>
+                        <p/>
+                    </div>
+                    <h4 id="yourBenefitsAndIncome.untaxedBenefitsListHeader" style="display: block">Type of benefit</h4>
                     <div id="yourBenefitsAndIncome.untaxedBenefitsList"></div>
                     <span class="alert alert--info" id="yourBenefitsAndIncome.noLongerReceivingUntaxedBenefitsAlert" style="display: none">
                         You said you no longer get this benefit.
@@ -491,7 +492,7 @@
                         </details>
                     </div>
                     <div id="partnersIncomeAndBenefits.changeUnTaxedBenefitsSpacer" style="display: none;"><p/></div>
-                    <div class="edit-income-btn" data-se="change-partners-untaxed-benefits" onclick="javascript:changeTaxableBenefits('')">
+                    <div class="edit-income-btn" data-se="change-partners-untaxed-benefits" onclick="javascript:changePartnerTaxableBenefits('')">
                         <svg class="edit-income-btn__icon">
                             <use xlink:href="#edit-icon-ios" class="ios"></use>
                             <use xlink:href="#edit-icon-windows" class="windows"></use>
@@ -529,7 +530,7 @@
                             <use xlink:href="#edit-icon-windows" class="windows"></use>
                             <use xlink:href="#edit-icon-android" class="android"></use>
                         </svg>
-                        <span class="edit-income-btn__text">Change your income</span>
+                        <span class="edit-income-btn__text">Change your partners income</span>
                     </div>
                 </section>
                 <section>
@@ -633,10 +634,10 @@
                         </header>
                 <p style="font-weight: bold">By sending this declaration, you confirm that the information you have provided is correct and complete.</p>
                 <br/>
-                <p>If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
+                <p style="font-weight: bold">If you gave false details on purpose you will have to pay back money you should not have got. We may take you to court, fine you, or both.</p>
                 <br/>
-                <p id="declaration.shareDetailsWithPartnerWarning" style="display: none">Because this is a joint claim, we will share the details with your partner.</p>
-                <input id="summaryConfirmAndRenew" type="button" value="Confirm answers and send declaration" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
+                <p id="declaration.shareDetailsWithPartnerWarning" style="display: none; font-weight: bold">Because this is a joint claim, we will share the details with your partner.</p>
+                <input id="summaryConfirmAndRenew" type="button" value="Send declaration" onClick="javascript:SUMMARY_CONFIRM_AND_RENEW()" class="primary">
                 <input id="summarySaveAndExit" type="button" value="Save and come back later" onClick="javascript:SUMMARY_SAVE_AND_COME_BACK_LATER()" class="secondary">
             </section>
         </main>

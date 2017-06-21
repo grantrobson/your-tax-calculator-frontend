@@ -119,7 +119,7 @@
           placeholders.set('[CLAIM_TYPE]', claimType);
           placeholders.set('[PARTNER_DETAILS]', map.get("PARTNER_DETAILS"));
 
-          if (question.id.endsWith(PREVIOUS_YEAR_MINUS_1)) {
+          if (question.id.indexOf(PREVIOUS_YEAR_MINUS_1) !== -1) {
               placeholders.set('[START_DATE]', map.get("startDate_PY_1"));
               placeholders.set('[END_DATE]', map.get("endDate_PY_1"));
           } else {

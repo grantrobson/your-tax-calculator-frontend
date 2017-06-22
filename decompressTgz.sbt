@@ -15,8 +15,10 @@ decompressTgz := {
   }
 
   val v1_6_0 = new PayeEstimator("1.6.0")
+  val v1_7_0 = new PayeEstimator("1.7.0")
 
   v1_6_0.downloadExtractAndMove()
+  v1_7_0.downloadExtractAndMove()
 
 }
 

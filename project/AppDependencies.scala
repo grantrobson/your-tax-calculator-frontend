@@ -1,14 +1,6 @@
 import sbt._
 
-object FrontendBuild extends Build with MicroService {
-
-  val appName = "your-tax-calculator-frontend"
-
-  override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
-
-}
-
-private object AppDependencies {
+object AppDependencies {
 
   import play.sbt.PlayImport._
   import play.core.PlayVersion

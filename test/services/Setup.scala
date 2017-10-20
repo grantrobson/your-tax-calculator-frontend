@@ -20,8 +20,7 @@ import java.util.UUID
 
 import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost, HttpResponse}
-import uk.gov.hmrc.play.http.hooks.HttpHook
+import uk.gov.hmrc.http._
 import uk.gov.hmrc.yourtaxcalculator.connectors.VersionCheckConnector
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -30,15 +29,15 @@ import scala.concurrent.{ExecutionContext, Future}
 class TestVersionCheckConnector(requiresUpgrade: Boolean) extends VersionCheckConnector {
   override def customerProfileConnectorUrl: String = "someUrl"
 
-  override def http: HttpPost = new HttpPost {
+  override def http: CorePost = new CorePost {
     private def notImplemented = {
       throw new RuntimeException("not implemented")
     }
-    override protected def doPostString(url: String, body: String, headers: Seq[(String, String)])(implicit hc: HeaderCarrier): Future[HttpResponse] = notImplemented
-    override protected def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = notImplemented
-    override protected def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = notImplemented
-    override protected def doEmptyPost[A](url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = notImplemented
-    override val hooks: Seq[HttpHook] = NoneRequired
+
+    override def POST[I, O](url: String, body: I, headers: Seq[(String, String)])(implicit wts: Writes[I], rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext) = notImplemented
+    override def POSTString[O](url: String, body: String, headers: Seq[(String, String)])(implicit rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext) = notImplemented
+    override def POSTForm[O](url: String, body: Map[String, Seq[String]])(implicit rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext) = notImplemented
+    override def POSTEmpty[O](url: String)(implicit rds: HttpReads[O], hc: HeaderCarrier, ec: ExecutionContext) = notImplemented
   }
 
   override def requiresUpgrade(inputRequest: JsValue, hc: HeaderCarrier)(implicit ec: ExecutionContext): Future[Boolean] =  {

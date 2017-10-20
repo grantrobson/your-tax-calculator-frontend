@@ -17,12 +17,12 @@
 package uk.gov.hmrc.yourtaxcalculator.controllers
 
 import play.api.{Logger, mvc}
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, Upstream4xxResponse}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
-import uk.gov.hmrc.play.http.{BadRequestException, HeaderCarrier, Upstream4xxResponse}
 
 import scala.concurrent.Future
 
-class TaxCalculatorConfigException(message: String) extends uk.gov.hmrc.play.http.HttpException(message, 500)
+class TaxCalculatorConfigException(message: String) extends uk.gov.hmrc.http.HttpException(message, 500)
 
 trait ErrorHandling {
   self: FrontendController =>

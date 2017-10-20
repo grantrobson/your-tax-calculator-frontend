@@ -16,10 +16,11 @@
 
 package uk.gov.hmrc.yourtaxcalculator.connectors
 
+import com.typesafe.config.Config
 import org.scalatest.concurrent.ScalaFutures
 import play.api.libs.json.{JsValue, Json, Writes}
-import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.hooks.HttpHook
+import uk.gov.hmrc.http._
+import uk.gov.hmrc.http.hooks.HttpHook
 import uk.gov.hmrc.play.test.UnitSpec
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -42,13 +43,14 @@ class VersionCheckConnectorSpec extends UnitSpec with ScalaFutures {
     val connector = new VersionCheckConnector {
 
       override lazy val  customerProfileConnectorUrl = "theUrl"
-      override lazy val http: HttpPost = new HttpPost {
+      override lazy val http: CorePost = new HttpPost {
         override val hooks: Seq[HttpHook] = NoneRequired
+        override def configuration: Option[Config] = None
 
-        override protected def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = response
-        override protected def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = response
-        override protected def doPostString(url: String, body: String, headers: Seq[(String, String)])(implicit hc: HeaderCarrier): Future[HttpResponse] = response
-        override protected def doEmptyPost[A](url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = response
+        override def doFormPost(url: String, body: Map[String, Seq[String]])(implicit hc: HeaderCarrier): Future[HttpResponse] = response
+        override def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit wts: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = response
+        override def doPostString(url: String, body: String, headers: Seq[(String, String)])(implicit hc: HeaderCarrier): Future[HttpResponse] = response
+        override def doEmptyPost[A](url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = response
       }
     }
   }

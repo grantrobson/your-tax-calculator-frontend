@@ -20,7 +20,7 @@ import java.util.UUID
 
 import play.api.libs.json.{JsValue, Json}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.play.http.{BadRequestException, HeaderCarrier}
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
 import uk.gov.hmrc.yourtaxcalculator.connectors.VersionCheckConnector
 import uk.gov.hmrc.yourtaxcalculator.domain.PreFlightCheckResponse
 import uk.gov.hmrc.yourtaxcalculator.services.VersionCheckService

@@ -18,8 +18,8 @@ package uk.gov.hmrc.yourtaxcalculator.connectors
 
 import play.api.Logger
 import play.api.libs.json.JsValue
+import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http._
 import uk.gov.hmrc.yourtaxcalculator.config.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -28,7 +28,7 @@ trait VersionCheckConnector {
 
   def customerProfileConnectorUrl: String
 
-  def http: HttpPost
+  def http: CorePost
 
   def requiresUpgrade(inputRequest: JsValue, hc: HeaderCarrier)(implicit ec: ExecutionContext): Future[Boolean] =  {
     implicit val hcHeaders = hc.withExtraHeaders("Accept" -> "application/vnd.hmrc.1.0+json")

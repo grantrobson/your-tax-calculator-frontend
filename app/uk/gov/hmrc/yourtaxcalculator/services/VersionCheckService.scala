@@ -19,7 +19,7 @@ package uk.gov.hmrc.yourtaxcalculator.services
 import java.util.UUID
 
 import play.api.libs.json.JsValue
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.yourtaxcalculator.connectors.VersionCheckConnector
 import uk.gov.hmrc.yourtaxcalculator.domain.PreFlightCheckResponse
 

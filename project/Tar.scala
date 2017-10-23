@@ -25,13 +25,13 @@ trait Tar {
 
   private val BufferSize = 2048
 
-  def untar(tarFile: File, destinationDirectory: File)(implicit log : sbt.Logger): Unit ={
+  def untar(tarFile: File, destinationDirectory: File)(implicit log : sbt.Logger): List[File] ={
     destinationDirectory.mkdirs()
     extract(new TarArchiveInputStream(new GZIPInputStream(new FileInputStream(tarFile))), destinationDirectory)
   }
 
-  @tailrec
-  private def extract(tarInputStream: TarArchiveInputStream, destinationDirectory: File)(implicit log : sbt.Logger): Unit = {
+//  @tailrec TODO
+  private def extract(tarInputStream: TarArchiveInputStream, destinationDirectory: File)(implicit log : sbt.Logger): List[File] = {
     Option(tarInputStream.getNextTarEntry) match {
 
       case Some(entry) if entry.isDirectory =>
@@ -56,10 +56,12 @@ trait Tar {
             }
           }
         }
-        extract(tarInputStream, destinationDirectory)
+
+        destinationFile :: extract(tarInputStream, destinationDirectory)
 
       case _ =>
         log.debug("No more entries in the tar")
+        List.empty[File]
     }
   }
 
@@ -95,12 +97,13 @@ trait TarArtefact extends Tar {
 
   def download() = FileUtils.copyURLToFile(new URL(tgzUrl), origin)
 
-  def downloadExtractAndMove()(implicit log : sbt.Logger) = {
+  def downloadAndExtract()(implicit log : sbt.Logger): Seq[File] = {
     download()
-    untar(origin, origin.getParentFile)
+    log.info(s"destinationDir = $destinationDir")
+    val files = untar(origin, destinationDir)
     FileUtils.deleteQuietly(origin)
-    FileUtils.deleteQuietly(destinationDir)
-    FileUtils.moveDirectory(origin.getParentFile, destinationDir)
+    log.info(s"files = $files")
+    files
   }
 
 }
